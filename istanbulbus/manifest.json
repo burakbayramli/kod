@@ -1,0 +1,14 @@
+{
+  "name": "Istanbul Bus",
+  "version": "1",
+  "icons": { "128": "icon_128.png" },
+  "app": {
+    "urls": [
+      "http://istanbulbus.appspot.com/"
+    ],
+    "launch": {
+      "web_url": "http://istanbulbus.appspot.com/mweb/route.html"
+    }
+  },
+  "permissions": ["unlimitedStorage"]
+}

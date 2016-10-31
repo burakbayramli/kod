@@ -1,0 +1,4 @@
+build
+*.so
+crans*.pgm
+crans*.jpg

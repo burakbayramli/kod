@@ -1,0 +1,613 @@
+ESTP:Alexander the Great
+ESTP:Winston Churchill
+ESTP:Theodore Roosevelt
+ESTP:George S. Patton
+ESTP:Andrew Jackson
+ESTP:Franklin D. Roosevelt
+ESTP:Arthur Conan Doyle
+ESTP:Douglas MacArthur
+ESTP:Donald Trump
+ESTP:Peter Schiff
+ESTP:James Randi
+ESTP:Ernest Hemingway
+ESTP:Epicurus
+ESTP:Stephen R. Covey
+ESTP:Dale Carnegie
+ESTP:L. Ron Hubbard
+ESTP:George W. Bush
+ESTP:Lyndon B. Johnson
+ESTP:Malcolm X
+ESTP:Glenn Beck
+ESTP:Marquis de Sade
+ESTP:Bret Easton Ellis
+ESTP:Hermann Goering
+ESTP:Al Capone
+ESTP:Alfred Hitchcock
+ESTP:Angelina Jolie
+ESTP:Meryl Streep
+ESTP:Madonna
+ESTP:Jack Nicholson
+ESTP:Kevin Spacey
+ESTP:Ben Affleck
+ESTP:Ryan Seacrest
+ESTP:Mila Kunis
+ESTP:Amy Winehouse
+ESTP:Milla Jovovich
+ESTP:Anna Wintour
+ESTP:Judi Dench
+ESTP:Helen Mirren
+ESTP:Glenn Close
+ESTP:Camilla Parker Bowles
+ESTP:Taylor Swift
+ESTP:Sasha Grey
+ESTP:Traci Lords
+ESTP:James Deen
+ESTP:Robin Thicke
+ESTP:Megan Fox
+ESFP:Bill Clinton
+ESFP:John F. Kennedy
+ESFP:Ronald Reagan
+ESFP:Peter the Great
+ESFP:Hugh Hefner
+ESFP:Richard Branson
+ESFP:Larry Ellison
+ESFP:Howard Schultz
+ESFP:Tony Robbins
+ESFP:Wayne Dyer
+ESFP:Deepak Chopra
+ESFP:Paulo Coelho
+ESFP:Horatio Nelson
+ESFP:Benito Mussolini
+ESFP:Idi Amin
+ESFP:Quentin Tarantino
+ESFP:Steven Spielberg
+ESFP:Mel Gibson
+ESFP:Beyonce
+ESFP:Denzel Washington
+ESFP:Will Smith
+ESFP:Jamie Oliver
+ESFP:Robbie Williams
+ESFP:Katy Perry
+ESFP:Nicki Minaj
+ESFP:Pink
+ESFP:Marina Diamandis
+ESFP:Leonardo DiCaprio
+ESFP:Justin Bieber
+ESFP:Harry Styles
+ESFP:Evan Rachel Wood
+ESFP:Miley Cyrus
+ESFP:Cameron Diaz
+ESFP:Ringo Starr
+ESFP:Dana White
+ESFP:Chloe Grace Moretz
+ESFP:Danielle de Niese
+ESTJ:Bernard Montgomery
+ESTJ:Henry Ford
+ESTJ:Condoleezza Rice
+ESTJ:Dr. Phil
+ESTJ:Amy Chua
+ESTJ:Martha Stewart
+ESTJ:Michelle Obama
+ESTJ:Ann Coulter
+ESTJ:Michelle Malkin
+ESTJ:Bill O'Reilly
+ESTJ:Alan Dershowitz
+ESTJ:Paul of Tarsus
+ESTJ:Muhammad
+ESTJ:Billy Graham
+ESTJ:Jerry Falwell
+ESTJ:Sonia Sotomayor
+ESTJ:Tom Clancy
+ESTJ:Saddam Hussein
+ESTJ:Augusto Pinochet
+ESTJ:Uma Thurman
+ESTJ:Lucy Liu
+ESTJ:Emma Watson
+ESTJ:Courteney Cox
+ESTJ:Alec Baldwin
+ESTJ:Kelsey Grammer
+ESTJ:Roger Ebert
+ESTJ:Judge Judy
+ESTJ:Nancy Grace
+ESTJ:Laura Schlessinger
+ESTJ:Ivanka Trump
+ESFJ:Harry S. Truman
+ESFJ:Gerald Ford
+ESFJ:Colin Powell
+ESFJ:Desmond Tutu
+ESFJ:Andrew Carnegie
+ESFJ:Sam Walton
+ESFJ:Andy Rooney
+ESFJ:Francis
+ESFJ:Sarah Palin
+ESFJ:Rick Santorum
+ESFJ:John Boehner
+ESFJ:Joachim von Ribbentrop
+ESFJ:Larry King
+ESFJ:Regis Philbin
+ESFJ:Barbara Walters
+ESFJ:Chris Wallace
+ESFJ:Alyson Hannigan
+ESFJ:Jason Segel
+ESFJ:Anne Hathaway
+ESFJ:Penelope Cruz
+ESFJ:Selena Gomez
+ESFJ:Jessica Alba
+ESFJ:Jennifer Garner
+ESFJ:Sarah Jessica Parker
+ESFJ:Whitney Houston
+ESFJ:Mariah Carey
+ESFJ:Alicia Keys
+ESFJ:Shania Twain
+ESFJ:Prince William
+ESFJ:Lesley Stahl
+ESFJ:Elton John
+ESFJ:Randy Jackson
+ESFJ:Hugh Jackman
+ESFJ:Jamie Bell
+ESFJ:Vin Diesel
+ESFJ:Woody Harrelson
+ESFJ:Tyra Banks
+ESFJ:Jenny McCarthy
+ESFJ:Laura Harring
+ESFJ:Victoria Beckham
+ESFJ:Adam Young
+ESFJ:Vanessa Hudgens
+ENTJ:Napoleon Bonaparte
+ENTJ:Julius Caesar
+ENTJ:Margaret Thatcher
+ENTJ:Aristotle
+ENTJ:Alexander Hamilton
+ENTJ:Garry Kasparov
+ENTJ:Bill Gates
+ENTJ:Carl Sagan
+ENTJ:Karl Rove
+ENTJ:Dick Cheney
+ENTJ:Rahm Emanuel
+ENTJ:Al Gore
+ENTJ:Madeleine Albright
+ENTJ:Nancy Pelosi
+ENTJ:Aung San Suu Kyi
+ENTJ:Peter Thiel
+ENTJ:Rush Limbaugh
+ENTJ:Jack Welch
+ENTJ:Joseph Stalin
+ENTJ:David Letterman
+ENTJ:George Clooney
+ENTJ:Matt Damon
+ENTJ:Penn Jillette
+ENTJ:Charlize Theron
+ENTJ:Katharine Hepburn
+ENTJ:Tea Leoni
+ENTJ:Adele
+ENTJ:Cobie Smulders
+ENTP:Socrates
+ENTP:Leonardo da Vinci
+ENTP:Benjamin Franklin
+ENTP:Richard Feynman
+ENTP:Voltaire
+ENTP:Catherine the Great
+ENTP:Niccolo Machiavelli
+ENTP:David Hume
+ENTP:Steve Wozniak
+ENTP:Werner Heisenberg
+ENTP:Karl Popper
+ENTP:Bertrand Russell
+ENTP:John Stuart Mill
+ENTP:Edmund Burke
+ENTP:Newt Gingrich
+ENTP:Barack Obama
+ENTP:Murray Rothbard
+ENTP:Henry Kissinger
+ENTP:Mao Zedong
+ENTP:Mahmoud Ahmadinejad
+ENTP:Jon Stewart
+ENTP:Stephen Colbert
+ENTP:Bill Maher
+ENTP:Sacha Baron Cohen
+ENTP:Terry Gilliam
+ENTP:John Cleese
+ENTP:Robert Downey Jr.
+ENTP:Rowan Atkinson
+ENTP:Federico Fellini
+ENTP:Karl Lagerfeld
+ENTP:Stephen Fry
+ENTP:Bill Hicks
+ENTP:Neil Patrick Harris
+ENTP:David Hyde Pierce
+ENTP:Matthew Perry
+ENTP:Megan Mullally
+ENTP:Gillian Anderson
+ENTP:Elizabeth Olsen
+ENTP:Salma Hayek
+ENTP:Rose McGowan
+ENTP:Adam Savage
+ENTP:Jeremy Clarkson
+ENTP:Hugh Grant
+ENTP:Celine Dion
+ENTP:Siouxsie Sioux
+ENTP:Kevin Barnes
+ENTP:Cedric Bixler-Zavala
+ENTP:Diablo Cody
+ENTP:Maddox
+ENTP:Matthew Inman
+ENFJ:Martin Luther King, Jr.
+ENFJ:Nelson Mandela
+ENFJ:John Paul II
+ENFJ:Johann von Goethe
+ENFJ:Sheryl Sandberg
+ENFJ:Pericles
+ENFJ:Cicero
+ENFJ:Erasmus of Rotterdam
+ENFJ:Mikhail Gorbachev
+ENFJ:Vaclav Havel
+ENFJ:Joe Biden
+ENFJ:Tony Blair
+ENFJ:Matthieu Ricard
+ENFJ:Daniel Goleman
+ENFJ:Alfred Adler
+ENFJ:Erich Fromm
+ENFJ:Neil deGrasse Tyson
+ENFJ:Michael Moore
+ENFJ:Yasser Arafat
+ENFJ:Joseph Goebbels
+ENFJ:Oprah Winfrey
+ENFJ:Charlie Rose
+ENFJ:Morgan Freeman
+ENFJ:Bono
+ENFJ:Reese Witherspoon
+ENFJ:Kate Winslet
+ENFJ:Helena Bonham Carter
+ENFJ:Nigella Lawson
+ENFJ:Jennifer Lawrence
+ENFJ:Dakota Fanning
+ENFJ:Emma Stone
+ENFJ:AnnaSophia Robb
+ENFJ:Zack de la Rocha
+ENFJ:James Lipton
+ENFJ:Dr. Drew
+ENFP:Hunter S. Thompson
+ENFP:Mark Twain
+ENFP:Oscar Wilde
+ENFP:Aldous Huxley
+ENFP:Umberto Eco
+ENFP:Salman Rushdie
+ENFP:Julian Assange
+ENFP:Ralph Nader
+ENFP:Anne Frank
+ENFP:Arianna Huffington
+ENFP:Walt Disney
+ENFP:Kurt Vonnegut
+ENFP:Osho
+ENFP:Naomi Klein
+ENFP:Michio Kaku
+ENFP:Brian Cox
+ENFP:Joseph Campbell
+ENFP:Alan Watts
+ENFP:Jacques Derrida
+ENFP:Anais Nin
+ENFP:Che Guevara
+ENFP:Fidel Castro
+ENFP:Muammar Gaddafi
+ENFP:Hugo Chavez
+ENFP:Ellen DeGeneres
+ENFP:Katie Couric
+ENFP:Rachel Maddow
+ENFP:Keira Knightley
+ENFP:Orson Welles
+ENFP:George Carlin
+ENFP:Oliver Stone
+ENFP:Jack White
+ENFP:Robin Williams
+ENFP:Jerry Seinfeld
+ENFP:Gwen Stefani
+ENFP:Jennifer Aniston
+ENFP:Sandra Bullock
+ENFP:Jenna Elfman
+ENFP:Alicia Silverstone
+ENFP:Sarah Michelle Gellar
+ENFP:Daniel Radcliffe
+ENFP:James Mercer
+ENFP:Carly Rae Jepsen
+ENFP:Philippe Jaroussky
+ENFP:Sharon Stone
+ISTP:Miyamoto Musashi
+ISTP:Erwin Rommel
+ISTP:Steve Jobs
+ISTP:Jack Dorsey
+ISTP:Diogenes the Dog
+ISTP:Dalai Lama XIV
+ISTP:Ron Paul
+ISTP:Donald Rumsfeld
+ISTP:Vladimir Putin
+ISTP:Miles Davis
+ISTP:Frank Zappa
+ISTP:Stanley Kubrick
+ISTP:Clint Eastwood
+ISTP:Daniel Craig
+ISTP:Harrison Ford
+ISTP:Tom Cruise
+ISTP:Christian Bale
+ISTP:Scarlett Johansson
+ISTP:Ellen Page
+ISTP:Kristen Stewart
+ISTP:Demi Moore
+ISTP:Snoop Dogg
+ISTP:Phil Ivey
+ISTP:David Blaine
+ISTP:Steven Wright
+ISTP:Woody Allen
+ISTP:Ashton Kutcher
+ISTP:Bruce Lee
+ISTP:Jenna Jameson
+ISTP:Rodney Mullen
+ISTP:Simon Cowell
+ISFP:Jacqueline Kennedy Onassis
+ISFP:Ulysses S. Grant
+ISFP:Jonathan Ive
+ISFP:Joern Utzon
+ISFP:Thich Nhat Hanh
+ISFP:Nero
+ISFP:Leni Riefenstahl
+ISFP:Rudolf Hess
+ISFP:Brad Pitt
+ISFP:Justin Timberlake
+ISFP:David Beckham
+ISFP:Ryan Gosling
+ISFP:Audrey Hepburn
+ISFP:Elizabeth Taylor
+ISFP:Nicole Kidman
+ISFP:Sofia Coppola
+ISFP:Michael Jackson
+ISFP:Prince
+ISFP:Bob Dylan
+ISFP:Paul McCartney
+ISFP:David Bowie
+ISFP:Lady Gaga
+ISFP:Eminem
+ISFP:Frank Ocean
+ISFP:Princess Diana
+ISFP:Marilyn Monroe
+ISFP:Britney Spears
+ISFP:Paris Hilton
+ISFP:Rihanna
+ISFP:Christina Aguilera
+ISFP:Monica Bellucci
+ISFP:Dita von Teese
+ISFP:Mick Jagger
+ISFP:Keith Richards
+ISFP:Jimi Hendrix
+ISFP:Andrew Bird
+ISFP:David Gilmour
+ISFP:Kate Bush
+ISFP:Trent Reznor
+ISFP:Skrillex
+ISFP:Drew Barrymore
+ISFP:Leona Lewis
+ISFP:John Travolta
+ISFP:Zac Efron
+ISFP:Liv Tyler
+ISFP:Pamela Anderson
+ISFP:Prince Harry
+ISFP:Prince Frederik
+ISFP:Enya
+ISTJ:Arthur Wellington
+ISTJ:George Washington
+ISTJ:Dwight D. Eisenhower
+ISTJ:Augustus
+ISTJ:Warren Buffett
+ISTJ:Jeff Bezos
+ISTJ:Ingvar Kamprad
+ISTJ:Stonewall Jackson
+ISTJ:Thomas Hobbes
+ISTJ:Sigmund Freud
+ISTJ:Martin Heidegger
+ISTJ:Frederick the Great
+ISTJ:Calvin Coolidge
+ISTJ:Richard Nixon
+ISTJ:Angela Merkel
+ISTJ:Joseph Ratzinger
+ISTJ:Ayaan Hirsi Ali
+ISTJ:Xenophon
+ISTJ:Karl Doenitz
+ISTJ:Erich von Manstein
+ISTJ:Robert De Niro
+ISTJ:Sean Connery
+ISTJ:Christopher Lee
+ISTJ:Elizabeth II
+ISTJ:Natalie Portman
+ISTJ:Rivers Cuomo
+ISTJ:Jamie Hyneman
+ISTJ:Nick Offerman
+ISTJ:Danica McKellar
+ISFJ:David Petraeus
+ISFJ:George Marshall
+ISFJ:Robert E. Lee
+ISFJ:George A. Custer
+ISFJ:Jimmy Carter
+ISFJ:George H.W. Bush
+ISFJ:Mitt Romney
+ISFJ:Rosa Parks
+ISFJ:Mother Teresa
+ISFJ:Heinrich Himmler
+ISFJ:Wilhelm Keitel
+ISFJ:Francisco Franco
+ISFJ:Christopher Walken
+ISFJ:Anthony Hopkins
+ISFJ:Naomi Watts
+ISFJ:Halle Berry
+ISFJ:Dr. Dre
+ISFJ:50 Cent
+ISFJ:Kanye West
+ISFJ:Kim Kardashian
+ISFJ:Gwyneth Paltrow
+ISFJ:Katie Holmes
+ISFJ:Kirsten Dunst
+ISFJ:Jessica Simpson
+ISFJ:Bruce Willis
+ISFJ:Prince Charles
+ISFJ:Kate Middleton
+ISFJ:Princess Mary
+ISFJ:Tiger Woods
+ISFJ:Lance Reddick
+INTJ:Hillary Clinton
+INTJ:Isaac Newton
+INTJ:Karl Marx
+INTJ:Ayn Rand
+INTJ:Friedrich Nietzsche
+INTJ:Mark Zuckerberg
+INTJ:Elon Musk
+INTJ:Bobby Fischer
+INTJ:Nikola Tesla
+INTJ:Stephen Hawking
+INTJ:John Nash
+INTJ:John Maynard Keynes
+INTJ:Paul Krugman
+INTJ:John Adams
+INTJ:Isaac Asimov
+INTJ:Christopher Hitchens
+INTJ:H.L. Mencken
+INTJ:Martin Luther
+INTJ:G.W.F. Hegel
+INTJ:Heraclitus
+INTJ:Jean-Paul Sartre
+INTJ:Vladimir Lenin
+INTJ:Anders Breivik
+INTJ:Ted Kaczynski
+INTJ:Varg Vikernes
+INTJ:James Cameron
+INTJ:Russell Crowe
+INTJ:Arnold Schwarzenegger
+INTJ:Jay-Z
+INTJ:Jodie Foster
+INTJ:Julia Stiles
+INTJ:Ashley Olsen
+INTJ:Roger Waters
+INTP:Abraham Lincoln
+INTP:Albert Einstein
+INTP:Charles Darwin
+INTP:Immanuel Kant
+INTP:Hannah Arendt
+INTP:Marie Curie
+INTP:Richard Dawkins
+INTP:John Locke
+INTP:James Madison
+INTP:Adam Smith
+INTP:Friedrich A. Hayek
+INTP:Milton Friedman
+INTP:Thomas Aquinas
+INTP:Rene Descartes
+INTP:Parmenides
+INTP:Thucydides
+INTP:Jimmy Wales
+INTP:Paul Allen
+INTP:Larry Page
+INTP:Sergey Brin
+INTP:Jane Austen
+INTP:John le Carre
+INTP:Alan Greenspan
+INTP:Albert Speer
+INTP:David Cronenberg
+INTP:Jesse Eisenberg
+INTP:Charlotte Gainsbourg
+INTP:Sigourney Weaver
+INTP:Tina Fey
+INTP:Asia Carrera
+INTP:Ben Stein
+INTP:Andreas Scholl
+INTP:Glenn Gould
+INTP:Richard Ayoade
+INTP:Randall Munroe
+INFJ:Plato
+INFJ:Carl Gustav Jung
+INFJ:Niels Bohr
+INFJ:Mahatma Gandhi
+INFJ:Marcus Aurelius
+INFJ:Thomas Jefferson
+INFJ:Woodrow Wilson
+INFJ:Noam Chomsky
+INFJ:Mary Wollstonecraft
+INFJ:Ludwig Wittgenstein
+INFJ:Sam Harris
+INFJ:Simone de Beauvoir
+INFJ:Baruch Spinoza
+INFJ:Arthur Schopenhauer
+INFJ:Agatha Christie
+INFJ:Fyodor Dostoevsky
+INFJ:Dante Alighieri
+INFJ:Adolf Hitler
+INFJ:Ayatollah Khomeini
+INFJ:Osama bin Laden
+INFJ:Robert Mugabe
+INFJ:Leon Trotsky
+INFJ:Chiang Kai-shek
+INFJ:Mohamed Atta
+INFJ:Lars von Trier
+INFJ:David Fincher
+INFJ:Leonard Cohen
+INFJ:Marilyn Manson
+INFJ:Al Pacino
+INFJ:Daniel Day-Lewis
+INFJ:Edward Norton
+INFJ:Adrien Brody
+INFJ:Cate Blanchett
+INFJ:Michelle Pfeiffer
+INFJ:Rooney Mara
+INFJ:Carey Mulligan
+INFJ:Josh Radnor
+INFJ:Derren Brown
+INFJ:Mystery
+INFJ:Tilda Swinton
+INFJ:Sufjan Stevens
+INFJ:George Harrison
+INFP:Jean-Jacques Rousseau
+INFP:Soeren Kierkegaard
+INFP:Albert Camus
+INFP:George Orwell
+INFP:J.R.R. Tolkien
+INFP:C.S. Lewis
+INFP:Virginia Woolf
+INFP:John Kerry
+INFP:Antoine de Saint-Exupery
+INFP:A. A. Milne
+INFP:Bill Watterson
+INFP:J.K. Rowling
+INFP:Franz Kafka
+INFP:Edgar Allan Poe
+INFP:John Milton
+INFP:William Blake
+INFP:Augustine
+INFP:Vincent van Gogh
+INFP:Hans Christian Andersen
+INFP:William Shakespeare
+INFP:Homer
+INFP:George R.R. Martin
+INFP:John Lennon
+INFP:Jim Morrison
+INFP:Kurt Cobain
+INFP:Ian Curtis
+INFP:Tim Burton
+INFP:Johnny Depp
+INFP:Heath Ledger
+INFP:Nicolas Cage
+INFP:Florence Welch
+INFP:Bjork
+INFP:Tori Amos
+INFP:Fiona Apple
+INFP:Jarvis Cocker
+INFP:Thom Yorke
+INFP:Morrissey
+INFP:David Simon
+INFP:David Lynch
+INFP:Terrence Malick
+INFP:Andy Warhol
+INFP:Teller
+INFP:Louis C.K.
+INFP:Jude Law
+INFP:Andrew Garfield
+INFP:Robert Pattinson
+INFP:Mia Wasikowska
+INFP:Chloe Sevigny
+INFP:Mary-Kate Olsen
+INFP:John Mayer
+INFP:Regina Spektor

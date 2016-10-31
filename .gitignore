@@ -1,0 +1,7 @@
+*.o
+*.so
+*.pyc
+*.elc
+*_region_*
+wvdial.conf
+modem.sh

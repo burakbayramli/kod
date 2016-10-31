@@ -1,0 +1,79 @@
+Here is a collection of Python scripts that will allow you fill out a
+PDF form automatically. First, you need to convert the PDF to a
+collection of jpgs, using
+
+python convert.py DOC.pdf [target dir]
+
+In [target dir] you should now see DOC-0.jpg, DOC-1.jpg, etc.
+
+Then, you need to identify box locations. For that use locs.py
+
+python locs.py [target dir]/DOC-0.jpg
+
+This brings up a UI tool; as you click on boxes, the coordinates of
+those boxes will be written to a [target dir]/DOC-0.jpg.loc file. Make
+sure you click on the boxes in a logical order, most forms specify a
+number on the page for each box anyway, use that order for
+instance.The coordinates are written to the loc file as you click, so
+once you are done, simply shut off locs.py.
+
+Which spot on the box do you click? Click on the left side of the box, 
+Dont worry, you can add an offset later if the letters do not come 
+out correctly. 
+
+Now in [target dir], start a new file called DOC-0.jpg.fill. This 
+will be a simple text file, each line carrying value for each box.
+So Tkthis file will carry the values to be used to fill our your PDF
+form. Each line in this file should correspond to the line specified
+in DOC-0.jpg.loc. The line orders must match. If there are checkboxes
+on the form, or you need to offset for any reason, to manually 
+skip some pixels you can use
+
+[down=30]x
+
+The [down] command will skip a predefined number of pixels in the 
+downward direction, and put the text there. You can also use up,left,
+right commands. In order to change the default font size, e.g. to 23, 
+you could use 
+
+[font=23] 
+
+You can use many different such commands for the same line, such as
+
+[up=10][right=20][font=23]10 No Way, CA 10223
+
+In order to place a newline, you can use \\ such as
+
+[up=10]10 No Way, Big Address \\ CA 10223, USA
+
+Signing
+
+If you have a signature.jpg file in your directory, you can place 
+your digital signature in the document as well. For that use, 
+
+[sign=0.3]
+
+The command above would take your signature.jpg file and rescale it by 
+factor 0.3 and paste it in the correct location.
+
+Once done,
+
+python fill.py [target dir]/DOC-0.jpg
+
+This will use the loc file, fill file, and generate a final DOC-0.jpg-out.jpg
+
+In this file you will see stuff from fill file placed in proper
+coordinates.
+
+This tool uses ImageMagick, so make sure you install that first. Also,
+for the necessary Python libraries on Ubuntu you can use
+
+sudo apt-get install python python-tk idle python-pmw python-imaging
+python-imaging-tk
+
+An improvement to this code could be using a vision algorithm to
+automatically detect the location of each box. There is a certain
+visual pattern to a form -- words are in straight lines, there are big
+empty spaces in between, and the whole thing is usually surrounded by
+lines.
+

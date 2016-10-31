@@ -1,0 +1,5 @@
+*.o
+surf
+*.mat
+alcatraz1s.pgm
+alcatraz2s.pgm

@@ -1,0 +1,8 @@
+*.aux
+*.pyc
+*.log
+*.out
+jlewi/build/*
+*.jar
+run.py
+data/*.pkl

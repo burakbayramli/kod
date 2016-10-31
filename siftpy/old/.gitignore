@@ -1,0 +1,6 @@
+./g64/sift
+./g64/*.o
+./g64/*.so
+./glx/sift
+./glx/*.o
+./glx/*.so

@@ -1,0 +1,78 @@
+
+body {
+    overflow:hidden;
+    background: #d7d7d7;
+    margin:0;
+    padding:0;    
+}
+
+input {
+    height: 1.65em;
+    border: 1px solid #C3BBB6;
+}
+
+.autocomplete {
+    position:absolute;
+    margin:0px;  
+    padding:0px;  
+    width:250px;
+    background:#fff;
+    border:1px solid #888;
+}
+.autocomplete ul {
+    margin:0px;
+    padding:0px;
+    list-style-type:none;
+}
+.autocomplete ul li.selected { 
+    background-color:#ffb;
+}
+.autocomplete ul li {
+    margin:0px;
+    padding:2px;
+    height:50px;
+    display:block;
+    list-style-type:none;
+    cursor:pointer;
+}
+
+#entryblock {
+    margin-top: 20px;
+}
+
+.label {
+    margin-bottom: 10px;
+    float: left;
+    width: 100px;
+}
+.entry {    
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+#description {
+    margin-top: 15px;
+}
+
+#route {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#find_route {
+    margin-top: 20px;
+}
+
+#results {
+    font-size: 10pt;
+    margin-top: 40px;
+}
+
+/* testing */
+#ad {
+    width: 468px;
+    height: 60px;    
+    border:1px solid #888;    
+}
+
