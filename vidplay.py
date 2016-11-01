@@ -1,49 +1,43 @@
-"""
-Plays random mp3 songs that are picked from the directory given as
-a parameter in the command line
-"""
-
-import mp3play, glob, random, time, sys, os, subprocess
-import msvcrt, threading
+# Plays mp3 files found under sys.argv[1] one by one, randomly. 
+# Meant to simulate a radio.
+import glob, os, random, sys
+import threading
+import select
 from rsync import ls
-from rndplay import sleep, anykeyevent
 
-exe = "c:/Users/burak/Downloads/ffmpeg/bin/ffplay.exe"
-logfile = "vidplay.log"        
+fout = open("/tmp/vidplay.out","w")
 
-class Runner(threading.Thread):
-    def __init__(self,file):
-        threading.Thread.__init__(self)
-        self.file = file
-    def run(self):
-        print self.file
-        self.p = subprocess.Popen([exe, "-autoexit", "-fs", "%s" % file], 
-                                  stdout=subprocess.PIPE, shell=True)
-        self.p.wait()
-    def term(self):
-        print 'terminating', self.p.pid
-        os.system("kill -f %d" % self.p.pid)
+while True:
+    print "Music Dir", sys.argv[1]    
+    dirs,list = ls(sys.argv[1])
+    idx = random.choice(range(len(list)))
+    print "show idx selected", idx, "song", list[idx][0]
+    fout.write(str(list[idx][0]) + "\n")
+    fout.flush()
+    print '\n'
+    #cmd = "/usr/bin/ffplay -nodisp '%s'" % list[idx]
+    cmd = "mplayer '%s' -x 960 -y 540" % list[idx][0]
+    print cmd
+    os.system(cmd)
+    print "Delete? (Press d for delete)..."
+    k=""
+    def input():
+        global k
+        i = 0
+        while i < 1:
+            i = i + 1
+            r,w,x = select.select([sys.stdin.fileno()],[],[],2)
+            if len(r) != 0:
+                k  =sys.stdin.readline()
 
-if __name__ == "__main__": 
 
-    base_dir = "e:/shows"
+    T = threading.Thread(target=input)
+    T.setDaemon(1)
+    T.start()
+    T.join(1) # wait for [arg] seconds
+    print "\n>>>>>>>>>" + k
+    if 'd' in k:
+        print "deleting ===================> " +  list[idx]
+        cmd = "rm '%s'" % list[idx]
+        os.system(cmd)
 
-    dirs,files = ls(base_dir)
-    
-    files = [x[0] for x in files if ".avi" in x[0] or "mkv" in x[0] or "mp4" in x[0]]
-
-    fout = open("%s/%s" % (os.environ['TEMP'],logfile), "a")
-    while (True):        
-        rnd = random.choice(range(len(files)))
-        print len(files), 'files'
-        file = files[rnd]
-        file = file.replace('/','\\')
-        fout.write(file)
-        fout.write("\n")
-        fout.flush()
-        t = Runner(file)
-        t.start()
-        while True: 
-            res = sleep(1)
-            if t.is_alive()==False: break
-        
