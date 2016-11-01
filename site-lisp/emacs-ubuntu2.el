@@ -49,7 +49,7 @@
 (setq abbrev-file-name "/home/burak/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
-(setq ev-exe "C:\\Users\\burak\\AppData\\Local\\Apps\\Evince-2.32.0.145\\bin\\evince.exe")
+(setq ev-exe "evince")
 (setq img-viewer-exe "c:\\Program Files\\FastStone Image Viewer\\FSViewer.exe") 
 (setq chrome-exe "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe") 
 
