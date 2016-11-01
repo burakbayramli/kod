@@ -47,7 +47,8 @@ from subprocess import Popen, PIPE, STDOUT
 
 interactions = {}
 
-dir = os.environ['TEMP']
+dir = '/tmp'
+if 'TEMP' in os.environ: dir = os.environ['TEMP']
 
 template_formula = """
 \\documentclass[preview]{standalone}
