@@ -884,11 +884,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(when (or (eq system-type 'windows-nt) (eq system-type 'msdos))
-  (setenv "PATH" (concat "C:\\GNU\\gnuwin32\\bin;" (getenv "PATH")))
-  (setq grep-find-command "c:\\Users\\burak\\Documents\\kod\\find.bat *.* "
-	grep-program ""
-	))
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh *.* " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
