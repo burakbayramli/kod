@@ -445,14 +445,8 @@ This command does not push erased text to kill-ring."
 
 ;; screen, display settings
 
-;;(set-default-font "-outline-Consolas-normal-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
-;;(set-default-font "-outline-Consolas-bold-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
-;;(set-default-font "-outline-Consolas-normal-normal-normal-mono-*-*-*-*-c-*-windows-1258")
-;;(set-default-font "-outline-Courier New-bold-normal-normal-mono-*-*-*-*-c-*-iso10646-1")
-;;(set-default-font "-raster-Courier-normal-normal-normal-mono-25-*-*-*-c-*-iso8859-1")
 
-
-(set-face-attribute 'default nil :height 125)
+(set-face-attribute 'default nil :height 120)
 
 (setq default-frame-alist
       '((top . 0) (left . 500)

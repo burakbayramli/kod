@@ -45,16 +45,17 @@ def show_version(num):
     print "suitable_file_for_git_show", suitable_file_for_git_show
     suitable_file_for_git_show = suitable_file_for_git_show.replace(dot_git_dir,"")
     print "suitable_file_for_git_show", suitable_file_for_git_show
-    
+    tmp = 'tmp'
+    if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     os.chdir(dot_git_dir)
     cmd = "git show %s~%d:%s > %s/githist-%d.dat" % (branch(),
                                                      num,
                                                      suitable_file_for_git_show[1:],
-                                                     os.environ['TEMP'],
+                                                     tmp,
                                                      num)
     res = run_command(cmd)
     #lisp.switch_to_buffer_other_window(cmd)
-    lisp.find_file_other_window("%s/githist-%d.dat" % (os.environ['TEMP'],num))
+    lisp.find_file_other_window("%s/githist-%d.dat" % (tmp,num))
     os.chdir(curr_dir)
             
 def find_dot_git() :     
