@@ -36,7 +36,7 @@ while True:
     T = threading.Thread(target=input)
     T.setDaemon(1)
     T.start()
-    T.join(100) # wait for [arg] seconds
+    T.join(1) # wait for [arg] seconds
     print "\n>>>>>>>>>" + k
     if 'd' in k:
         print "deleting ===================> " +  list[idx]
