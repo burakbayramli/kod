@@ -72,6 +72,8 @@
       (call-process chrome-exe nil 0 nil file))
     (when (equal (file-name-extension file) "htm")
       (call-process chrome-exe nil 0 nil file))
+    (when (equal (file-name-extension file) "tex")
+      (open-file-evince))
     ))
 
 ;; Make all yes-or-no questions as y-or-n
@@ -318,7 +320,6 @@ This command does not push erased text to kill-ring."
   (local-set-key "\M-\r" 'compile)
   (local-set-key "\M-s" 'isearch-forward) 
   (local-set-key "\C-v" 'scroll-up)
-  (local-set-key "\C-c\C-t" 'open-file-evince)
   (setq fill-column 80)
   (electric-indent-mode -1)
   )
@@ -728,7 +729,7 @@ This command does not push erased text to kill-ring."
 (global-set-key "\M-c" 'cua-copy-region)
 (global-set-key "\M-'" 'cua-cut-region)
 (global-set-key "\M-\\" 'cua-cut-region)
-(global-set-key "\C-c\C-t" 'open-file-ext)
+(global-set-key "\C-x\C-t" 'open-file-ext)
 (define-key isearch-mode-map [?\M-s] 'isearch-repeat-forward)
 (define-key isearch-mode-map [?\M-r] 'isearch-repeat-backward)
 (define-key universal-argument-map [?\M-u] 'universal-argument-more)
@@ -884,6 +885,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/bass")
+(find-file-other-window "/home/burak/Pictures")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)

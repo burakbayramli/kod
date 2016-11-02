@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+Emacs'de edit yaparken uzerinde oldugunuz paragrafi mumkun oldugu
+kadar Turkcelestirir.
+"""
 from Pymacs import lisp
 import re, random
 from turkish.deasciifier import Deasciifier
