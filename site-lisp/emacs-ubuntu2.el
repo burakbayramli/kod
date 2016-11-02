@@ -2,6 +2,8 @@
 
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
 
 (setq initial-scratch-message nil) ;; empty scratch buffer
 (setq max-specpdl-size 50000)
@@ -128,6 +130,10 @@ This command does not push erased text to kill-ring."
   ;; Your init file should contain only one such instance.
  '(archive-zip-extract (quote ("unzip" "-qq" "-c")))
  '(case-fold-search t)
+ '(preview-scale-function 1.3)
+ '(preview-image-type (quote dvipng)) 
+ '(preview-LaTeX-command (quote ("%`%l -shell-escape \"\\nonstopmode\\nofiles\\PassOptionsToPackage{" ("," . preview-required-option-list) "}{preview}\\AtBeginDocument{\\ifx\\ifPreview\\undefined" preview-default-preamble "\\fi}\"%' %t")))
+ '(preview-auto-cache-preamble nil)
  '(blink-cursor-mode nil)
  '(compilation-scroll-output t)
  '(current-language-environment "Turkish")
@@ -654,7 +660,7 @@ This command does not push erased text to kill-ring."
 (global-unset-key "\C-j")
 (global-unset-key "\C-k")
 (global-unset-key "\C-o")
-(global-unset-key [(alt f4)])
+(global-unset-key [f4])
 (global-set-key "\C-x\C-i" 'tempo-template-py-debug-var)
 (global-set-key "\C-o" 'other-window)
 (global-set-key "\M-p" 'previous-line)
@@ -691,6 +697,7 @@ This command does not push erased text to kill-ring."
 (global-set-key "\C-x\q" 'query-replace)
 (global-set-key "\C-c\C-g" 'grep-find)
 (global-set-key "\C-x\g" 'goto-line)
+(global-set-key "\M-4" 'preview-at-point)
 (global-set-key [?\M-m] 'scroll-up)
 (global-set-key [?\C-,] 'scroll-up)
 (global-set-key [?\M-q] 'scroll-down)
@@ -752,25 +759,11 @@ This command does not push erased text to kill-ring."
 ;;
 (global-set-key [f1] 'tempo-template-tex-listings-python)
 (global-set-key [f2] 'tempo-template-verb)
-(global-set-key [\M-f4] 'tempo-template-tex-equation)
+(global-set-key [f4] 'tempo-template-tex-equation)
 (global-set-key [f8] 'mark-whole-buffer)
 (global-set-key [f10] 'open-explorer-in-current-dir)
 (global-set-key [f12] 'next-error)
 
-;; go to iimage.el and comment out the code that sets
-;; iimage-mode-image-regex-alist. Instead use this
-;; 
-;;(defcustom iimage-mode-image-regex-alist 
-;;  `((,(concat "\\(%\n$$[[:ascii:][:nonascii:]]*?$$\n%{{\\)"
-;;	      "\\(" iimage-mode-image-filename-regex "\\)"
-;;	      "\\(}}\\)") . 2))
-;;
-;; do byte-compile-file, ki so {{dosya.png}} is rendered
-;;
-;; formulas need to be like this:
-;; %
-;; $$ stuff, x^2, \cos $$
-;; the % sign above $$ sign is key
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CUA mod
@@ -821,9 +814,6 @@ This command does not push erased text to kill-ring."
 (global-set-key "\M-," 'peval-pexec)
 (global-unset-key "\M-]")
 (global-set-key "\C-x\]" 'deascify-convert)
-(pymacs-load "/home/burak/Documents/kod/site-lisp/preview")
-(global-set-key "\M-4" 'iimage-mode)
-(global-set-key "\M-$" 'preview-show)
 (pymacs-load "/home/burak/Documents/kod/site-lisp/githist")
 (defun githist-do-show-version(num) 
  (interactive "nHow many commits back: ")
