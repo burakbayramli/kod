@@ -567,7 +567,7 @@ This command does not push erased text to kill-ring."
  '("\\verb!" (s) "!") "d" "") 
 
 (tempo-define-template  "tex-equation"
- '("%\n$$ " (s) " $$\n%{{x.png}}")  "d"  "") 
+ '("$$ " (s) " $$")  "d"  "") 
 
 (tempo-define-template "tex-verbatim-big"
  '("\\begin{verbatim}\n" (s) "\n\\end{verbatim}") "d"  "") 
