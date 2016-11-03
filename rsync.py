@@ -23,20 +23,18 @@ def deleteDir(path):
 
 def deleteFile(path):
     """deletes the path entirely"""
+    print path
     mswindows = (sys.platform == "win32")
     if mswindows: 
         cmd = 'DEL /F /S /Q "%s"' % path
     else:
-        cmd = "rm -rf " + path
+        cmd = "rm -rf '" + path + "'"
     result = getstatusoutput(cmd)
     if(result[0]!=0):
         raise RuntimeError(result[1])
 
 def getstatusoutput(cmd):
     """Return (status, output) of executing cmd in a shell."""
-    mswindows = (sys.platform == "win32")
-    if not mswindows:
-        return commands.getstatusoutput(cmd)
     pipe = os.popen(cmd + ' 2>&1', 'r')
     text = pipe.read()
     sts = pipe.close()

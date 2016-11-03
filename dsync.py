@@ -14,12 +14,8 @@ if sys.argv[1] == "hd2":
     os.system("python rsync.py c:\\Users\\burak\\Documents\\kod d:\\archive\\kod --delete")
     os.system("python rsync.py c:\\Users\\burak\\Documents\\bass d:\\archive\\bass --delete")
 
-if sys.argv[1] == "flash":
-    os.system("python rsync.py c:\\Users\\burak\\Documents\\Dropbox\\resmi\\newbusiness d:\\newbusiness")
-    os.system("python rsync.py c:\\Users\\burak\\Documents\\classnotes d:\\classnotes --delete")
-    os.system("python rsync.py c:\\Users\\burak\\Documents\\kod d:\\kod --delete")
-    os.system("python rsync.py c:\\Users\\burak\\Documents\\bass d:\\bass --delete")
-
 if sys.argv[1] == "kitaplar":
     os.system("python rsync.py d:\\kitaplar e:\\archive\\kitaplar --delete")
 
+if sys.argv[1] == "test":
+    os.system("python rsync.py '/home/burak/Documents/test' '/home/burak/Downloads/New Volume/test' --delete")
