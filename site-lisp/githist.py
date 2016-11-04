@@ -45,7 +45,7 @@ def show_version(num):
     print "suitable_file_for_git_show", suitable_file_for_git_show
     suitable_file_for_git_show = suitable_file_for_git_show.replace(dot_git_dir,"")
     print "suitable_file_for_git_show", suitable_file_for_git_show
-    tmp = 'tmp'
+    tmp = '/tmp'
     if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     os.chdir(dot_git_dir)
     cmd = "git show %s~%d:%s > %s/githist-%d.dat" % (branch(),

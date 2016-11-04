@@ -19,3 +19,10 @@ if sys.argv[1] == "kitaplar":
 
 if sys.argv[1] == "test":
     os.system("python rsync.py '/home/burak/Documents/test' '/home/burak/Downloads/New Volume/test' --delete")
+
+if sys.argv[1] == "flash":
+    os.system("python rsync.py '/home/burak/Documents/bass' '/media/burak/UUI/backup/bass' --delete")
+    os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/UUI/backup/Dropbox' --delete")
+    os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/UUI/backup/kod' --delete")
+    os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/UUI/backup/classnotes' --delete")
+    

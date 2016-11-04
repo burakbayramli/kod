@@ -61,7 +61,8 @@ def show():
             if lim > 0 and i==int(lim): break
             link = post.link; title = post.title
             if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
-            if len(re.findall(r"Turkei", title, re.IGNORECASE)) > 0: continue
+            if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
+            if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Erdo.an", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"top.u k..las", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Engin Ard", title, re.IGNORECASE)) > 0: continue
