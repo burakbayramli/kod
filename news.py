@@ -31,18 +31,18 @@ def show():
 
     feeds = [
         ("The Guardian","http://www.theguardian.com/world/rss",10),
-        ("Diken","http://www.diken.com.tr/feed/",-1),
-        ("Cumhuriyet","http://www.cumhuriyet.com.tr/rss/son_dakika.xml",10),
-        ("Al-Jazeera","http://aljazeera.com.tr/rss.xml",-1),
+#        ("Diken","http://www.diken.com.tr/feed/",-1),
+#        ("Cumhuriyet","http://www.cumhuriyet.com.tr/rss/son_dakika.xml",10),
+#        ("Al-Jazeera","http://aljazeera.com.tr/rss.xml",-1),
         ("Reuters (Top News)",'http://feeds.reuters.com/reuters/topNews',-1),
         ("Reuters (World)",'http://feeds.reuters.com/reuters/worldNews',-1),
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
         ("Reuters (Business)", "http://feeds.reuters.com/reuters/businessNews",-1),        
         ('Huffington Post','http://www.huffingtonpost.com/feeds/verticals/world/index.xml',-1),
         ('BBC','http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml',20),
-        ("Sputnik News","http://tr.sputniknews.com/export/rss2/archive/index.xml",15),
+#        ("Sputnik News","http://tr.sputniknews.com/export/rss2/archive/index.xml",15),
         ("The Atlantic", "http://www.theatlantic.com/feed/all/",10),
-        (u"Açık Gazete","https://www.acikgazete.com/feed",-1),
+#        (u"Açık Gazete","https://www.acikgazete.com/feed",-1),
         ("Bloomberg", "https://twitrss.me/twitter_user_to_rss/?user=business",15),
         ("Deusche Welle (World)", "http://rss.dw.de/rdf/rss-en-all", 15),
         ("Deusche Welle (Europe)", "http://rss.dw.de/rdf/rss-en-eu", 15),
@@ -60,6 +60,8 @@ def show():
         for i,post in enumerate(d.entries):
             if lim > 0 and i==int(lim): break
             link = post.link; title = post.title
+            if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
+            if len(re.findall(r"Turkei", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Erdo.an", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"top.u k..las", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Engin Ard", title, re.IGNORECASE)) > 0: continue
@@ -68,14 +70,14 @@ def show():
             if len(re.findall(r"tecav.z", title, re.IGNORECASE)) > 0: continue
             print("[[%s](%s)]\n" % (unicode(title), link))
 
-    print("\n")
-    print("## Marmara")
-    print("\n")
-    for author, link, title in marmara():
-        if len(author) > 20: author = "____"
-        print("[[%s - %s](%s)]\n" % (unicode(title, 'utf-8'),
-                                     unicode(author, 'utf-8'),
-                                     link))
+#    print("\n")
+#    print("## Marmara")
+#    print("\n")
+#    for author, link, title in marmara():
+#       if len(author) > 20: author = "____"
+#       print("[[%s - %s](%s)]\n" % (unicode(title, 'utf-8'),
+#                                     unicode(author, 'utf-8'),
+#                                     link))
 
             
 def marmara():
