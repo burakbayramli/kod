@@ -19,9 +19,11 @@ def ls(d):
     
 if __name__ == "__main__":
     res = ls(sys.argv[1])
+    tmp = '/tmp'
+    if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     df = pd.DataFrame(res,columns=['name','size'])
     df = df.sort('size',ascending=False)
     print df[['size','name']].head(30)
-    df[['size','name']].head(100).to_csv('%s/du.csv' % os.environ['TEMP'],index=None)
-    print "\nMore detailed output is under %s/du.csv" % os.environ['TEMP']
+    df[['size','name']].head(100).to_csv('%s/du.csv' % tmp,index=None)
+    print "\nMore detailed output is under %s/du.csv" % tmp
     

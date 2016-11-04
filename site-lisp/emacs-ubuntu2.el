@@ -423,11 +423,14 @@ This command does not push erased text to kill-ring."
 (defun open-explorer-in-current-dir()
   (interactive)
   (defvar komut)
-  (setq komut "explorer ")  
+  (setq komut "nemo ")  
+  (setq komut (concat komut "'" ))
   (setq komut (concat komut (dired-current-directory)))
-  (setq komut (replace-in-string komut "/" "\\"))
+  (setq komut (concat komut "'" ))
+  (setq komut (concat komut " 2> /dev/null "))
   (message komut)
   (shell-command komut))
+
   
 ;; Dired icinde iken, o anda baktigimiz dizinde cmd
 ;; icinde acar.
