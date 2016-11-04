@@ -437,12 +437,10 @@ This command does not push erased text to kill-ring."
 (defun open-cmd-in-current-dir()
   (interactive)
   (defvar komut)
-  (setq komut "'C:/Program Files/Git/git-bash.exe' --cd=")
+  (setq komut "gnome-terminal --working-directory=")
   (setq komut (concat komut (dired-current-directory)))
-  (setq komut (replace-in-string komut "/" "\\"))
-  (setq komut (replace-in-string komut "'" "\""))
-  (message komut)
-  (async-shell-command komut))
+  (setq komut (concat komut " &"))
+  (shell-command komut))
 
 ;;
 ;; UI
