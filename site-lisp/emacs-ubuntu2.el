@@ -10,7 +10,7 @@
 (setq max-lisp-eval-depth 50000)
 (setq tool-bar-mode -1)
 (setq auto-resize-tool-bars -1) 
-(setq compile-command "python -u build.py ")
+(setq compile-command "python -u ../build.py tex")
 (setq x-select-enable-clipboard t)
 (setq my-python-command "python") ;; pymacs uses this
 
@@ -828,7 +828,7 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
-(add-to-list 'compile-history "python ../build.py tex")
+(add-to-list 'compile-history "python -u build.py")
 
 (defun reload-pymacs()
   (interactive)

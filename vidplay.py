@@ -16,7 +16,7 @@ while True:
     fout.flush()
     print '\n'
     #cmd = "/usr/bin/ffplay -nodisp '%s'" % list[idx]
-    cmd = "mplayer '%s' -x 960 -y 540" % list[idx][0]
+    cmd = "mplayer '%s' -fs " % list[idx][0]
     print cmd
     os.system(cmd)
     print "Delete? (Press d for delete)..."
