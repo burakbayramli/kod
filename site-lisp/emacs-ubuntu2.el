@@ -829,6 +829,8 @@ This command does not push erased text to kill-ring."
 
 (add-to-list 'compile-history compile-command)
 (add-to-list 'compile-history "python -u build.py")
+(add-to-list 'compile-history "ant debug -find")
+(add-to-list 'compile-history "ant installd -find")
 
 (defun reload-pymacs()
   (interactive)
