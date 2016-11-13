@@ -17,12 +17,6 @@
 (set-variable (quote latex-run-command) "pdflatex")
 (set-variable (quote tex-dvi-view-command) "xpdf")
 
-(setenv "PATH"
-  (concat
-   ;; Change this with your path to MSYS bin directory
-   "c:\\Program Files\\Git\\usr\\bin;"
-   (getenv "PATH")))
-
 (defun move-back-one-char ()  
   (interactive)                  
   (backward-char 1)
