@@ -46,7 +46,7 @@
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
-(setq img-viewer-exe "c:\\Program Files\\FastStone Image Viewer\\FSViewer.exe") 
+(setq img-viewer-exe "eog") 
 (setq chrome-exe "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe") 
 
 (defun open-file-ext ()
@@ -866,7 +866,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh *.* " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*' " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
