@@ -1,0 +1,15 @@
+solver_type L2R_LR
+nr_class 2
+label 1 -1
+nr_feature 0
+bias -1
+B 2
+flag_poly 0
+coef0 1
+gamma 1
+t 1
+feature_pair 0
+train_time 0.000333
+w 0
+
+
