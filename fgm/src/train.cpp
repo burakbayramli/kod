@@ -408,13 +408,6 @@ void read_problem(const char *filename)
 }
 
 
-
-//void copy_parameter(param_temp,&param)
-//{
-//	param_t
-//}
-// Interface function of matlab
-// now assume prhs[0]: label prhs[1]: features
 int main(int argc, char **argv)
 {
   const char *error_msg;
@@ -432,10 +425,7 @@ int main(int argc, char **argv)
   char char_para;
   int length_param = 0;
   double *para_entry; // 
-  //n_flag = 1;
-  //int para_B[20] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 12,14,16, 18, 20, 25, 30,35,40,45,50};
   int para_B[40] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 24, 25, 26, 30,32, 35, 38, 40, 42, 45, 48, 50, 55, 60, 65,70,75,80, 85, 90, 95, 100, 105, 110, 115, 120};
-  //int para_B[32] = { 20, 24, 25, 26, 30,32, 35, 38, 40, 42, 45, 48, 50, 55,  60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280};
 
   if (n_flag==1)
     {
@@ -447,8 +437,6 @@ int main(int argc, char **argv)
 
 
   error_msg = check_parameter(&prob,&param);
-  //parameter *param_temp = new parameter[1];
-  //copy_parameter(param_temp,&param);
   if(error_msg)
     {
       fprintf(stderr,"Error: %s\n",error_msg);
