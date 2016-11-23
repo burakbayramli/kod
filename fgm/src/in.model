@@ -9,7 +9,7 @@ coef0 1
 gamma 1
 t 1
 feature_pair 4
-train_time 0.000571
+train_time 0.000375
 w 4
 0 4294967295:0
 1 4294967295:0
