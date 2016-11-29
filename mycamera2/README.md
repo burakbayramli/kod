@@ -19,6 +19,18 @@ kordinat haritanin orta noktasidir.
 Algilayici kayitlama uygulama bittiginde yapilir, kayit SDCARD/Bass
 altina yazilir. Dosyalari okumak icin ornek Python kodu alttadir.
 
+Android / Java teknigi olarak faydali olabilecek bazi teknikler:
+
+- ZIP icinden dosya okumak: Tum haritalar zip icinde, zip icine bakip
+  oradaki dosya isimlerini almak, sonra istenilen tek dosyayi okumak
+  teknikleri var.
+
+- Duzenli Ifadeler (Regex): Harita orta noktasi kordinati harita dosya
+  isminde kodlu oldugu icin bu kordinatin alinmasi icin dosya ismini
+  regex ile tarayip icinden GPS enlem, boylam verisini aliyoruz. Dosya
+  isminde kordinat kodlama basitlik amacli yapildi, eger ayri bir
+  metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana amac her
+  zaman kod idaresinda kolaylik.
 
 English
 ========
