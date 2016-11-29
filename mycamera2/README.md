@@ -5,9 +5,11 @@ MyCamera
 Kamera resimleri, yon algilayicisi (orientation sensor), GPS
 degerlerini belli araliklarla kaydeder. Eger GPS okunduysa map
 dugmesina basilarak o anda olunan yerin haritasi alinabilir. Haritalar
-bir zip dosyasi icinde, ornek harita olarak
+bir zip dosyasi icinde, ornek haritalar
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
+
+https://dl.dropboxusercontent.com/u/1570604/data/world2.zip
 
 Bu dosyayi SDCARD/Bass/ dizini altina kopyalamak yeterli, bir de app
 baslatilinca hangi harita secildigi de girilmeli.
