@@ -12,6 +12,10 @@ https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
 Bu dosyayi SDCARD/Bass/ dizini altina kopyalamak yeterli, bir de app
 baslatilinca hangi harita secildigi de girilmeli.
 
+Dosya icindeki harita parcalari png dosyalari olarak kayitli, hangi
+GPS kordinatinin haritasi olduklari dosya isminde kodlanmis halde,
+kordinat haritanin orta noktasidir.
+
 Algilayici kayitlama uygulama bittiginde yapilir, kayit SDCARD/Bass
 altina yazilir. Dosyalari okumak icin ornek Python kodu alttadir.
 

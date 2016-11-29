@@ -116,7 +116,8 @@ public class MyCamera extends Activity implements SensorEventListener
 		}
 	    });
 
-	textEdit.setText("berlin");
+	//textEdit.setText("berlin");
+	textEdit.setText("istanbul");
     }
 
     @Override 
