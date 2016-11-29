@@ -3,25 +3,30 @@ MyCamera
 ========
 
 Kamera resimleri, yon algilayicisi (orientation sensor), GPS
-degerlerini belli araliklarla kaydeder, eger GPS okunduysa olunan
-yerin haritasini verir. Haritalar bir zip dosyasi icinde mevcut, ornek
-harita olarak
+degerlerini belli araliklarla kaydeder. Eger GPS okunduysa map
+dugmesina basilarak o anda olunan yerin haritasi alinabilir. Haritalar
+bir zip dosyasi icinde, ornek harita olarak
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
 
-Bu dosyayi SDCARD/Bass/
+Bu dosyayi SDCARD/Bass/ dizini altina kopyalamak yeterli, bir de app
+baslatilinca hangi harita secildigi de girilmeli.
 
-dizini altina kopyalayinca is tamamlanir. App baslatilinca hangi
-harita secildigi de girilmeli. Kayit islemi bitince gerekli dosyalar
-SDCARD/Bass altinda. Dosyalari okumak icin Python kodu altta.
+Algilayici kayitlama uygulama bittiginde yapilir, kayit SDCARD/Bass
+altina yazilir. Dosyalari okumak icin ornek Python kodu alttadir.
 
 
 English
 ========
 
-Example of how to use Android camera, recording of orientation sensor
-and GPS. The data file will be under SDCARD/Bass folder, which can be
-taken to notebook for analysis. Data can be analyzed with
+Example of how to use Android camera, recording of orientation sensor,
+GPS, and camera frames. We skip some frames for performance / storage
+reasons, and the unit of storage for all recording is the
+frame. Whenever a frame is recorded, orientatio, GPS will be recorded
+along with it.
+
+The data files are dumped under SDCARD/Bass folder, which can be taken
+transferred to notebook for analysis, etc. Data can be analyzed with,
 
 ```
 import pandas as pd
@@ -33,7 +38,7 @@ df['cum2'] = df.cum.shift(-1)
 df.columns = ['x','fr','to']
 ```
 
-for textual data, for cam images
+for textual data, and for cam images
 
 ```
 import io
@@ -44,7 +49,7 @@ im = Image.open(io.BytesIO(arr))
 im.save('out.png')
 ```
 
-The camera part is based on
+The camera, preview code is based on
 
 http://ibuzzlog.blogspot.tw/2012/08/how-to-use-camera-in-android.html
 
