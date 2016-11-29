@@ -92,15 +92,24 @@ public class ViewImage extends Activity {
 	return uri;
     }
 
-    public Integer[] getMapsClosestToGeoSorted(double lat, double lon) { 
-    
+    public Integer[] getMapsClosestToGeoSorted(double lat, double lon)
+    { 
+	// GEO adresine en yakin haritayi bul
 	final double[] dists = new double[lls.size()];
 	final Integer[] idxs = new Integer[lls.size()];
         for (int i=0;i<lls.size();i++){
 	    idxs[i] = i; String[] ll = lls.get(i);
+	    // Oklit mesafesini hesapla
 	    dists[i]=Math.sqrt(Math.pow((lat-Float.parseFloat(ll[0])),2) +
 			       Math.pow((lon-Float.parseFloat(ll[1])),2));
 	}
+	// Tum uzakliklari sirala, en yakin tabii ki en ustte olacak
+	// Siralama teknigi degere gore ama id'ler uzerinden yapiliyor
+	// (o sebeple altta id uzerinden degeri aliyoruz) ki boylece
+	// dizindeki en yakin ID hangisi hemen anlayabiliyoruz.
+	// Ayrica siralama kullanmanin bir faydasi ileride sag,sol,vs.
+	// haritasini ararken en yakin haritalardan aramaya
+	// baslayabilmek. "En yakin" dizinde sifirinci tabii ki.
 	Arrays.sort(idxs, new Comparator<Integer>() {
 		@Override public int compare(final Integer o1, final Integer o2) {
 		    return Double.compare(dists[o1], dists[o2]);
@@ -147,10 +156,8 @@ public class ViewImage extends Activity {
             lon = Double.parseDouble(extras.getString("longitude"));
             city = extras.getString("city");
 	    if (lat==0 && lon==0) {
-		//lat = 52.511736; // test vals
-		//lon = 13.375345; // test vals
-		lat = 40.987868;
-		lon = 29.036511;
+		lat = 52.511736; // test vals
+		lon = 13.375345; // test vals
 	    }
             Log.d("cam",""+lat + " " + lon);	    
             Log.d("cam","city "+city);
@@ -185,8 +192,11 @@ public class ViewImage extends Activity {
     
     private Drawable mark(Drawable d, double lat, double lon, double latcen, double loncen, int to)
     {
+	// harita icine nokta koy
 	Bitmap src = ((BitmapDrawable) d).getBitmap();
 
+	// bu degerler lat,lon ve pixel degerleri arasinda bir gecis
+	// sagliyor, deneme-yanilma ile bulundular.
 	double SCALEX = 23000;
 	double SCALEY = -35000;
 	
