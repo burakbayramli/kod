@@ -26,7 +26,7 @@ English
 Example of how to use Android camera, recording of orientation sensor,
 GPS, and camera frames. We skip some frames for performance / storage
 reasons, and the unit of storage for all recording is the
-frame. Whenever a frame is recorded, orientatio, GPS will be recorded
+frame. Whenever a frame is recorded, orientation, GPS will be recorded
 along with it.
 
 The data files are dumped under SDCARD/Bass folder, which can be taken
