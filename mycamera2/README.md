@@ -26,11 +26,11 @@ Android / Java teknigi olarak faydali olabilecek bazi kod bolumleri:
   teknigi var.
 
 - Duzenli Ifadeler (Regex): Harita orta noktasi kordinati harita dosya
-  isminde kodlu oldugu icin bu kordinatin alinmasi icin dosya ismini
-  regex ile tarayip icinden GPS enlem, boylam verisini aliyoruz. Dosya
-  isminde kordinat kodlama basitlik amacli yapildi, eger ayri bir
-  metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana amac her
-  zaman kod idaresinda kolaylik.
+  isminde kodlu oldugu icin kordinatin geri alinmasi dosya ismini
+  regex ile tarayip icinden GPS enlem, boylam verisini almakla
+  oluyor. Dosya isminde kordinat kodlama basitlik amacli yapildi, eger
+  ayri bir metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana
+  amac her zaman kod idaresinda kolaylik.
 
 English
 ========
