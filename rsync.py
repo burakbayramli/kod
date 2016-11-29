@@ -91,7 +91,7 @@ def del_not_in_from(fr, to, frdirs, todirs):
     diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]
     for x in diff:
         print 'deleting directory', x
-        if os.path.isdir(x): deleteDir(x)
+        if os.path.isdir(x): deleteDir("'%s'" % x)
 
     frdirs,frfiles =  ls(fr)
     todirs,tofiles = ls(to)
