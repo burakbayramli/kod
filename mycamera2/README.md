@@ -22,8 +22,8 @@ altina yazilir. Dosyalari okumak icin ornek Python kodu alttadir.
 Android / Java teknigi olarak faydali olabilecek bazi kod bolumleri:
 
 - ZIP icinden dosya okumak: Tum haritalar zip icinde, zip icine bakip
-  oradaki dosya isimlerini almak, sonra istenilen tek dosyayi okumak
-  teknikleri var.
+  oradaki dosya isimlerini almak, sonra istenilen tek dosyayi okuma
+  teknigi var.
 
 - Duzenli Ifadeler (Regex): Harita orta noktasi kordinati harita dosya
   isminde kodlu oldugu icin bu kordinatin alinmasi icin dosya ismini
