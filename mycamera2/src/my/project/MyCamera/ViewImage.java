@@ -156,9 +156,9 @@ public class ViewImage extends Activity {
             lon = Double.parseDouble(extras.getString("longitude"));
             city = extras.getString("city");
 	    if (lat==0 && lon==0) {
-		lat = 52.511736; // test vals
-		lon = 13.375345; // test vals
-	    }
+		lat = 40.987659; // test vals
+		lon = 29.036428; // test vals
+	    }  
             Log.d("cam",""+lat + " " + lon);	    
             Log.d("cam","city "+city);
         }
