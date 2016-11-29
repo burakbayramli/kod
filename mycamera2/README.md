@@ -30,7 +30,7 @@ Android / Java teknigi olarak faydali olabilecek bazi kod bolumleri:
   regex ile tarayip icinden GPS enlem, boylam verisini almakla
   oluyor. Dosya isminde kordinat kodlama basitlik amacli yapildi, eger
   ayri bir metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana
-  amac her zaman kod idaresinda kolaylik.
+  amac her zaman kod idaresinde kolaylik.
 
 English
 ========
