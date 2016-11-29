@@ -43,9 +43,15 @@ public class CameraPreview implements SurfaceHolder.Callback,
     @Override
     public void onPreviewFrame(byte[] arg0, Camera arg1) 
     {
+	// onizleme sirasinda her kamera goruntusu (tek imaj olarak) bu
+	// metota gecilir.
+
+	// sayim yap, ki bazi goruntuleri almadan atabilelim
 	frameCounter++;
-	if (frameCounter < 10) return;
+	if (frameCounter < 10) return; // goruntuyu islemeden hemen geri don
 	frameCounter = 0;
+	
+	// hafizaya ekle
 	images.add(arg0);
 	orientations.add(Float.toString(mCameraActivity.mOrientationAngles[0]) + " " +
 			 Float.toString(mCameraActivity.mOrientationAngles[1]) + " " +
@@ -93,6 +99,8 @@ public class CameraPreview implements SurfaceHolder.Callback,
     @Override
     public void surfaceDestroyed(SurfaceHolder arg0) 
     {
+	// program kapatilinca hafizada ne varsa diske yazilir.
+	
 	Log.d("cam","images size "+ Integer.toString(images.size()));
 	
     	mCamera.setPreviewCallback(null);
