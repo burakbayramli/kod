@@ -65,6 +65,9 @@ im = Image.open(io.BytesIO(arr))
 im.save('out.png')
 ```
 
+There is also offline mapping support, see the sample zip data file
+above. Simply drop this file under SDCARD/Bass.
+
 The camera, preview code is based on
 
 http://ibuzzlog.blogspot.tw/2012/08/how-to-use-camera-in-android.html
