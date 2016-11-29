@@ -74,3 +74,7 @@ The camera, preview code is based on
 
 http://ibuzzlog.blogspot.tw/2012/08/how-to-use-camera-in-android.html
 
+Zoomable map viewer is based on
+
+https://github.com/MikeOrtiz/TouchImageView/blob/master/src/com/ortiz/touch/TouchImageView.java
+
