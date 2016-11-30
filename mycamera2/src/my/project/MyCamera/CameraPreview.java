@@ -177,6 +177,9 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	catch (IOException e)
 	    {
 		Log.e("Exception", "File write failed: " + e.toString());
-	    } 
+	    }
+
+	Log.d("cam","dump done");
+	
     }
 }
