@@ -19,7 +19,7 @@ while True:
     fout.flush()
     print '\n'
     #cmd = "/usr/bin/ffplay -nodisp '%s'" % list[idx]
-    cmd = "mplayer '%s'" % list[idx]
+    cmd = 'mplayer "%s" ' % list[idx]
     print cmd
     os.system(cmd)
     print "Delete? (Press d for delete)..."
