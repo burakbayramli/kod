@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Index of /~borre/matlab/filters</TITLE>
+ </HEAD>
+ <BODY>
+<H1>Index of /~borre/matlab/filters</H1>
+<PRE><IMG SRC="/icons/blank.gif" ALT="     "> <A HREF="?N=A">Name</A>                    <A HREF="?M=A">Last modified</A>       <A HREF="?S=A">Size</A>  <A HREF="?D=D">Description</A>
+<HR>
+<IMG SRC="/icons/back.gif" ALT="[DIR]"> <A HREF="/~borre/matlab/">Parent Directory</A>        03-Nov-1998 08:51      -  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="00050761.94o">00050761.94o</A>            22-Mar-1997 12:28    79k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="08100761.94o">08100761.94o</A>            22-Mar-1997 12:27   456k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="anheader.m">anheader.m</A>              23-Sep-1997 15:10     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="autocorr.m">autocorr.m</A>              22-Sep-1997 16:24     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="b_clock.m">b_clock.m</A>               22-Sep-1997 16:30     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="b_point.m">b_point.m</A>               23-Sep-1997 19:59     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="b_row.m">b_row.m</A>                 22-Nov-1997 22:08     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="bancroft.m">bancroft.m</A>              26-Sep-1997 10:46     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="check_t.m">check_t.m</A>               28-Oct-1998 14:44     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="clock.dat">clock.dat</A>               24-Nov-1997 18:08     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="comptime.m">comptime.m</A>              17-Oct-1997 08:32     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="contents.m">contents.m</A>              17-Oct-1997 23:29     5k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="e0005a94.076">e0005a94.076</A>            17-Mar-1994 12:51     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="e_r_corr.m">e_r_corr.m</A>              26-Sep-1997 10:48     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="edata.dat">edata.dat</A>               26-Oct-1998 13:59     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="edata.m">edata.m</A>                 26-Oct-1998 14:00     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fepoch_0.m">fepoch_0.m</A>              05-Oct-1997 21:15     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fig15_6.m">fig15_6.m</A>               22-Sep-1997 16:20     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fig16_5.m">fig16_5.m</A>               22-Sep-1997 11:13     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="find_eph.m">find_eph.m</A>              02-Jul-1998 08:56     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fixed2.m">fixed2.m</A>                06-Oct-1997 21:15     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fixing1.m">fixing1.m</A>               06-Oct-1997 21:08     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fixing2.m">fixing2.m</A>               06-Oct-1997 21:12     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fjellera.nav">fjellera.nav</A>            12-Apr-1997 21:43     8k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fobs_typ.m">fobs_typ.m</A>              26-Sep-1997 12:29     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="get_eph.m">get_eph.m</A>               26-Sep-1997 10:50     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="gmproc.m">gmproc.m</A>                17-Oct-1997 23:16     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="gps_time.m">gps_time.m</A>              26-Oct-1998 14:46     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="grabdata.m">grabdata.m</A>              22-Sep-1997 11:14     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="incorrec.m">incorrec.m</A>              22-Sep-1997 11:19     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="julday.m">julday.m</A>                26-Sep-1997 12:30     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_clock.m">k_clock.m</A>               22-Sep-1997 11:31     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_row.m">k_row.m</A>                 15-Oct-1997 20:48     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_simul.m">k_simul.m</A>               15-Oct-1997 19:11     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_ud.m">k_ud.m</A>                  15-Oct-1997 19:55     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_update.m">k_update.m</A>              22-Sep-1997 11:33     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_updatx.m">k_updatx.m</A>              22-Sep-1997 15:40     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="kalclock.m">kalclock.m</A>              26-Oct-1998 14:07     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="kud.m">kud.m</A>                   15-Oct-1997 19:56     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="lorentz.m">lorentz.m</A>               26-Sep-1997 10:53     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="model.m">model.m</A>                 22-Sep-1997 11:42     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="model_g.m">model_g.m</A>               22-Sep-1997 11:43     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="offset.m">offset.m</A>                22-Sep-1997 11:45     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m16.dat">one_m16.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m2.dat">one_m2.dat</A>              26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m23.dat">one_m23.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m26.dat">one_m26.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m27.dat">one_m27.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_m9.dat">one_m9.dat</A>              26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r16.dat">one_r16.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r2.dat">one_r2.dat</A>              26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r23.dat">one_r23.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r26.dat">one_r26.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r27.dat">one_r27.dat</A>             26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_r9.dat">one_r9.dat</A>              26-Mar-1997 20:41     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w16.dat">one_w16.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w2.dat">one_w2.dat</A>              06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w23.dat">one_w23.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w26.dat">one_w26.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w27.dat">one_w27.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_w9.dat">one_w9.dat</A>              06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_way.m">one_way.m</A>               24-Nov-1997 19:46     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_wayd.m">one_wayd.m</A>              22-Sep-1997 11:54     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y16.dat">one_y16.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y2.dat">one_y2.dat</A>              06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y23.dat">one_y23.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y26.dat">one_y26.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y27.dat">one_y27.dat</A>             06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="one_y9.dat">one_y9.dat</A>              06-Aug-1997 23:05     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="oneway_i.m">oneway_i.m</A>              17-Oct-1997 19:42    10k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="outlier.m">outlier.m</A>               30-Mar-1998 15:25     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="pta.96o">pta.96o</A>                 11-Sep-1996 15:51   139k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="pta.nav">pta.nav</A>                 22-Mar-1997 10:44     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="ptb.96o">ptb.96o</A>                 11-Sep-1996 15:49   133k  
+<IMG SRC="/icons/tex.gif" ALT="[   ]"> <A HREF="readme.tex">readme.tex</A>              19-Oct-1997 22:01     6k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="rec_lsq.m">rec_lsq.m</A>               15-Oct-1997 15:20     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="recclock.m">recclock.m</A>              22-Sep-1997 15:17     5k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="rinexe.m">rinexe.m</A>                26-Oct-1998 12:36     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="rts.m">rts.m</A>                   15-Oct-1997 16:15     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="satpos.m">satpos.m</A>                06-Dec-1997 10:29     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="smoother.m">smoother.m</A>              22-Sep-1997 15:47     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="togeod.m">togeod.m</A>                26-Sep-1997 11:00     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="tropo.m">tropo.m</A>                 26-Sep-1997 11:02     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="wc.m">wc.m</A>                    22-Nov-1997 22:10     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="whitenoi.m">whitenoi.m</A>              17-Oct-1997 23:02     1k  
+</PRE><HR>
+</BODY></HTML>

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Index of /~borre/matlab/strang</TITLE>
+ </HEAD>
+ <BODY>
+<H1>Index of /~borre/matlab/strang</H1>
+<PRE><IMG SRC="/icons/blank.gif" ALT="     "> <A HREF="?N=A">Name</A>                    <A HREF="?M=A">Last modified</A>       <A HREF="?S=A">Size</A>  <A HREF="?D=D">Description</A>
+<HR>
+<IMG SRC="/icons/back.gif" ALT="[DIR]"> <A HREF="/~borre/matlab/">Parent Directory</A>        03-Nov-1998 08:51      -  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="addvec.m">addvec.m</A>                22-Sep-1997 19:07     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="atimesv.m">atimesv.m</A>               22-Sep-1997 19:12     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="basis.m">basis.m</A>                 22-Sep-1997 19:12     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="cofactor.m">cofactor.m</A>              22-Sep-1997 19:16     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="contents.m">contents.m</A>              22-Sep-1997 19:17     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="cosine.m">cosine.m</A>                22-Sep-1997 19:20     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="cramer.m">cramer.m</A>                22-Sep-1997 19:22     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="determ.m">determ.m</A>                22-Sep-1997 19:25     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="eigen.m">eigen.m</A>                 22-Sep-1997 19:26     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="eigen2.m">eigen2.m</A>                22-Sep-1997 19:28     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="expage35.m">expage35.m</A>              22-Sep-1997 19:36     8k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="expage36.m">expage36.m</A>              22-Sep-1997 19:37     5k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="expower.m">expower.m</A>               22-Sep-1997 22:03     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fastfour.m">fastfour.m</A>              22-Sep-1997 21:06     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="findpiv.m">findpiv.m</A>               22-Sep-1997 21:08     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="fourier.m">fourier.m</A>               22-Sep-1997 21:08     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="grams.m">grams.m</A>                 23-Sep-1997 09:23     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="hand.m">hand.m</A>                  22-Sep-1997 21:13     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="house.m">house.m</A>                 22-Sep-1997 21:19     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="inverse.m">inverse.m</A>               22-Sep-1997 21:20     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="linefit.m">linefit.m</A>               22-Sep-1997 21:23     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="linprog.m">linprog.m</A>               22-Sep-1997 21:53     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="lsq.m">lsq.m</A>                   22-Sep-1997 21:32     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="movies.m">movies.m</A>                22-Sep-1997 21:33     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="null.m">null.m</A>                  22-Sep-1997 21:35     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="permdet.m">permdet.m</A>               22-Sep-1997 21:37     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="plot2d.m">plot2d.m</A>                22-Sep-1997 21:16     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="plu.m">plu.m</A>                   22-Sep-1997 21:42     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="poly2str.m">poly2str.m</A>              22-Sep-1997 21:44     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="powers.m">powers.m</A>                22-Sep-1997 22:00     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="projmat.m">projmat.m</A>               23-Sep-1997 09:42     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="randperm.m">randperm.m</A>              23-Sep-1997 08:50     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="rats.m">rats.m</A>                  23-Sep-1997 08:57     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="readme.m">readme.m</A>                23-Sep-1997 08:59     5k  
+<IMG SRC="/icons/tex.gif" ALT="[   ]"> <A HREF="readme.tex">readme.tex</A>              19-Oct-1997 22:01     6k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="ref.m">ref.m</A>                   23-Sep-1997 09:00     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="signperm.m">signperm.m</A>              23-Sep-1997 09:02     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="sixpack.m">sixpack.m</A>               23-Sep-1997 09:03     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="slu.m">slu.m</A>                   23-Sep-1997 09:05     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="slv.m">slv.m</A>                   23-Sep-1997 09:07     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="solve.m">solve.m</A>                 23-Sep-1997 09:08     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="splu.m">splu.m</A>                  23-Sep-1997 09:09     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="splv.m">splv.m</A>                  23-Sep-1997 09:10     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xbasis.m">xbasis.m</A>                23-Sep-1997 09:10     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xcofacto.m">xcofacto.m</A>              23-Sep-1997 09:11     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xcramer.m">xcramer.m</A>               23-Sep-1997 09:12     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xdeterm.m">xdeterm.m</A>               23-Sep-1997 09:13     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xeigen.m">xeigen.m</A>                23-Sep-1997 09:19     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xeigen2.m">xeigen2.m</A>               23-Sep-1997 09:20     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xfindpiv.m">xfindpiv.m</A>              23-Sep-1997 09:21     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xgrams.m">xgrams.m</A>                23-Sep-1997 09:21     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xinverse.m">xinverse.m</A>              23-Sep-1997 09:23     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xlinefit.m">xlinefit.m</A>              23-Sep-1997 09:27     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xlsq.m">xlsq.m</A>                  23-Sep-1997 09:27     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xnull.m">xnull.m</A>                 23-Sep-1997 09:28     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xpermdet.m">xpermdet.m</A>              23-Sep-1997 09:29     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xplot2d.m">xplot2d.m</A>               23-Sep-1997 09:38     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xplu.m">xplu.m</A>                  23-Sep-1997 09:41     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xprojmat.m">xprojmat.m</A>              23-Sep-1997 09:42     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xrandper.m">xrandper.m</A>              23-Sep-1997 09:43     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xrats.m">xrats.m</A>                 23-Sep-1997 09:43     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xref.m">xref.m</A>                  23-Sep-1997 09:44     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xsignper.m">xsignper.m</A>              23-Sep-1997 09:44     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xslu.m">xslu.m</A>                  23-Sep-1997 09:45     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xslv.m">xslv.m</A>                  23-Sep-1997 09:45     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xsolve.m">xsolve.m</A>                23-Sep-1997 09:46     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xsplu.m">xsplu.m</A>                 23-Sep-1997 09:46     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="xsplv.m">xsplv.m</A>                 23-Sep-1997 09:46     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="zeroone.m">zeroone.m</A>               23-Sep-1997 09:19     1k  
+</PRE><HR>
+</BODY></HTML>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+ <HEAD>
+  <TITLE>Index of /~borre/matlab/bancroft</TITLE>
+ </HEAD>
+ <BODY>
+<H1>Index of /~borre/matlab/bancroft</H1>
+<PRE><IMG SRC="/icons/blank.gif" ALT="     "> <A HREF="?N=A">Name</A>                    <A HREF="?M=A">Last modified</A>       <A HREF="?S=A">Size</A>  <A HREF="?D=A">Description</A>
+<HR>
+<IMG SRC="/icons/back.gif" ALT="[DIR]"> <A HREF="/~borre/matlab/">Parent Directory</A>        03-Nov-1998 08:51      -  
+<IMG SRC="/icons/tex.gif" ALT="[   ]"> <A HREF="readme.tex">readme.tex</A>              19-Oct-1997 22:01     6k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_point.m">k_point.m</A>               26-Sep-1997 10:51     4k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="bancroft.m">bancroft.m</A>              26-Sep-1997 10:46     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="contents.m">contents.m</A>              17-Oct-1997 22:35     3k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="kleus.m">kleus.m</A>                 15-Oct-1997 16:24     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="pta.nav">pta.nav</A>                 13-Sep-1996 15:38     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="tropo.m">tropo.m</A>                 26-Sep-1997 11:02     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="togeod.m">togeod.m</A>                26-Sep-1997 11:00     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="b_point.m">b_point.m</A>               26-Oct-1997 20:27     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="satpos.m">satpos.m</A>                06-Dec-1997 10:28     2k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="topocent.m">topocent.m</A>              26-Sep-1997 11:01     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="abs_pos.m">abs_pos.m</A>               26-Oct-1997 20:26     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="e_r_corr.m">e_r_corr.m</A>              26-Sep-1997 10:48     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="find_eph.m">find_eph.m</A>              02-Jul-1998 08:56     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="get_eph.m">get_eph.m</A>               26-Sep-1997 10:50     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="normals.m">normals.m</A>               26-Sep-1997 10:57     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="k_update.m">k_update.m</A>              22-Sep-1997 11:33     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="lorentz.m">lorentz.m</A>               26-Sep-1997 10:53     1k  
+<IMG SRC="/icons/unknown.gif" ALT="[   ]"> <A HREF="check_t.m">check_t.m</A>               26-Sep-1997 10:47     1k  
+</PRE><HR>
+</BODY></HTML>
