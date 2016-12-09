@@ -138,8 +138,6 @@ def search(s, index_dir):
 if __name__ == "__main__":
 
     index_dir = "%s/book_idx" % os.environ['HOME'] # create this dir under HOME
-    print index_dir
-    exit()
     flip_drive = False
     
     if len(sys.argv) == 4 and sys.argv[3] == "de": flip_drive = True
