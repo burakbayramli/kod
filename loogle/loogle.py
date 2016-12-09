@@ -26,7 +26,10 @@ exts = ['.pdf','.djvu','.txt','.html']
 
 pdfcmd = 'pdftotext -enc UTF-8 "%s" %s/loog.txt'
 djvucmd = 'djvutxt.exe "%s" %s/loog.txt'
-           
+
+tmp = '/tmp'
+if 'TEMP' in os.environ: tmp = os.environ['TEMP']
+
 def index(crawl_dir,index_dir,get_first_N=None):
 
     df_files = []; file_indexed_dict = {} ; index = None
@@ -49,14 +52,14 @@ def index(crawl_dir,index_dir,get_first_N=None):
     files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
 
     files_crawled_dict = dict(files)
-    tmp = {} # needed bcz cannot change file_indexed_dict while iterating
+    tmpvar = {} # needed bcz cannot change file_indexed_dict while iterating
     for ff in file_indexed_dict:
         # remove file from index if file exists in index, but not on
         # file system
         if ff not in files_crawled_dict:
             print ff, 'removed'
             writer.delete_by_term('path', unicode(ff))
-            tmp[ff] = file_indexed_dict[ff]
+            tmpvar[ff] = file_indexed_dict[ff]
         elif files_crawled_dict[ff] != file_indexed_dict[ff]:
             # this is the only section we do not add to tmp this is
             # how I remove an updated file from my index dictionary so
@@ -65,10 +68,10 @@ def index(crawl_dir,index_dir,get_first_N=None):
             print ff, 'size different update'
             writer.delete_by_term('path', unicode(ff))
         else:
-            tmp[ff] = file_indexed_dict[ff]
+            tmpvar[ff] = file_indexed_dict[ff]
 
     # put it back in
-    file_indexed_dict = tmp
+    file_indexed_dict = tmpvar
                 
     if get_first_N: files = files[:get_first_N]
     for i,(file,size) in enumerate(files):
@@ -79,21 +82,21 @@ def index(crawl_dir,index_dir,get_first_N=None):
             print 'processing', file
             ext = os.path.splitext(file)[1]
             if ext == ".pdf" :
-                cmd = pdfcmd % (file,os.environ['TEMP'])
+                cmd = pdfcmd % (file,tmp)
                 os.system(cmd)
             elif ext == ".djvu":
-                cmd = djvucmd % (file,os.environ['TEMP'])
+                cmd = djvucmd % (file,tmp)
                 os.system(cmd)
-                os.system("unix2dos -7 %s/loog.txt" % os.environ['TEMP'])
+                os.system("unix2dos -7 %s/loog.txt" % tmp)
             elif ext == ".html":
                 with codecs.open(file, encoding='utf-8') as f:
                     content = f.read()
                 content = webarticle2text.extractFromHTML(content)
-                fout = open("%s/loog.txt" % os.environ['TEMP'],"w")
+                fout = open("%s/loog.txt" % tmp,"w")
                 fout.write(content.encode("utf8"))
                 fout.close()            
             elif ext == ".txt":
-                shutil.copy(file, "%s/loog.txt" % os.environ['TEMP'])
+                shutil.copy(file, "%s/loog.txt" % tmp)
 
 
             # turn the file name itself into content as well just in case,
@@ -104,14 +107,14 @@ def index(crawl_dir,index_dir,get_first_N=None):
             for x in exts: filename_as_content = filename_as_content.replace(x,"")
             filename_as_content += " "
 
-            with codecs.open("%s/loog.txt" % os.environ['TEMP'], encoding='utf-8') as f:
+            with codecs.open("%s/loog.txt" % tmp, encoding='utf-8') as f:
                 content = f.read()
             writer.add_document(path = unicode(file),
                                 title = unicode(filename_as_content),
                                 text = unicode(content))
             df_files.append([file, size])
             
-        except:
+        except Exception, e:
             print 'error detected', e
             continue
     writer.commit() 

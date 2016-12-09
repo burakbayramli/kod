@@ -7,6 +7,7 @@ if sys.argv[1] == "hd":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/New Volume/archive/Dropbox' --delete")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/New Volume/archive/kod' --delete")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/New Volume/archive/classnotes' --delete")
+    os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/New Volume/archive/books' --delete")
 
 if sys.argv[1] == "kitaplar":
     os.system("python rsync.py d:\\kitaplar e:\\archive\\kitaplar --delete")

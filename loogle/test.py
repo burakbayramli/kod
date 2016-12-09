@@ -1,7 +1,9 @@
 import sys; sys.path.append("..")
 import os, shutil, loogle, unittest
 
-idx = "%s/loogle" % os.environ['TEMP']
+tmp = '/tmp'
+if 'TEMP' in os.environ: tmp = os.environ['TEMP']
+idx = "%s/loogle" % tmp
 
 def prepare_dir():
     if os.path.isdir(idx): shutil.rmtree(idx)
