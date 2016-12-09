@@ -12,7 +12,7 @@
 # unix2dos - for a charset conversion, something else could be used here
 #
 
-import os, sys, pandas as pd; sys.path.append('c:/Users/burak/Documents/kod')
+import os, sys, pandas as pd; sys.path.append('..')
 from whoosh.index import create_in 
 from whoosh.fields import Schema
 from whoosh.query import Term, Or
@@ -137,7 +137,9 @@ def search(s, index_dir):
     
 if __name__ == "__main__":
 
-    index_dir = "c:/Users/burak/Downloads/book_idx"
+    index_dir = "%s/book_idx" % os.environ['HOME'] # create this dir under HOME
+    print index_dir
+    exit()
     flip_drive = False
     
     if len(sys.argv) == 4 and sys.argv[3] == "de": flip_drive = True
