@@ -28,7 +28,7 @@ def deleteFile(path):
     if mswindows: 
         cmd = 'DEL /F /S /Q "%s"' % path
     else:
-        cmd = "rm -rf '" + path + "'"
+        cmd = 'rm -rf "' + path + '"'
     result = getstatusoutput(cmd)
     if(result[0]!=0):
         raise RuntimeError(result[1])

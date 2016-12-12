@@ -25,7 +25,7 @@ import webarticle2text
 exts = ['.pdf','.djvu','.txt','.html']
 
 pdfcmd = 'pdftotext -enc UTF-8 "%s" %s/loog.txt'
-djvucmd = 'djvutxt.exe "%s" %s/loog.txt'
+djvucmd = 'djvutxt "%s" %s/loog.txt'
 
 tmp = '/tmp'
 if 'TEMP' in os.environ: tmp = os.environ['TEMP']
@@ -74,6 +74,7 @@ def index(crawl_dir,index_dir,get_first_N=None):
     file_indexed_dict = tmpvar
                 
     if get_first_N: files = files[:get_first_N]
+    print 'processing', len(files), 'files'
     for i,(file,size) in enumerate(files):
         try:
             if file in file_indexed_dict:
@@ -87,7 +88,7 @@ def index(crawl_dir,index_dir,get_first_N=None):
             elif ext == ".djvu":
                 cmd = djvucmd % (file,tmp)
                 os.system(cmd)
-                os.system("unix2dos -7 %s/loog.txt" % tmp)
+                os.system("todos %s/loog.txt" % tmp)
             elif ext == ".html":
                 with codecs.open(file, encoding='utf-8') as f:
                     content = f.read()
@@ -137,21 +138,18 @@ def search(s, index_dir):
     
 if __name__ == "__main__":
 
-    index_dir = "%s/book_idx" % os.environ['HOME'] # create this dir under HOME
-    flip_drive = False
-    
+    index_dir = "%s/book_idx" % os.environ['HOME'] # create this dir under HOME    
     if len(sys.argv) == 4 and sys.argv[3] == "de": flip_drive = True
     if sys.argv[1] == '--index':
-        index(crawl_dir="d:/kitaplar",
+        index(crawl_dir="/media/burak/6A4D-5BF0/kitaplar",
               index_dir=index_dir,
-              get_first_N=2500) # up this for incremental processing
-        
+              get_first_N=20) # up this for incremental processing
+                
     if sys.argv[1] == '--find': 
         res = search(sys.argv[2], index_dir=index_dir)
         for x in res:
             # produce emacs friendly output here, file:line_no:content
             # allows emacs find-grep to make the output clickable, C-c C-c
             # will take you to the file
-            if not flip_drive: print "%s:1:-" % x
-            else: print "%s:1:-" % x.replace("d:","e:/archive")
+            print "%s:1:-" % x
         
