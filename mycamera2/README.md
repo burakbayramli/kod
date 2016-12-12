@@ -9,6 +9,10 @@ bir zip dosyasi icinde, ornek haritalar
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
 
+https://dl.dropboxusercontent.com/u/1570604/data/berlin.zip
+
+https://dl.dropboxusercontent.com/u/1570604/data/world1.zip
+
 https://dl.dropboxusercontent.com/u/1570604/data/world2.zip
 
 Bu dosyayi SDCARD/Bass/ dizini altina kopyalamak yeterli, bir de app
