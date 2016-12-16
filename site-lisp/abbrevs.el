@@ -14,5 +14,6 @@
     ("9U" "Ustteki" nil 1)
     ("9o" "o zaman" nil 1)
     ("9O" "O zaman" nil 1)
+    ("9js" "System.out.println(\"\"+ );" move-back-three-chars 0)
     ("9p" "\\frac{\\partial }{\\partial x}" nil 1)
     ))
