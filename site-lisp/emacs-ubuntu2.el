@@ -591,7 +591,7 @@ This command does not push erased text to kill-ring."
  '("\\left[\\begin{array}{ccc} " (s) " \\end{array}\\right]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
- '("\\includegraphics[height=4cm]{" (s) ".png}" ) "")
+ '("\\includegraphics[width=8cm]{" (s) ".png}" ) "")
 
 (tempo-define-template  "tex-listings-python-file" 
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
@@ -822,9 +822,9 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
-(add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "ant debug -find")
 (add-to-list 'compile-history "ant installd -find")
+(add-to-list 'compile-history "python -u build.py")
 
 (defun reload-pymacs()
   (interactive)
