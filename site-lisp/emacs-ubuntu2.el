@@ -591,7 +591,7 @@ This command does not push erased text to kill-ring."
  '("\\left[\\begin{array}{ccc} " (s) " \\end{array}\\right]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
- '("\\includegraphics[width=8cm]{" (s) ".png}" ) "")
+ '("\\includegraphics[width=20em]{" (s) ".png}" ) "")
 
 (tempo-define-template  "tex-listings-python-file" 
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
@@ -881,9 +881,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/bass")
-(find-file-other-window "//home/burak/Documents/bass/mycamera3")
+(find-file-other-window "//home/burak/Documents/bass/mycamera4")
 (find-file-other-window "/home/burak/Pictures")
-(find-file-other-window "/home/burak/Documents/bass/mycamera3/scripts/dijksj")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
