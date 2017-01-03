@@ -881,7 +881,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/bass")
-(find-file-other-window "//home/burak/Documents/bass/mycamera4")
+(find-file-other-window "/home/burak/Documents/bass/mycamera4/src/my/project/MyCamera")
+(find-file-other-window "/home/burak/Documents/bass/mycamera4/scripts")
 (find-file-other-window "/home/burak/Pictures")
 
 (switch-to-buffer "*scratch*")
