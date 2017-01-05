@@ -39693,3 +39693,5 @@ Viktor Orban:Hungarian PM:31/5/1963
 Mesut Yilmaz:Politican:6/11/1947
 Muarrem Ince:Politician:4/5/1964
 Jaroslaw Kaczynski:Polish Politician:18/6/1949
+Ahmet Kekec:Gazeteci:3/1/1961 
+Numan Kurtulmus:Politikaci:23/3/1959
