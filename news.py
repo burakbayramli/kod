@@ -38,6 +38,7 @@ def show():
             if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Erdo.an", title, re.IGNORECASE)) > 0: continue
+            if len(re.findall(r"Obama", title, re.IGNORECASE)) > 0: continue
             print("[[%s](%s)]\n" % (unicode(title), link))
 
 
