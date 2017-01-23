@@ -1,17 +1,25 @@
 # Plays mp3 files found under sys.argv[1] one by one, randomly. 
 # Meant to simulate a radio.
 import glob, os, random, sys
-import threading
+import threading, numpy as np
 import select
 
 fout = open("/tmp/rndplay.out","w")
+
+import datetime, random
+def my_random(upper):
+    r1 = random.choice(range(upper))
+    r2 = np.random.random()*upper
+    r3 = str(datetime.datetime.utcnow())[-9:].replace(".","")
+    return (int(r1)+int(r2)+int(r3)) % upper
 
 while True:
     print "Music Dir", sys.argv[1]
     os.chdir(sys.argv[1])
     list = glob.glob("*.mp3")
     print '\n'
-    idx = random.choice(range(len(list)))
+    #idx = random.choice(range(len(list)))
+    idx = my_random(len(list))
     print "# of songs", len(list), 
     "song idx selected", idx, 
     "song", list[idx]
