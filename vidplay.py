@@ -4,8 +4,8 @@ import pyaudio, struct
 import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
-import select
 from rsync import ls
+import select
 
 fout = open("/tmp/vidplay.out","w")
 
