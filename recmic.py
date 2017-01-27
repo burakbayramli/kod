@@ -1,3 +1,6 @@
+
+# For Ubuntu apt-get install python-pyaudio
+
 import pyaudio
 import wave 
 FORMAT = pyaudio.paInt16

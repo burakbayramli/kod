@@ -39696,3 +39696,4 @@ Jaroslaw Kaczynski:Polish Politician:18/6/1949
 Ahmet Kekec:Gazeteci:3/1/1961 
 Numan Kurtulmus:Politikaci:23/3/1959
 Yann LeCun:Scientist:8/7/1960
+Martin Schulz:Politician:20/12/1955

@@ -311,7 +311,7 @@ This command does not push erased text to kill-ring."
   (local-set-key "\C-s" 'isearch-forward) 
   (local-unset-key "\M-s") 
   (local-set-key [?\M-g] 'keyboard-quit)
-  (local-set-key "\M-\r" 'compile)
+  (local-set-key "\M-\r" 'my-compile)
   (local-set-key "\M-s" 'isearch-forward) 
   (local-set-key "\C-v" 'scroll-up)
   (setq fill-column 80)
@@ -374,7 +374,7 @@ This command does not push erased text to kill-ring."
   (local-unset-key "\C-d")
   (local-unset-key (kbd "M-p"))
   (local-unset-key (kbd "M-n"))
-  (local-set-key "\M-\r" 'compile)
+  (local-set-key "\M-\r" 'my-compile)
   (local-set-key "\C-d" 'forward-word)
   (local-set-key [?\M-g] 'keyboard-quit)
   (local-set-key "\C-j" 'backward-char) 
@@ -642,6 +642,13 @@ This command does not push erased text to kill-ring."
   (insert "\\end\{itemize\}\n")  
   )
 
+(defun my-compile ()
+  (interactive)
+  (message compile-command)
+  (message "%s" compile-history)
+  (call-interactively 'compile) 
+  )
+
 ;;
 ;; Key mappings
 ;;
@@ -678,8 +685,8 @@ This command does not push erased text to kill-ring."
 (global-set-key [?\M-w] 'backward-word)
 (global-set-key "\C-p" 'previous-line)
 (global-set-key "\C-t" 'kill-line)
-(global-set-key "\C-x\c" 'compile)
-(global-set-key "\M-\r" 'compile)
+(global-set-key "\C-x\c" 'my-compile)
+(global-set-key "\M-\r" 'my-compile)
 (global-set-key [?\C-=] 'indent-region)
 (global-set-key [?\M-=] 'indent-region)
 (global-set-key [?\C--] 'undo)
