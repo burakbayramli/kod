@@ -9,23 +9,17 @@ import select
 fout = open("/tmp/rndplay.out","w")
 
 def my_random(upper):
-    r1 = random.choice(range(upper))
-    r2 = np.random.random()*upper
-    r3 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) % upper
-
     CHANNELS = 1; RATE = 16000; CHUNK = 2048
     RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
     audio = pyaudio.PyAudio()
     stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
     data = stream.read(CHUNK)
-    r4 = np.abs(np.array(struct.unpack('iiii',data[:16])).sum()) / upper
+    r = np.abs(np.array(struct.unpack('iiii',data[:16])).sum())
     stream.stop_stream()
     stream.close()
-    audio.terminate()
-    
-    return (int(r1)+int(r2)+int(r3)+int(r4)) % upper
-
+    audio.terminate()    
+    return int(r % upper)
 
 while True:
     print "Music Dir", sys.argv[1]
