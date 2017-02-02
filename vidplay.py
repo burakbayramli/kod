@@ -16,12 +16,13 @@ def my_random(upper):
     stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
     data = stream.read(CHUNK)
+    r3 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) % upper
     r4 = np.abs(np.array(struct.unpack('iiii',data[:16])).sum())
     stream.stop_stream()
     stream.close()
     audio.terminate()
     
-    return int(r4 % upper)
+    return int((r3 + r4) % upper)
 
 
 while True:

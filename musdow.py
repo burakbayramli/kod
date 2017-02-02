@@ -4,9 +4,8 @@ Downloads 10 songs from a few known sites.
 
 import re, requests, random, os
 
-urls = ["http://132.248.192.201/Mi_musica/"]
-#urls = ["http://132.248.192.201/Mi_musica/",
-#        "http://hypem.com/download/", "http://freeteknomusic.org/mp3/"]
+urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/"]
+#urls = ["http://132.248.192.201/Mi_musica/"]
 
 def get_songs(url,songs):
     os.chdir("/home/burak/Music")
