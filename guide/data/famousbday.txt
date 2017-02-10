@@ -39697,4 +39697,5 @@ Ahmet Kekec:Gazeteci:3/1/1961
 Numan Kurtulmus:Politikaci:23/3/1959
 Yann LeCun:Scientist:8/7/1960
 Martin Schulz:Politician:20/12/1955
-Cemil Ertem:Ekonomist:3/2/????
+Cemil Ertem:Ekonomist:3/2/1949
+Yigit Bulut:Hiyar:1/1/1972
