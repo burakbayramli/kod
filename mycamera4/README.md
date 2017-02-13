@@ -11,8 +11,15 @@ dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
 
 ![](bass2.png)
 
-Her olcum icin ayri bir txt dosyasi var, analiz amaciyla bu dosyalari USB ile
-dizustune aktarmak yeterli.
+Her ölçüm için ayrı bir txt dosyası var, analiz amaçıyla bu dosyaları
+USB ile dizüstüne aktarmak yeterli. Her veri dosyasındaki satır sayısı
+ve kameranın kaydettiği tek resim (frame) sayısı birbiriyle aynı, yani
+eğer ivme algılayıcından 20 satır kaydedildiyse, yön algılayıcından da 20
+satır kaydedilmiş demektir, ve her satırın zaman indisi birbiriyle eşittir.
+Yani herhangi bir zaman anında tüm algılayıcılardan alınan veri aynı anda
+bellege alınır. Böylece sonradan analiz sırasında odaklanan zaman diliminde
+tüm ölçümlerin hangi seviyede olduğu bilinebilir. 
+
 
 # Haritada Yer Gostermek
 
