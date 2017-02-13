@@ -2,7 +2,7 @@
 MyCamera
 ========
 
-Kamera resimleri, yön algılayıcısı (orientatıon sensor), GPS
+Kamera resimleri, yön algılayıcısı (orientation sensor), GPS
 değerleri, ivme algılayıcı (accelerometer) belli aralıklarla
 biriktirir, ve istendiği anda (Rec düğmesine basarak) sonuçları
 telefon dizinine kaydeder. Dosya SDCARD/Bass altında bir numaralı
@@ -14,17 +14,17 @@ dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
 Her ölçüm için ayrı bir txt dosyası var, analiz amaçıyla bu dosyaları
 USB ile dizüstüne aktarmak yeterli. Her veri dosyasındaki satır sayısı
 ve kameranın kaydettiği tek resim (frame) sayısı birbiriyle aynı, yani
-eğer ivme algılayıcından 20 satır kaydedildiyse, yön algılayıcından da 20
-satır kaydedilmiş demektir, ve her satırın zaman indisi birbiriyle eşittir.
-Yani herhangi bir zaman anında tüm algılayıcılardan alınan veri aynı anda
-bellege alınır. Böylece sonradan analiz sırasında odaklanan zaman diliminde
-tüm ölçümlerin hangi seviyede olduğu bilinebilir. 
+eğer ivme algılayıcından 20 satır kaydedildiyse, yön algılayıcısından
+da 20 satır kaydedilmiş demektir, ve her satırın zaman indisi
+birbiriyle eşittir.  Yani herhangi bir zaman anında tüm
+algılayıcılardan alınan veri aynı anda bellege alınır. Böylece
+sonradan analiz sırasında odaklanan zaman diliminde tüm ölçümlerin
+hangi seviyede olduğu bilinebilir.
 
+# Haritalama
 
-# Haritada Yer Gostermek
-
-Uygulama icinde ve eğer GPS baglantisi kurulduysa Map düğmesina
-basılarak o anda olunan yerin haritası alınabilir. Haritalar bir zıp
+Uygulama içinde ve eğer GPS bağlantısı kurulduysa Map düğmesine
+basılarak o anda olunan yerin haritası alınabilir. Haritalar bir zip
 dosyası içinde, örnek haritalar
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
@@ -58,11 +58,11 @@ Android / Java tekniği olarak faydalı olabilecek bazı kod bölümleri:
 
 ## Grafikleme
 
-Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita zıp
-dosyalarını kullanrak herhangi bir enlem / boylamı harita üzerinde
-grafiklemek mümkün, alttaki kod kullanılabilir. Mesela ilk nokta için
-kutsal bir yeri seçelim, mesela Kabe - 40.987659,29.036428. Diğeri
-künefe yenebilecek güzel bir yer, 40.992186,29.039228. Grafik altta,
+Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita, zip
+dosyalarını üzerinden herhangi bir enlem / boylamı harita üzerinde
+göstermek için kullanılabilir. Örnek olarak kutsal bir yeri seçelim,
+mesela Kabe, - 40.987659,29.036428 kordinatlarında. Diğeri künefe
+yenebilecek güzel bir yer, 40.992186,29.039228. Grafik altta,
 
 ```python
 import pandas as pd, io
