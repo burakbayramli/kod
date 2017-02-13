@@ -5,17 +5,20 @@ MyCamera
 Kamera resimleri, yön algılayıcısı (orientatıon sensor), GPS
 değerleri, ivme algılayıcı (accelerometer) belli aralıklarla
 biriktirir, ve istendiği anda (Rec düğmesine basarak) sonuçları
-telefon dizinine kaydeder. Dosya SDCARD/Başs altında bir numaralı
+telefon dizinine kaydeder. Dosya SDCARD/Bass altında bir numaralı
 dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
 ölçümü arka arkaya kaydetmek mümkün olur.
 
 ![](bass2.png)
 
+Her olcum icin ayri bir txt dosyasi var, analiz amaciyla bu dosyalari USB ile
+dizustune aktarmak yeterli.
 
-# Haritada Yer Goste
+# Haritada Yer Gostermek
 
-Eger GPS okunduysa map dugmesina basilarak o anda olunan yerin
-haritasi alinabilir. Haritalar bir zip dosyasi icinde, ornek haritalar
+Uygulama icinde ve eğer GPS baglantisi kurulduysa Map düğmesina
+basılarak o anda olunan yerin haritası alınabilir. Haritalar bir zıp
+dosyası içinde, örnek haritalar
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
 
@@ -25,35 +28,34 @@ https://dl.dropboxusercontent.com/u/1570604/data/world1.zip
 
 https://dl.dropboxusercontent.com/u/1570604/data/world2.zip
 
-Bu dosyayi SDCARD/Bass/ dizini altina kopyalamak yeterli, bir de app
-baslatilinca hangi harita secildigi de girilmeli.
+Bu dosyayı SDCARD/Başs/ dizini altına kopyalamak yeterli, bu dosyalara
+işaret eden menü seçenekleri kodun içinde. Daha fazla harita eklemek
+isteyenler kodda değişim yapmalı.
 
-Dosya icindeki harita parcalari png dosyalari olarak kayitli, hangi
-GPS kordinatinin haritasi olduklari dosya isminde kodlanmis halde,
-kordinat haritanin orta noktasidir.
+Dosya içindeki harita parçaları png dosyaları olarak kayıtlı, hangi
+GPS kordinatının haritası oldukları dosya isminde kodlanmış halde,
+kordinat haritanın orta noktasıdır.
 
-Algilayici kayitlama uygulama bittiginde yapilir, kayit SDCARD/Bass
-altina yazilir. Dosyalari okumak icin ornek Python kodu alttadir.
+Android / Java tekniği olarak faydalı olabilecek bazı kod bölümleri:
 
-Android / Java teknigi olarak faydali olabilecek bazi kod bolumleri:
+- ZIP içinden dosya okumak: Tüm haritalar zıp içinde, zıp içine bakıp
+  oradaki dosya isimlerini almak, sonra istenilen tek dosyayı okuma
+  tekniği var.
 
-- ZIP icinden dosya okumak: Tum haritalar zip icinde, zip icine bakip
-  oradaki dosya isimlerini almak, sonra istenilen tek dosyayi okuma
-  teknigi var.
-
-- Duzenli Ifadeler (Regex): Harita orta noktasi kordinati harita dosya
-  isminde kodlu oldugu icin kordinatin geri alinmasi dosya ismini
-  regex ile tarayip icinden GPS enlem, boylam verisini almakla
-  oluyor. Dosya isminde kordinat kodlama basitlik amacli yapildi, eger
-  ayri bir metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana
-  amac her zaman kod (veri) idaresinde kolaylik.
+- Düzenli İfadeler (Regex): Harita orta noktası kordinatı harita dosya
+  isminde kodlu olduğu için kordinatın geri alınması dosya ismini
+  regex ile tarayıp içinden GPS enlem, boylam verisini almakla
+  oluyor. Dosya isminde kordinat kodlama basitlik amaçlı yapıldı, eğer
+  ayrı bir metin dosyasında kayıt olsaydı idare etmek zorlaşırdı. Ana
+  amaç her zaman kod (veri) idaresinde kolaylık.
 
 ## Grafikleme
 
-Herhangi bir enlem / boylami harita uzerinde grafiklemek icin alttaki
-kod kullanilabilir. Mesela ilk nokta icin kutsal bir yeri secelim,
-mesela Kabe - 40.987659,29.036428. Digeri kunefe yenebilecek guzel bir
-yer, 40.992186,29.039228. Grafik altta,
+Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita zıp
+dosyalarını kullanrak herhangi bir enlem / boylamı harita üzerinde
+grafiklemek mümkün, alttaki kod kullanılabilir. Mesela ilk nokta için
+kutsal bir yeri seçelim, mesela Kabe - 40.987659,29.036428. Diğeri
+künefe yenebilecek güzel bir yer, 40.992186,29.039228. Grafik altta,
 
 ```python
 import pandas as pd, io
@@ -120,6 +122,9 @@ istanbul_map_40_9890312632_29_0305433684.png
 ```
 
 ![](istanbul.png)
+
+Kameranın kaydettiği video'nun herhangi bir zaman dilimindeki tek resmini elde
+etmek için alttaki kod kullanılabilir. 
 
 
 English
