@@ -9,7 +9,7 @@ telefon dizinine kaydeder. Dosya SDCARD/Başs altında bir numaralı
 dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
 ölçümü arka arkaya kaydetmek mümkün olur.
 
-![](bass.png)
+![](bass2.png)
 
 
 # Haritada Yer Goste
