@@ -2,10 +2,20 @@
 MyCamera
 ========
 
-Kamera resimleri, yon algilayicisi (orientation sensor), GPS
-degerlerini belli araliklarla kaydeder. Eger GPS okunduysa map
-dugmesina basilarak o anda olunan yerin haritasi alinabilir. Haritalar
-bir zip dosyasi icinde, ornek haritalar
+Kamera resimleri, yön algılayıcısı (orientatıon sensor), GPS
+değerleri, ivme algılayıcı (accelerometer) belli aralıklarla
+biriktirir, ve istendiği anda (Rec düğmesine basarak) sonuçları
+telefon dizinine kaydeder. Dosya SDCARD/Başs altında bir numaralı
+dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
+ölçümü arka arkaya kaydetmek mümkün olur.
+
+![](bass.png)
+
+
+# Haritada Yer Goste
+
+Eger GPS okunduysa map dugmesina basilarak o anda olunan yerin
+haritasi alinabilir. Haritalar bir zip dosyasi icinde, ornek haritalar
 
 https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
 
@@ -38,7 +48,7 @@ Android / Java teknigi olarak faydali olabilecek bazi kod bolumleri:
   ayri bir metin dosyasinda kayit olsaydi idare etmek zorlasirdi. Ana
   amac her zaman kod (veri) idaresinde kolaylik.
 
-# Grafikleme
+## Grafikleme
 
 Herhangi bir enlem / boylami harita uzerinde grafiklemek icin alttaki
 kod kullanilabilir. Mesela ilk nokta icin kutsal bir yeri secelim,
