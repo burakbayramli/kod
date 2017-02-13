@@ -2,16 +2,16 @@
 MyCamera
 ========
 
-Kamera resimleri, yön algılayıcısı (orientation sensor), GPS
-değerleri, ivme algılayıcı (accelerometer) belli aralıklarla
-biriktirir, ve istendiği anda (Rec düğmesine basarak) sonuçları
-telefon dizinine kaydeder. Dosya SDCARD/Bass altında bir numaralı
-dizindir, her Rec sonrası yeni bir dizin yaratılır. Böylece birkaç
-ölçümü arka arkaya kaydetmek mümkün olur.
+Kamera resimlerini, yön algılayıcısı (orientation sensor), GPS, ivme
+algılayıcı (accelerometer) değerlerini belli aralıklarla biriktirir,
+ve istendiği anda (Rec düğmesine basarak) sonuçları telefon dizinine
+kaydeder. Dosyalar SDCARD/Bass altında bir numaralı dizindedir, her
+Rec sonrası yeni bir dizin yaratılır. Böylece birkaç ölçümü arka
+arkaya kaydetmek mümkün olur.
 
 ![](bass2.png)
 
-Her ölçüm için ayrı bir txt dosyası var, analiz amaçıyla bu dosyaları
+Her ölçüm için ayrı bir txt dosyası var, analiz amacıyla bu dosyaları
 USB ile dizüstüne aktarmak yeterli. Her veri dosyasındaki satır sayısı
 ve kameranın kaydettiği tek resim (frame) sayısı birbiriyle aynı, yani
 eğer ivme algılayıcından 20 satır kaydedildiyse, yön algılayıcısından
@@ -35,7 +35,7 @@ https://dl.dropboxusercontent.com/u/1570604/data/world1.zip
 
 https://dl.dropboxusercontent.com/u/1570604/data/world2.zip
 
-Bu dosyayı SDCARD/Başs/ dizini altına kopyalamak yeterli, bu dosyalara
+Bu dosyaları SDCARD/Bass/ dizini altına kopyalamak yeterli, dosyalara
 işaret eden menü seçenekleri kodun içinde. Daha fazla harita eklemek
 isteyenler kodda değişim yapmalı.
 
@@ -60,9 +60,8 @@ Android / Java tekniği olarak faydalı olabilecek bazı kod bölümleri:
 
 Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita, zip
 dosyalarını üzerinden herhangi bir enlem / boylamı harita üzerinde
-göstermek için kullanılabilir. Örnek olarak kutsal bir yeri seçelim,
-mesela Kabe, - 40.987659,29.036428 kordinatlarında. Diğeri künefe
-yenebilecek güzel bir yer, 40.992186,29.039228. Grafik altta,
+göstermek için kullanılabilir. Örnek olarak 40.987659,29.036428,
+diğeri bir restoran 40.992186,29.039228. Grafik altta,
 
 ```python
 import pandas as pd, io
