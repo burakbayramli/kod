@@ -23,7 +23,7 @@ hangi seviyede olduğu bilinebilir.
 
 Android telefonun eksenleri şöyledir,
 
-![](and.png)
+![](and2.png)
 
 x,y,z eksenleri sırasıyla 0,1,2 değerleri içinde. 
 
