@@ -21,6 +21,12 @@ algılayıcılardan alınan veri aynı anda bellege alınır. Böylece
 sonradan analiz sırasında odaklanan zaman diliminde tüm ölçümlerin
 hangi seviyede olduğu bilinebilir.
 
+Android telefonun eksenleri şöyledir,
+
+![](and.png)
+
+x,y,z eksenleri sırasıyla 0,1,2 değerleri içinde. 
+
 # Haritalama
 
 Uygulama içinde ve eğer GPS bağlantısı kurulduysa Map düğmesine
