@@ -58,13 +58,17 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	
 	// hafizaya ekle
 	images.add(arg0);
-	orientations.add(Float.toString(mCameraActivity.mOrientationAngles[0]) + " " +
+	String time = "" + Calendar.getInstance().getTimeInMillis();
+	orientations.add(time + " " +
+			 Float.toString(mCameraActivity.mOrientationAngles[0]) + " " +
 			 Float.toString(mCameraActivity.mOrientationAngles[1]) + " " +
 			 Float.toString(mCameraActivity.mOrientationAngles[2]));	
-	accelerations.add(Float.toString(mCameraActivity.mAccelerometerReading[0]) + " " +
+	accelerations.add(time + " " +
+			  Float.toString(mCameraActivity.mAccelerometerReading[0]) + " " +
 			  Float.toString(mCameraActivity.mAccelerometerReading[1]) + " " +
 			  Float.toString(mCameraActivity.mAccelerometerReading[2]));	
-	laccelerations.add(Float.toString(mCameraActivity.mLAccelerometerReading[0]) + " " +
+	laccelerations.add(time + " " +
+			   Float.toString(mCameraActivity.mLAccelerometerReading[0]) + " " +
 			   Float.toString(mCameraActivity.mLAccelerometerReading[1]) + " " +
 			   Float.toString(mCameraActivity.mLAccelerometerReading[2]));	
 	if (gps != null) gps.add(mCameraActivity.gpsInfo2);
