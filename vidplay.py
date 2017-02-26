@@ -28,6 +28,7 @@ def my_random(upper):
 while True:
     print "Music Dir", sys.argv[1]    
     dirs,list = ls(sys.argv[1])
+    print "Files", len(list)
     idx = my_random(len(list))
     print "show idx selected", idx, "song", list[idx][0]
     fout.write(str(list[idx][0]) + "\n")
