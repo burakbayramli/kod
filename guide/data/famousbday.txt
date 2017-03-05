@@ -3,7 +3,7 @@ Irem:Tanidik:27/10/1987
 Sabahattin Dede:Tanidik:1/7/1920
 Jen:Tanidik:21/9/1970
 Prash:Tanidik:16/2/1969
-Yannos:Tanidik:16/19/1974
+Yannos:Tanidik:16/9/1974
 Amca:Tanidik:19/1/1949
 Teyze:Tanidik:23/10/1950
 Bengio:Tanidik:19/7/1979
