@@ -47,7 +47,7 @@
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
 (setq img-viewer-exe "eog") 
-(setq chrome-exe "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe") 
+(setq chrome-exe "/usr/bin/chromium-browser") 
 
 (defun open-file-ext ()
   "In dired, open the file named on this line."
