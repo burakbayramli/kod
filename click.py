@@ -19,7 +19,7 @@ class PointRec:
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-ax.set_xlim(0, 20);ax.set_ylim(0, 20)
+ax.set_xlim(0, 320);ax.set_ylim(0, 240)
 ax.set_title('click to record points, exit to save to out.csv')
 line, = ax.plot([0], [0])  
 rec = PointRec(line,ax,fig)
