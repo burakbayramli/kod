@@ -248,7 +248,6 @@ public class MyCamera extends Activity implements SensorEventListener,
 		mcc + ":" +
 		mnc + ":" +
 		String.valueOf(lac) + ":" +
-		String.valueOf(lac) + ":" +
 		String.valueOf(cid) + ":";		
 	}
     }    
