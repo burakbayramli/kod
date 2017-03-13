@@ -34,6 +34,7 @@ public class CameraPreview implements SurfaceHolder.Callback,
     private ArrayList<String> laccelerations = null;
     private ArrayList<String> gps = null;
     private ArrayList<String> sat = null;
+    private ArrayList<String> cell = null;
     public MyCamera mCameraActivity = null;
     public short[] buffer = new short[10000];
 	
@@ -95,6 +96,7 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	laccelerations = new ArrayList<String>();
 	gps = new ArrayList<String>();
 	sat = new ArrayList<String>();
+	cell = new ArrayList<String>();
 	
 	mCamera.startPreview();
     }
@@ -204,6 +206,22 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	    Log.e("Exception", "File write failed: " + e.toString());
 	} 
 
+	File filesc = new File(path, "cell.txt");
+	try {
+	    filesc.createNewFile();
+	    FileOutputStream fOut = new FileOutputStream(filesc);
+	    OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+	    for (String xx : cell) {
+		myOutWriter.append(xx);
+		myOutWriter.append("\n");
+	    }
+	    myOutWriter.close();
+	    fOut.flush();
+	    fOut.close();
+	}
+	catch (IOException e) {
+	    Log.e("Exception", "File write failed: " + e.toString());
+	} 
 
 	File filess = new File(path, "satellites.txt");
 	try {

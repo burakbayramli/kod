@@ -15,6 +15,8 @@ import android.util.Log;
 import android.os.HandlerThread;
 import android.speech.tts.TextToSpeech;
 import android.widget.*;
+import android.telephony.*;
+import android.telephony.gsm.*;
 import java.io.*;
 import java.util.*;
 import java.util.zip.*;
@@ -40,6 +42,7 @@ public class MyCamera extends Activity implements SensorEventListener,
     public String gpsInfo = null;
     public String gpsInfo2 = null;
     public String satInfo = null;
+    public String cellInfo = null;
     public double latitude;
     public double longitude;
     LocationManager locationManager = null;
@@ -61,6 +64,8 @@ public class MyCamera extends Activity implements SensorEventListener,
 
     public MyApp appState = null;
     
+    public TelephonyManager telephonyManager = null; 
+    
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
@@ -81,6 +86,12 @@ public class MyCamera extends Activity implements SensorEventListener,
 	locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener, t.getLooper());
 
+	telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+	CellLocationListener phoneListener = new CellLocationListener();
+	phoneListener.parent = this;
+	phoneListener.telephonyManager = telephonyManager;
+	telephonyManager.listen(phoneListener, CellLocationListener.LISTEN_CELL_LOCATION);
+	
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  
 			     WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	
@@ -215,7 +226,33 @@ public class MyCamera extends Activity implements SensorEventListener,
 	    satInfo = strGpsStats;
 	}
     }
-   
+
+    public class CellLocationListener extends PhoneStateListener {
+
+	public TelephonyManager telephonyManager = null;
+	public MyCamera parent = null;
+	@Override
+	public void onCellLocationChanged(CellLocation location) {
+	    super.onCellLocationChanged(location);
+	    GsmCellLocation cellLocation = (GsmCellLocation)telephonyManager.getCellLocation(); 
+	    String networkOperator = telephonyManager.getNetworkOperator();
+	    String mcc = networkOperator.substring(0, 3);
+	    String mnc = networkOperator.substring(3);
+	    int cid = cellLocation.getCid();
+	    int lac = cellLocation.getLac();
+	    System.out.println("gsm location area code:"+String.valueOf(lac) );
+	    System.out.println("cid "+String.valueOf(cid) );
+	    System.out.println("mcc:"+mcc );
+	    System.out.println("mnc:"+mnc );
+	    parent.cellInfo = "" +
+		mcc + ":" +
+		mnc + ":" +
+		String.valueOf(lac) + ":" +
+		String.valueOf(lac) + ":" +
+		String.valueOf(cid) + ":";		
+	}
+    }    
+    
     public static class PrisLocationListener implements LocationListener{
 
 	private static final String TAG = PrisLocationListener.class.getSimpleName();
