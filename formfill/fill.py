@@ -19,7 +19,7 @@ except Exception, e:
     exit()
     
 for line in fillfile:
-    font_size = 20
+    font_size = 23
     locline = locfile.readline()
     line=line.replace("\n","")
     locline=locline.replace("\n","")
@@ -69,7 +69,7 @@ for line in fillfile:
     for line in line.split("\\"):                    
         draw = ImageDraw.Draw(img)    
         font = ImageFont.truetype("/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-C.ttf", font_size)
-        draw.text((x, y), line, font=font,fill='black')
+        draw.text((x, y), line, font=font,fill='blue')
         y += 30
 
 img.save(out)

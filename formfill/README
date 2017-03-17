@@ -68,8 +68,7 @@ coordinates.
 This tool uses ImageMagick, so make sure you install that first. Also,
 for the necessary Python libraries on Ubuntu you can use
 
-sudo apt-get install python python-tk idle python-pmw python-imaging
-python-imaging-tk
+sudo apt-get install python python-tk idle python-pmw python-imaging python-imaging-tk
 
 An improvement to this code could be using a vision algorithm to
 automatically detect the location of each box. There is a certain
