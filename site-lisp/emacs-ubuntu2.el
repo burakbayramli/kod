@@ -888,7 +888,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/bass")
 (find-file-other-window "/home/burak/Documents/bass/mycamera5/scripts")
-(find-file-other-window "/home/burak/Documents/classnotes/vision/vision_40lines")
+(find-file-other-window "/home/burak/Documents/classnotes/vision/vision_70road")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
