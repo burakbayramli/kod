@@ -829,9 +829,9 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
+(add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "ant debug -find")
 (add-to-list 'compile-history "ant installd -find")
-(add-to-list 'compile-history "python -u build.py")
 
 (defun reload-pymacs()
   (interactive)
@@ -879,15 +879,13 @@ This command does not push erased text to kill-ring."
 ;;
 (find-file-other-window "/tmp")
 (find-file-other-window "/home/burak/Documents/kod/guide")
-(find-file-other-window "/home/burak/Documents/classnotes/app_math/dict")
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
-(find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/bass")
-(find-file-other-window "/home/burak/Documents/bass/mycamera5/scripts")
+(find-file-other-window "/home/burak/Documents/bass/mycamera6")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)

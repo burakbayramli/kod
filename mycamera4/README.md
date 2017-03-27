@@ -33,13 +33,13 @@ Uygulama içinde ve eğer GPS bağlantısı kurulduysa Map düğmesine
 basılarak o anda olunan yerin haritası alınabilir. Haritalar bir zip
 dosyası içinde, örnek haritalar
 
-https://dl.dropboxusercontent.com/u/1570604/data/istanbul.zip
+https://www.dropbox.com/s/uo1u5fps9u4ki36/istanbul.zip?dl=1
 
-https://dl.dropboxusercontent.com/u/1570604/data/berlin.zip
+https://www.dropbox.com/s/exu9dqhz5kquloo/berlin.zip?dl=1
 
-https://dl.dropboxusercontent.com/u/1570604/data/world1.zip
+https://www.dropbox.com/s/tmgdjekhfiftve6/world1.zip?dl=1
 
-https://dl.dropboxusercontent.com/u/1570604/data/world2.zip
+https://www.dropbox.com/s/xnm2kc77xb6aq0d/world2.zip?dl=1
 
 Bu dosyaları SDCARD/Bass/ dizini altına kopyalamak yeterli, dosyalara
 işaret eden menü seçenekleri kodun içinde. Daha fazla harita eklemek
