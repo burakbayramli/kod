@@ -1,7 +1,7 @@
 
 ## Veri Islemek
 
-Telefon tarafindan toplanan verileri nasil kullaniriz? 
+Telefon tarafından toplanan verileri nasıl kullanırız? 
 
 ```python
 import pandas as pd
@@ -14,7 +14,7 @@ df['cum2'] = df.cum.shift(-1)
 df.columns = ['x','fr','to']
 ```
 
-Herhangi zaman aninda gittigimiz yon,
+Herhangi zaman anında gittiğimiz yön,
 
 ```python
 dforient = pd.read_csv(dir + "orientations.txt",header=None,sep=' ')
@@ -42,7 +42,7 @@ print str(dfgps.ix[frame][0])[:6] + " " + \
 52.511 13.390 0.6519   
 ```
 
-Herhangi bir video karesini cekip cikarmak
+Herhangi bir video karesini çekip çıkarmak
 
 
 ```python
@@ -57,7 +57,7 @@ im.save('out1.png')
 ![](out1.png)
 
 
-Dort kosesi uzerinden belirtilen bir doortgeni ekrana basmak.
+Dört köşesi üzerinden belirtilen bir doortgeni ekrana basmak.
 
 ```python
 import util
@@ -72,10 +72,10 @@ plt.savefig('out2.png')
 ![](out2.png)
 
 
-Bazen bu dortgenin icindeki pikselleri bulmak gerekebilir. Fakat tum
-pikselleri de bulmak kulfetli olacaktir, en iyisi resim kordinatlari
-icinde tanimli birornek (uniform) bir dagilimdan sayilar (kordinatlar)
-orneklemek, ve bu daha az sayidaki kordinatlari kullanmak.
+Bazen bu dörtgenin içindeki pikselleri bulmak gerekebilir. Fakat tüm
+pikselleri de bulmak külfetli olacaktır, en iyisi resim kordinatları
+içinde tanımlı birörnek (üniform) bir dağılımdan sayılar (kordinatlar)
+örneklemek, ve bu daha az sayıdaki kordinatları kullanmak.
 
 ```python
 np.random.seed(1)
