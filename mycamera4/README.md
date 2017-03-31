@@ -62,6 +62,67 @@ Android / Java tekniği olarak faydalı olabilecek bazı kod bölümleri:
   ayrı bir metin dosyasında kayıt olsaydı idare etmek zorlaşırdı. Ana
   amaç her zaman kod (veri) idaresinde kolaylık.
 
+Haritalari nasil aldik? Google'in statik harita imajlari indirmek icin
+guzel bir API'si var, "Static Maps API" deniyor.
+
+https://developers.google.com/maps/documentation/static-maps/
+
+Bu API'yi kullanmak icin bir API anahtari yaratmak lazim, "Get Key"
+ile bu yapilabilir (bir proje ile alakalandirmak gerekiyor, bu proje
+
+https://console.cloud.google.com
+
+uzerinden yaratilabilir.
+
+API alındıktan sonra, iki enlem/boylam arasına düşen tüm bölgeyi bir
+dörtgen parçalara ayırabiliriz, ve bu parçaların köşe noktalarındaki
+enlem/boylam merkezli belli büyüklükteki haritaları teker teker
+indiririz. Alttaki örnek İstanbul'daki iki kordinat arasını 2x2 yani 4
+bölgeye bölüyor, ve haritaları indiriyor (önce `istanbul` adında bir
+alt dizin yaratın).
+
+
+```python
+import itertools, time
+import pandas as pd, time
+import numpy as np
+import matplotlib.pyplot as plt
+from math import sin, cos, sqrt, atan2, radians
+from io import BytesIO
+import Image, urllib, os.path
+
+def get_map(lat, lon, region, zoom):
+    api = "[API ANAHTARI BURAYA]"
+    url = "http://maps.googleapis.com/maps/api/staticmap?center=" + \
+    	  "%f,%f&size=800x800&zoom=%d&key=%s" % (lat,lon,zoom,api)
+    print url
+    lats = str(lat).replace(".","_")
+    lons = str(lon).replace(".","_")
+    fout = "%s/%s_map_%s_%s.png" % (region,region,lats,lons)
+    if os.path.isfile(fout):
+        print "Already downloaded..."
+        return False
+    buffer = BytesIO(urllib.urlopen(url).read())
+    image = Image.open(buffer)
+    image.save(fout)
+    return True
+    
+def get_maps(c1,c2,px,py,region,zoom=15):    
+    a= np.linspace(min(c1[0],c2[0]), max(c1[0],c2[0]), px)
+    b= np.linspace(min(c1[1],c2[1]), max(c1[1],c2[1]), py)
+    aa,bb = np.meshgrid(a,b)
+    for x,y in itertools.izip(aa.flatten(),bb.flatten()):
+        if get_map(x,y,region,zoom) == False: continue
+
+
+if __name__ == "__main__":     
+    c1 = (41.061257, 28.99161); c2 = (41.068375, 28.998614)
+    get_maps(c1,c2,2,2,region="istanbul")
+
+```
+
+Haritayı Dizüstünde Kullanmak
+
 Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita, zip
 dosyalarını üzerinden herhangi bir enlem / boylamı harita üzerinde
 göstermek için kullanılabilir. Örnek olarak 40.987659,29.036428,
