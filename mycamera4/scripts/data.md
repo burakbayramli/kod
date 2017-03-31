@@ -72,10 +72,12 @@ plt.savefig('out2.png')
 
 
 Bazen bu dörtgenin içindeki pikselleri bulmak gerekebilir. Fakat tüm
-pikselleri de bulmak külfetli olacaktır, en iyisi resim kordinatları
-içinde tanımlı birörnek (uniform) bir dağılımdan sayılar (kordinatlar)
-örneklemek, bu kordinatlardan dörtgen içine düşenleri bulmak, ve bu
-daha az sayıdaki kordinatları kullanmak.
+pikselleri de bulmak fazla yük getirebilir, 100x100 boyutundaki "ufak"
+bir dörtgen içinde bile 10000 piksel vardır, ki üç boyutlu HSV ya da
+RGB için 30000 veri noktasındak bahsediyoruz, en iyisi resim
+kordinatları içinde tanımlı birörnek (uniform) bir dağılımdan sayılar
+(kordinatlar) örneklemek, bu kordinatlardan dörtgen içine düşenleri
+bulmak, ve boylece daha az sayıdaki kordinat kullanmak.
 
 ```python
 np.random.seed(1)
@@ -126,7 +128,7 @@ print eval([156,17,191], H, edges)
 1.23512073034e-06
 ```
 
-## OPENCV
+## OpenCN
 
 Daha bitmedi (!). Eger video kareleri uzerinde OpenCV kullanmak
 istersek, mesela alttaki gayet basit bir gosterim kodu,
