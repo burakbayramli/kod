@@ -81,7 +81,8 @@ bulmak, ve boylece daha az sayıdaki kordinat kullanmak.
 
 ```python
 np.random.seed(1)
-random_points = np.random.uniform(0, 320, (1000, 2)).astype(np.int)
+N = 1000 # orneklenen kordinat sayisi
+random_points = np.random.uniform(0, 320, (N, 2)).astype(np.int)
 random_points = random_points[random_points[:,1] < 240]
 mask = np.array([util.inside_quad(quad, p)[0] for p in random_points])
 plt.plot(random_points[mask][:,0], h-random_points[mask][:,1], 'r.')
