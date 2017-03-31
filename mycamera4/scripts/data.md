@@ -74,7 +74,8 @@ plt.savefig('out2.png')
 Bazen bu dörtgenin içindeki pikselleri bulmak gerekebilir. Fakat tüm
 pikselleri de bulmak külfetli olacaktır, en iyisi resim kordinatları
 içinde tanımlı birörnek (üniform) bir dağılımdan sayılar (kordinatlar)
-örneklemek, ve bu daha az sayıdaki kordinatları kullanmak.
+örneklemek, bu kordinatlardan dörtgen içine düşenleri bulmak, ve bu
+daha az sayıdaki kordinatları kullanmak.
 
 ```python
 np.random.seed(1)
@@ -89,7 +90,7 @@ plt.savefig('out3.png')
 
 ![](out3.png)
 
-
+Yardımcı kodlar [şurada](util.py) bulunabilir.
 
 
 
