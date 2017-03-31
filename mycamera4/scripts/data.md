@@ -181,7 +181,6 @@ def draw_detections(img, rects, thickness = 1):
         pad_w, pad_h = int(0.15*w), int(0.05*h)
         cv2.rectangle(img, (x+pad_w, y+pad_h), (x+w-pad_w, y+h-pad_h), (0, 255, 0), thickness)
 
-dir = "./data/mitte4/"
 frame = 195
 im = np.array(util.get_frame(dir, frame, hsv=False))
 im2 = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
