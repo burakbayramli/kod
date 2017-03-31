@@ -129,7 +129,7 @@ print eval([156,17,191], H, edges)
 1.23512073034e-06
 ```
 
-## OpenCN
+## OpenCv
 
 Daha bitmedi (!). Eger video kareleri uzerinde OpenCV kullanmak
 istersek, mesela alttaki gayet basit bir gosterim kodu,
