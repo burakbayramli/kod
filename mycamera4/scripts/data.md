@@ -168,7 +168,39 @@ for frame in ...
 
 İşletip sonuçları görebiliriz.
 
+Tek imajlar üzerinde, mesela kişi (ya da dik duran objeler) bulmak,
 
+```python
+import time, io, cv2
+import numpy as np
+from PIL import Image, ImageDraw
+import util
+
+def draw_detections(img, rects, thickness = 1):
+    for x, y, w, h in rects:
+        pad_w, pad_h = int(0.15*w), int(0.05*h)
+        cv2.rectangle(img, (x+pad_w, y+pad_h), (x+w-pad_w, y+h-pad_h), (0, 255, 0), thickness)
+
+dir = "./data/mitte4/"
+frame = 195
+im = np.array(util.get_frame(dir, frame, hsv=False))
+im2 = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
+hog = cv2.HOGDescriptor()
+hog.setSVMDetector( cv2.HOGDescriptor_getDefaultPeopleDetector() )
+found, w = hog.detectMultiScale(im2, winStride=(8,8), padding=(32,32), scale=1.05)
+found_filtered = []
+for ri, r in enumerate(found):
+    for qi, q in enumerate(found):
+        if ri != qi and inside(r, q):
+            break
+    else:
+        found_filtered.append(r)
+draw_detections(im2, found)
+draw_detections(im2, found_filtered, 3)
+cv2.imwrite('out4.jpg', im2)
+```
+
+![](out4.png)
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
