@@ -52,7 +52,9 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	// onizleme sirasinda her kamera goruntusu (tek imaj olarak) bu
 	// metota gecilir.
 
-	// sayim yap, ki bazi goruntuleri almadan atabilelim
+	// bu fonksiyone kac gere gelindigini say, ki bazi goruntuleri
+	// almadan atabilelim, saniye basina daha fazla goruntu toplamak
+	// icin alttaki sayi kucultulebilir.
 	frameCounter++;
 	if (frameCounter < 10) return;
 	frameCounter = 0;
@@ -241,7 +243,7 @@ public class CameraPreview implements SurfaceHolder.Callback,
 	} 
 
 
-	File filec = new File(path, "cam.txt");
+	File filec = new File(path, "cam.bin");
 	File files = new File(path, "sizes.txt");
 	try {
 	    filec.createNewFile();

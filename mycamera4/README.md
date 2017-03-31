@@ -136,7 +136,7 @@ istanbul_map_40_9890312632_29_0305433684.png
 ![](istanbul.png)
 
 Kameranın kaydettiği video'nun herhangi bir zaman dilimindeki tek resmini elde
-etmek için alttaki kod kullanılabilir. 
+etmek ve diger bilgilere erismek icin ornek kodlar [surada](#scripts/data.md)
 
 
 English
@@ -149,28 +149,7 @@ frame. Whenever a frame is recorded, orientation, GPS will be recorded
 along with it.
 
 The data files are dumped under SDCARD/Bass folder, which can be taken
-transferred to notebook for analysis, etc. Data can be analyzed with,
-
-```
-import pandas as pd
-
-data = np.fromfile("cam.txt", dtype=np.uint8)
-df = pd.read_csv("sizes.txt",header=None)
-df['cum'] = df.cumsum()
-df['cum2'] = df.cum.shift(-1)
-df.columns = ['x','fr','to']
-```
-
-for textual data, and for cam images
-
-```
-import io
-from PIL import Image
-frame = 8
-arr = data[int(df.ix[frame]['fr']) : int(df.ix[frame]['to'])]
-im = Image.open(io.BytesIO(arr))
-im.save('out.png')
-```
+transferred to notebook for analysis.
 
 There is also offline mapping support, see the sample zip data file
 above. Simply drop this file under SDCARD/Bass.
