@@ -134,7 +134,7 @@ istanbul_map_40_9890312632_29_0305433684.png
 ![](istanbul.png)
 
 Kameranın kaydettiği video'nun herhangi bir zaman dilimindeki tek resmini elde
-etmek ve diger bilgilere erismek icin ornek kodlar [surada](#scripts/data.md)
+etmek ve diger bilgilere erismek icin ornek kodlar [surada](scripts/data.md)
 
 
 English
