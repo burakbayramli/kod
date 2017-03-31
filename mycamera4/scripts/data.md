@@ -146,8 +146,10 @@ for frame in range(100,150):
     im2 = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
     cv2.imshow('frame',im2)
     k = cv2.waitKey(100)
-
 ```
+
+Görüldüğü gibi bazı dönüşümler gerekti, kaydedilen görüntü RGB, fakat
+OpenCV'nin ekrana basma kodu BGR istiyor. 
 
 Video [stabilize
 etmek](http://sayilarvekuramlar.blogspot.co.uk/2015/12/coklu-baks-ac-geometrisi-multiple-view.html)
