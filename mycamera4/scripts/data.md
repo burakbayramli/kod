@@ -201,6 +201,61 @@ cv2.imwrite('out4.png', im2)
 
 ![](out4.png)
 
+```python
+im1 = np.array(util.get_frame(dir, 194, hsv=False))
+im1 = cv2.cvtColor(im1, cv2.COLOR_RGB2BGR)
+im2 = np.array(util.get_frame(dir, 195, hsv=False))
+im2 = cv2.cvtColor(im2, cv2.COLOR_RGB2BGR)
+
+# disparity range is tuned for 'aloe' image pair
+window_size = 3
+min_disp = 16
+num_disp = 112-min_disp
+stereo = cv2.StereoSGBM_create(minDisparity = min_disp,
+    numDisparities = num_disp,
+    blockSize = 16,
+    P1 = 8*3*window_size**2,
+    P2 = 32*3*window_size**2,
+    disp12MaxDiff = 1,
+    uniquenessRatio = 10,
+    speckleWindowSize = 100,
+    speckleRange = 32
+)
+print('computing disparity...')
+disp = stereo.compute(im1, im2).astype(np.float32) / 16.0
+print('generating 3d point cloud...',)
+h, w = im1.shape[:2]
+f = 0.8*w                          # guess for focal length
+Q = np.float32([[1, 0, 0, -0.5*w],
+                [0,-1, 0,  0.5*h], # turn points 180 deg around x-axis,
+                [0, 0, 0,     -f], # so that y-axis looks up
+                [0, 0, 1,      0]])
+points = cv2.reprojectImageTo3D(disp, Q)
+colors = cv2.cvtColor(im1, cv2.COLOR_BGR2RGB)
+mask = disp > disp.min()
+out_points = points[mask]
+out_colors = colors[mask]
+dout = (disp-min_disp)/num_disp
+cv2.imwrite('out5.png', dout)
+```
+
+```text
+computing disparity...
+('generating 3d point cloud...',)
+Out[1]: 
+True
+```
+
+
+
+
+
+
+
+
+
+
+
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
 
