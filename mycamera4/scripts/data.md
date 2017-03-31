@@ -14,6 +14,20 @@ df['cum2'] = df.cum.shift(-1)
 df.columns = ['x','fr','to']
 ```
 
+Herhangi bir video karesini çekip çıkarmak
+
+
+```python
+import io
+from PIL import Image
+frame = 30
+arr = data[int(df.ix[frame]['fr']) : int(df.ix[frame]['to'])]
+im = Image.open(io.BytesIO(arr))
+im.save('out1.png')
+```
+
+![](out1.png)
+
 Herhangi zaman anında gittiğimiz yön,
 
 ```python
@@ -41,21 +55,6 @@ print str(dfgps.ix[frame][0])[:6] + " " + \
 ```text
 52.511 13.390 0.6519   
 ```
-
-Herhangi bir video karesini çekip çıkarmak
-
-
-```python
-import io
-from PIL import Image
-frame = 30
-arr = data[int(df.ix[frame]['fr']) : int(df.ix[frame]['to'])]
-im = Image.open(io.BytesIO(arr))
-im.save('out1.png')
-```
-
-![](out1.png)
-
 
 Dört köşesi üzerinden belirtilen bir doortgeni ekrana basmak.
 
