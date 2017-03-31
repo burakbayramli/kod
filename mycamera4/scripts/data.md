@@ -196,7 +196,7 @@ for ri, r in enumerate(found):
         found_filtered.append(r)
 draw_detections(im2, found)
 draw_detections(im2, found_filtered, 3)
-cv2.imwrite('out4.jpg', im2)
+cv2.imwrite('out4.png', im2)
 ```
 
 ![](out4.png)
