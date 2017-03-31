@@ -99,19 +99,32 @@ bins=(8, 8, 8)
 nim = np.array(im)
 nim_quad = nim[random_points[mask][:,1],random_points[mask][:,0]]
 H, edges = np.histogramdd(nim_quad, bins=bins, normed=True, range=[(0,255),(0,255),(0,255)])
-H = np.reshape(H, (H.shape[0]*H.shape[1]*H.shape[2], 1))
 print 'H', H.shape, 'edges', len(edges)
 ```
 
 ```text
-H (512, 1) edges 3
+H (8, 8, 8) edges 3
 ```
 
+Bu histogram çok boyutlu, yani üç boyutlu HSV verisi üzerinde (8,8,8)
+kutuları yarattık, yani elimizde şimdi 8*8*8 tane kutu var. Bildiğimiz
+gibi bir histogram bir olasılıksal dağılımı ayrıksal olarak temsil
+eder. O zaman bu dağılıma herhangi bir HSV değerinin ne kadar olası olduğunu
+"sorabiliriz". 
 
+```python
+def eval(x, H, edges):
+    i=np.argmax(x[0]<edges[0])
+    j=np.argmax(x[1]<edges[1])
+    k=np.argmax(x[2]<edges[2])
+    return H[i-1,j-1,k-1]
 
+print eval([156,17,191], H, edges)
+```
 
-
-
+```text
+1.23512073034e-06
+```
 
 
 
