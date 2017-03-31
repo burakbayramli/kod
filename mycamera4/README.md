@@ -62,8 +62,6 @@ Android / Java tekniği olarak faydalı olabilecek bazı kod bölümleri:
   ayrı bir metin dosyasında kayıt olsaydı idare etmek zorlaşırdı. Ana
   amaç her zaman kod (veri) idaresinde kolaylık.
 
-## Harita Grafikleme
-
 Geliştirme ortamında üstteki uygulamanın kullandığı aynı harita, zip
 dosyalarını üzerinden herhangi bir enlem / boylamı harita üzerinde
 göstermek için kullanılabilir. Örnek olarak 40.987659,29.036428,
