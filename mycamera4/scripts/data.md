@@ -74,7 +74,7 @@ plt.savefig('out2.png')
 Bazen bu dörtgenin içindeki pikselleri bulmak gerekebilir. Fakat tüm
 pikselleri de bulmak fazla yük getirebilir, 100x100 boyutundaki "ufak"
 bir dörtgen içinde bile 10000 piksel vardır, ki üç boyutlu HSV ya da
-RGB için 30000 veri noktasındak bahsediyoruz, en iyisi resim
+RGB için 30000 veri noktasından bahsediyoruz, en iyisi resim
 kordinatları içinde tanımlı birörnek (uniform) bir dağılımdan sayılar
 (kordinatlar) örneklemek, bu kordinatlardan dörtgen içine düşenleri
 bulmak, ve boylece daha az sayıdaki kordinat kullanmak.
