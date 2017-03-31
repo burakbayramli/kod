@@ -146,7 +146,9 @@ for frame in range(100,150):
 
 ```
 
-Video stabilize etmek istersek, şu ekleri yaparız,
+Video [stabilize
+etmek](http://sayilarvekuramlar.blogspot.co.uk/2015/12/coklu-baks-ac-geometrisi-multiple-view.html)
+istersek, şu ekleri yaparız,
 
 ```python
 ..
