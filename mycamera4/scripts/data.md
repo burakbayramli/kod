@@ -29,6 +29,8 @@ im.save('out1.png')
 ![](out1.png)
 
 
+Dort kosesi uzerinden belirtilen bir doortgeni ekrana basmak.
+
 ```python
 import util
 im = util.get_frame(dir, 105)
@@ -41,6 +43,11 @@ plt.savefig('out2.png')
 
 ![](out2.png)
 
+
+Bazen bu dortgenin icindeki pikselleri bulmak gerekebilir. Fakat tum
+pikselleri de bulmak kulfetli olacaktir, en iyisi resim kordinatlari
+icinde tanimli birornek (uniform) bir dagilimdan sayilar (kordinatlar)
+orneklemek, ve bu daha az sayidaki kordinatlari kullanmak.
 
 ```python
 np.random.seed(1)
