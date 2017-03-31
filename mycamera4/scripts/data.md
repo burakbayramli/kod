@@ -73,7 +73,7 @@ plt.savefig('out2.png')
 
 Bazen bu dörtgenin içindeki pikselleri bulmak gerekebilir. Fakat tüm
 pikselleri de bulmak külfetli olacaktır, en iyisi resim kordinatları
-içinde tanımlı birörnek (üniform) bir dağılımdan sayılar (kordinatlar)
+içinde tanımlı birörnek (uniform) bir dağılımdan sayılar (kordinatlar)
 örneklemek, bu kordinatlardan dörtgen içine düşenleri bulmak, ve bu
 daha az sayıdaki kordinatları kullanmak.
 
