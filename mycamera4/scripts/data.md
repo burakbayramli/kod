@@ -126,6 +126,41 @@ print eval([156,17,191], H, edges)
 1.23512073034e-06
 ```
 
+## OPENCV
+
+Daha bitmedi (!). Eger video kareleri uzerinde OpenCV kullanmak
+istersek, mesela alttaki gayet basit bir gosterim kodu,
+
+```python
+import time, io, cv2
+import numpy as np
+from PIL import Image, ImageDraw
+import util
+
+dir = "./data/mitte4/"
+for frame in range(100,150):
+    im = np.array(util.get_frame(dir, frame, hsv=False))
+    im2 = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
+    cv2.imshow('frame',im2)
+    k = cv2.waitKey(100)
+
+```
+
+Video stabilize etmek istersek, şu ekleri yaparız,
+
+```python
+..
+vs = util.VS()
+for frame in ...
+    im = np.array(util.get_frame(dir, frame, hsv=False))
+    im2 = cv2.cvtColor(im, cv2.COLOR_RGB2BGR)
+    im3 = vs.stabilize(im2)
+    cv2.imshow('frame',im3)
+    ...    
+```
+
+İşletip sonuçları görebiliriz.
+
 
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
