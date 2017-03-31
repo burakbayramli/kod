@@ -90,6 +90,31 @@ plt.savefig('out3.png')
 
 ![](out3.png)
 
+Dörtgen içindeki kordinatların renk değerlerini alıp tüm bu değerlerin
+histogramını hesaplayabiliriz.
+
+
+```python
+bins=(8, 8, 8)
+nim = np.array(im)
+nim_quad = nim[random_points[mask][:,1],random_points[mask][:,0]]
+H, edges = np.histogramdd(nim_quad, bins=bins, normed=True, range=[(0,255),(0,255),(0,255)])
+H = np.reshape(H, (H.shape[0]*H.shape[1]*H.shape[2], 1))
+print 'H', H.shape, 'edges', len(edges)
+```
+
+```text
+H (512, 1) edges 3
+```
+
+
+
+
+
+
+
+
+
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
 
