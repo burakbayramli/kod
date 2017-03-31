@@ -1,5 +1,5 @@
 
-## Veri Islemek
+## Veri İşlemek
 
 Telefon tarafından toplanan verileri nasıl kullanırız? 
 
