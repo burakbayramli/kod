@@ -14,6 +14,34 @@ df['cum2'] = df.cum.shift(-1)
 df.columns = ['x','fr','to']
 ```
 
+Herhangi zaman aninda gittigimiz yon,
+
+```python
+dforient = pd.read_csv(dir + "orientations.txt",header=None,sep=' ')
+frame = 50
+print str(dforient.ix[frame][1])[:6] + " " + \
+      str(dforient.ix[frame][2])[:6] + " " + \
+      str(dforient.ix[frame][3])[:6] + " ",
+```
+
+```text
+334.46 0.8803 84.372 
+```
+
+GPS
+
+```python
+dfgps = pd.read_csv(dir + "gps.txt",header=None,sep=",",\
+                    names=['lat','lon','speed','acc','alt'])
+print str(dfgps.ix[frame][0])[:6] + " " + \
+      str(dfgps.ix[frame][1])[:6] + " " + \
+      str(dfgps.ix[frame][2])[:6] + "   " 
+```
+
+```text
+52.511 13.390 0.6519   
+```
+
 Herhangi bir video karesini cekip cikarmak
 
 
