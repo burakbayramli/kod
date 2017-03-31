@@ -56,7 +56,7 @@ print str(dfgps.ix[frame][0])[:6] + " " + \
 52.511 13.390 0.6519   
 ```
 
-Dört köşesi üzerinden belirtilen bir doortgeni ekrana basmak.
+Dört köşesi üzerinden belirtilen bir dörtgeni ekrana basmak.
 
 ```python
 import util
