@@ -84,7 +84,8 @@ def plot(res4,outfile):
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
     """
-    zfile = 'istanbul.zip'
+    dir = '/home/burak/Documents/Dropbox/Public/data/'
+    zfile = dir + 'istanbul.zip'
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
         for f in z.namelist():
