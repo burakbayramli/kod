@@ -229,7 +229,7 @@ cv2.imwrite('out6.png', img)
 
 ![](out5.png)
 
-Kaç kenar olduğu `size` içinde. Köşeleri bulunca
+Kaç köşe olduğu `size` içinde. Köşeleri bulunca
 
 ![](out6.png)
 
