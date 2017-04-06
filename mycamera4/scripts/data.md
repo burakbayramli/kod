@@ -225,6 +225,7 @@ found, corners = cv2.findChessboardCorners(img, pattern_size)
 cv2.drawChessboardCorners(img, (9,6), corners, found)
 cv2.imwrite('out6.png', img)
 ```
+
 ![](out5.png)
 
 Köşeleri bulunca
