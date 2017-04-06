@@ -207,7 +207,7 @@ Kamera Kalibrasyonu
 Kameranın içsel parametrelerini (intrinsic matrix) bilmek 3 boyutta
 tekrar oluşturma gibi pek çok uygulamada faydalıdır. Kalibrasyon
 sonucu olarak bize bir matris verilecek, bu matrisin içeriği hakkında
-anlatım bizim Yapay Görüş notlarımızda ya da
+anlatım bizim *Yapay Görüş* notlarımızda ya da
 [şurada](http://docs.opencv.org/trunk/dc/dbb/tutorial_py_calibration.html)
 bulunabilir.
 
