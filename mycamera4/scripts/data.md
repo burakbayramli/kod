@@ -280,13 +280,13 @@ print (camera_matrix)
  [   0.            0.            1.        ]]
 ```
 
-`square_size` parametresine kesin bir ölçüm de verilebilir, mesela 30
-milimetre için 30 gibi, o zaman kamera matrisiyle yapılan ölçümler
-gerçek dünya ölçümleri verirler. Üstte 1 verilmiş, o zaman buradan
-çıkacak kamera matrisini kullanarak yapacağımız tüm hesaplar bize
-"satrant tahtası kare kenarı" biriminde sonuçlar verecek. Bir hesap
-bize bir obje 10 yüksekliğinde diyorsa bu "10 satranç kare kenarı
-yüksekliğinde" demek olacak.
+Bir satranç karesinin kenarının büyüklüğü için `square_size`
+parametresine kesin bir ölçüm de verilebilir, mesela 30 milimetre için
+30 gibi, o zaman hesaplanan kamera matrisiyle yapılan ölçümler gerçek
+dünya ölçümleri verirler. Üstte 1 verilmiş, o zaman takip eden
+hesaplar bize "satrant tahtası kare kenarı" biriminde sonuçlar
+verir. Mesela bir hesap bize "bir obje 10 yüksekliğinde" diyorsa bu
+"10 satranç kare kenarı yüksekliğinde" demek olacak.
 
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
