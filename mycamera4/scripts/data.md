@@ -201,6 +201,93 @@ cv2.imwrite('out4.png', im2)
 
 ![](out4.png)
 
+
+Kamera Kalibrasyonu
+
+Kameranın içsel parametrelerini (intrinsic matrix) bilmek 3 boyutta
+tekrar oluşturma gibi pek çok uygulamada faydalıdır. Kalıbrasyon
+sonucu olarak bize bir matrisi verilecek, bu matrisin içeriği hakkında
+anlatım bizim Yapay Görüş notlarımızda ya da
+[şurada](http://docs.opencv.org/trunk/dc/dbb/tutorial_py_calibration.html)
+bulunabilir.
+
+Kalibrasyon için içinde bir satranç tahtası resmi olan birkaç tane
+resim lazım. OpenCV dizini altındaki bir tanesine bakalım, ve köşeleri
+otomatik olarak gösterelim,
+
+```python
+import numpy as np
+import cv2
+dir = '/home/burak/Downloads/opencv-master/samples/data'
+img = cv2.imread(dir + "/left01.jpg")
+cv2.imwrite('out5.png', img)
+found, corners = cv2.findChessboardCorners(img, pattern_size)
+cv2.drawChessboardCorners(img, (9,6), corners, found)
+cv2.imwrite('out6.png', img)
+```
+![](out5.png)
+
+Köşeleri bulunca
+
+![](out6.png)
+
+Birden fazla imajla köşeleri bulup kalibre etmek
+
+```python
+def get_sample(filename, iscolor = cv2.IMREAD_COLOR):
+    with open(dir + "/" + filename, 'rb') as f:
+        filedata = f.read()
+        return cv2.imdecode(np.fromstring(filedata, dtype=np.uint8), iscolor)
+
+img_names = ['left01.jpg','left02.jpg', 'left03.jpg', 'left04.jpg',
+             'left05.jpg', 'left06.jpg', 'left07.jpg', 'left08.jpg',
+             'left09.jpg', 'left11.jpg', 'left12.jpg', 'left13.jpg',
+             'left14.jpg']
+    
+square_size = 1.0
+pattern_size = (9, 6)
+pattern_points = np.zeros((np.prod(pattern_size), 3), np.float32)
+pattern_points[:, :2] = np.indices(pattern_size).T.reshape(-1, 2)
+pattern_points *= square_size
+
+obj_points = []; img_points = []
+h, w = 0, 0
+img_names_undistort = []
+
+for fn in img_names:
+    img = get_sample(fn, 0)
+    if img is None: continue
+    h, w = img.shape[:2]
+    found, corners = cv2.findChessboardCorners(img, pattern_size)
+    if found:
+        term = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_COUNT, 30, 0.1)
+        cv2.cornerSubPix(img, corners, (5, 5), (-1, -1), term)
+    if not found: continue
+    img_points.append(corners.reshape(-1, 2))
+    obj_points.append(pattern_points)
+
+rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, (w, h), None, None, flags = 0)
+print (dist_coefs)
+print (camera_matrix)
+```
+
+```text
+[[ -2.81086258e-01   2.72581009e-02   1.21665908e-03  -1.34204274e-04
+    1.58514023e-01]]
+[[ 532.79536562    0.          342.45825163]
+ [   0.          532.91928338  233.90060514]
+ [   0.            0.            1.        ]]
+```
+
+`square_size` parametresine kesin bir ölçüm de verilebilir, mesela 30
+milimetre için 30 gibi, o zaman kamera matrisiyle yapılan ölçümler
+gerçek dünya ölçümleri verirler. Üstte 1 verilmiş, o zaman buradan
+çıkacak kamera matrisini kullanarak yapacağımız tüm hesaplar bize
+"satrant tahtası kare kenarı" biriminde sonuçlar verecek. Bir hesap
+bize bir obje 10 yüksekliğinde diyorsa bu "10 satranç kare kenarı
+yüksekliğinde" demek olacak.
+
+
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
 
