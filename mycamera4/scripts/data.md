@@ -212,8 +212,8 @@ anlatım bizim Yapay Görüş notlarımızda ya da
 bulunabilir.
 
 Kalibrasyon için içinde bir satranç tahtası resmi olan birkaç tane
-resim lazım. OpenCV dizini altındaki bir tanesine bakalım, ve köşeleri
-otomatik olarak gösterelim,
+resim lazım. OpenCV dizini altında verilen örneklerden bir tanesine
+bakalım, ve köşelerini otomatik olarak gösterelim,
 
 ```python
 import numpy as np
