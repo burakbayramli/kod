@@ -218,17 +218,18 @@ bakalım, ve köşelerini otomatik olarak gösterelim,
 ```python
 import numpy as np
 import cv2
+size = (9,6)
 dir = '/home/burak/Downloads/opencv-master/samples/data'
 img = cv2.imread(dir + "/left01.jpg")
 cv2.imwrite('out5.png', img)
 found, corners = cv2.findChessboardCorners(img, pattern_size)
-cv2.drawChessboardCorners(img, (9,6), corners, found)
+cv2.drawChessboardCorners(img, size, corners, found)
 cv2.imwrite('out6.png', img)
 ```
 
 ![](out5.png)
 
-Köşeleri bulunca
+Kaç kenar olduğu `size` içinde. Köşeleri bulunca
 
 ![](out6.png)
 
