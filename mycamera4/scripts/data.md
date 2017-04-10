@@ -289,6 +289,38 @@ hesaplar bize "satranç tahtası kare kenarı" biriminde sonuçlar
 verir. Mesela bir hesap bize "bir obje 10 yüksekliğinde" diyorsa bu
 "10 satranç kare kenarı yüksekliğinde" demek olacak.
 
+Bolumlere Ayirma (Segmentation)
+
+*Bilgisayar Bilimi, Felzenswalb Gruplaması* ders notlarımızda işlenen
+Felzenswalb çizit teorisini temel alan imaj gruplama algoritması
+`scikit-image` kütüphanesinde kodlanmış. Bir örneği altta görebiliriz, 
+
+
+```python
+import time, io, cv2
+from skimage.segmentation import felzenszwalb
+from skimage.segmentation import mark_boundaries
+from PIL import Image, ImageDraw
+import util
+dir = "./data/mitte4/"
+frame = 195
+im = np.array(util.get_frame(dir, frame, hsv=False))
+im2 =cv2.resize(im,(160,120))
+segments = felzenszwalb(im2, scale=500, sigma=0.5, min_size=20)
+im3 = mark_boundaries(im2, segments)
+im4 =cv2.resize(im3,(320,240))
+plt.imshow(im4)
+plt.savefig('out7.png')
+```
+
+![](out7.png)
+
+Felzenszwalb yöntemi bizce gruplama alanında optimaldir; verilen
+parametreler için en optimal olan ayrımı bulur. Tabii daha fazlası
+için, yani anlamsal olarak gruplama için sadece imaj bilgisinden daha
+fazlası gerekebilir, fakat sadece imaj seviyesinde Felzenszwalb çok
+iyi işliyor.
+
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
