@@ -298,7 +298,6 @@ Imajı Bölümlere Ayırma (Segmentation)
 ```python
 from skimage.segmentation import felzenszwalb
 from skimage.segmentation import mark_boundaries
-from PIL import Image, ImageDraw
 import util, cv2
 dir = "./data/mitte4/"
 frame = 195
@@ -355,8 +354,7 @@ portrede bölümleme yapınca yüz ayrı saç ayrı olabilir, fakat burada
 tüm kafayı illa ayrı bir bölüm olarak istiyorsak, bu anlamsal bir
 gruplama demektir, o zaman görüntü hakkında bir önbilgi gerekecektir
 (gerçi parametre ayarları ile tüm kafanın da kapsanması mümkün
-olabilir). Özet olarak pür imaj seviyesinde Felzenszwalb iyi işliyor.
-
+olabilir). 
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
 
