@@ -296,11 +296,10 @@ Imajı Bölümlere Ayırma (Segmentation)
 `scikit-image` kütüphanesinde kodlanmış. Örnek altta,
 
 ```python
-import time, io, cv2
 from skimage.segmentation import felzenszwalb
 from skimage.segmentation import mark_boundaries
 from PIL import Image, ImageDraw
-import util
+import util, cv2
 dir = "./data/mitte4/"
 frame = 195
 im = np.array(util.get_frame(dir, frame, hsv=False))
