@@ -356,5 +356,5 @@ gruplama demektir, o zaman görüntü hakkında bir önbilgi gerekecektir
 (gerçi parametre ayarları ile tüm kafanın da kapsanması mümkün
 olabilir). 
 
-Yardımcı kodlar [şurada](util.py) bulunabilir.
+Yardımcı kodlar [şurada](util.py).
 
