@@ -1,11 +1,27 @@
 '''
 Downloads 10 songs from a few known sites.
 '''
-
-import re, requests, random, os
+import datetime, random
+import pyaudio, struct
+import re, requests, os
+import threading, numpy as np
 
 urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/"]
 #urls = ["http://132.248.192.201/Mi_musica/"]
+
+def my_random(upper):
+    CHANNELS = 1; RATE = 16000; CHUNK = 2048
+    RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
+    audio = pyaudio.PyAudio()
+    stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
+                        frames_per_buffer=CHUNK)
+    data = stream.read(CHUNK)
+    r3 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) % upper
+    r4 = np.abs(np.array(struct.unpack('iiiiiiii',data[:32])).sum())
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()    
+    return int((r3 + r4) % upper)
 
 def get_songs(url,songs):
     os.chdir("/home/burak/Music")
@@ -21,7 +37,7 @@ def list_songs(url):
 
 def get_random_song():
     songs = []
-    url = random.choice(urls)
+    url = urls[my_random(len(urls))]
     while (len(songs) < 1):
         songs = list_songs(url)
         if len(songs) < 1:
