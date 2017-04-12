@@ -325,7 +325,7 @@ print 'bolum', segments[117,155]
 bolum 7
 ```
 
-Yani 117,155 pikseli 7. bölüme aitmiş. Eğer bu bölümdeki tüm
+Yani (117,155) pikseli 7. bölüme aitmiş. Eğer bu bölümdeki tüm
 pikselleri istersem,
 
 ```python
