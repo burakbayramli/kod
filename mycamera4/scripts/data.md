@@ -289,12 +289,11 @@ hesaplar bize "satranç tahtası kare kenarı" biriminde sonuçlar
 verir. Mesela bir hesap bize "bir obje 10 yüksekliğinde" diyorsa bu
 "10 satranç kare kenarı yüksekliğinde" demek olacak.
 
-Bolumlere Ayirma (Segmentation)
+Imajı Bölümlere Ayırma (Segmentatıon)
 
 *Bilgisayar Bilimi, Felzenswalb Gruplaması* ders notlarımızda işlenen
-Felzenswalb çizit teorisini temel alan imaj gruplama algoritması
-`scikit-image` kütüphanesinde kodlanmış. Bir örneği altta görebiliriz, 
-
+çizit teorisini temel alan imaj bölümlere ayırma algoritması
+`scikit-image` kütüphanesinde kodlanmış. Örnek altta,
 
 ```python
 import time, io, cv2
@@ -315,22 +314,51 @@ plt.savefig('out7.png')
 
 ![](out7.png)
 
-Felzenszwalb yöntemi bizce gruplama alanında optimaldir; verilen
-parametreler için en optimal olan ayrımı bulur. Tabii daha fazlası
-için, yani anlamsal olarak gruplama için sadece imaj bilgisinden daha
-fazlası gerekebilir, fakat sadece imaj seviyesinde Felzenszwalb çok
-iyi işliyor.
+Demo amaçlı olarak `mark_boundaries` çağrısı verilmiş, daha detaylı
+piksel bazlı bölüm bilgisi `segments` içinde;
+
+```python
+print segments.shape
+print 'bolum', segments[117,155]
+```
+
+```text
+(120, 160)
+bolum 7
+```
+
+Yani 117,155 pikseli 7. bolume aitmis. Eger bu bolumdeki tum
+pikselleri istersem,
+
+```python
+print segments == 7
+```
+
+```text
+[[False False False ..., False False False]
+ [False False False ..., False False False]
+ [False False False ..., False False False]
+ ..., 
+ [False False False ...,  True  True  True]
+ [False False False ...,  True  True  True]
+ [False False False ...,  True  True  True]]
+```
+
+gibi bir filtreleme matrisi, "maske (mask)" elde ederim, bu filtre ile
+gereken diger bilgilere erisebiliriz.
+
+Felzenszwalb yöntemi görütü bölümlemesi bağlamında optimal; dışarıdan
+tanımlanan parametreler için en optimal olan ayrımı buluyor. İşlem
+hızı N (log N), yani lineere yakın, bu hızda video bile
+işlenebilir. Tabii daha fazlası için, yani anlamsal olarak gruplama
+için sadece imaj bilgisinden daha fazlası gerekebilir. Mesela bir
+portrede bölümleme yapınca yüz ayrı saç ayrı olabilir, fakat burada
+tum kafayı illa ayrı bir bölüm olarak istiyorsak, bu anlamsal bir
+gruplama demektir, o zaman görüntü hakkında bir onbilgi gerekecektir
+(gerçi parametre ayarları ile tüm kafanın da kapsanması mümkün
+olabilir, genel olarak söylüyoruz). Ozet olarak pur imaj seviyesinde
+Felzenszwalb çok iyi işliyor.
 
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
-
-
-
-
-
-
-
-
-
-
 
