@@ -356,8 +356,7 @@ portrede bölümleme yapınca yüz ayrı saç ayrı olabilir, fakat burada
 tüm kafayı illa ayrı bir bölüm olarak istiyorsak, bu anlamsal bir
 gruplama demektir, o zaman görüntü hakkında bir önbilgi gerekecektir
 (gerçi parametre ayarları ile tüm kafanın da kapsanması mümkün
-olabilir, genel olarak söylüyoruz). Ozet olarak pür imaj seviyesinde
-Felzenszwalb çok iyi işliyor.
+olabilir). Özet olarak pür imaj seviyesinde Felzenszwalb iyi işliyor.
 
 
 Yardımcı kodlar [şurada](util.py) bulunabilir.
