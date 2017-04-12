@@ -289,7 +289,7 @@ hesaplar bize "satranç tahtası kare kenarı" biriminde sonuçlar
 verir. Mesela bir hesap bize "bir obje 10 yüksekliğinde" diyorsa bu
 "10 satranç kare kenarı yüksekliğinde" demek olacak.
 
-Imajı Bölümlere Ayırma (Segmentatıon)
+Imajı Bölümlere Ayırma (Segmentation)
 
 *Bilgisayar Bilimi, Felzenswalb Gruplaması* ders notlarımızda işlenen
 çizit teorisini temel alan imaj bölümlere ayırma algoritması
