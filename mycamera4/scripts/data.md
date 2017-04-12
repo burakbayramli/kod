@@ -347,14 +347,14 @@ gereken diğer bilgilere erişebiliriz.
 
 Felzenszwalb yöntemi görütü bölümlemesi bağlamında optimal; dışarıdan
 tanımlanan parametreler için en optimal olan ayrımı buluyor. İşlem
-hızı N (log N), yani lineere yakın, bu hızda video bile
+karmaşıklığı O(N log N), yani lineere yakın, bu hızda video bile
 işlenebilir. Tabii daha fazlası için, yani anlamsal olarak gruplama
 için sadece imaj bilgisinden daha fazlası gerekebilir. Mesela bir
 portrede bölümleme yapınca yüz ayrı saç ayrı olabilir, fakat burada
 tüm kafayı illa ayrı bir bölüm olarak istiyorsak, bu anlamsal bir
 gruplama demektir, o zaman görüntü hakkında bir önbilgi gerekecektir
 (gerçi parametre ayarları ile tüm kafanın da kapsanması mümkün
-olabilir). 
+olabilir).
 
 Yardımcı kodlar [şurada](util.py).
 
