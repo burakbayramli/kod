@@ -39707,4 +39707,5 @@ Deniz Baykal:Politician:20/7/1938
 Aslı Aydıntaşbaş:Journalist:24/2/1973
 Abdel Fattah el-Sisi:Egypt President:19/11/1954
 Suleyman Soylu:Politikaci:21/11/1969
-
+Stephen Bannon:Right winger:27/11/1953
+Bilal Erdogan:Oglan:23/4/1981
