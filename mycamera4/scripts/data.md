@@ -345,7 +345,7 @@ print segments == 7
 ```
 
 gibi bir filtreleme matrisi, "maske (mask)" elde ederim, bu filtre ile
-gereken diger bilgilere erisebiliriz.
+gereken diğer bilgilere erişebiliriz.
 
 Felzenszwalb yöntemi görütü bölümlemesi bağlamında optimal; dışarıdan
 tanımlanan parametreler için en optimal olan ayrımı buluyor. İşlem
