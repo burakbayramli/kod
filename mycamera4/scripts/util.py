@@ -11,7 +11,6 @@ import os, glob, re
 def get_frame(dir, frame, hsv=True):
     data = np.fromfile(dir + "cam.bin", dtype=np.uint8)
     df = pd.read_csv(dir + "sizes.txt",header=None)
-    dforient = pd.read_csv(dir + "orientations.txt",header=None,sep=' ')
     dfgps = pd.read_csv(dir + "gps.txt",header=None,sep=",",names=['lat','lon','speed','acc','alt'])
     df['cum'] = df.cumsum()
     df['cum2'] = df.cum.shift(-1)
