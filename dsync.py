@@ -8,6 +8,7 @@ if sys.argv[1] == "hd":
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/New Volume/archive/kod' --delete")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/New Volume/archive/classnotes' --delete")
     os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/New Volume/archive/books' --delete")
+    os.system("python rsync.py '/home/burak/Documents/sensorcam' '/media/burak/New Volume/archive/sensorcam' --delete")
 
 if sys.argv[1] == "kitaplar":
     os.system("python rsync.py /media/burak/6A4D-5BF0/kitaplar '/media/burak/New Volume/archive/kitaplar' --delete")
@@ -16,6 +17,7 @@ if sys.argv[1] == "flash":
     os.system("python rsync.py '/home/burak/Documents/bass' '/media/burak/7502-42E6/bass' --delete")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/7502-42E6/kod' --delete")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/7502-42E6/classnotes' --delete")
+    os.system("python rsync.py '/home/burak/Documents/sensorcam' '/media/burak/7502-42E6/sensorcam' --delete")
     
 if sys.argv[1] == "hd2hd":
     os.system("python rsync.py '/media/burak/New Volume/archive/bass' '/media/burak/17EA-3758/archive/bass' --delete")
