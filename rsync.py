@@ -62,16 +62,16 @@ def purge(dir, pattern, inclusive=True):
                 os.remove(path)
                 
 def copy_files_and_dirs(fr,to):    
-    frdirs,frfiles =  ls(fr)    
+    frdirs,frfiles =  ls(fr)
     todirs,tofiles = ls(to)
     tofilesdict = dict(tofiles)
-    
     print 'create dirs'
     todirs_tmp = dict([(x.replace(fr,to),0) for x in todirs])
     diff = [x for x in frdirs if x.replace(fr,to) not in todirs_tmp]
     for x in diff:
         x=x.replace(fr,to)
-        os.mkdir(x)
+        if os.path.exists(x) == False:            
+            os.mkdir(x)
 
     print 'a files not in b'
     for (x,size) in frfiles:
