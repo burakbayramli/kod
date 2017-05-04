@@ -5,31 +5,15 @@ import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
 from rsync import ls
-import select
+import select, rndplay
 
 fout = open("/tmp/vidplay.out","w")
-
-def my_random(upper):
-    CHANNELS = 1; RATE = 16000; CHUNK = 2048
-    RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
-    audio = pyaudio.PyAudio()
-    stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
-                        frames_per_buffer=CHUNK)
-    data = stream.read(CHUNK)
-    r3 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) % upper
-    r4 = np.abs(np.array(struct.unpack('iiiiiiii',data[:32])).sum())
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-    
-    return int((r3 + r4) % upper)
-
 
 while True:
     print "Music Dir", sys.argv[1]    
     dirs,list = ls(sys.argv[1])
     print "Files", len(list)
-    idx = my_random(len(list))
+    idx = rndplay.my_random(len(list))
     print "show idx selected", idx, "song", list[idx][0]
     fout.write(str(list[idx][0]) + "\n")
     fout.flush()
