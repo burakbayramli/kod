@@ -1,12 +1,11 @@
-# Rsync written in Python: argument from_folder is assumed to be
-# the master, its contents are reflected in to_folder. If --delete
-# flag is used extra files under to_folder will be deleted after
-# copy sync is done, so in this case from_folder will be reflected
-# *exactly* under to_folder. For file equality file size is used,
-# if same file name with same file size exists under to_folder, it
-# will not be copied again.
+# Rsync in Python: argument from_folder is assumed to be the master,
+# its contents are reflected in to_folder. If --delete flag is used
+# extra files under to_folder will be deleted after copy sync, so
+# from_folder will be reflected *exactly* under to_folder. For file
+# equality test file size is used, if same file name with same file
+# size exists under to_folder, it will not be copied again.
 
-# python rsync.py c:\Users\burak\Documents\a c:\Users\burak\Documents\b
+# python rsync.py c:\some\source\folder c:\some\destination\folder
 
 import sys, glob, os, shutil, re
 

@@ -13,15 +13,12 @@ def my_random(upper):
     stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
     data = stream.read(CHUNK)
-    r1 = random.random() * 1e5
-    r2 = np.random.random() * 1e5
-    r3 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) 
-    r4 = np.abs(np.array(struct.unpack('iiiiiiii',data[:32])).sum())
-    #print r1, r2, r3, r4
+    r1 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) 
+    r2 = np.abs(np.array(struct.unpack('iiiiiiii',data[:32])).sum())
     stream.stop_stream()
     stream.close()
     audio.terminate()    
-    return int((r1 + r2 + r3 + r4) % upper)
+    return int((r1 + r2) % upper)
 
 if __name__ == "__main__": 
  
