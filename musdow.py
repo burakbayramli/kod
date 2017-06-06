@@ -7,7 +7,8 @@ import re, requests, os
 import threading, numpy as np
 
 urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/"]
-#urls = ["http://132.248.192.201/Mi_musica/"]
+#urls = ["http://www.controlaltdelight.com/Music/"]
+#urls = ["http://hypem.com/download/"] #fix
 
 def get_songs(url,songs):
     os.chdir("/home/burak/Music")
