@@ -1,6 +1,7 @@
 """Works kind of like Unix du - lists files along with their sizes,
 and sorts then in a descending manner, writes the output under TEMP
-
+you can also do
+sudo du -hx --max-depth=1 /
 """
 import sys, glob, os, shutil, pandas as pd
 

@@ -11,7 +11,7 @@ if sys.argv[1] == "hd":
     os.system("python rsync.py '/home/burak/Documents/sensorcam' '/media/burak/New Volume/archive/sensorcam' --delete")
 
 if sys.argv[1] == "kitaplar":
-    os.system("python rsync.py /media/burak/6A4D-5BF0/kitaplar '/media/burak/New Volume/archive/kitaplar' --delete")
+    os.system("python rsync.py  '/media/burak/New Volume/archive/kitaplar' /media/burak/68AB-E13A/kitaplar --delete")
 
 if sys.argv[1] == "flash":
     os.system("python rsync.py '/home/burak/Documents/bass' '/media/burak/7502-42E6/bass' --delete")

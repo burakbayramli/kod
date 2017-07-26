@@ -39715,3 +39715,6 @@ Emmanuel Macron:French President:21/12/1977
 Satoshi Nakamoto:Bitcoin:5/4/1975
 Craig Wright:Self-Claimed Bitcoin Creator:?/10/1970
 Hal Finney:Bitcoin:4/5/1956
+Al Thani:8th Katar Emir:3/6/1980
+George Friedman:Strategist:1/2/1949
+Bill Burr:Comedian:10/6/1968

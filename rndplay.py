@@ -14,7 +14,7 @@ def my_random(upper):
                         frames_per_buffer=CHUNK)
     data = stream.read(CHUNK)
     r1 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) 
-    r2 = np.abs(np.array(struct.unpack('iiiiiiii',data[:32])).sum())
+    r2 = np.abs(np.array(struct.unpack('iiiiiiiiii',data[:40])).sum())
     stream.stop_stream()
     stream.close()
     audio.terminate()    

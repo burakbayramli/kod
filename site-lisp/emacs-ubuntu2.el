@@ -421,7 +421,7 @@ This command does not push erased text to kill-ring."
   (setq komut (concat komut "'" ))
   (setq komut (concat komut (dired-current-directory)))
   (setq komut (concat komut "'" ))
-  (setq komut (concat komut " 2> /dev/null "))
+  (setq komut (concat komut " 2> /dev/null &"))
   (message komut)
   (shell-command komut))
 
@@ -884,9 +884,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/bass")
-(find-file-other-window "/home/burak/Documents/bass/mycamera6/scripts")
-(find-file-other-window "/home/burak/Documents/bass/mycamera6/src/my/project/MyCamera")
+(find-file-other-window "/home/burak/Documents/bass/steps3")
+(find-file-other-window "/home/burak/Documents/classnotes/chaos")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
