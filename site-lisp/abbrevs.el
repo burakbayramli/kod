@@ -4,6 +4,7 @@
     ("9e" "e^{}" move-back-one-char 0)
     ("9n" "\\underbar{}" move-back-one-char 0)    
     ("9f" "formul" nil 1)
+    ("9k" "kullanılabilir" nil 1)
     ("9fo" "fonksiyonu" nil 1)
     ("9fr" "\\frac{}{}" move-back-three-chars 0)
     ("9i" "^{-1}" nil 1)

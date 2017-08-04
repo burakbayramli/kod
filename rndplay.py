@@ -7,18 +7,19 @@ import datetime, random
 import select
 
 def my_random(upper):
-    CHANNELS = 1; RATE = 16000; CHUNK = 2048
-    RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
-    audio = pyaudio.PyAudio()
-    stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
-                        frames_per_buffer=CHUNK)
-    data = stream.read(CHUNK)
-    r1 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) 
-    r2 = np.abs(np.array(struct.unpack('iiiiiiiiii',data[:40])).sum())
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()    
-    return int((r1 + r2) % upper)
+#    CHANNELS = 1; RATE = 16000; CHUNK = 2048
+#    RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
+#    audio = pyaudio.PyAudio()
+#    stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
+#                        frames_per_buffer=CHUNK)
+#    data = stream.read(CHUNK)
+#    r1 = float(str(datetime.datetime.utcnow())[-9:].replace(".","")) 
+#    r2 = np.abs(np.array(struct.unpack('iiiiiiiiii',data[:40])).sum())
+#    stream.stop_stream()
+#    stream.close()
+#    audio.terminate()    
+#    return int((r1 + r2) % upper)
+    return int(random.random()*1000) % upper
 
 if __name__ == "__main__": 
  
