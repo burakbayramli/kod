@@ -45,7 +45,8 @@ def convert():
               ("matris",), ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
               ("sonusur",u"sonuşur"), ("amaci",u"amacı"), ("amacimiz",u"amacımız"),
               ("sarsim",u"sarsım"), ("Sarsim",u"Sarsım"), (u"olduğu",),
-              ("oldu",), (" yani ",), (" Yani ",), ("entegrali",), ("sistem",)
+              ("oldu",), (" yani ",), (" Yani ",), ("entegrali",), ("sistem",),
+              ("araci",u"aracı"), ("robust",)
     ]
               
     dict = {}; r_list_coded = []
