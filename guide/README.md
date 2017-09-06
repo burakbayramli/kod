@@ -86,7 +86,7 @@ that food item, meaning that if the sec/non-sec statuses are
 BENEFICIAL, AVOID and you like that food, it probably means you are a
 secretor.
 
-##Lewi Files
+## Lewi Files
 
 Now some implementation details; There are some reference files
 `mindmeld` uses from the subproject `jlewi`; No need to copy anything
