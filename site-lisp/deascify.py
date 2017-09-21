@@ -46,7 +46,7 @@ def convert():
               ("sonusur",u"sonuşur"), ("amaci",u"amacı"), ("amacimiz",u"amacımız"),
               ("sarsim",u"sarsım"), ("Sarsim",u"Sarsım"), (u"olduğu",),
               ("oldu",), (" yani ",), (" Yani ",), ("entegrali",), ("sistem",),
-              ("araci",u"aracı"), ("robust",),("lineer",)
+              ("araci",u"aracı"), ("robust",),("lineer",),("Tensor",)
     ]
               
     dict = {}; r_list_coded = []

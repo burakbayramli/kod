@@ -18,7 +18,8 @@ def my_random(upper):
     stream.stop_stream()
     stream.close()
     audio.terminate()    
-    return int((r1 + r2) % upper)
+    return int((r2) % upper)
+#    return int((r1 + r2) % upper)
 #    return int(random.random()*1000) % upper
 
 if __name__ == "__main__": 
