@@ -886,9 +886,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/general")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/general/tensorflow-master/tensorflow/examples/tutorials")
-(find-file-other-window "/home/burak/Documents/classnotes/algs/churn")
-(find-file-other-window "/home/burak/Documents/general/wtte-rnn/examples/keras")
+(find-file-other-window "/home/burak/Documents/classnotes/algs")
+(find-file-other-window "/home/burak/Documents/classnotes/algs/nlp")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
