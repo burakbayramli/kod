@@ -38,7 +38,8 @@ def convert():
     r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",), (" ise",),
               ("kontur",), ("hacim","hacim"), ("ODE",), ("Oklit",u'Öklit'),
               ("karekok",u'karekök'), ("kismi", u'kısmi'), ("integral",),
-              ("oldugu",u'olduğu'), ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),
+              ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'), ("parcaci",u"parçacı"),
+              ("acilimi",u'açılımı'), ("ihtiyaci",u'ihtiyacı'),
               ("acilim",u'açılım'), ("acisini",u'açısını'), ("acisi",u'açısı'),
               ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'), ("Pandas",),
               ("algoritma",), ("gayri",u'gayrı'), ("sigma",), ("volatility",),
@@ -46,7 +47,7 @@ def convert():
               ("sonusur",u"sonuşur"), ("amaci",u"amacı"), ("amacimiz",u"amacımız"),
               ("sarsim",u"sarsım"), ("Sarsim",u"Sarsım"), (u"olduğu",),
               ("oldu",), (" yani ",), (" Yani ",), ("entegrali",), ("sistem",),
-              ("araci",u"aracı"), ("robust",),("lineer",),("Tensor",)
+              ("araci",u"aracı"), ("robust",),("lineer",),("Tensor",)              
     ]
               
     dict = {}; r_list_coded = []
