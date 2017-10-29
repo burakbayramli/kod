@@ -20,9 +20,9 @@ def my_random(upper):
     stream.stop_stream()
     stream.close()
     audio.terminate()
-    M = upper
+    M = 1e10
     print r1, r2, r3, r4
-    return int((r1*M + r2*M + r3*M + r4*M) % upper)
+    return int( ( (r1 * r2 * r3 * r4)*M) % upper)
 
 if __name__ == "__main__": 
  

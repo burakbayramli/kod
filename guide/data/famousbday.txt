@@ -39725,3 +39725,4 @@ Emine Erdogan:Es:16/2/1955
 Matt Drudge:Journalist:28/10/1966
 Antonio Garcia Martinez:FB Guy:25/3/1976
 Andrej Karpathy:Researcher:23/10/1986
+Dogu Perincek:Politikaci:17/6/1942

@@ -63,6 +63,7 @@ def purge(dir, pattern, inclusive=True):
 def copy_files_and_dirs(fr,to):    
     frdirs,frfiles =  ls(fr)
     todirs,tofiles = ls(to)
+
     tofilesdict = dict(tofiles)
     print 'create dirs'
     todirs_tmp = dict([(x.replace(fr,to),0) for x in todirs])

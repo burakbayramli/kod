@@ -6,9 +6,9 @@ import pyaudio, struct
 import re, requests, os
 import threading, numpy as np
 
-urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/"]
-#urls = ["http://www.controlaltdelight.com/Music/"]
-#urls = ["http://hypem.com/download/"] #fix
+urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/",
+        "http://thesoundeffect.com/music/mp3/",
+        "http://blognoblat.com.br/radio-noblat/Elis/"]
 
 def get_songs(url,songs):
     os.chdir("/home/burak/Music")
