@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 import mapping, itertools
 
-lewi = pd.read_csv('./data/lewi.dat',names=['date','lewis'],sep=' ')
 decans = pd.read_csv('./data/decans.dat',names=['date','decans'],sep=' ')
 spiller = pd.read_csv("./data/spiller",names=['from','to','sign'])
 chinese = pd.read_csv("./data/chinese",names=['from','to','sign'])
@@ -12,11 +11,6 @@ planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
 smap = mapping.init()
 
 sun_moon_table = np.array(range(144)).reshape((12,12)) + 1
-
-def get_lewi(date):
-   tmp=np.array(lewi[lewi['date']==int(date)]['lewis'])
-   res = tmp[0].split(':')
-   return res[:-1]
 
 def get_decans(date):
    # Decans values are between 1 and 24, there are 10 of them in an

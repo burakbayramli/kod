@@ -39727,3 +39727,4 @@ Antonio Garcia Martinez:FB Guy:25/3/1976
 Andrej Karpathy:Researcher:23/10/1986
 Dogu Perincek:Politikaci:17/6/1942
 Melih Gokcek:Belediye Baskani:20/10/1948
+Metin Hara:Doktor:14/6/1982

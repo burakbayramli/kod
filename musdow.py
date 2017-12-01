@@ -8,7 +8,8 @@ import threading, numpy as np
 
 urls = ["http://blognoblat.com.br/radio-noblat/jazz-instrumental/",
         "http://thesoundeffect.com/music/mp3/",
-        "http://blognoblat.com.br/radio-noblat/Elis/"]
+        "http://blognoblat.com.br/radio-noblat/Elis/",
+        "http://www.wwmmd.net/tunes/past/"]
 
 def get_songs(url,songs):
     os.chdir("/home/burak/Music")
