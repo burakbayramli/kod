@@ -890,7 +890,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/algs/speech")
 (find-file-other-window "/home/burak/Documents/general/keras-master/examples")
 (find-file-other-window "/home/burak/Documents/classnotes/algs/ocr")
-(find-file-other-window "/home/burak/Documents/senti")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 

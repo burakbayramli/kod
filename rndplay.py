@@ -22,7 +22,8 @@ def my_random(upper):
     audio.terminate()
     M = 1e10
     print r1, r2, r3, r4
-    return int( ( (r1 * r2 * r3 * r4)*M) % upper)
+    #return int( ( (r1 * r2 * r3 * r4)*M) % upper)
+    return int( ( (r1 * r3 * r4)*M) % upper)
 
 if __name__ == "__main__": 
  
