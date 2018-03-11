@@ -830,8 +830,8 @@ This command does not push erased text to kill-ring."
 
 (add-to-list 'compile-history compile-command)
 (add-to-list 'compile-history "ant debug -find")
-(add-to-list 'compile-history "ant installd -find")
 (add-to-list 'compile-history "python -u build.py")
+(add-to-list 'compile-history "python -u build.py html")
 
 (defun reload-pymacs()
   (interactive)
@@ -883,11 +883,12 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/books")
-(find-file-other-window "/home/burak/Documents/general")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/classnotes/algs")
-(find-file-other-window "/home/burak/Documents/classnotes/algs/speech")
+(find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
+(find-file-other-window "/home/burak/Documents/Dropbox/resmi/2018/sent")
+(find-file-other-window "/home/burak/Documents/classnotes")
+(find-file-other-window "/home/burak/Documents/classnotes/chaos/chaos_app01")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 

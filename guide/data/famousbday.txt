@@ -39728,3 +39728,14 @@ Andrej Karpathy:Researcher:23/10/1986
 Dogu Perincek:Politikaci:17/6/1942
 Melih Gokcek:Belediye Baskani:20/10/1948
 Metin Hara:Doktor:14/6/1982
+Asim Can Gunduz:Gitarist:15/8/1955
+Josh Holloway:Actor:20/7/1969
+Eric Trump:Son:6/1/1984
+Steve Keen:Economist:28/3/1953
+Michael Lewis:Author:15/10/1960
+Pope Francis:Pope:17/12/1936
+Jennifer Lawrence:Actress:15/08/1990
+Nicolas Maduro:Venezuella President:23/11/1962
+Jimmy Dore:Comedian:26/7/1965
+Karamolla:Saadet:7/6/1941
+Peter Schiff:Businessman:23/3/1963

@@ -35,20 +35,24 @@ def convert():
     # alttaki listeye dokunulmamasi istenen kelimeler tek ogeli
     # tuple olarak yazilir, ("kelime",) gibi. eger degisim isteniyorsa
     # ("kelime","degisim") olarak bir tuple eklenir. 
-    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",), (" ise",),
-              ("kontur",), ("hacim","hacim"), ("ODE",), ("Oklit",u'Öklit'),
-              ("karekok",u'karekök'), ("kismi", u'kısmi'), ("integral",),
-              ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'), ("parcaci",u"parçacı"),
-              ("acilimi",u'açılımı'), ("ihtiyaci",u'ihtiyacı'),
-              ("acilim",u'açılım'), ("acisini",u'açısını'), ("acisi",u'açısı'),
-              ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'), ("Pandas",),
-              ("algoritma",), ("gayri",u'gayrı'), ("sigma",), ("volatility",),
-              ("matris",), ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
-              ("sonusur",u"sonuşur"), ("amaci",u"amacı"), ("amacimiz",u"amacımız"),
-              ("sarsim",u"sarsım"), ("Sarsim",u"Sarsım"), (u"olduğu",),
-              ("oldu",), (" yani ",), (" Yani ",), ("entegrali",), ("sistem",),
-              ("araci",u"aracı"), ("robust",),("lineer",),("Tensor",)              
-    ]
+    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
+              ("ise",), ("kontur",), ("hacim","hacim"), ("ODE",),
+              ("Oklit",u'Öklit'), ("karekok",u'karekök'),
+              ("kismi", u'kısmi'), ("integral",),
+              ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
+              ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),
+              ("ihtiyaci",u'ihtiyacı'), ("acilim",u'açılım'),
+              ("acisini",u'açısını'), ("acisi",u'açısı'),
+              ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),
+              ("Pandas",), ("algoritma",), ("gayri",u'gayrı'),
+              ("sigma",), ("volatility",), ("matris",),
+              ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
+              ("sonusur",u"sonuşur"), ("amaci",u"amacı"),
+              ("amacimiz",u"amacımız"), ("sarsim",u"sarsım"),
+              ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
+              (" Yani ",), ("entegrali",), ("sistem",),
+              ("sistemi",), ("araci",u"aracı"),
+              ("robust",),("lineer",),("Tensor",) ]
               
     dict = {}; r_list_coded = []
     for x in r_list:
