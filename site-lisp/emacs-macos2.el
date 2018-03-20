@@ -9,9 +9,9 @@
 (setq max-lisp-eval-depth 50000)
 (setq tool-bar-mode -1)
 (setq auto-resize-tool-bars -1) 
-(setq compile-command "python -u ../build.py tex")
+(setq compile-command "/anaconda3/bin/python -u build.py ")
 (setq x-select-enable-clipboard t)
-(setq my-python-command "python") ;; pymacs uses this
+(setq my-python-command "/anaconda3/bin/python") ;; pymacs uses this
 
 (set-variable (quote latex-run-command) "pdflatex")
 (set-variable (quote tex-dvi-view-command) "xpdf")
@@ -41,7 +41,7 @@
   )
 
 ;; set name of abbrev file with .el extension
-(setq abbrev-file-name "/home/burak/Documents/kod/site-lisp/abbrevs.el")
+(setq abbrev-file-name "/Users/burak.bayramli/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
@@ -112,8 +112,8 @@ This command does not push erased text to kill-ring."
 
 (setq TeX-master-file-ask nil)
 
-(add-to-list 'load-path "/home/burak/Documents/kod/site-lisp/python-mode.el-6.0.10") 
-(setq py-install-directory "/home/burak/Documents/kod/site-lisp/python-mode.el-6.0.10")
+(add-to-list 'load-path "/Users/burak.bayramli/Documents/kod/site-lisp/python-mode.el-6.0.10") 
+(setq py-install-directory "/Users/burak.bayramli/Documents/kod/site-lisp/python-mode.el-6.0.10")
 (autoload 'autopair-global-mode "autopair" nil t)
 ;;(autopair-global-mode)
 (add-hook 'lisp-mode-hook
@@ -179,7 +179,7 @@ This command does not push erased text to kill-ring."
 
 ;; loads the _emacs file with one keystroke
 (defun find-dotemacs() (interactive)
-  (find-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu2.el"))
+  (find-file "/Users/burak.bayramli/Documents/kod/site-lisp/emacs-macos2.el"))
 (define-key global-map "\C-c\C-f" 'find-dotemacs)
 
 (defun kill-current-buffer ()
@@ -388,8 +388,8 @@ This command does not push erased text to kill-ring."
 (defun byte-me()
   "byte compile _emacs file"
   (interactive)
-  (byte-compile-file "/home/burak/Documents/kod/site-lisp/emacs-win.el")
-  (load-file "/home/burak/Documents/kod/site-lisp/emacs-win.elc")
+  (byte-compile-file "/Users/burak.bayramli/Documents/kod/site-lisp/emacs-win.el")
+  (load-file "/Users/burak.bayramli/Documents/kod/site-lisp/emacs-win.elc")
   (message "Byte compiling _emacs...Done")
   )
 
@@ -415,11 +415,11 @@ This command does not push erased text to kill-ring."
 (defun open-explorer-in-current-dir()
   (interactive)
   (defvar komut)
-  (setq komut "nemo ")  
+  (setq komut "open ")  
   (setq komut (concat komut "'" ))
   (setq komut (concat komut (dired-current-directory)))
   (setq komut (concat komut "'" ))
-  (setq komut (concat komut " 2> /dev/null &"))
+  (setq komut (concat komut " 2> /dev/null "))
   (message komut)
   (shell-command komut))
 
@@ -450,7 +450,7 @@ This command does not push erased text to kill-ring."
 
 (setq default-frame-alist
       '((top . 0) (left . 500)
-        (width . 85) (height . 40)
+        (width . 85) (height . 50)
 ))
 
 (tool-bar-add-item "fwd-arrow" 'revert-buffer 'revert-buffer :help "Refresh" )
@@ -800,16 +800,69 @@ This command does not push erased text to kill-ring."
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+;; ;; Pymacs
+(load-file "/Users/burak.bayramli/Downloads/Pymacs/pymacs.el")
+
+(autoload 'pymacs-apply "pymacs")
+(autoload 'pymacs-call "pymacs")
+(autoload 'pymacs-eval "pymacs" nil t)
+(autoload 'pymacs-exec "pymacs" nil t)
+(autoload 'pymacs-load "pymacs" nil t)
+
+(global-unset-key "\M-]")
+(global-set-key "\C-x\]" 'deascify-convert)
+
+(defun githist-do-show-version(num) 
+ (interactive "nHow many commits back: ")
+  (githist-show-version num)
+  )
+
+
+
 
 ;;(require 'auto-complete)
 ;;(global-auto-complete-mode t)
 
 (setq inferior-lisp-program "sbcli")
 
+
+(defun reload-pymacs()
+  (interactive)
+  (if (buffer-live-p (get-buffer "*Pymacs*" ))
+      (kill-buffer (get-buffer "*Pymacs*")))
+  (message (buffer-file-name (current-buffer)))
+  ;;
+  ;; load tex or md mode based on the extension
+  (if (equal (file-name-extension (buffer-file-name (current-buffer))) "tex")
+      (progn 
+	(pymacs-load "/Users/burak.bayramli/Documents/kod/site-lisp/ipython-tex")
+	(global-set-key "\M-," 'ipython-tex-run-py-code)
+	(global-set-key [f5] 'ipython-tex-complete-py)
+	(tempo-define-template 
+	 "tex-listings-python" 
+	 '("\\begin{minted}[fontsize=\\footnotesize]{python}\n"
+	   (s)
+	   "\n\\end{minted}\n"
+	   )
+	 "")	
+	))
+  (if (equal (file-name-extension (buffer-file-name (current-buffer))) "md")
+      (progn 
+	(pymacs-load "/Users/burak.bayramli/Documents/kod/site-lisp/ipython-md")
+	(global-set-key "\M-," 'ipython-md-run-py-code)
+	(global-set-key [f5] 'ipython-md-complete-py)
+	(tempo-define-template 
+	 "tex-listings-python" 
+	 '("```python\n"
+	   (s)
+	   "\n```\n"
+	   )
+	 "")	
+	))
+
+  )
+
 (add-to-list 'compile-history compile-command)
-(add-to-list 'compile-history "ant debug -find")
-(add-to-list 'compile-history "python -u build.py")
-(add-to-list 'compile-history "python -u build.py html")
 
 
 (fset 'tex-font-lock-suscript 'ignore)
@@ -819,6 +872,12 @@ This command does not push erased text to kill-ring."
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
+(find-file-other-window "/Users/burak.bayramli/TODO.txt")
+(find-file-other-window "/Users/burak.bayramli/INFO.txt")
+(find-file-other-window "/Users/burak.bayramli/DOCS.txt")
+(find-file-other-window "/Users/burak.bayramli/Documents")
+(find-file-other-window "/Users/burak.bayramli/Downloads")
+(find-file-other-window "/Users/burak.bayramli/Documents/kod/site-lisp")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 

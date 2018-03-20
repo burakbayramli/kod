@@ -12,7 +12,7 @@ if sys.argv[1] == "hd":
 #    os.system("python rsync.py '/home/burak/Documents/bass' '/media/burak/New Volume/archive/bass' --delete")
 
 if sys.argv[1] == "kitaplar":
-    os.system("python rsync.py  '/media/burak/New Volume/archive/kitaplar' /media/burak/A75E-5A13/kitaplar --delete")
+    os.system("python rsync.py  '/media/burak/New Volume/archive/kitaplar' /media/burak/23B9-71E6/kitaplar --delete")
 
 if sys.argv[1] == "flash":
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/7502-42E6/kod' --delete")
