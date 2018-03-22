@@ -18,6 +18,7 @@ if sys.argv[1] == "flash":
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/7502-42E6/kod' --delete")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/7502-42E6/classnotes' --delete")
     os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/7502-42E6/books' --delete")
+    os.system("python rsync.py '/media/burak/7502-42E6/sentiance' '/home/burak/Documents/sentiance'")
     
 if sys.argv[1] == "hd2hd":
  #   os.system("python rsync.py '/media/burak/New Volume/archive/bass' '/media/burak/17EA-3758/archive/bass' --delete")
