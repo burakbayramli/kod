@@ -743,8 +743,7 @@ This command does not push erased text to kill-ring."
 
 (defun scroll-cursor-to-top()
   (interactive)
-  (recenter 3)
-  (next-line 3)
+  (recenter 0)
   )
 
 (defun my-untabify ()
@@ -888,6 +887,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/2018/sent")
 (find-file-other-window "/home/burak/Documents/classnotes")
+(find-file-other-window "/home/burak/Documents/classnotes/algs/autoenc")
+(find-file-other-window "/home/burak/Documents/classnotes/tser/tser_macro")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
