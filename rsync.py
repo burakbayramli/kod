@@ -7,7 +7,7 @@
 
 # python rsync.py c:\some\source\folder c:\some\destination\folder
 
-import sys, glob, os, shutil, re
+import sys, glob, os, shutil, re, argparse
 
 def deleteDir(path):
     """deletes the path entirely"""
@@ -85,11 +85,12 @@ def copy_files_and_dirs(fr,to):
             
     return frdirs, todirs
 
-def del_not_in_from(fr, to, frdirs, todirs):
+def del_not_in_from(fr, to, frdirs, todirs, skip):
     print 'b files not in a'
     frdirs_tmp = dict([(x.replace(to,fr),0) for x in frdirs])
     diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]
     for x in diff:
+        if x in skip: continue
         print 'deleting directory', x
         if os.path.isdir(x): deleteDir("'%s'" % x)
 
@@ -106,15 +107,19 @@ def del_not_in_from(fr, to, frdirs, todirs):
             
 if __name__ == "__main__":
     
-    if len(sys.argv) < 3:
-        print "Usage: rsync.py from_folder to_folder [--delete]"
-        exit()
-    fr = sys.argv[1]
-    to = sys.argv[2]
-    is_delete = False
-    if len(sys.argv) == 4 and sys.argv[3]=='--delete': is_delete = True
-    print fr, to
-    frdirs, todirs = copy_files_and_dirs(fr,to)
-    if is_delete: del_not_in_from(fr, to, frdirs, todirs)
-    
+    parser = argparse.ArgumentParser(description='rsync')
+    parser.add_argument('fr', type=str, help='xx.')
+    parser.add_argument('to', type=str, help='xx.')
+    parser.add_argument('--delete', type=bool, nargs="?", help='delete the target subdir if it does not exist in source.')
+    parser.add_argument('--skip', type=bool, nargs="?", help='skip this subdir.')
 
+    args = parser.parse_args()
+    print args.fr
+    print args.to
+    print args.skip
+    
+    is_delete = args.delete
+
+    frdirs, todirs = copy_files_and_dirs(args.fr, args.to)
+    if is_delete: del_not_in_from(args.fr, args.to, frdirs, todirs, args.skip)
+    
