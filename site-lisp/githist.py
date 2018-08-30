@@ -12,7 +12,7 @@ import glob, string
 
 def run_command(command):
     result = []
-    print 'Running:', command
+    print ('Running: %s', command)
     f = os.popen(command, "r")
     sys.stdout.flush()
     for l in f.xreadlines():
@@ -27,7 +27,7 @@ def branch():
     return re.findall('\\*\s(\w+)',f.read().strip())[0]
 
 def show_version(num):
-    print "Getting this version ago:" + str(num)
+    print ("Getting this version ago: %s" + str(num))
     curr_dir = os.getcwd()
     dot_git_dir = find_dot_git()    
     os.chdir(dot_git_dir)
@@ -41,10 +41,10 @@ def show_version(num):
 
     # also get rid of the first / 
     dot_git_dir = dot_git_dir.replace("\\","/")
-    print dot_git_dir
-    print "suitable_file_for_git_show", suitable_file_for_git_show
+    print (dot_git_dir)
+    print ("suitable_file_for_git_show %s", suitable_file_for_git_show)
     suitable_file_for_git_show = suitable_file_for_git_show.replace(dot_git_dir,"")
-    print "suitable_file_for_git_show", suitable_file_for_git_show
+    print ("suitable_file_for_git_show %s", suitable_file_for_git_show)
     tmp = '/tmp'
     if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     os.chdir(dot_git_dir)
@@ -61,13 +61,13 @@ def show_version(num):
 def find_dot_git() :     
     fname=lisp.buffer_file_name()
     dirname = re.sub("\/\w*?\.*\w*?$", "", fname)
-    print "Dir:"+dirname
+    print ("Dir:%s",dirname)
 
     found = False
     os.chdir(dirname)
     while (True) :
         dirname = os.getcwd()
-        print "Trying " + dirname + "/.git"
+        print ("Trying %s %s", dirname,"/.git")
         if (os.path.isdir(dirname + "/.git")): return dirname
         if (os.getcwd() == "/"): 
             raise Exception("no .git found")

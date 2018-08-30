@@ -12,7 +12,6 @@
 (setq auto-resize-tool-bars -1) 
 (setq compile-command "python -u ../build.py tex")
 (setq x-select-enable-clipboard t)
-(setq my-python-command "python") ;; pymacs uses this
 
 (set-variable (quote latex-run-command) "pdflatex")
 (set-variable (quote tex-dvi-view-command) "xpdf")
@@ -211,11 +210,6 @@ This command does not push erased text to kill-ring."
   )
 
 
-(defun use-python-3 ()
-  (interactive)
-  (setq compile-command "C:\\Users\\burak\\Anaconda2\\envs\\py3k\\python.exe -u build.py ")
-  )
-
 
 ;;
 ;;create my menu
@@ -234,7 +228,6 @@ This command does not push erased text to kill-ring."
    ["Emacs Derle" byte-me]
    ["Ready for Blog" ready-for-blog]   
    ["Git Show Older Version" githist-do-show-version]
-   ["Use Python 3" use-python-3]   
    ["Repeat Last Command..." repeat-complex-command]   
    ))
 (easy-menu-add my-jde-mode-menu)
@@ -803,7 +796,8 @@ This command does not push erased text to kill-ring."
 (put 'downcase-region 'disabled nil)
 
 ;; ;; Pymacs
-(load-file "/home/burak/Documents/kod/site-lisp/pymacs/pymacs.el")
+;;(load-file "/home/burak/Documents/kod/site-lisp/pymacs/pymacs.el")
+(load-file "/home/burak/Documents/pymacs/pymacs.el")
 
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
@@ -872,7 +866,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*' " grep-program "")
+(setq grep-find-command "find . -type f -name "$1" -exec grep -nH $2 {} \; " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
