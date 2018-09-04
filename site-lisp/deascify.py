@@ -36,7 +36,7 @@ def convert():
     # tuple olarak yazilir, ("kelime",) gibi. eger degisim isteniyorsa
     # ("kelime","degisim") olarak bir tuple eklenir. 
     r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
-              ("ise",), ("kontur",), ("hacim","hacim"), ("ODE",),
+              ("ise",), ("kontur",), ("hacim","hacim"), ("ODE",),("parcaciga", u"parçacığa"),
               ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
               ("kismi", u'kısmi'), ("integral",), ("arastirmaci",u"araştırmacı"),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),

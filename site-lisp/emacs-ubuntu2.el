@@ -822,7 +822,6 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
-(add-to-list 'compile-history "ant debug -find")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
 
@@ -866,7 +865,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "find . -type f -name "$1" -exec grep -nH $2 {} \; " grep-program "")
+(setq grep-find-command "find . -type f -name '' -exec grep -nH $2 {} \\; " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
@@ -882,6 +881,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/2018/sent")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Pictures")
+(find-file-other-window "/home/burak/Documents/Dropbox/resmi/bilgiler")
 (find-file-other-window "/home/burak/Documents/backlog")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
