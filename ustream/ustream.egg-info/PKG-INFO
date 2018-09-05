@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: ustream
+Version: 0.1
+Summary: Simple distributed map/reduce for SQL and machine learning
+Home-page: https://github.com/burakbayramli/ustream
+Author: Burak Bayramli
+Author-email: dd@post.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN

@@ -1,0 +1,9 @@
+README.md
+setup.py
+ustream/__init__.py
+ustream.egg-info/PKG-INFO
+ustream.egg-info/SOURCES.txt
+ustream.egg-info/dependency_links.txt
+ustream.egg-info/not-zip-safe
+ustream.egg-info/requires.txt
+ustream.egg-info/top_level.txt
