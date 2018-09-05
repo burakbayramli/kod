@@ -88,9 +88,9 @@ def copy_files_and_dirs(fr,to):
 def del_not_in_from(fr, to, frdirs, todirs, skip):
     print 'b files not in a'
     frdirs_tmp = dict([(x.replace(to,fr),0) for x in frdirs])
-    diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]
+    diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]    
     for x in diff:
-        if x in skip: continue
+        if x and skip and x in skip: continue
         print 'deleting directory', x
         if os.path.isdir(x): deleteDir("'%s'" % x)
 
