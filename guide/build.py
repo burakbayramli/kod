@@ -1,7 +1,5 @@
 import os, sys
 
-if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    os.system("pdflatex -shell-escape ast_mbti.tex")
-    os.system("evince ast_mbti.pdf")
-    exit()
+if len(sys.argv) == 1 or sys.argv[1] == 'zip':
+    os.system("zip -r /tmp/mindmeld-0.1.zip .")
        

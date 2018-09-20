@@ -9,9 +9,9 @@
 (setq max-lisp-eval-depth 50000)
 (setq tool-bar-mode -1)
 (setq auto-resize-tool-bars -1) 
-(setq compile-command "/anaconda3/bin/python -u build.py ")
+(setq compile-command "python -u build.py ")
 (setq x-select-enable-clipboard t)
-(setq my-python-command "/anaconda3/bin/python") ;; pymacs uses this
+
 
 (set-variable (quote latex-run-command) "pdflatex")
 (set-variable (quote tex-dvi-view-command) "xpdf")
@@ -44,9 +44,12 @@
 (setq abbrev-file-name "/Users/burak.bayramli/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
-(setq ev-exe "evince")
+; Place the following in pdf.sh, and chmod a+x it
+; #!/bin/sh
+; /usr/bin/open -a Preview.app $1
+(setq ev-exe "/Users/burak.bayramli/Documents/kod/pdf.sh")
 (setq img-viewer-exe "eog") 
-(setq chrome-exe "/usr/bin/chromium-browser") 
+(setq chrome-exe "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome") 
 
 (defun open-file-ext ()
   "In dired, open the file named on this line."
@@ -95,6 +98,7 @@ This command does not push erased text to kill-ring."
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.html\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.csv\\'" 'utf-8)
+(modify-coding-system-alist 'file "\\.py\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.sql\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xhtml\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.jsp\\'" 'latin-5)
@@ -105,6 +109,8 @@ This command does not push erased text to kill-ring."
 
 (require 'nxml-mode)
 (require 'tempo)
+
+(load-file "/Users/burak.bayramli/Documents/kod/site-lisp/_latin_post_ek.el")
 
 (setq bell-volume 0)
 ;;(set-message-beep 'silent)
@@ -454,9 +460,9 @@ This command does not push erased text to kill-ring."
 ))
 
 (tool-bar-add-item "fwd-arrow" 'revert-buffer 'revert-buffer :help "Refresh" )
-
 ;;/usr/share/emacs/23.3/etc/images/diropen.xpm
 (tool-bar-add-item "diropen" 'my-dired 'my-dired :help "Open Dired" )
+(tool-bar-add-item "zoom-in" 'delete-other-windows 'delete-other-windows :help "Maximize" )
 
 ;; when enter is pressed, it automatically indents.
 (setq next-line-add-newlines nil)
@@ -741,8 +747,7 @@ This command does not push erased text to kill-ring."
 
 (defun scroll-cursor-to-top()
   (interactive)
-  (recenter 3)
-  (next-line 3)
+  (recenter 0)
   )
 
 (defun my-untabify ()
@@ -801,7 +806,7 @@ This command does not push erased text to kill-ring."
 (put 'downcase-region 'disabled nil)
 
 ;; ;; Pymacs
-(load-file "/Users/burak.bayramli/Downloads/Pymacs/pymacs.el")
+(load-file "/Users/burak.bayramli/Documents/repos/others/pymacs2/pymacs.el")
 
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
@@ -809,6 +814,9 @@ This command does not push erased text to kill-ring."
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 
+;;(pymacs-load "/Users/burak.bayramli/Documents/kod/site-lisp/peval")
+(pymacs-load "/Users/burak.bayramli/Documents/kod/site-lisp/deascify")
+;;(global-set-key "\M-," 'peval-pexec)
 (global-unset-key "\M-]")
 (global-set-key "\C-x\]" 'deascify-convert)
 
@@ -867,17 +875,25 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*' " grep-program "")
+(setq grep-find-command "sh /Users/burak.bayramli/Documents/kod/find/find.sh '*.*' " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
-(find-file-other-window "/Users/burak.bayramli/TODO.txt")
-(find-file-other-window "/Users/burak.bayramli/INFO.txt")
-(find-file-other-window "/Users/burak.bayramli/DOCS.txt")
-(find-file-other-window "/Users/burak.bayramli/Documents")
+(find-file-other-window "/Users/burak.bayramli/Documents/TODO.txt")
+(find-file-other-window "/Users/burak.bayramli/Documents/INFO.txt")
 (find-file-other-window "/Users/burak.bayramli/Downloads")
+(find-file-other-window "/Users/burak.bayramli/Documents/classnotes/elecmag")
+(find-file-other-window "/Users/burak.bayramli/Documents/classnotes/algs/dict")
 (find-file-other-window "/Users/burak.bayramli/Documents/kod/site-lisp")
+(find-file-other-window "/Users/burak.bayramli/Documents/meetings")
+(find-file-other-window "/Users/burak.bayramli/Documents")
+(find-file-other-window "/Users/burak.bayramli/Documents/xg_develop")
+(find-file-other-window "/Users/burak.bayramli/Documents/repos/sent/osm128/osm_language_model/venue_mapping/models/venue_classifier")
+(find-file-other-window "/Users/burak.bayramli/Documents/match_cluster_timeline")
+(find-file-other-window "/Users/burak.bayramli/Documents/timeline_enc_fy")
+
+
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
