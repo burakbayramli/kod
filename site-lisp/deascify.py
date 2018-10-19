@@ -38,7 +38,7 @@ def convert():
     r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
               ("ise",), ("kontur",), ("hacim","hacim"), ("ODE",),("parcaciga", u"parçacığa"),
               ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
-              ("kismi", u'kısmi'), ("integral",), ("arastirmaci",u"araştırmacı"),
+              ("integral",), ("arastirmaci",u"araştırmacı"),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
               ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),
               ("ihtiyaci",u'ihtiyacı'), ("acilim",u'açılım'),("inip",),

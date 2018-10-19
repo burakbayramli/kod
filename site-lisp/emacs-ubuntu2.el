@@ -865,7 +865,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "find . -type f -name '' -exec grep -nH $2 {} \\; " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
@@ -874,7 +874,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents")
-(find-file-other-window "/home/burak/Documents/books")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
@@ -883,6 +882,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/bilgiler")
 (find-file-other-window "/home/burak/Documents/backlog")
+(find-file-other-window "/home/burak/Documents/classnotes/elecmag/elecmag_05")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 

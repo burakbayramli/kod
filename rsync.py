@@ -116,7 +116,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print args.fr
     print args.to
-    print args.skip
+    #print args.skip
     
     is_delete = args.delete
 
