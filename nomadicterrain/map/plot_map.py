@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # enlem/boylam ve pikseller arasinda gecis icin
 SCALEX = 1500. 
-SCALEY = -2800.
+SCALEY = -2300.
 dir = '/home/burak/Downloads/'
 zfile = dir + 'europe2.zip'
 
@@ -23,15 +23,12 @@ def plot(res4,outfile):
         for f in z.namelist():
             # the lat/lon middle of the map is encoded in the map's
             # filename
-            #print (f)            
             tmp = re.findall("map_(\d+)_(\d+)_(\d+)_(\d+)",f,re.DOTALL)
             if len(tmp)==0: continue
             tmp = tmp[0]
             imgcoord.append([float(tmp[0] + "." + tmp[1]), float(tmp[2] + "." + tmp[3]), f])
     imgcoord2 = pd.DataFrame(imgcoord,columns=['lat','lon','file'])
     dists = imgcoord2.apply(lambda x: geopy.distance.vincenty((x['lat'],x['lon']),center_res).km, axis=1)
-    #print (dists)
-    print (dists.idxmin())
     # the closest map is picked
     found = imgcoord2.ix[dists.idxmin()]
     print (found.file)
@@ -51,8 +48,6 @@ def plot(res4,outfile):
              dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
              xx = c[0]+dx
              yy = c[1]+dy
-             print (xx)
-             print (yy)             
              if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
              if i==0:
                  plt.plot(xx,yy,'rx')
