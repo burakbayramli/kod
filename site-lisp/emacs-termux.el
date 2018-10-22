@@ -41,7 +41,7 @@
   )
 
 ;; set name of abbrev file with .el extension
-(setq abbrev-file-name "~/kod/site-lisp/abbrevs.el")
+(setq abbrev-file-name "~/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
@@ -104,7 +104,7 @@ This command does not push erased text to kill-ring."
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
 
 (require 'nxml-mode)
-(load-file "~/kod/site-lisp/_latin_post_ek.el")
+(load-file "~/Documents/kod/site-lisp/_latin_post_ek.el")
 (require 'tempo)
 
 (setq bell-volume 0)
@@ -113,8 +113,8 @@ This command does not push erased text to kill-ring."
 
 (setq TeX-master-file-ask nil)
 
-(add-to-list 'load-path "~/kod/site-lisp/python-mode.el-6.0.10") 
-(setq py-install-directory "~/kod/site-lisp/python-mode.el-6.0.10")
+(add-to-list 'load-path "~/Documents/kod/site-lisp/python-mode.el-6.0.10") 
+(setq py-install-directory "~/Documents/kod/site-lisp/python-mode.el-6.0.10")
 (autoload 'autopair-global-mode "autopair" nil t)
 ;;(autopair-global-mode)
 (add-hook 'lisp-mode-hook
@@ -180,7 +180,7 @@ This command does not push erased text to kill-ring."
 
 ;; loads the _emacs file with one keystroke
 (defun find-dotemacs() (interactive)
-  (find-file "~/kod/site-lisp/emacs-termux.el"))
+  (find-file "~/Documents/kod/site-lisp/emacs-termux.el"))
 (define-key global-map "\C-c\C-f" 'find-dotemacs)
 
 (defun kill-current-buffer ()
@@ -331,8 +331,8 @@ This command does not push erased text to kill-ring."
 (defun byte-me()
   "byte compile _emacs file"
   (interactive)
-  (byte-compile-file "~/kod/site-lisp/emacs-win.el")
-  (load-file "~/kod/site-lisp/emacs-win.elc")
+  (byte-compile-file "~/Documents/kod/site-lisp/emacs-termux.el")
+  (load-file "~/kod/site-lisp/emacs-termux.elc")
   (message "Byte compiling _emacs...Done")
   )
 
@@ -750,7 +750,7 @@ This command does not push erased text to kill-ring."
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 
-(pymacs-load "/data/data/com.termux/files/home/kod/site-lisp/deascify")
+(pymacs-load "/data/data/com.termux/files/home/Documents/kod/site-lisp/deascify")
 
 
 (global-unset-key "\M-]")
@@ -778,7 +778,7 @@ This command does not push erased text to kill-ring."
   ;; load tex or md mode based on the extension
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "tex")
       (progn 
-	(pymacs-load "~/kod/site-lisp/ipython-tex")
+	(pymacs-load "~/Documents/kod/site-lisp/ipython-tex")
 	(global-set-key "\M-," 'ipython-tex-run-py-code)
 	(global-set-key [f5] 'ipython-tex-complete-py)
 	(tempo-define-template 
@@ -791,7 +791,7 @@ This command does not push erased text to kill-ring."
 	))
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "md")
       (progn 
-	(pymacs-load "/data/data/com.termux/files/home/kod/site-lisp/ipython-md")
+	(pymacs-load "~/Documents/kod/site-lisp/ipython-md")
 	(global-set-key "\M-," 'ipython-md-run-py-code)
 	(global-set-key [f5] 'ipython-md-complete-py)
 	(tempo-define-template 
@@ -809,7 +809,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh ~/kod/find/find.sh " grep-program "")
+(setq grep-find-command "sh ~/Documents/kod/find/find.sh " grep-program "")
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
