@@ -53,6 +53,6 @@ def plot(res4,outfile):
                  plt.plot(xx,yy,'rx')
              else:
                  plt.plot(xx,yy,'r.')
-             #plt.hold(True)                          
-         plt.savefig(outfile, bbox_inches='tight', pad_inches = 0)
+         plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
+
 
