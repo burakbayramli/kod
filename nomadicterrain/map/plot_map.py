@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # enlem/boylam ve pikseller arasinda gecis icin
 SCALEX = 1500. 
 SCALEY = -2300.
-dir = '/home/burak/Downloads/'
+dir = os.environ['HOME'] + '/Downloads/'
 zfile = dir + 'europe2.zip'
 
 def plot(res4,outfile):
