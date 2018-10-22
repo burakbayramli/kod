@@ -7,8 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # enlem/boylam ve pikseller arasinda gecis icin
-SCALEX = 1400. 
-SCALEY = -1800.
+SCALEX = 1550. 
+SCALEY = -4000.
 dir = '/home/burak/Downloads/'
 zfile = dir + 'europe2.zip'
 
