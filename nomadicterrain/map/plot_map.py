@@ -7,8 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # enlem/boylam ve pikseller arasinda gecis icin
-SCALEX = 1550. 
-SCALEY = -4000.
+SCALEX = 1500. 
+SCALEY = -2800.
 dir = '/home/burak/Downloads/'
 zfile = dir + 'europe2.zip'
 
@@ -17,6 +17,7 @@ def plot(res4,outfile):
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
     """
+    center_res = res4[0]
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
         for f in z.namelist():
@@ -28,7 +29,7 @@ def plot(res4,outfile):
             tmp = tmp[0]
             imgcoord.append([float(tmp[0] + "." + tmp[1]), float(tmp[2] + "." + tmp[3]), f])
     imgcoord2 = pd.DataFrame(imgcoord,columns=['lat','lon','file'])
-    dists = imgcoord2.apply(lambda x: geopy.distance.vincenty((x['lat'],x['lon']),res4).km, axis=1)
+    dists = imgcoord2.apply(lambda x: geopy.distance.vincenty((x['lat'],x['lon']),center_res).km, axis=1)
     #print (dists)
     print (dists.idxmin())
     # the closest map is picked
@@ -46,14 +47,17 @@ def plot(res4,outfile):
          fig.axes.get_xaxis().set_visible(False)
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
-         for [lat,lon] in res4:
+         for i,[lat,lon] in enumerate(res4):
              dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
              xx = c[0]+dx
              yy = c[1]+dy
              print (xx)
              print (yy)             
              if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
-             plt.plot(xx,yy,'r.')
+             if i==0:
+                 plt.plot(xx,yy,'rx')
+             else:
+                 plt.plot(xx,yy,'r.')
              plt.hold(True)                          
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0)
 
