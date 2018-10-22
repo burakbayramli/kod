@@ -9,7 +9,6 @@ import urllib.request, os.path
 
 def get_map(lat, lon, region, zoom):
     api = open("/home/burak/Documents/Dropbox/google_static_map_api.txt").read()
-    #api = "AIzaSyApPta8BFSVnvx0ZdufK-druQ7ty30vJZw"
     url = "http://maps.googleapis.com/maps/api/staticmap?center=" + \
     	  "%f,%f&size=800x800&maptype='terrain'&zoom=%d&key=%s" % (lat,lon,zoom,api)
     print (url)
