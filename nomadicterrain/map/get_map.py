@@ -24,6 +24,13 @@ def get_map(lat, lon, region, zoom):
     return True
     
 def get_maps(c1,c2,px,py,region,zoom=11):
+    """
+    c1: one corner of the region box
+    c2: the opposite corner of the region box
+
+    get_maps will always pick the smallest / largest of each
+    coord and create a box to sweep over. 
+    """
     a= np.linspace(min(c1[0],c2[0]), max(c1[0],c2[0]), px)
     b= np.linspace(min(c1[1],c2[1]), max(c1[1],c2[1]), py)
     aa,bb = np.meshgrid(a,b)
@@ -31,6 +38,7 @@ def get_maps(c1,c2,px,py,region,zoom=11):
         if get_map(x,y,region,zoom) == False: continue
 
 
-if __name__ == "__main__":     
-    c1 = (39.460801, 2.963884); c2 = (51.450320, 29.786351)
+if __name__ == "__main__":
+    # between coords
+    c1 = (51.450320,2.963884); c2 = (39.460801, 29.786351)
     get_maps(c1, c2, 80, 80, region="europe2")

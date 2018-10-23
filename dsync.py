@@ -20,7 +20,7 @@ if sys.argv[1] == "flash":
 if sys.argv[1] == "hd2hd":
 #    os.system("python rsync.py '/media/burak/New Volume/archive' '/media/burak/Seagate Backup Plus Drive/archive' --delete 1")
 #    os.system("python rsync.py '/media/burak/New Volume/shows' '/media/burak/Seagate Backup Plus Drive/shows' --delete 1")
-    os.system("python rsync.py '/media/burak/New Volume/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures' --delete 1")
-#    os.system("python rsync.py '/media/burak/New Volume/other' '/media/burak/Seagate Backup Plus Drive/other' --delete 1")
+#    os.system("python rsync.py '/media/burak/New Volume/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures' --delete 1")
+    os.system("python rsync.py '/media/burak/New Volume/other' '/media/burak/Seagate Backup Plus Drive/other' --delete 1")
 
 
