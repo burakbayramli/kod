@@ -23,4 +23,6 @@ if sys.argv[1] == "hd2hd":
     os.system("python rsync.py '/media/burak/New Volume/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures' --delete 1")
 #    os.system("python rsync.py '/media/burak/New Volume/other' '/media/burak/Seagate Backup Plus Drive/other' --delete 1")
 
+if sys.argv[1] == "hd2usb64":
+    os.system("python rsync.py '/media/burak/New Volume/archive' '/media/burak/1BC3-0618/archive' --delete 1")
 
