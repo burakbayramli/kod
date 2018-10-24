@@ -2,7 +2,7 @@ import textract, json, codecs
 
 params = json.loads(open("in/params.json").read())
 
-text = textract.process("in/shipof.epub",encoding='ascii')
+text = textract.process(params['file_in'],encoding='ascii')
 L = len(text)
 from_l = int((L * float(params['from_perc'])) / 100.0)
 to_l = int((L * float(params['to_perc'])) / 100.0)
