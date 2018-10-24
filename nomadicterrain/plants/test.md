@@ -1,7 +1,8 @@
 
-```python																																																														
+
+```python
 import pandas as pd
-       import numpy as np
+import numpy as np
 import os; os.environ['KERAS_BACKEND'] = 'theano'
 import keras
 from keras.datasets import mnist
@@ -11,180 +12,29 @@ from keras.optimizers import RMSprop
 from keras.preprocessing import image
 from keras.applications.imagenet_utils import decode_predictions
 from keras.applications.vgg16 import VGG16
+from keras.applications.resnet50 import preprocess_input
+```
 
-model = VGG16()
+
+```python
+import zipfile
+with zipfile.ZipFile('/home/burak/Downloads/edible-wild-plants/datasets.zip', 'r') as z:
+     im_files = list(z.namelist())
+     print (im_files)
 ```
 
 ```python
-print (model.summary())
+import zipfile
+with zipfile.ZipFile('/home/burak/Downloads/edible-wild-plants/datasets.zip', 'r') as z:
+     f = 'dataset-test/Alfalfa/Alfalfa_test1.jpeg'
+     im = image.load_img(z.open(f), target_size=(224, 224))
+     im = image.img_to_array(im)
+     print (im.shape)
 ```
 
 ```text
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_1 (InputLayer)         (None, 224, 224, 3)       0         
-_________________________________________________________________
-block1_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
-_________________________________________________________________
-block1_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
-_________________________________________________________________
-block1_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
-_________________________________________________________________
-block2_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
-_________________________________________________________________
-block2_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
-_________________________________________________________________
-block2_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
-_________________________________________________________________
-block3_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
-_________________________________________________________________
-block3_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
-_________________________________________________________________
-block4_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
-_________________________________________________________________
-block4_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
-_________________________________________________________________
-block5_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
-_________________________________________________________________
-flatten (Flatten)            (None, 25088)             0         
-_________________________________________________________________
-fc1 (Dense)                  (None, 4096)              102764544 
-_________________________________________________________________
-fc2 (Dense)                  (None, 4096)              16781312  
-_________________________________________________________________
-predictions (Dense)          (None, 1000)              4097000   
-=================================================================
-Total params: 138,357,544
-Trainable params: 138,357,544
-Non-trainable params: 0
-_________________________________________________________________
-None
+(224, 224, 3)
 ```
-
-```python
-model.layers.pop()
-model.layers.pop()
-```
-
-```text
-Out[1]: <keras.layers.core.Dense at 0x7f85c6531908>
-```
-
-```python
-print (model.summary())
-```
-
-```text
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-input_1 (InputLayer)         (None, 224, 224, 3)       0         
-_________________________________________________________________
-block1_conv1 (Conv2D)        (None, 224, 224, 64)      1792      
-_________________________________________________________________
-block1_conv2 (Conv2D)        (None, 224, 224, 64)      36928     
-_________________________________________________________________
-block1_pool (MaxPooling2D)   (None, 112, 112, 64)      0         
-_________________________________________________________________
-block2_conv1 (Conv2D)        (None, 112, 112, 128)     73856     
-_________________________________________________________________
-block2_conv2 (Conv2D)        (None, 112, 112, 128)     147584    
-_________________________________________________________________
-block2_pool (MaxPooling2D)   (None, 56, 56, 128)       0         
-_________________________________________________________________
-block3_conv1 (Conv2D)        (None, 56, 56, 256)       295168    
-_________________________________________________________________
-block3_conv2 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_conv3 (Conv2D)        (None, 56, 56, 256)       590080    
-_________________________________________________________________
-block3_pool (MaxPooling2D)   (None, 28, 28, 256)       0         
-_________________________________________________________________
-block4_conv1 (Conv2D)        (None, 28, 28, 512)       1180160   
-_________________________________________________________________
-block4_conv2 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_conv3 (Conv2D)        (None, 28, 28, 512)       2359808   
-_________________________________________________________________
-block4_pool (MaxPooling2D)   (None, 14, 14, 512)       0         
-_________________________________________________________________
-block5_conv1 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv2 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_conv3 (Conv2D)        (None, 14, 14, 512)       2359808   
-_________________________________________________________________
-block5_pool (MaxPooling2D)   (None, 7, 7, 512)         0         
-_________________________________________________________________
-flatten (Flatten)            (None, 25088)             0         
-_________________________________________________________________
-fc1 (Dense)                  (None, 4096)              102764544 
-=================================================================
-Total params: 117,479,232
-Trainable params: 117,479,232
-Non-trainable params: 0
-_________________________________________________________________
-None
-```
-
-
-
-
-
-
-
-from __future__ import print_function
-import os; os.environ['KERAS_BACKEND'] = 'theano'
-import keras
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.optimizers import RMSprop
-
-
-```python
-f = "/home/burak/Downloads/edible-wild-plants/"
-import os; os.environ['KERAS_BACKEND'] = 'theano'
-import keras
-```
-
-```python
-from keras.applications.resnet50 import ResNet50
-from keras.preprocessing import image
-from keras.applications.imagenet_utils import decode_predictions
-
-resnet = ResNet50(weights='imagenet')
-
-img = image.load_img('dog.jpg', target_size=(224, 224))
-img = image.img_to_array(img)
-plt.imshow(img / 255.)
-x = preprocess_input(np.expand_dims(img.copy(), axis=0))
-preds = resnet.predict(x)
-decode_predictions(preds, top=5)
-```
-
-
-
-
-
-
-
-
 
 
 
