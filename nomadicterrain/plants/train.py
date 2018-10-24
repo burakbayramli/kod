@@ -2,7 +2,6 @@
 # %autoreload 2
 import pandas as pd, re
 import numpy as np
-import os; os.environ['KERAS_BACKEND'] = 'theano'
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -14,13 +13,38 @@ from keras.applications.vgg16 import VGG16
 from keras.applications.resnet50 import preprocess_input
 import random
 import zipfile
-     
+
 import pandas as pd
 df = pd.read_csv('meta.csv',sep='\t',index_col=1)
 
+print ('start')
+model = VGG16()
+print ('done')
+
+model.layers.pop()
+model.layers.pop()
+
+from keras.layers import Flatten, Dense, Dropout
+from keras.layers.normalization import BatchNormalization
+from keras.models import Model
+
+base_model = model
+num_classes = 62
+
+x = Dense(4096, activation='relu')(base_model.output)
+x = Dropout(0.5)(x)
+x = BatchNormalization()(x)
+predictions = Dense(num_classes, activation = 'softmax')(x)
+
+head_model = Model(input = base_model.input, output = predictions)
+
+head_model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+
+print (head_model.summary())
+
 with zipfile.ZipFile('/home/burak/Downloads/edible-wild-plants/datasets.zip', 'r') as z:
      im_files = list(z.namelist())
-     im_files = [x for x in im_files if ".jpg" in x]
+     im_files = [x for x in im_files if ".jpg" in x and "user_images" not in x]
 
 idxs = range(0, len(im_files))
 
@@ -33,26 +57,15 @@ with zipfile.ZipFile('/home/burak/Downloads/edible-wild-plants/datasets.zip', 'r
                f = im_files[ridxs[i]]
                regex = "dataset.*?/(.*?)/.*?\.jp"
                label_str = re.findall(regex, f)[0]
-               print (label_str)
-               label_idx = df.ix[label_str].Nr
+               label_idx = int(df.ix[label_str].Nr)-1
                im = image.load_img(z.open(f), target_size=(224, 224))
                im = image.img_to_array(im)
-               X[i, :] = im
+               x = preprocess_input(np.expand_dims(im.copy(), axis=0))
+               X[i, :] = x
                y[i,label_idx] = 1.0
           return X, y
-
-     X, y = get_batch()
-     print (X)
-     print (y)
-     exit()
      
      for i in range(100):
           X, y = get_batch()
-          print (X.shape)
-          print (y.shape)
+          head_model.fit(X, y, epochs=1, batch_size=30, verbose=1)
 
-#for e in range(epochs):
-#    print('Epoch', e)
-#    batches = 0
-#    for x_batch, y_batch in datagen.flow(x_train, y_train, batch_size=32):
-#        model.fit(x_batch, y_batch)

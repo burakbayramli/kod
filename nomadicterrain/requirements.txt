@@ -3,4 +3,4 @@ matplotlib==3.0.0
 pandas
 geopy
 textract
-
+tensorflow==1.5 # for server (training)
