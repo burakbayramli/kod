@@ -23,8 +23,3 @@ img = image.img_to_array(img)
 x = preprocess_input(np.expand_dims(img.copy(), axis=0))
 preds = model.predict(x)
 print (decode_predictions(preds, top=5))
-
-
-
-
-
