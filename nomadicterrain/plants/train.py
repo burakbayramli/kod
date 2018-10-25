@@ -22,6 +22,14 @@ from keras import optimizers
 import random
 import zipfile
 
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True  # dynamically grow the memory used on the GPU
+sess = tf.Session(config=config)
+set_session(sess)  # set this TensorFlow session as the default session for Keras
+
+
 #model = VGG16(weights='imagenet')
 model = ResNet50(weights='imagenet')
 
@@ -62,8 +70,8 @@ with zipfile.ZipFile('/content/gdrive/My Drive/Public/data/datasets.zip', 'r') a
                y[i,label_idx] = 1.0
           return X, y
      
-     for i in range(100):
+     for i in range(500):
           X, y = get_batch(batch_size=bs)
-          head_model.fit(X, y, epochs=1, batch_size=bs, verbose=1)
+          head_model.fit(X, y, epochs=1, batch_size=bs, verbose=1, validation_data=(X_val,y_val))
 
           
