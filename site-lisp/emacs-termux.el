@@ -815,6 +815,6 @@ This command does not push erased text to kill-ring."
 ;;
 (find-file-other-window "/data/data/com.termux/files/home")
 (find-file-other-window "/data/data/com.termux/files/home/storage")
-(find-file-other-window "/data/data/com.termux/files/home/storage/downloads/classnotes")
+(find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
