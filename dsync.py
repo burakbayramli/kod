@@ -25,8 +25,5 @@ if sys.argv[1] == "hd2hd":
 
 if sys.argv[1] == "hd2usb64":
     #os.system("python rsync.py '/media/burak/New Volume/archive' '/media/burak/1BC3-0618/archive' --delete 1")
-    #os.system("python rsync.py '/media/burak/New Volume/Lectures/me' '/media/burak/1BC3-0618/Lectures/me' --delete 1")
-    #os.system("python rsync.py '/media/burak/New Volume/Lectures/Purdue/ElecMag' '/media/burak/1BC3-0618/Lectures/Purdue/ElecMag' --delete 1")
-    #os.system("python rsync.py '/media/burak/New Volume/Lectures/MIT/18.02-MultivarCalculus' '/media/burak/1BC3-0618/Lectures/MIT/18.02-MultivarCalculus' --delete 1")
 
 
