@@ -89,17 +89,20 @@ def runner(name, conf):
             # simply run the program
             run(conf,name)                
             
-    except OSError, message:
+    except OSError as message:
         logging.debug('Execution failed! \n %s \n' % message)
         sys.exit(1)
 
 if __name__ == "__main__": 
 
-    if len(sys.argv) != 2: print "Usage: dandy.py [conf file]"; exit(0)
+    if len(sys.argv) != 2:
+        print ("Usage: dandy.py [conf file]");
+        exit(0)
+        
     log_file = sys.argv[1].replace(".conf","").replace("/","_")
     log_file = log_file.replace("-","_")
-    flog = os.environ['TEMP'] + '/dand_%s.log' % log_file
-    print 'log file', flog
+    flog = '/tmp/dand_%s.log' % log_file
+    print ('log file %s', flog)
     logging.basicConfig(filename=flog,level=logging.DEBUG,format='%(asctime)-15s: %(message)s')   
     f = open(sys.argv[1], "r")
 
