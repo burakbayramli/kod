@@ -101,7 +101,7 @@ def del_not_in_from(fr, to, frdirs, todirs, skip):
     for (x,size) in tofiles:
         x_fr=x.replace(to,fr)
         if x_fr not in frfilesdict:
-            print ('deleting' % x)
+            print ('deleting %s' % x)
             deleteFile(x)
 
             
