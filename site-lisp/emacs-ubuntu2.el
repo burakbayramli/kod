@@ -867,6 +867,16 @@ This command does not push erased text to kill-ring."
 
 (setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh " grep-program "")
 
+(defun remove-newlines-in-region ()
+  "Removes all newlines in the region."
+  (interactive)
+  (save-restriction
+    (narrow-to-region (point) (mark))
+    (goto-char (point-min))
+    (while (search-forward "\n" nil t) (replace-match " " nil t))))
+
+(global-set-key [f8] 'remove-newlines-in-region)
+
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")

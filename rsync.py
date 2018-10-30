@@ -22,7 +22,7 @@ def deleteDir(path):
 
 def deleteFile(path):
     """deletes the path entirely"""
-    print path
+    print (path)
     mswindows = (sys.platform == "win32")
     if mswindows: 
         cmd = 'DEL /F /S /Q "%s"' % path
@@ -65,7 +65,7 @@ def copy_files_and_dirs(fr,to):
     todirs,tofiles = ls(to)
 
     tofilesdict = dict(tofiles)
-    print 'create dirs'
+    print ('create dirs')
     todirs_tmp = dict([(x.replace(fr,to),0) for x in todirs])
     diff = [x for x in frdirs if x.replace(fr,to) not in todirs_tmp]
     for x in diff:
@@ -73,25 +73,25 @@ def copy_files_and_dirs(fr,to):
         if os.path.exists(x) == False:            
             os.mkdir(x)
 
-    print 'a files not in b'
+    print ('a files not in b')
     for (x,size) in frfiles:
         x_to=x.replace(fr,to)
         if x_to in tofilesdict and tofilesdict[x_to] != size: 
-            print 'copying', x,x_to
+            print ('copying %s %s' % (x,x_to))
             shutil.copy(x,x_to)
         elif x_to not in tofilesdict: 
-            print 'copying', x,x_to
+            print ('copying %s %s' % (x,x_to))
             shutil.copy(x,x_to)
             
     return frdirs, todirs
 
 def del_not_in_from(fr, to, frdirs, todirs, skip):
-    print 'b files not in a'
+    print ('b files not in a')
     frdirs_tmp = dict([(x.replace(to,fr),0) for x in frdirs])
     diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]    
     for x in diff:
         if x and skip and x in skip: continue
-        print 'deleting directory', x
+        print ('deleting directory %s' % x)
         if os.path.isdir(x): deleteDir("'%s'" % x)
 
     frdirs,frfiles =  ls(fr)
@@ -101,7 +101,7 @@ def del_not_in_from(fr, to, frdirs, todirs, skip):
     for (x,size) in tofiles:
         x_fr=x.replace(to,fr)
         if x_fr not in frfilesdict:
-            print 'deleting', x
+            print ('deleting' % x)
             deleteFile(x)
 
             
@@ -114,9 +114,8 @@ if __name__ == "__main__":
     parser.add_argument('--skip', type=bool, nargs="?", help='skip this subdir.')
 
     args = parser.parse_args()
-    print args.fr
-    print args.to
-    #print args.skip
+    print (args.fr)
+    print (args.to)
     
     is_delete = args.delete
 

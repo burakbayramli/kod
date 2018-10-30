@@ -1,6 +1,8 @@
 import os, sys, shutil, rsync, re
 
-if len(sys.argv) < 2: print "Usage dsync.py [letter]"; exit()
+if len(sys.argv) < 2:
+    print ("Usage dsync.py [letter]")
+    exit()
 
 if sys.argv[1] == "hd":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/New Volume/archive/Dropbox' --delete 1")
@@ -24,6 +26,6 @@ if sys.argv[1] == "hd2hd":
 #    os.system("python rsync.py '/media/burak/New Volume/other' '/media/burak/Seagate Backup Plus Drive/other' --delete 1")
 
 if sys.argv[1] == "hd2usb64":
-    #os.system("python rsync.py '/media/burak/New Volume/archive' '/media/burak/1BC3-0618/archive' --delete 1")
+    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/Lectures/YT' '/media/burak/1BC3-0618/Lectures/YT' --delete 1")
 
 
