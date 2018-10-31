@@ -12,12 +12,12 @@ SCALEY = -4700.
 dir = os.environ['HOME'] + '/Downloads/campdata/'
 zfile = dir + 'europe2.zip'
 
-def plot(res4,outfile):
+def plot(points,outfile):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
     """
-    center_res = res4[0]
+    center_res = points[0]
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
         for f in z.namelist():
@@ -44,7 +44,7 @@ def plot(res4,outfile):
          fig.axes.get_xaxis().set_visible(False)
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
-         for i,[lat,lon] in enumerate(res4):
+         for i,[lat,lon] in enumerate(points):
              dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
              xx = c[0]+dx
              yy = c[1]+dy
