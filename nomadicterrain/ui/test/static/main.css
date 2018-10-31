@@ -9,9 +9,8 @@
 .navmenu a {
    display: inline-block;     
    position: relative;    
-   z-index: 1;     
-   padding-bottom: 100px;     
-   margin: -2em;
+   padding-top: 50px;     
+   padding-bottom: 50px;     
    color: blue;
    text-decoration: none;
    text-transform: uppercase;

@@ -12,6 +12,7 @@
     function setPosition(position) {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
+      document.getElementById("locpos").innerHTML = lat + " " + lon;  
       document.getElementById("myloc").href="location/" + lat + ";" + lon;      
     }
 </script>
@@ -19,6 +20,9 @@
 
   <div class="navmenu">
     <nav>
+      <div id="locpos">
+        <p></p>
+      </div>      
       <ul>
         <li><a id="grab" href="#" onclick='getLocation()'>Get Location</a></li>
         <li><a id="myloc" href="/location/32324">My Location</a></li>
