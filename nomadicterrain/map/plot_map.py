@@ -89,8 +89,6 @@ def plot_area(pt, point_sets, outfile):
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
          for points in point_sets:
-             print ('---')
-             print (len(points))
              pixel_coords = []
              for i,[lat,lon] in enumerate(points):
                  dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
@@ -99,8 +97,6 @@ def plot_area(pt, point_sets, outfile):
                  if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
                  pixel_coords.append([xx,yy])
 
-             print ('-----2')
-             print (len(pixel_coords))
              for i in range(1,len(pixel_coords)):
                  plt.plot([pixel_coords[i-1][0],pixel_coords[i][0]],
                           [pixel_coords[i-1][1],pixel_coords[i][1]],
