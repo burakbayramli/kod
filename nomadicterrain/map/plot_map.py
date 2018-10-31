@@ -56,12 +56,12 @@ def plot(points,outfile):
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 
-def plot_area(points,outfile):
+def plot_area(pt, point_sets, outfile):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari etrafi cizgilerle belirli alan olarak ciz
     """
-    center_res = points[0]
+    center_res = pt
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
         for f in z.namelist():
@@ -88,27 +88,30 @@ def plot_area(points,outfile):
          fig.axes.get_xaxis().set_visible(False)
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
-         pixel_coords = []
-         for i,[lat,lon] in enumerate(points):
-             dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
-             xx = c[0]+dx
-             yy = c[1]+dy
-             if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
-             if i==0:
-                 plt.plot(xx,yy,'rx')
-             else:
+         for points in point_sets:
+             print ('---')
+             print (len(points))
+             pixel_coords = []
+             for i,[lat,lon] in enumerate(points):
+                 dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
+                 xx = c[0]+dx
+                 yy = c[1]+dy
+                 if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
                  pixel_coords.append([xx,yy])
 
-         for i in range(1,len(pixel_coords)):
-             plt.plot([pixel_coords[i-1][0],pixel_coords[i][0]],
-                      [pixel_coords[i-1][1],pixel_coords[i][1]],
-                      color='r',
-                      linestyle='-',
-                      linewidth=2)
-            
-         plt.plot([pixel_coords[i][0],pixel_coords[0][0]],
-                  [pixel_coords[i][1],pixel_coords[0][1]],
-                  color='r', linestyle='-',linewidth=2)
+             print ('-----2')
+             print (len(pixel_coords))
+             for i in range(1,len(pixel_coords)):
+                 plt.plot([pixel_coords[i-1][0],pixel_coords[i][0]],
+                          [pixel_coords[i-1][1],pixel_coords[i][1]],
+                          color='r',
+                          linestyle='-',
+                          linewidth=2)
+
+             # line from the last point in the set to first one
+             plt.plot([pixel_coords[-1][0],pixel_coords[0][0]],
+                      [pixel_coords[-1][1],pixel_coords[0][1]],
+                      color='r', linestyle='-',linewidth=2)
                  
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
