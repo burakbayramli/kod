@@ -1,5 +1,11 @@
 <html>
 
+  <head>
+      <meta http-equiv="cache-control" content="max-age=0" />
+      <meta http-equiv="cache-control" content="no-cache" />
+      <meta http-equiv="expires" content="0" />
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+  </head>
 <script>
 var x = document.getElementById("demo");
 function getLocation() {
@@ -14,26 +20,17 @@ function showPosition(position) {
     alert(s);
 }
 </script>
+<body>
 
-  
-  <h3>Nomadic Terrain</h3>
-
-  <div id="menu1">
-    <a href="/location/32324">
-      My Location
-    </a>
-    <br/>
-    <br/>
-    <a href="#" onclick='getLocation()'>
-      National Parks
-    </a>
-    <br/>
-    <br/>
-    <a href="">
-      Campsites
-    </a>
-  </div>
-
+<div class="navmenu">
+    <nav>
+      <ul>
+      <li><a href="/location/32324">My Location</a></li>
+      <li><a href="#" onclick='getLocation()'>National Parks</a></li>
+      <li><a href="">Campsites</a></li>
+      </ul>
+    </nav>
+</div>
 
 </html>
 
