@@ -1,3 +1,0 @@
-title=Hello World
-author=Burak Bayramli
-orientation=portrait
