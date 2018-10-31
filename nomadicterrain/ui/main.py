@@ -1,10 +1,12 @@
 from flask import Flask, render_template
-import numpy as np
-import pandas as pd
+import numpy as np, pandas as pd, os
 import sys; sys.path.append("../map")
-import plot_map
+import plot_map, json, random
 
 app = Flask(__name__)
+
+params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+print (params)
 
 @app.route('/')
 def index():
@@ -12,16 +14,21 @@ def index():
 
 @app.route('/location/<coordinates>')
 def location(coordinates):
-    lat,lon = coordinates.split(";")
+
+    df = pd.read_csv(params['gps'])
+    print (df.tail(1).lat)
+    print (df.tail(1).lon)
+    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pts = np.array([[lat, lon]]).astype(float)
-    plot_map.plot(pts,'static/out.png')    
-    return render_template('/location.html', location=coordinates)
+    fout = "static/out-%d.png" % int(random.random()*1000000)
+    plot_map.plot(pts, fout ) 
+    return render_template('/location.html', location=fout)
 
 @app.route('/parks/<coordinates>')
 def parks(coordinates):
     lat,lon = coordinates.split(";")
     pt = np.array([[lat, lon]]).astype(float)
-    df = pd.read_csv(plot_map.dir + "/" + "national_parks.csv", sep='|')
+    df = pd.read_csv(params['national_parks'], sep='|')
     
     for x in df.index:
         print ('inside parks -------------------')
