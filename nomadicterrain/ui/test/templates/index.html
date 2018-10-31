@@ -1,33 +1,31 @@
 <html>
 
   <head>
-      <meta http-equiv="cache-control" content="max-age=0" />
-      <meta http-equiv="cache-control" content="no-cache" />
-      <meta http-equiv="expires" content="0" />
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
   </head>
-<script>
-var x = document.getElementById("demo");
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-function showPosition(position) {
-    s = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; 
-    alert(s);
-}
+  <script>
+    
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+  }
+  function showPosition(position) {
+      s = position.coords.latitude +  ";" + position.coords.longitude; 
+      document.getElementById("camp").href="problem3.html";
+      alert(s);
+  }
 </script>
 <body>
 
 <div class="navmenu">
     <nav>
       <ul>
-      <li><a href="/location/32324">My Location</a></li>
-      <li><a href="#" onclick='getLocation()'>National Parks</a></li>
-      <li><a href="">Campsites</a></li>
+      <li><a id="myloc" href="/location/32324">My Location</a></li>
+      <li><a id="np" href="#" onclick='getLocation()'>National Parks</a></li>
+      <li><a id="camp" href="">Campsites</a></li>
       </ul>
     </nav>
 </div>
