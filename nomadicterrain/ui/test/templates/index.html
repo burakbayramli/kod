@@ -4,31 +4,29 @@
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
   </head>
   <script>
-    
-  function getLocation() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-      }
-  }
-  function showPosition(position) {
-      s = position.coords.latitude +  ";" + position.coords.longitude; 
-      document.getElementById("camp").href="problem3.html";
-      alert(s);
-  }
+    var lat = "lat";
+    var lon = "lon";
+    function getLocation() {
+       navigator.geolocation.getCurrentPosition(setPosition);  
+    }  
+    function setPosition(position) {
+      lat = position.coords.latitude;
+      lon = position.coords.longitude;
+      document.getElementById("myloc").href="location/" + lat + ";" + lon;      
+    }
 </script>
-<body>
+<body onload="init()">
 
-<div class="navmenu">
+  <div class="navmenu">
     <nav>
       <ul>
-      <li><a id="myloc" href="/location/32324">My Location</a></li>
-      <li><a id="np" href="#" onclick='getLocation()'>National Parks</a></li>
-      <li><a id="camp" href="">Campsites</a></li>
+        <li><a id="grab" href="#" onclick='getLocation()'>Get Location</a></li>
+        <li><a id="myloc" href="/location/32324">My Location</a></li>
+        <li><a id="np" href="#"'>National Parks</a></li>
+        <li><a id="camp" href="">Campsites</a></li>
       </ul>
     </nav>
-</div>
+  </div>
 
 </html>
 
