@@ -1,5 +1,21 @@
 <html>
 
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    s = "Latitude: " + position.coords.latitude +  "<br>Longitude: " + position.coords.longitude; 
+    alert(s);
+}
+</script>
+
+  
   <h3>Nomadic Terrain</h3>
 
   <div id="menu1">
@@ -8,7 +24,7 @@
     </a>
     <br/>
     <br/>
-    <a href="">
+    <a href="#" onclick='getLocation()'>
       National Parks
     </a>
     <br/>
