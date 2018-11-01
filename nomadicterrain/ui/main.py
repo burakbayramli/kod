@@ -15,10 +15,7 @@ def index():
 
 @app.route('/location/<coordinates>')
 def location(coordinates):
-    print ('inside location-----------------')
     df = pd.read_csv(params['gps'])
-    print (df.tail(1).lat)
-    print (df.tail(1).lon)
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
@@ -27,7 +24,6 @@ def location(coordinates):
 
 @app.route('/parks/<coordinates>')
 def parks(coordinates):
-    print ('inside parks-----------------')
     df = pd.read_csv(params['gps'])
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pt = np.array([[lat, lon]]).astype(float)
@@ -38,7 +34,6 @@ def parks(coordinates):
         p = Polygon(ps)
         dist = geopy.distance.vincenty((p.centroid.x,p.centroid.y),(lat,lon))
         if dist.km < float(params['natpark_mindistance']):
-            print (df.ix[x,'Name'])
             parks.append(ps)                
 
     fout = "static/out-%s.png" % uuid.uuid4()
