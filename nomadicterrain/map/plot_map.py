@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # enlem/boylam ve pikseller arasinda gecis icin,
 # her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
 SCALEX = 2900. 
-SCALEY = -4700.
+SCALEY = -3900.
 
 def plot(points,outfile,zfile):
     """
