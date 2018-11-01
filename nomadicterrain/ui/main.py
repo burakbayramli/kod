@@ -41,6 +41,25 @@ def parks(coordinates):
     return render_template('/parks.html', location=fout)
 
 
+@app.route('/camps/<coordinates>')
+def camps(coordinates):
+    df = pd.read_csv(params['gps'])
+    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+    pt = np.array([[lat, lon]]).astype(float)
+    df = pd.read_csv(params['campsites'], sep=',')
+    df2 = df[['Latitude','Longitude']]
+    pts = []
+    pts.append([lat,lon])
+    for idx in df.index:
+        camp = (df2.ix[idx].Latitude, df2.ix[idx].Longitude)
+        dist = geopy.distance.vincenty(camp,(lat,lon))
+        if dist.km < float(params['natpark_mindistance']):
+            pts.append(list(camp))
+            
+    fout = "static/out-%s.png" % uuid.uuid4()
+    plot_map.plot(pts, fout, params['mapzip']) 
+    return render_template('/parks.html', location=fout)
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
