@@ -1,40 +1,13 @@
 
 
 ```python
-import uuid
-print(uuid.uuid4())
+import shapely
+print (shapely)
 ```
 
 ```text
-71f0b7d7-ae78-442d-8019-c0c55ee4932a
+<module 'shapely' from '/home/burak/Documents/py3k/lib/python3.5/site-packages/shapely/__init__.py'>
 ```
-
-
-
-
-
-
-
-
-
-
-```python
-import geopy.distance
-
-dist = geopy.distance.vincenty((51.238689, 4.406747),(51.232246, 4.444266))
-
-print (dist)
-print (dist.km)
-```
-
-```text
-2.716664570050969 km
-2.716664570050969
-```
-
-
-
-
 
 
 
@@ -49,10 +22,23 @@ print (p.centroid.y)
 ```
 
 ```text
-<class 'shapely.geometry.point.Point'>
 51.24722013653824
 4.442773906875942
 ```
+
+```python
+pts2 = np.array(pts)
+print (pts2.mean(axis=0))
+```
+
+```text
+[51.2470785   4.44402075]
+```
+
+```python
+print (Polygon)
+```
+
 
 
 
