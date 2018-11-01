@@ -1,6 +1,22 @@
 
 
 ```python
+from shapely.geometry import Polygon
+pts = [[51.238689, 4.406747],[51.232246, 4.444266],[51.251485,4.472641],[51.265894, 4.452429]]
+p = Polygon(pts)
+print (p.centroid.x)
+print (p.centroid.y)
+```
+
+```text
+<class 'shapely.geometry.point.Point'>
+51.24722013653824
+4.442773906875942
+```
+
+
+
+```python
 import plot_map
 #pts = np.array([[42.657889, 18.087956],[42.674881, 18.144730]])
 #pts = np.array([[51.218343232,4.404985494]])

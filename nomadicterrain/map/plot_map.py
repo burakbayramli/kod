@@ -6,13 +6,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# enlem/boylam ve pikseller arasinda gecis icin
+# enlem/boylam ve pikseller arasinda gecis icin,
+# her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
 SCALEX = 2900. 
 SCALEY = -4700.
-dir = os.environ['HOME'] + '/Downloads/campdata/'
-zfile = dir + 'europe2.zip'
 
-def plot(points,outfile):
+def plot(points,outfile,zfile):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
@@ -56,7 +55,7 @@ def plot(points,outfile):
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 
-def plot_area(pt, point_sets, outfile):
+def plot_area(pt, point_sets, outfile, zfile):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari etrafi cizgilerle belirli alan olarak ciz

@@ -39,6 +39,6 @@ def get_maps(c1,c2,px,py,region,zoom=11):
 
 
 if __name__ == "__main__":
-    # between coords
+    # harita hangi kordinatlar arasinda olmali
     c1 = (51.450320,2.963884); c2 = (39.460801, 29.786351)
     get_maps(c1, c2, 80, 80, region="europe2")

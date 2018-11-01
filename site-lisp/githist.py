@@ -15,7 +15,7 @@ def run_command(command):
     print ('Running: %s', command)
     f = os.popen(command, "r")
     sys.stdout.flush()
-    for l in f.xreadlines():
+    for l in f.readlines():
         result.append(l)
     return result
 

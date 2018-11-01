@@ -26,9 +26,12 @@ def location(coordinates):
 
 @app.route('/parks/<coordinates>')
 def parks(coordinates):
-    lat,lon = coordinates.split(";")
+    df = pd.read_csv(params['gps'])
+    print (df.tail(1).lat)
+    print (df.tail(1).lon)
+    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pt = np.array([[lat, lon]]).astype(float)
-    df = pd.read_csv(params['national_parks'], sep='|')
+    df = pd.read_csv(params['nationalpark'], sep='|')
     
     for x in df.index:
         print ('inside parks -------------------')
