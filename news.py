@@ -6,11 +6,8 @@ import feedparser, sys, codecs
 import re, requests, random, os
 import re, time, os
 
-sys.stdout = codecs.getwriter('utf8')(sys.stdout)
-sys.stderr = codecs.getwriter('utf8')(sys.stderr)
-
-def show():
-
+def getnews():
+    print ('here')
     feeds = [
         ("The Guardian","http://www.theguardian.com/world/rss",10),
         ("Reuters (Top News)",'http://feeds.reuters.com/reuters/topNews',-1),
@@ -41,7 +38,8 @@ def show():
             if len(re.findall(r"Musk", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r"Dreamer", title, re.IGNORECASE)) > 0: continue
             if len(re.findall(r" DACA", title, re.IGNORECASE)) > 0: continue
-            print("[[%s](%s)]\n" % (unicode(title), link))
+            print("[[%s](%s)]\n" % (title, link))
 
 
-show()
+if __name__ == "__main__": 
+    getnews()

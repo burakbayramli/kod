@@ -33,8 +33,7 @@ def parks(coordinates):
     for x in df.index:
         print ('inside parks -------------------')
         parks = eval(df.ix[x,'Polyline'])
-        l = pt + np.array(parks)
-        print (l)
+        print (parks)
                 
 #    plot_map.plot(pts,'static/out.png')    
     return render_template('/parks.html', location=coordinates)
