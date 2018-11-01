@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 # enlem/boylam ve pikseller arasinda gecis icin,
 # her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
 SCALEX = 2900. 
-#SCALEY = -4600.
-SCALEY = -3900.
+SCALEY = -4600.
+#SCALEY = -3900.
 
 def plot(points,outfile,zfile):
     """
@@ -64,6 +64,9 @@ def plot_area(pt, point_sets, outfile, zfile):
     tum noktalari etrafi cizgilerle belirli alan olarak ciz
     """
     plt.figure()
+    if 'numpy' in str(type(pt)):
+        pt = [pt[0][0], pt[0][1]]
+    
     center_res = pt
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
@@ -93,9 +96,9 @@ def plot_area(pt, point_sets, outfile, zfile):
          plt.imshow(im)
          
          for points in point_sets:
-             points.insert(0,pt) # basa koy, o nokta nerede oldugumuz
-             print (points)
-             for i,[lat,lon] in enumerate(points):
+             tmp_points = [x for x in points]
+             tmp_points.insert(0,pt) # basa koy, o nokta nerede oldugumuz
+             for i,[lat,lon] in enumerate(tmp_points):
                  dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)
                  xx = c[0]+dx
                  yy = c[1]+dy
