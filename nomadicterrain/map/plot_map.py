@@ -16,6 +16,8 @@ def plot(points,outfile,zfile):
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
     """
+    print (points)
+    plt.figure()
     center_res = points[0]
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
@@ -60,6 +62,8 @@ def plot_area(pt, point_sets, outfile, zfile):
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari etrafi cizgilerle belirli alan olarak ciz
     """
+    plt.figure()
+    print ("plot_area-----------------------")
     center_res = pt
     imgcoord = []
     with zipfile.ZipFile(zfile, 'r') as z:
@@ -101,12 +105,13 @@ def plot_area(pt, point_sets, outfile, zfile):
                           [pixel_coords[i-1][1],pixel_coords[i][1]],
                           color='r',
                           linestyle='-',
-                          linewidth=2)
-
-             # line from the last point in the set to first one
-             plt.plot([pixel_coords[-1][0],pixel_coords[0][0]],
-                      [pixel_coords[-1][1],pixel_coords[0][1]],
-                      color='r', linestyle='-',linewidth=2)
+                          linewidth=1)
+             print (len(pixel_coords))
+             if len(pixel_coords)>1:
+                 # line from the last point in the set to first one
+                 plt.plot([pixel_coords[-1][0],pixel_coords[0][0]],
+                          [pixel_coords[-1][1],pixel_coords[0][1]],
+                          color='r', linestyle='-',linewidth=2)
                  
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 

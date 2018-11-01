@@ -1,6 +1,46 @@
 
 
 ```python
+import uuid
+print(uuid.uuid4())
+```
+
+```text
+71f0b7d7-ae78-442d-8019-c0c55ee4932a
+```
+
+
+
+
+
+
+
+
+
+
+```python
+import geopy.distance
+
+dist = geopy.distance.vincenty((51.238689, 4.406747),(51.232246, 4.444266))
+
+print (dist)
+print (dist.km)
+```
+
+```text
+2.716664570050969 km
+2.716664570050969
+```
+
+
+
+
+
+
+
+
+
+```python
 from shapely.geometry import Polygon
 pts = [[51.238689, 4.406747],[51.232246, 4.444266],[51.251485,4.472641],[51.265894, 4.452429]]
 p = Polygon(pts)
