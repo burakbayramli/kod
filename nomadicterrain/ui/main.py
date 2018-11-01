@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import numpy as np, pandas as pd, os, uuid
+import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import plot_map, json, random, geopy.distance
 
@@ -7,6 +7,10 @@ app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
+
+def clean_dir():
+    files = glob.glob("static/out-*.png")
+    for f in files: os.remove(f)
 
 @app.route('/')
 def index():
@@ -18,6 +22,7 @@ def location(coordinates):
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
 
@@ -36,6 +41,7 @@ def parks(coordinates):
             parks.append(ps)                
 
     fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
     plot_map.plot_area(pt, parks, fout, params['mapzip']) 
     return render_template('/parks.html', location=fout)
 
@@ -55,6 +61,7 @@ def camps(coordinates):
         if dist.km < float(params['natpark_mindistance']):
             pts.append(list(camp))
             
+    clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
     plot_map.plot(pts, fout, params['mapzip']) 
     return render_template('/parks.html', location=fout)

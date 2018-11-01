@@ -1,16 +1,16 @@
 
 
+
+
 ```python
-import shapely
-print (shapely)
+import plot_map
+pts = [[51.238689, 4.406747],[51.232246, 4.444266],[51.251485,4.472641],[51.265894, 4.452429]]
+print (plot_map.get_centroid(pts))
 ```
 
 ```text
-<module 'shapely' from '/home/burak/Documents/py3k/lib/python3.5/site-packages/shapely/__init__.py'>
+[51.247220136538246, 4.442773906875942]
 ```
-
-
-
 
 
 ```python
@@ -35,9 +35,6 @@ print (pts2.mean(axis=0))
 [51.2470785   4.44402075]
 ```
 
-```python
-print (Polygon)
-```
 
 
 
