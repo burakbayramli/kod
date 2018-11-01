@@ -1,5 +1,4 @@
 from flask import Flask, render_template
-from shapely.geometry import Polygon
 import numpy as np, pandas as pd, os, uuid
 import sys; sys.path.append("../map")
 import plot_map, json, random, geopy.distance
@@ -31,8 +30,8 @@ def parks(coordinates):
     parks = []
     for x in df.index:
         ps = eval(df.ix[x,'Polyline'])
-        p = Polygon(ps)
-        dist = geopy.distance.vincenty((p.centroid.x,p.centroid.y),(lat,lon))
+        p_centroid_x,p_centroid_y = plot_map.get_centroid(ps)
+        dist = geopy.distance.vincenty((p_centroid_x, p_centroid_y),(lat,lon))
         if dist.km < float(params['natpark_mindistance']):
             parks.append(ps)                
 
