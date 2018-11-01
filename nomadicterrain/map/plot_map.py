@@ -91,27 +91,19 @@ def plot_area(pt, point_sets, outfile, zfile):
          fig.axes.get_xaxis().set_visible(False)
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
+         
          for points in point_sets:
-             pixel_coords = []
+             points = list(pt) + points
              for i,[lat,lon] in enumerate(points):
-                 dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
+                 dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)
                  xx = c[0]+dx
                  yy = c[1]+dy
                  if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
-                 pixel_coords.append([xx,yy])
+                 if i==0:
+                     plt.plot(xx,yy,'rx')
+                 else:
+                     plt.plot(xx,yy,'r.')
 
-             for i in range(1,len(pixel_coords)):
-                 plt.plot([pixel_coords[i-1][0],pixel_coords[i][0]],
-                          [pixel_coords[i-1][1],pixel_coords[i][1]],
-                          color='r',
-                          linestyle='-',
-                          linewidth=1)
-             print (len(pixel_coords))
-             if len(pixel_coords)>1:
-                 # line from the last point in the set to first one
-                 plt.plot([pixel_coords[-1][0],pixel_coords[0][0]],
-                          [pixel_coords[-1][1],pixel_coords[0][1]],
-                          color='r', linestyle='-',linewidth=2)
                  
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
