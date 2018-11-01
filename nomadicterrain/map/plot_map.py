@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 # enlem/boylam ve pikseller arasinda gecis icin,
 # her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
 SCALEX = 2900. 
+#SCALEY = -4600.
 SCALEY = -3900.
 
 def plot(points,outfile,zfile):
@@ -92,7 +93,8 @@ def plot_area(pt, point_sets, outfile, zfile):
          plt.imshow(im)
          
          for points in point_sets:
-             points = list(pt) + points
+             points.insert(0,pt) # basa koy, o nokta nerede oldugumuz
+             print (points)
              for i,[lat,lon] in enumerate(points):
                  dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)
                  xx = c[0]+dx
