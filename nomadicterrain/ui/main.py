@@ -8,18 +8,18 @@ app = Flask(__name__)
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
 
-edible_results = []
-
 class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
             self.edible = None
+            self.edible_results = []
         def __str__(self):
             return self.val
     instance = None
     def __new__(cls): # __new__ always a classmethod
         if not OnlyOne.instance:
             OnlyOne.instance = OnlyOne.__OnlyOne()
+            OnlyOne.instance.edible = pd.read_csv(params['edible_plants'],sep='|')
         return OnlyOne.instance
     def __getattr__(self, name):
         return getattr(self.instance, name)
@@ -86,20 +86,14 @@ def camps(coordinates):
 
 @app.route('/edible_main')
 def edible_main():
-    if 'Dataframe' not in str(type(OnlyOne().edible)):
-        OnlyOne().edible = pd.read_csv('/home/burak/Downloads/campdata/edible_plants.csv',sep='|')
-    return render_template('/edible.html',data=edible_results)
+    return render_template('/edible.html',data=OnlyOne().edible_results)
 
 @app.route("/edible", methods=["POST"])
 def edible():
     name = request.form.get("name")
 
     df = OnlyOne().edible
-    res = df[df['Scientific Name'].str.contains("Abies")]['Scientific Name']
-    print (res)
-    
-    #edible_results.append("33333")
-    #edible_results.append("44444")
+    OnlyOne().edible_results = df[df['Scientific Name'].str.contains("Abies")]['Scientific Name']    
     return edible_main()
 
 
