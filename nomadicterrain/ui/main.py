@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import plot_map, json, random, geopy.distance
@@ -7,6 +7,8 @@ app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
+
+edible_results = []
 
 def clean_dir():
     files = glob.glob("static/out-*.png")
@@ -65,6 +67,18 @@ def camps(coordinates):
     fout = "static/out-%s.png" % uuid.uuid4()
     plot_map.plot(pts, fout, params['mapzip']) 
     return render_template('/parks.html', location=fout)
+
+@app.route('/edible_main')
+def edible_main():
+    return render_template('/edible.html',data=edible_results)
+
+@app.route("/edible", methods=["POST"])
+def edible():
+    name = request.form.get("name")
+    edible_results.append("33333")
+    edible_results.append("44444")
+    return edible_main()
+
 
 if __name__ == '__main__':
     app.debug = True

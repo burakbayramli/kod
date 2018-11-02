@@ -1,4 +1,9 @@
 
+Scrape
+
+python -u console.py bing dog --limit 10 --json
+
+
 
 Plant edibility data came from a combination of sources. First did a dump on
 
