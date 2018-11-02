@@ -93,6 +93,10 @@ def upload_file():
       f = request.files['file']
       f.save('/tmp/' + f.filename)
       print (f.filename)
+      perc_from = request.form.get("perc_from")
+      perc_to = request.form.get("perc_to")
+      print (perc_from)
+      print (perc_to)
       return 'file uploaded successfully'
 
 @app.route('/book_main')
