@@ -87,6 +87,18 @@ def camps(coordinates):
 def edible_main():
     return render_template('/edible.html',data=OnlyOne().edible_results)
 
+@app.route('/book_uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      f.save('/tmp/' + f.filename)
+      print (f.filename)
+      return 'file uploaded successfully'
+
+@app.route('/book_main')
+def book_main():
+    return render_template('/book.html')
+
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
