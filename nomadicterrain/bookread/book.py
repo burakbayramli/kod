@@ -1,4 +1,4 @@
-import textract, json, codecs
+import textract, json, codecs, os
 from gtts import gTTS
 
 def book_extract(file_in, from_perc, to_perc, file_out):
@@ -18,5 +18,7 @@ def text_to_sound(fin):
 
 if __name__ == "__main__": 
      
-    book_extract("/home/burak/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
-    text_to_sound("/tmp/out.txt")
+    #book_extract("/home/burak/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
+    #text_to_sound("/tmp/out.txt")
+    book_extract(os.environ['HOME'] + "/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
+    text_to_sound("out.txt")
