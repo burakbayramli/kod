@@ -14,7 +14,7 @@ def book_extract(file_in, from_perc, to_perc, file_out):
 def text_to_sound(fin):
     content = open(fin).read()
     tts = gTTS(text=content, lang='en')
-    tts.save("/tmp/out.mp3")
+    tts.save("out.mp3")
 
 if __name__ == "__main__": 
      
