@@ -1,0 +1,18 @@
+<html>
+
+  <a href="/">Back</a>
+  
+  <h2>Edible</h2>
+
+  <form class="form-inline" action="/edible" method="POST">
+
+    <input type="text" name="name" placeholder="Plant scientific name"/>
+    <input type="submit" value="Search"/>
+
+    {% for x in data %}
+     <p>{{x}}</p>
+    {% endfor %}    
+    
+  </form>
+
+</html>
