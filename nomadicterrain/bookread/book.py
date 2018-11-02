@@ -11,14 +11,10 @@ def book_extract(file_in, from_perc, to_perc, file_out):
     fout.write(t)
     fout.close()
 
-def text_to_sound(fin):
+def text_to_sound(fin, fout):
     content = open(fin).read()
-    tts = gTTS(text=content, lang='en')
-    tts.save("out.mp3")
 
 if __name__ == "__main__": 
      
-    #book_extract("/home/burak/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
-    #text_to_sound("/tmp/out.txt")
     book_extract(os.environ['HOME'] + "/Downloads/scaramuc.epub", 10, 11, "out.txt")
-    text_to_sound("out.txt")
+    text_to_sound("out.txt", "out.mp3")

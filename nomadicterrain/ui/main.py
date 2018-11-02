@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
+import sys; sys.path.append("../bookread")
 import sys; sys.path.append("../map")
-import plot_map, json, random, geopy.distance
+import plot_map, json, random
+import book, geopy.distance
 
 app = Flask(__name__)
 
@@ -91,12 +93,15 @@ def edible_main():
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      f.save(params['audio_output_folder'] + "/" + f.filename)
+      fbook = params['audio_output_folder'] + "/" + f.filename
+      f.save(fbook)
       print (f.filename)
-      perc_from = request.form.get("perc_from")
-      perc_to = request.form.get("perc_to")
+      perc_from = float(request.form.get("perc_from"))
+      perc_to = float(request.form.get("perc_to"))
       print (perc_from)
       print (perc_to)
+      ftxt = params['audio_output_folder'] + "/" + "out.txt"
+      book.book_extract(fbook, perc_from, perc_to, ftxt)
       return 'file uploaded successfully'
 
 @app.route('/book_main')
