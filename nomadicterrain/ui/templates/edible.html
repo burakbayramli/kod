@@ -9,8 +9,8 @@
     <input type="text" name="name" placeholder="Plant scientific name"/>
     <input type="submit" value="Search"/>
 
-    {% for x in data %}
-     <p>{{x}}</p>
+    {% for x in data %}    
+         <p><a href="/edible_detail/{{x}}">{{x}}</a></p>
     {% endfor %}    
     
   </form>

@@ -88,6 +88,13 @@ def camps(coordinates):
 def edible_main():
     return render_template('/edible.html',data=OnlyOne().edible_results)
 
+@app.route('/edible_detail/<name>')
+def edible_detail(name):
+    df = OnlyOne().edible
+    res = df[df['Scientific Name'].str.contains(name)]
+    print (res)
+    return render_template('/edible_detail.html')
+
 @app.route("/edible", methods=["POST"])
 def edible():
     name = request.form.get("name")
