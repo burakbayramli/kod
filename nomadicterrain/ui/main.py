@@ -63,7 +63,6 @@ def parks(coordinates):
     plot_map.plot_area(pt, parks, fout, params['mapzip']) 
     return render_template('/parks.html', location=fout)
 
-
 @app.route('/camps/<coordinates>')
 def camps(coordinates):
     df = pd.read_csv(params['gps'])
@@ -91,16 +90,16 @@ def edible_main():
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
-    res = df[df['Scientific Name'].str.contains(name)]
-    print (res)
-    return render_template('/edible_detail.html')
+    res = df[df['Scientific Name'].str.lower() == name.lower()]
+    res = res.head(1)
+    print (res.Edibility.to_string())
+    return render_template('/edible_detail.html', name=name, data=list(res.Edibility))
 
 @app.route("/edible", methods=["POST"])
 def edible():
     name = request.form.get("name")
-
     df = OnlyOne().edible
-    OnlyOne().edible_results = df[df['Scientific Name'].str.contains("Abies")]['Scientific Name']    
+    OnlyOne().edible_results = df[df['Scientific Name'].str.contains(name,case=False)]['Scientific Name']    
     return edible_main()
 
 
