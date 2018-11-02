@@ -91,7 +91,7 @@ def edible_main():
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      f.save('/tmp/' + f.filename)
+      f.save(params['audio_output_folder'] + "/" + f.filename)
       print (f.filename)
       perc_from = request.form.get("perc_from")
       perc_to = request.form.get("perc_to")
