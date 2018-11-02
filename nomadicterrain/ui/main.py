@@ -100,7 +100,9 @@ def upload_file():
       perc_to = float(request.form.get("perc_to"))
       print (perc_from)
       print (perc_to)
-      ftxt = params['audio_output_folder'] + "/" + "out.txt"
+      ftxt = params['audio_output_folder'] + "/" + f.filename + "_" + \
+               request.form.get("perc_from") + "_" + \
+               request.form.get("perc_to") + ".txt"
       book.book_extract(fbook, perc_from, perc_to, ftxt)
       return 'file uploaded successfully'
 
