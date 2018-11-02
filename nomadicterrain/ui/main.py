@@ -10,6 +10,22 @@ print (params)
 
 edible_results = []
 
+class OnlyOne(object):
+    class __OnlyOne:
+        def __init__(self):
+            self.edible = None
+        def __str__(self):
+            return self.val
+    instance = None
+    def __new__(cls): # __new__ always a classmethod
+        if not OnlyOne.instance:
+            OnlyOne.instance = OnlyOne.__OnlyOne()
+        return OnlyOne.instance
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
+    def __setattr__(self, name):
+        return setattr(self.instance, name)
+    
 def clean_dir():
     files = glob.glob("static/out-*.png")
     for f in files: os.remove(f)
@@ -70,13 +86,20 @@ def camps(coordinates):
 
 @app.route('/edible_main')
 def edible_main():
+    if 'Dataframe' not in str(type(OnlyOne().edible)):
+        OnlyOne().edible = pd.read_csv('/home/burak/Downloads/campdata/edible_plants.csv',sep='|')
     return render_template('/edible.html',data=edible_results)
 
 @app.route("/edible", methods=["POST"])
 def edible():
     name = request.form.get("name")
-    edible_results.append("33333")
-    edible_results.append("44444")
+
+    df = OnlyOne().edible
+    res = df[df['Scientific Name'].str.contains("Abies")]['Scientific Name']
+    print (res)
+    
+    #edible_results.append("33333")
+    #edible_results.append("44444")
     return edible_main()
 
 
