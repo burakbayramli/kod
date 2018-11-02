@@ -1,0 +1,25 @@
+<html>
+
+  <a href="/">Back</a>
+  
+  <h2>Book</h2>
+
+  <form action="/book_uploader" method="POST" enctype = "multipart/form-data">
+
+    From
+    <p>
+      <input type="range" min="0" max="100" name="perc_from" />
+    </p>
+    To
+    <p>
+      <input type="range" min="0" max="100" name="perc_to" />
+    </p>
+    Book
+    <p>
+      <input type = "file" name = "file" />
+    </p>
+        
+    <input type="submit" value="Audio"/>
+  </form>
+
+</html>
