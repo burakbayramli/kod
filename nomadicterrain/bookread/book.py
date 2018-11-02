@@ -20,5 +20,5 @@ if __name__ == "__main__":
      
     #book_extract("/home/burak/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
     #text_to_sound("/tmp/out.txt")
-    book_extract(os.environ['HOME'] + "/Downloads/scaramuc.epub", 10, 11, "/tmp/out.txt")
+    book_extract(os.environ['HOME'] + "/Downloads/scaramuc.epub", 10, 11, "out.txt")
     text_to_sound("out.txt")
