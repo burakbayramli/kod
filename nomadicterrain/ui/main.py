@@ -151,6 +151,18 @@ def guide_chinese(which):
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
 
+@app.route('/guide/millman/<which>')
+def guide_millman(which):
+    fin = params['guide_detail_dir'] + "/millman/" + which + ".txt"
+    output = open(fin).read()
+    return render_template('/profile_detail.html', output=output)
+
+@app.route('/guide/lewi/<which>')
+def guide_lewi(which):
+    fin = params['guide_detail_dir'] + "/lewi/" + which + ".html"
+    output = open(fin).read()
+    return render_template('/profile_detail.html', output=output)
+
 
 if __name__ == '__main__':
     app.debug = True
