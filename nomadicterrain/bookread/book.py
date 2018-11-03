@@ -1,5 +1,4 @@
 import textract, json, codecs, os
-from gtts import gTTS
 
 def book_extract(file_in, from_perc, to_perc, file_out):
     text = textract.process(file_in,encoding='ascii')
