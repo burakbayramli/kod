@@ -2,7 +2,8 @@ from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../bookread")
 import sys; sys.path.append("../map")
-import plot_map, json, random
+import sys; sys.path.append("../../guide")
+import plot_map, json, random, mindmeld
 import book, geopy.distance
 
 app = Flask(__name__)
@@ -124,6 +125,22 @@ def edible():
     df = OnlyOne().edible
     OnlyOne().edible_results = df[df['Scientific Name'].str.contains(name,case=False)]['Scientific Name']    
     return edible_main()
+
+@app.route('/profile_main')
+def profile_main():
+    return render_template('/profile.html')
+
+@app.route("/profile", methods=["POST"])
+def profile():
+    day = request.form.get("day")
+    mon = request.form.get("mon")
+    year = request.form.get("year")
+    print (day)
+    print (mon)
+    print (year)
+    d = "%d%02d%d" % (int(year),int(mon),int(day))
+    print (d)
+    return profile_main()
 
 
 if __name__ == '__main__':

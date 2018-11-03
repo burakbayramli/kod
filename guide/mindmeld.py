@@ -21,7 +21,7 @@ def get_decans(date):
    tmp=np.array(decans[decans['date']==int(date)]['decans'])
    res = tmp[0].split(':')   
    res = res[:-1]
-   res = map(int, res)
+   res = list(map(int, res))
    return res
 
 def calculate_millman(date):
@@ -85,11 +85,11 @@ def calculate_lewi_decans(decans):
    for planet in planets:
       decan = decans[planets.index(planet)]
       relpos = steps + decan; relpos = map(lambda x: x % 36,relpos)
-      for pos,step_sign in itertools.izip(relpos,step_signs):
+      for pos,step_sign in zip(relpos,step_signs):
          matches = np.array(range(10))[decans == pos]
          pls = np.array(planets)[decans == pos]
          if len(matches)>0:
-            for match,p in itertools.izip(matches,pls):
+            for match,p in zip(matches,pls):
                if not pd.isnull(smap.ix[planet,step_sign]) and (p in smap.ix[planet,step_sign]):
                   res.append(smap.ix[planet,step_sign][p])
 
@@ -157,6 +157,7 @@ def calculate_lewi(date):
 
 def calculate(date):
    decans = get_decans(date)
+   print (decans)
    sun = np.ceil(float(decans[0])/3)-1
    moon = np.ceil(float(decans[1])/3)-1
    diff = (datetime.now() - datetime.strptime(str(date), '%Y%m%d')).days
@@ -167,12 +168,13 @@ def calculate(date):
       'cycle': calculate_cycle(date), 'lewi':calculate_lewi(date)}
 
 def describe(res):
-   print res
+   print (res)
    base = './doc/details'
-   print base + '/millman/' + str(res['millman'][0]) + str(res['millman'][1]) + '.html:1:-'
-   for lewi in res['lewi']: print base + '/lewi/' + str(lewi) + '.html:1:-'
-   print base + '/chinese/' + str(res['chinese']) + '.html:1:-'
-   print base + '/spiller/' + str(res['spiller']) + '.html:1:-'
+   print (base + '/millman/' + str(res['millman'][0]) + str(res['millman'][1]) + '.html:1:-')
+   for lewi in res['lewi']:
+      print (base + '/lewi/' + str(lewi) + '.html:1:-')
+   print (base + '/chinese/' + str(res['chinese']) + '.html:1:-')
+   print (base + '/spiller/' + str(res['spiller']) + '.html:1:-')
 
 def conv(s):
     return datetime.strptime(s, '%d/%m/%Y').date().strftime('%Y%m%d')
@@ -189,7 +191,7 @@ def calculate_all_lewi():
    d = timedelta(days=1)
    while (s+d != e):
       date = s.strftime('%Y%m%d')
-      print date, calculate_lewi(date)
+      print (date, calculate_lewi(date))
       s = s + d
    
 if __name__ == "__main__": 
