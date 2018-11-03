@@ -1,12 +1,12 @@
 from datetime import datetime
 from datetime import timedelta
-import pandas as pd
-import numpy as np
-import mapping, itertools
+import pandas as pd, numpy as np
+import mapping, itertools, os
 
-decans = pd.read_csv('./data/decans.dat',names=['date','decans'],sep=' ')
-spiller = pd.read_csv("./data/spiller",names=['from','to','sign'])
-chinese = pd.read_csv("./data/chinese",names=['from','to','sign'])
+fdir = os.path.dirname(os.path.realpath(__file__))
+decans = pd.read_csv(fdir + "/" + 'data/decans.dat',names=['date','decans'],sep=' ')
+spiller = pd.read_csv(fdir + "/" + "data/spiller",names=['from','to','sign'])
+chinese = pd.read_csv(fdir + "/" + "data/chinese",names=['from','to','sign'])
 planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
 smap = mapping.init()
 
