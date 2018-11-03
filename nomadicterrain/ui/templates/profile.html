@@ -17,8 +17,10 @@
       <input type="submit" value="Profile"/>      
     </form>
 
-    <p>Lewi</p>
+    {% if res %} 
     
+    <p>Lewi</p>
+
     {% for x in res['lewi'] %}    
     <a href="#/{{x}}">{{x}}</a>
     {% endfor %}        
@@ -35,6 +37,7 @@
     
     <a href="{{res['chinese']}}">{{res['chinese']}}</a>
     
+    {% endif %}    
     
   </body>
 </html>
