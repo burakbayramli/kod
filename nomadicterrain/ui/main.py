@@ -135,9 +135,6 @@ def profile():
     day = request.form.get("day")
     mon = request.form.get("mon")
     year = request.form.get("year")
-    print (day)
-    print (mon)
-    print (year)
     d = "%d%02d%d" % (int(year),int(mon),int(day))
     print (d)
     res =  mindmeld.calculate(d)
@@ -145,7 +142,7 @@ def profile():
     print (res['lewi'])
     print (res['chinese'])
     print (res['spiller'])
-    return profile_main()
+    return render_template('/profile.html', res=res)
 
 
 if __name__ == '__main__':

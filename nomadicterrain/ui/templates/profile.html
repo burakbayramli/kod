@@ -14,8 +14,29 @@
       <p><input type="text" name="day" placeholder="DD"/></p>
       <p><input type="text" name="mon" placeholder="MM"/></p>
       <p><input type="text" name="year" placeholder="YYYY"/></p>
-      <input type="submit" value="Profile"/>
-      
+      <input type="submit" value="Profile"/>      
     </form>
+
+    <p>Lewi</p>
+    
+    {% for x in res['lewi'] %}    
+    <a href="#/{{x}}">{{x}}</a>
+    {% endfor %}        
+
+    <p>Spiller</p>
+    
+    <a href="{{res['spiller']}}">{{res['spiller']}}</a>
+
+    <p>Millman</p>
+    
+    {{res['millman']}}
+
+    <a href="{{res['millman'][0]}}{{res['millman'][1]}}">{{res['millman'][0]}}/{{res['millman'][1]}}</a>
+
+    <p>Chinese</p>
+    
+    {{ res['chinese'] }}
+    
+    
   </body>
 </html>
