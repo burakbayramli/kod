@@ -21,13 +21,13 @@
     
     <p>Lewi</p>
 
-    {% for x in res['lewi'] %}    
+    {% for x in res['lewi'] %} 
     <a href="#/{{x}}">{{x}}</a>
     {% endfor %}        
 
     <p>Spiller</p>
     
-    <a href="{{res['spiller']}}">{{res['spiller']}}</a>
+    <a href="/guide/spiller/{{res['spiller']}}">{{res['spiller']}}</a>
 
     <p>Millman</p>
     
@@ -35,7 +35,7 @@
 
     <p>Chinese</p>
     
-    <a href="{{res['chinese']}}">{{res['chinese']}}</a>
+    <a href="/guide/chinese/{{res['chinese']}}">{{res['chinese']}}</a>
     
     {% endif %}    
     

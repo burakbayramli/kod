@@ -136,13 +136,20 @@ def profile():
     mon = request.form.get("mon")
     year = request.form.get("year")
     d = "%d%02d%d" % (int(year),int(mon),int(day))
-    print (d)
     res =  mindmeld.calculate(d)
-    print (res['millman'])
-    print (res['lewi'])
-    print (res['chinese'])
-    print (res['spiller'])
     return render_template('/profile.html', res=res)
+
+@app.route('/guide/spiller/<which>')
+def guide_spiller(which):
+    fin = params['guide_detail_dir'] + "/spiller/" + which + ".html"
+    output = open(fin).read()
+    return render_template('/profile_detail.html', output=output)
+
+@app.route('/guide/chinese/<which>')
+def guide_chinese(which):
+    fin = params['guide_detail_dir'] + "/chinese/" + which + ".html"
+    output = open(fin).read()
+    return render_template('/profile_detail.html', output=output)
 
 
 if __name__ == '__main__':
