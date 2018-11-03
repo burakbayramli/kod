@@ -140,6 +140,11 @@ def profile():
     print (year)
     d = "%d%02d%d" % (int(year),int(mon),int(day))
     print (d)
+    res =  mindmeld.calculate(d)
+    print (res['millman'])
+    print (res['lewi'])
+    print (res['chinese'])
+    print (res['spiller'])
     return profile_main()
 
 
