@@ -163,6 +163,10 @@ def guide_lewi(which):
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
 
+@app.route('/test')
+def test():    
+    return render_template('/out.html')
+
 
 if __name__ == '__main__':
     app.debug = True

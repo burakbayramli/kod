@@ -14,4 +14,16 @@
    color: blue;
    text-decoration: none;
    text-transform: uppercase;
-}    
+}
+
+#arrows {
+    text-align: center;    
+}
+
+#arrows img {
+    height: 20px;
+}
+
+#arrows input {
+    width: 40px;
+}
