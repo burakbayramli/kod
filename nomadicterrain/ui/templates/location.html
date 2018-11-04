@@ -4,10 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
-    <header class="w3-container">
-      <h1>Location at {{ location }}</h1>
-    </header>
-
+    <div id="arrows">
+      <p><a href="/shift/up"><img src="/static/arrow_up.png"/></a></p>
+      <p>
+        <a href="/shift/left"><img src="/static/arrow_left.png"/></a>
+        <input name="distance" value="10" type="text"/>
+        <a href="/shift/right"><img src="/static/arrow_right.png"/></a>
+      </p>
+      <p><a href="/shift/down"><img src="/static/arrow_down.png"/></a></p>
+    </div>
     <img src="/{{ location }}"/>
 
   </body>
