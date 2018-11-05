@@ -2,24 +2,38 @@
 ```python
 import geopy
 import geopy.distance
-
-# Define starting point.
-start = geopy.Point(48.853, 2.349)
-
-# Define a general distance object, initialized with a distance of 1 km.
+# baslangic noktasi
+start = [48.853, 2.349]
+print (start)
+start = geopy.Point(start[0], start[1])
+# mesafe 1 km
 d = geopy.distance.VincentyDistance(kilometers = 1)
-
-# Use the `destination` method with a bearing of 0 degrees (which is north)
-# in order to go from point `start` 1 km to north.
-reached = d.destination(point=start, bearing=0)
-print (reached.latitude)
-print (reached.longitude)
+# derece olarak adim atilacak yon, 0 derece kuzey
+print 
+reached = d.destination(point=start, bearing=180)
+print ([reached.latitude, reached.longitude])
 ```
 
 ```text
-48.861992241626474
-2.349
+[48.853, 2.349]
+[48.84400774427651, 2.349]
 ```
+
+```python
+print (help(d.destination))
+print (np.deg2rad(180))
+```
+
+```text
+Help on method destination in module geopy.distance:
+
+destination(point, bearing, distance=None) method of geopy.distance.vincenty instance
+    TODO docs.
+
+None
+3.141592653589793
+```
+
 
 
 ```python

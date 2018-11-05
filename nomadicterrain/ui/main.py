@@ -46,7 +46,7 @@ def location(coordinates):
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    OnlyOne().last_location = coordinates
+    OnlyOne().last_location = [lat,lon]
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
 
@@ -167,11 +167,36 @@ def test():
     return render_template('/out.html')
 
 @app.route('/nav_action', methods=['GET', 'POST'])
-def nav_action():    
-    print (request.form['action'])
-    if request.form['action'] == '↓': print ('down')
-    print (request.form['distance'])
-    return location(OnlyOne().last_location)
+def nav_action():
+    if request.form['action'] == '↑':
+        print ('up')
+        res = plot_map.goto_from_coord(OnlyOne().last_location,
+                                       float(request.form['distance']),
+                                       0)
+        
+    elif request.form['action'] == '↓':
+        print ('down')
+        res = plot_map.goto_from_coord(OnlyOne().last_location,
+                                       float(request.form['distance']),
+                                       180)
+    elif request.form['action'] == '→':
+        print ('right')
+        res = plot_map.goto_from_coord(OnlyOne().last_location,
+                                       float(request.form['distance']),
+                                       90)
+    elif request.form['action'] == '←':
+        print ('left')
+        res = plot_map.goto_from_coord(OnlyOne().last_location,
+                                       float(request.form['distance']),
+                                       270)
+
+    pts = np.array([[res[0], res[1]]]).astype(float)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    OnlyOne().last_location = res
+    plot_map.plot(pts, fout, params['mapzip'] ) 
+    return render_template('/location.html', location=fout)
+    
 
 if __name__ == '__main__':
     app.debug = True
