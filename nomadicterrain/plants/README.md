@@ -3,7 +3,9 @@ Scrape
 
 python -u console.py bing dog --limit 10 --json
 
+Dand
 
+python ../../dand/dand.py dand.conf 
 
 Plant edibility data came from a combination of sources. First did a dump on
 
