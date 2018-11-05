@@ -72,14 +72,9 @@ def parks():
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     OnlyOne().last_location = [lat,lon]
     fout = plot_parks(lat, lon)
-    print ('--------------------')
-    print (fout)
     return render_template('/parks.html', location=fout)
 
-@app.route('/camps')
-def camps():
-    df = pd.read_csv(params['gps'])
-    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+def plot_camps(lat, lon):
     pt = np.array([[lat, lon]]).astype(float)
     df = pd.read_csv(params['campsites'], sep=',')
     df2 = df[['Latitude','Longitude']]
@@ -93,8 +88,16 @@ def camps():
             
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
-    plot_map.plot(pts, fout, params['mapzip']) 
-    return render_template('/parks.html', location=fout)
+    plot_map.plot(pts, fout, params['mapzip'])
+    return fout
+    
+@app.route('/camps')
+def camps():
+    df = pd.read_csv(params['gps'])
+    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+    OnlyOne().last_location = [lat,lon]
+    fout = plot_camps(lat, lon)
+    return render_template('/camps.html', location=fout)
 
 @app.route('/edible_main')
 def edible_main():
@@ -211,6 +214,14 @@ def parks_nav_action():
     fout = plot_parks(res[0], res[1])
     print (fout)
     return render_template('/parks.html', location=fout)
+
+@app.route('/camps_nav_action', methods=['GET', 'POST'])
+def camps_nav_action():
+    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
+    OnlyOne().last_location = res
+    fout = plot_camps(res[0], res[1])
+    print (fout)
+    return render_template('/camps.html', location=fout)
 
 
 if __name__ == '__main__':
