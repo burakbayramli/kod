@@ -16,6 +16,7 @@ class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
             self.edible = None
+            self.last_location = None
             self.edible_results = []
         def __str__(self):
             return self.val
@@ -45,6 +46,7 @@ def location(coordinates):
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
+    OnlyOne().last_location = coordinates
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
 
@@ -164,12 +166,12 @@ def guide_lewi(which):
 def test():    
     return render_template('/out.html')
 
-@app.route('/test_action', methods=['GET', 'POST'])
-def test_action():    
+@app.route('/nav_action', methods=['GET', 'POST'])
+def nav_action():    
     print (request.form['action'])
     if request.form['action'] == '↓': print ('down')
     print (request.form['distance'])
-    return test()
+    return location(OnlyOne().last_location)
 
 if __name__ == '__main__':
     app.debug = True
