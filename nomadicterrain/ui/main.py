@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../bookread")
@@ -166,6 +167,8 @@ def test():
 @app.route('/test_action', methods=['GET', 'POST'])
 def test_action():    
     print (request.form['action'])
+    if request.form['action'] == '↓': print ('down')
+    print (request.form['distance'])
     return test()
 
 if __name__ == '__main__':
