@@ -5,9 +5,21 @@
   </head>
   <body>
     <header class="w3-container">
-      <h1>Parks {{ location }}</h1>
+      <h1>Parks</h1>
     </header>
 
+    <div id="arrows2">
+      <form method="POST" action="/parks_nav_action">      
+        <p><input name="action" value="↑" class="imgbtn" type="submit"/></p>
+        <p>
+          <input name="action" value="←" class="imgbtn" type="submit"/>
+          <input name="distance" value="10" type="text"/>
+          <input name="action" value="→" class="imgbtn" type="submit"/>
+        </p>
+        <input name="action" value="↓" class="imgbtn" type="submit"/>
+      </form>
+    </div>
+    
     <img src="/{{ location }}"/>
     
   </body>

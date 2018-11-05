@@ -50,10 +50,7 @@ def location():
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
 
-@app.route('/parks')
-def parks():
-    df = pd.read_csv(params['gps'])
-    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+def plot_parks(lat, lon):
     pt = np.array([[lat, lon]]).astype(float)
     df = pd.read_csv(params['nationalpark'], sep='|')
     parks = []
@@ -66,7 +63,17 @@ def parks():
 
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    plot_map.plot_area(pt, parks, fout, params['mapzip']) 
+    plot_map.plot_area(pt, parks, fout, params['mapzip'])
+    return fout
+    
+@app.route('/parks')
+def parks():
+    df = pd.read_csv(params['gps'])
+    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+    OnlyOne().last_location = [lat,lon]
+    fout = plot_parks(lat, lon)
+    print ('--------------------')
+    print (fout)
     return render_template('/parks.html', location=fout)
 
 @app.route('/camps')
@@ -190,18 +197,27 @@ def step(request, location, distance):
                                        270)
     return res
     
-
-@app.route('/nav_action', methods=['GET', 'POST'])
-def nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))
-    
+@app.route('/location_nav_action', methods=['GET', 'POST'])
+def location_nav_action():
+    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
     pts = np.array([[res[0], res[1]]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = res
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
-    
+
+
+@app.route('/parks_nav_action', methods=['GET', 'POST'])
+def parks_nav_action():
+    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
+    OnlyOne().last_location = [res[0],res[1]]
+    fout = plot_parks(res[0], res[1])
+    print (fout)
+    return render_template('/parks.html', location=fout)
+
+
+
 
 if __name__ == '__main__':
     app.debug = True
