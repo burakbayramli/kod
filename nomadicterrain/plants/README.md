@@ -1,4 +1,17 @@
 
+
+
+
+
+```python
+(43000 * 2) / 60. / 24.
+```
+
+```text
+Out[1]: 59.72222222222222
+```
+
+
 Scrape
 
 python -u console.py bing dog --limit 10 --json

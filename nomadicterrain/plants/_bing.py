@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests, time, shutil
 import argparse, json
 from bs4 import BeautifulSoup

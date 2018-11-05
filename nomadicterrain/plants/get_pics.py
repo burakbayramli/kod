@@ -1,10 +1,10 @@
-import os
-ps = ['Asclepias','Abelia grandiflora']
+import os, console
+ps = ['Abutilon abutiloides','Asclepias','Abelia grandiflora']
 for p in ps:
     print (p)
     done_file = "dataset/bing/%s/%s.done" % (p,p)
     if not os.path.isfile(done_file): 
-        os.system("python -u console.py bing '%s' --limit 50 --json" % p)
+        console.run_query(p, 50)
         fout = open(done_file, "w")
         fout.write('done')
         fout.close()        

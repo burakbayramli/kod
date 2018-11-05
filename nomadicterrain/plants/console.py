@@ -46,10 +46,33 @@ def main():
     if not os.path.isdir("{}/dataset/{}/{}".format(cwd, engine, query)):
         os.makedirs("{}/dataset/{}/{}".format(cwd, engine, query))
 
-    if engine == "google":
-        _google.google(url, metadata, query, limit)
-    else:
-        _bing.bing(url, metadata, query, limit, adult)
+    print (url)
+    print (metadata)
+    print (query)
+    print (limit)
+    print (adult)
+    _bing.bing(url, metadata, query, limit, adult)
 
+def run_query(my_query, my_limit):
+    engine = "bing"
+    query = my_query
+    limit = my_limit
+    metadata = False
+    adult = "on"
+    url = None
+    if engine == "bing" or engine == "b":
+        url = "https://www.bing.com/images/async?q={}&first=0&adlt={}".format(
+        str(query), adult)
+    cwd = os.getcwd()
+    # check directory and create if necessary
+    if not os.path.isdir("{}/dataset/".format(cwd)):
+        os.makedirs("{}/dataset/".format(cwd))
+    if not os.path.isdir("{}/dataset/{}/{}".format(cwd, engine, query)):
+        os.makedirs("{}/dataset/{}/{}".format(cwd, engine, query))
+    
+    _bing.bing(url, metadata, query, limit, adult)
+    
 if __name__ == "__main__":
-    main()
+    #main()
+    run_query("dog", 10)
+    
