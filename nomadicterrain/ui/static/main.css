@@ -16,14 +16,23 @@
    text-transform: uppercase;
 }
 
-#arrows {
+#arrows1 {
     text-align: center;    
 }
 
-#arrows img {
+#arrows1 img {
     height: 20px;
 }
 
-#arrows input {
-    width: 40px;
+#arrows2 {
+    text-align: center;    
 }
+
+#arrows2 input {
+    width: 40px;
+    height: 40px;
+}
+.imgbtn {
+    height: 20px;
+}
+

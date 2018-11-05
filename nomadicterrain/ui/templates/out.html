@@ -4,14 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body
-    <div id="arrows">
-      <p><a href="/shift/up"><img src="/static/arrow_up.png"/></a></p>
-      <p>
-        <a href="/shift/left"><img src="/static/arrow_left.png"/></a>
-        <input name="distance" value="10" type="text"/>
-        <a href="/shift/right"><img src="/static/arrow_right.png"/></a>
-      </p>
-      <p><a href="/shift/down"><img src="/static/arrow_down.png"/></a></p>
-    </div>
+      <form method="POST" action="/test_action">      
+        <div id="arrows1">
+          <p><input name="action" value="btnup" class="imgbtn" type="image" src="/static/arrow_up.png"/></p>
+          <p>
+            <input name="action" value="btnleft" class="imgbtn" type="image" src="/static/arrow_left.png"/>
+            <input name="distance" value="10" type="text"/>
+            <input name="action" value="btnright" class="imgbtn" type="image" src="/static/arrow_right.png"/>
+          </p>
+            <input name="action" value="btndown" class="imgbtn" type="image" src="/static/arrow_down.png"/>
+        </div>
+      </form>
+
+      <form method="POST" action="/test_action">      
+        <div id="arrows2">
+          <p><input name="action" value="↑" class="imgbtn" type="submit"/></p>
+          <p>
+            <input name="action" value="←" class="imgbtn" type="submit"/>
+            <input name="distance" value="10" type="text"/>
+            <input name="action" value="→" class="imgbtn" type="submit"/>
+          </p>
+            <input name="action" value="↓" class="imgbtn" type="submit"/>
+        </div>
+      </form>
+
+
+      
   </body>
 </html>

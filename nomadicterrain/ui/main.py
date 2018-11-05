@@ -96,11 +96,8 @@ def upload_file():
       f = request.files['file']
       fbook = params['audio_output_folder'] + "/" + f.filename
       f.save(fbook)
-      print (f.filename)
       perc_from = float(request.form.get("perc_from"))
       perc_to = float(request.form.get("perc_to"))
-      print (perc_from)
-      print (perc_to)
       ftxt = params['audio_output_folder'] + "/" + f.filename + "_" + \
                request.form.get("perc_from") + "_" + \
                request.form.get("perc_to") + ".txt"
@@ -116,7 +113,6 @@ def edible_detail(name):
     df = OnlyOne().edible
     res = df[df['Scientific Name'].str.lower() == name.lower()]
     res = res.head(1)
-    print (res.Edibility.to_string())
     return render_template('/edible_detail.html', name=name, data=list(res.Edibility))
 
 @app.route("/edible", methods=["POST"])
@@ -167,6 +163,10 @@ def guide_lewi(which):
 def test():    
     return render_template('/out.html')
 
+@app.route('/test_action', methods=['GET', 'POST'])
+def test_action():    
+    print (request.form['action'])
+    return test()
 
 if __name__ == '__main__':
     app.debug = True
