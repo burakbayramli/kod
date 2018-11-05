@@ -175,23 +175,19 @@ def test():
 
 def step(request, location, distance):
     if request.form['action'] == '↑':
-        print ('up')
         res = plot_map.goto_from_coord(OnlyOne().last_location,
                                        distance,
                                        0)
         
     elif request.form['action'] == '↓':
-        print ('down')
         res = plot_map.goto_from_coord(OnlyOne().last_location,
                                        distance,
                                        180)
     elif request.form['action'] == '→':
-        print ('right')
         res = plot_map.goto_from_coord(OnlyOne().last_location,
                                        distance,
                                        90)
     elif request.form['action'] == '←':
-        print ('left')
         res = plot_map.goto_from_coord(OnlyOne().last_location,
                                        float(request.form['distance']),
                                        270)
@@ -211,12 +207,10 @@ def location_nav_action():
 @app.route('/parks_nav_action', methods=['GET', 'POST'])
 def parks_nav_action():
     res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    OnlyOne().last_location = [res[0],res[1]]
+    OnlyOne().last_location = res
     fout = plot_parks(res[0], res[1])
     print (fout)
     return render_template('/parks.html', location=fout)
-
-
 
 
 if __name__ == '__main__':
