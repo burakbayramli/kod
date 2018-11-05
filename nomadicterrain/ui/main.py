@@ -39,8 +39,8 @@ def clean_dir():
 def index():
     return render_template('/index.html')
 
-@app.route('/location/<coordinates>')
-def location(coordinates):
+@app.route('/location')
+def location():
     df = pd.read_csv(params['gps'])
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pts = np.array([[lat, lon]]).astype(float)
@@ -50,8 +50,8 @@ def location(coordinates):
     plot_map.plot(pts, fout, params['mapzip'] ) 
     return render_template('/location.html', location=fout)
 
-@app.route('/parks/<coordinates>')
-def parks(coordinates):
+@app.route('/parks')
+def parks():
     df = pd.read_csv(params['gps'])
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pt = np.array([[lat, lon]]).astype(float)
@@ -69,8 +69,8 @@ def parks(coordinates):
     plot_map.plot_area(pt, parks, fout, params['mapzip']) 
     return render_template('/parks.html', location=fout)
 
-@app.route('/camps/<coordinates>')
-def camps(coordinates):
+@app.route('/camps')
+def camps():
     df = pd.read_csv(params['gps'])
     lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
     pt = np.array([[lat, lon]]).astype(float)
