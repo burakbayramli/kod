@@ -45,8 +45,6 @@ def main():
         os.makedirs("{}/dataset/".format(cwd))
     if not os.path.isdir("{}/dataset/{}/{}".format(cwd, engine, query)):
         os.makedirs("{}/dataset/{}/{}".format(cwd, engine, query))
-    if not os.path.isdir("{}/dataset/logs/{}/".format(cwd, engine, query)):
-        os.makedirs("{}/dataset/logs/{}/".format(cwd, engine, query))
 
     if engine == "google":
         _google.google(url, metadata, query, limit)
