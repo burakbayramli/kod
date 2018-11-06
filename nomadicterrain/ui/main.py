@@ -147,7 +147,13 @@ def profile():
     d = "%s%s%s" % (year,mon,day)
     print (d)
     res =  mindmeld.calculate(d)
+    res['date'] = d
     return render_template('/profile.html', res=res)
+
+@app.route("/profile_text/<d>")
+def profile_text(d):
+    res =  mindmeld.calculate(str(d))
+    return render_template('/profile_text.html', res=res)
 
 @app.route('/guide/spiller/<which>')
 def guide_spiller(which):
@@ -224,6 +230,8 @@ def camps_nav_action():
     print (fout)
     return render_template('/camps.html', location=fout)
 
+# https://raw.githubusercontent.com/burakbayramli/kod/master/guide/doc/details/lewi/1.html
+# display results in this format
 
 if __name__ == '__main__':
     app.debug = True
