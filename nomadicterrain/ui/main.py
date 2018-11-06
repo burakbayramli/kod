@@ -139,12 +139,14 @@ def edible():
 def profile_main():
     return render_template('/profile.html')
 
+# 01021944
 @app.route("/profile", methods=["POST"])
 def profile():
     day = request.form.get("day")
     mon = request.form.get("mon")
     year = request.form.get("year")
-    d = "%d%02d%d" % (int(year),int(mon),int(day))
+    d = "%s%s%s" % (year,mon,day)
+    print (d)
     res =  mindmeld.calculate(d)
     return render_template('/profile.html', res=res)
 
