@@ -139,7 +139,6 @@ def edible():
 def profile_main():
     return render_template('/profile.html')
 
-# 01021944
 @app.route("/profile", methods=["POST"])
 def profile():
     day = request.form.get("day")
