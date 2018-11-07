@@ -101,28 +101,15 @@ data_1 = x_train_arr[y_train_arr==1]
 Achillea millefolium
 ```
 
-```python
-from scipy.spatial.distance import cosine
-#for x in x_train_arr:
-print (cosine(x_train_arr[0],x_train_arr[1]))
-print (cosine(x_train_arr[0],x_train_arr[2]))
-print (cosine(x_train_arr[0],x_train_arr[3]))
-```
-
-```text
-0.01041942834854126
-0.0328635573387146
-0.016966700553894043
-```
 
 ```python
 from scipy.spatial.distance import euclidean
-def cluster(X,):
+def cluster(X,threshold=25):
     examplars = []
     for x in X:
         if len(examplars)==0: examplars.append(x)
         dists = np.array([euclidean(x,e) for e in examplars])
-        if not np.any(dists < 25): examplars.append(x)
+        if not np.any(dists < threshold): examplars.append(x)
     clusters = []
     for x in X:
         dists = np.array([euclidean(x,e) for e in examplars])

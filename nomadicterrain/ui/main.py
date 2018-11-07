@@ -230,9 +230,6 @@ def camps_nav_action():
     print (fout)
     return render_template('/camps.html', location=fout)
 
-# https://raw.githubusercontent.com/burakbayramli/kod/master/guide/doc/details/lewi/1.html
-# display results in this format
-
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
