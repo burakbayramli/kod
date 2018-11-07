@@ -9,8 +9,15 @@ label_rev_dict = dict((label_dict[k],k) for k in label_dict)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(features, labels, random_state=42, test_size=0.05)
+
+y_train_arr = np.array(y_train)
+x_train_arr = np.array(x_train)
+print (x_train_arr.shape)
 ```
 
+```text
+(11354, 4096)
+```
 
 ```python
 print (len(labels))
@@ -86,8 +93,6 @@ print (rank_5)
 
 
 ```python
-y_train_arr = np.array(y_train)
-x_train_arr = np.array(x_train)
 print (len(x_train), len(y_train))
 print (len(y_train_arr[y_train_arr==0]))
 print (label_rev_dict[0])
@@ -132,6 +137,33 @@ print (len(examplars))
 2
 ```
 
+```python
+x_train_new = []
+y_train_new = []
+for label in label_rev_dict.keys():
+    print (label)
+    dataset_for_p = x_train_arr[y_train_arr==label]
+    print (dataset_for_p.shape)
+    examp, clusters = cluster(dataset_for_p)
+    clusters_arr = np.array(clusters)
+    print (clusters)
+    print (len(examplars))
+    for c in np.unique(clusters):
+    	if len(clusters_arr[clusters_arr==c]) > (len(clusters_arr)/4.):
+           print (c, "is good")
+    	   for x, c in zip(dataset_for_p, clusters):
+	       x_train_new.append(
 
+    break
+```
+
+```text
+0
+(45, 4096)
+[0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0]
+2
+0 is good
+1 is good
+```
 
 
