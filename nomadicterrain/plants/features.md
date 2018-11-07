@@ -152,7 +152,8 @@ for label in label_rev_dict.keys():
     	if len(clusters_arr[clusters_arr==c]) > (len(clusters_arr)/4.):
            print (c, "is good")
     	   for x, c in zip(dataset_for_p, clusters):
-	       x_train_new.append(
+	       x_train_new.append(x)
+	       x_train_new.append(x)
 
     break
 ```
