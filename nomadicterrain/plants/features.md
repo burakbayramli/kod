@@ -140,6 +140,7 @@ print (len(examplars))
 ```python
 x_train_new = []
 y_train_new = []
+label_dict_new = {}
 for label in label_rev_dict.keys():
     print (label)
     dataset_for_p = x_train_arr[y_train_arr==label]
@@ -147,24 +148,32 @@ for label in label_rev_dict.keys():
     examp, clusters = cluster(dataset_for_p)
     clusters_arr = np.array(clusters)
     print (clusters)
-    print (len(examplars))
     for c in np.unique(clusters):
     	if len(clusters_arr[clusters_arr==c]) > (len(clusters_arr)/4.):
            print (c, "is good")
-    	   for x, c in zip(dataset_for_p, clusters):
-	       x_train_new.append(x)
-	       x_train_new.append(x)
+           tmp = dataset_for_p[clusters==c]
+           label_new = len(label_dict_new)
+           label_dict_new[label_rev_dict[label] + str(c)] = label_new
+           for t in tmp:
+                x_train_new.append(t)
+                y_train_new.append(label_new)
 
     break
+    
+print (len(x_train_new))
+print (len(y_train_new))
+print (label_dict_new)
 ```
 
 ```text
 0
 (45, 4096)
 [0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0]
-2
 0 is good
 1 is good
+45
+45
+{'Achillea millefolium0': 0, 'Achillea millefolium1': 1}
 ```
 
 
