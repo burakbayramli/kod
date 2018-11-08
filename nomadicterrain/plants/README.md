@@ -1,13 +1,4 @@
 
-Collab
-
-https://colab.research.google.com/drive/1S_9McYC_Hp0MIo9kS8p-zBkLjgz0KsIY
-https://colab.research.google.com/drive/1rss61yJvHLdh42uJSv76QoUspRAY4J7K
-http://cs229.stanford.edu/proj2016/report/LiuHuang-PlantLeafRecognition-report.pdf
-
-Goog Collab GD file accesss
-https://stackoverflow.com/questions/46986398/import-data-into-google-colaboratory
-
 Scrape
 
 python -u console.py bing dog --limit 10 --json

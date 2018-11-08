@@ -16,7 +16,7 @@ for p in ps:
     done_file = "dataset/bing/%s/%s.done" % (p,p)
     if not os.path.isfile(done_file):
         try:
-            console.run_query(p, 50)
+            console.run_query(p, 200)
             fout = open(done_file, "w")
             fout.write('done')
             fout.close()
