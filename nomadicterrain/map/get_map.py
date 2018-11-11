@@ -11,7 +11,7 @@ import urllib.request, os.path
 def get_map(lat, lon, region, zoom):
     api = open("/home/burak/Documents/Dropbox/google_static_map_api.txt").read()
     url = "http://maps.googleapis.com/maps/api/staticmap?center=" + \
-    	  "%f,%f&scale=2&size=800x800&maptype='terrain'&zoom=%d&key=%s" % (lat,lon,zoom,api)
+    	  "%f,%f&scale=2&&size=800x800&maptype=terrain&zoom=%d&key=%s" % (lat,lon,zoom,api)
     print (url)
     lats = str(lat).replace(".","_")
     lons = str(lon).replace(".","_")
@@ -42,4 +42,4 @@ def get_maps(c1,c2,px,py,region,zoom=11):
 if __name__ == "__main__":
     # harita hangi kordinatlar arasinda olmali
     c1 = (51.450320,2.963884); c2 = (39.460801, 29.786351)
-    get_maps(c1, c2, 80, 80, region="europe2")
+    get_maps(c1, c2, 80, 80, region="europe3")

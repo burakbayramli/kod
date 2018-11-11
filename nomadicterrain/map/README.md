@@ -1,4 +1,6 @@
 
+python ../../dand/dand.py dand.conf 
+
 To run on termux
 
 pkg install python python-dev libjpeg-turbo-dev libcrypt-dev ndk-sysroot clang

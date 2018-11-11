@@ -1,5 +1,43 @@
 
 ```python
+import os, glob, re, zipfile
+zfile = '/home/burak/Downloads/campdata/europe2.zip'
+with zipfile.ZipFile(zfile, 'r') as z:
+    res = z.namelist()
+    print (len(res))
+    
+```
+
+```text
+6401
+```
+
+
+
+
+
+
+
+```python
+import get_map
+
+get_map.get_map(48.788836,2.898861, ".", zoom=11)
+```
+
+```text
+http://maps.googleapis.com/maps/api/staticmap?center=48.788836,2.898861&size=800x800&maptype=terrain&zoom=11&key=AIzaSyCxQopw-CIBAdyUrhYk18LC_qurTjUWWlE
+
+Out[1]: True
+```
+
+
+
+
+
+
+
+
+```python
 import geopy
 import geopy.distance
 # baslangic noktasi
