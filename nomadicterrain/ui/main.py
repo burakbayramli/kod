@@ -47,7 +47,8 @@ def location():
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
-    plot_map.plot(pts, fout, params['mapzip'] ) 
+    zfile,scale = params['mapzip']['normal']
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout)
 
 def plot_parks(lat, lon):
@@ -63,7 +64,8 @@ def plot_parks(lat, lon):
 
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    plot_map.plot_area(pt, parks, fout, params['mapzip'])
+    zfile,scale = params['mapzip']['normal']
+    plot_map.plot_area(pt, parks, fout, zfile=zfile, scale=scale)
     return fout
     
 @app.route('/parks')
@@ -88,7 +90,8 @@ def plot_camps(lat, lon):
             
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
-    plot_map.plot(pts, fout, params['mapzip'])
+    zfile,scale = params['mapzip']['terrain']    
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     return fout
     
 @app.route('/camps')
@@ -210,7 +213,8 @@ def location_nav_action():
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = res
-    plot_map.plot(pts, fout, params['mapzip'] ) 
+    zfile,scale = params['mapzip']['terrain']
+    plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
     return render_template('/location.html', location=fout)
 
 
