@@ -8,11 +8,12 @@ import matplotlib.pyplot as plt
 
 # enlem/boylam ve pikseller arasinda gecis icin,
 # her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
-SCALEX = 2900. 
-SCALEY = -4600.
-#SCALEY = -3900.
+#SCALEX = 2900. 
+#SCALEY = -4600.
+SCALEX = 1450. 
+SCALEY = -2400.
 
-def plot(points,outfile,zfile):
+def plot(points,outfile,zfile,scale):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
@@ -47,7 +48,7 @@ def plot(points,outfile,zfile):
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
          for i,[lat,lon] in enumerate(points):
-             dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)             
+             dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
              xx = c[0]+dx
              yy = c[1]+dy
              if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
@@ -58,7 +59,7 @@ def plot(points,outfile,zfile):
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 
-def plot_area(pt, point_sets, outfile, zfile):
+def plot_area(pt, point_sets, outfile, zfile, scale):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari etrafi cizgilerle belirli alan olarak ciz
@@ -99,7 +100,7 @@ def plot_area(pt, point_sets, outfile, zfile):
              tmp_points = [x for x in points]
              tmp_points.insert(0,pt) # basa koy, o nokta nerede oldugumuz
              for i,[lat,lon] in enumerate(tmp_points):
-                 dx,dy=((lon-mapcenter[1])*SCALEX,(lat-mapcenter[0])*SCALEY)
+                 dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
                  xx = c[0]+dx
                  yy = c[1]+dy
                  if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
