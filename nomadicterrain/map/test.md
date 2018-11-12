@@ -4,19 +4,30 @@
 import json, os
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 import plot_map
-pts = [[51.2130605,4.4174822]]
-zfile,scale = params['mapzip']['terrain']
+#pts = [[51.2130605,4.4174822]] # antwerp
+#pts = [[40.987659,29.036428],[40.992186,29.039228]] # tr
+pts = [[52.510811, 13.370794]] # pots
+#zfile,scale = params['mapzip']['terrain']
+#zfile,scale = params['mapzip']['istanbul']
+zfile,scale = params['mapzip']['world1']
 print (scale)
 plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
 ```
 
 ```text
-[2900, -4600]
-[[51.2130605, 4.4174822]]
-europe2/europe2_map_51_14678787341772_4_321983594936709.png
-[51.14678787341772 4.321983594936709]
+[45, -70]
+[[52.510811, 13.370794]]
+world1_map_52_4137931034_10_5882352941.png
+[52.4137931034 10.5882352941]
 ```
 
+```text
+  File "<ipython-input-1-bb66e373fe87>", line 15
+    ```text
+    ^
+SyntaxError: invalid syntax
+
+```
 
 
 
