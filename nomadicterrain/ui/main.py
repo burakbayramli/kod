@@ -17,6 +17,7 @@ class OnlyOne(object):
         def __init__(self):
             self.edible = None
             self.last_location = None
+            self.map = "normal"
             self.edible_results = []
         def __str__(self):
             return self.val
@@ -47,7 +48,8 @@ def location():
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
-    zfile,scale = params['mapzip']['normal']
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout)
 
@@ -64,7 +66,8 @@ def plot_parks(lat, lon):
 
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    zfile,scale = params['mapzip']['normal']
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
     plot_map.plot_area(pt, parks, fout, zfile=zfile, scale=scale)
     return fout
     
@@ -233,6 +236,18 @@ def camps_nav_action():
     fout = plot_camps(res[0], res[1])
     print (fout)
     return render_template('/camps.html', location=fout)
+
+@app.route('/mapset')
+def mapset():
+    return render_template('/mapset.html', map=OnlyOne().map)
+
+@app.route("/choosemap", methods=["GET","POST"])
+def choosemap():
+    map = request.form['option']
+    OnlyOne().map = map
+    print (map)
+    return mapset()
+
 
 if __name__ == '__main__':
     app.debug = True
