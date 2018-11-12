@@ -19,7 +19,7 @@ An example config file
 	     "istanbul": ["/home/burak/Downloads/campdata/istanbul.zip",[23000,-35000]],
 	     "berlin": ["/home/burak/Downloads/campdata/berlin.zip",[23000,-35000]],
 	     "world1": ["/home/burak/Downloads/campdata/world1.zip",[45,-70]],
-	     "world2": ["/home/burak/Downloads/campdata/world2.zip",[100,-100]]
+	     "world2": ["/home/burak/Downloads/campdata/world2.zip",[10,-17]]
   },
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
   "audio_output_folder": "/home/burak/Downloads",
