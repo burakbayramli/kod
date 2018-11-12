@@ -16,14 +16,22 @@ the program in the subdir.
 
 Sample .nomadicterrain config
 
+```
 {
   "gps": "/home/burak/Downloads/gpslogger.csv",
   "nationalpark": "/home/burak/Downloads/campdata/national_parks.csv",
   "campsites": "/home/burak/Downloads/campdata/camping_locations.csv",
   "natpark_mindistance": 100.0,
-  "mapzip": "/home/burak/Downloads/campdata/europe2.zip",
+  "mapzip": {"normal": ["/home/burak/Downloads/campdata/europe2.zip",[2900,-4600]],
+	     "terrain": ["/home/burak/Downloads/campdata/europe3.zip",[1450,-2400]],
+	     "istanbul": ["/home/burak/Downloads/campdata/istanbul.zip",[23000,-35000]],
+	     "berlin": ["/home/burak/Downloads/campdata/berlin.zip",[23000,-35000]],
+	     "world1": ["/home/burak/Downloads/campdata/world1.zip",[45,-70]],
+	     "world2": ["/home/burak/Downloads/campdata/world2.zip",[10,-17]]
+  },
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
-  "audio_output_folder": "/home/burak/Downloads"
+  "audio_output_folder": "/home/burak/Downloads",
+  "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details"
 }
- 
+```
 
