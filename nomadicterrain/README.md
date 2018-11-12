@@ -14,7 +14,7 @@ the program in the subdir.
 * given a book file and from percentage to percentage parameters, it will extract
   the text from the file, and write it as text in out directory.
 
-Sample .nomadicterrain config
+Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX and SCALEY). 
 
 ```
 {
