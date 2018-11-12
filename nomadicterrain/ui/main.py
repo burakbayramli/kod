@@ -109,24 +109,6 @@ def camps():
 def edible_main():
     return render_template('/edible.html',data=OnlyOne().edible_results)
 
-@app.route('/book_uploader', methods = ['GET', 'POST'])
-def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      fbook = params['audio_output_folder'] + "/" + f.filename
-      f.save(fbook)
-      perc_from = float(request.form.get("perc_from"))
-      perc_to = float(request.form.get("perc_to"))
-      ftxt = params['audio_output_folder'] + "/" + f.filename + "_" + \
-               request.form.get("perc_from") + "_" + \
-               request.form.get("perc_to") + ".txt"
-      book.book_extract(fbook, perc_from, perc_to, ftxt)
-      return 'file uploaded successfully'
-
-@app.route('/book_main')
-def book_main():
-    return render_template('/book.html')
-
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
