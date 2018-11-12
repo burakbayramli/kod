@@ -1,0 +1,29 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <a href="/">Back</a>
+    
+    <h2>Choose Map</h2>
+
+    <p>
+      {{ map }}
+    </p>
+    
+    <form class="form-inline" name="mapform" action="/choosemap" method="POST">
+      <select name="option" id='map' name="mapoption">
+        <option value=""></option>
+        <option value="normal">normal</option>
+        <option value="terrain">terrain</option>
+        <option value="world1">world1</option>
+        <option value="world2">world2</option>
+      </select>
+      <p>
+        <input type="submit" value="Set"/>
+      </p>
+    </form>
+  </body>
+</html>
