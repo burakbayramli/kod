@@ -1,6 +1,14 @@
 
 
 ```python
+import zipfile, pandas as pd
+z = '/home/burak/Downloads/campdata/geolitecity.zip'
+with zipfile.ZipFile(z, 'r') as z:
+    df = pd.read_csv(z.open('geolitecity.csv'),encoding='utf-8')
+```
+
+
+```python
 import json, os
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 import plot_map

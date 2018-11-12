@@ -28,14 +28,21 @@ An example config file
 
 Map files
 
-https://www.dropbox.com/s/uo1u5fps9u4ki36/istanbul.zip?dl=1
+world2
 
-https://www.dropbox.com/s/exu9dqhz5kquloo/berlin.zip?dl=1
+https://drive.google.com/open?id=1H3KK9MWXXtxcKPw5LY_hAJEC14bX94jJ
 
-https://www.dropbox.com/s/tmgdjekhfiftve6/world1.zip?dl=1
+istanbul.zip
 
-https://www.dropbox.com/s/xnm2kc77xb6aq0d/world2.zip?dl=1
+https://drive.google.com/open?id=16kgu2-QOWShgJZOBp-6mReanzV5E2QRv
 
+europe2.zip
+
+https://drive.google.com/open?id=1qyQJkMt7mNuotGvTVOWCm9SUirtLZQ8P
+
+berlin.zip
+
+https://drive.google.com/open?id=18CtN_FHBOs47zvM3Uvirhgf4vM-5oMZB
 
 
 
