@@ -778,7 +778,7 @@ This command does not push erased text to kill-ring."
   ;; load tex or md mode based on the extension
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "tex")
       (progn 
-	(pymacs-load "~/Documents/kod/site-lisp/ipython-tex")
+	(pymacs-load "/data/data/com.termux/files/home/Documents/kod/site-lisp/ipython-tex")
 	(global-set-key "\M-," 'ipython-tex-run-py-code)
 	(global-set-key [f5] 'ipython-tex-complete-py)
 	(tempo-define-template 
@@ -791,7 +791,7 @@ This command does not push erased text to kill-ring."
 	))
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "md")
       (progn 
-	(pymacs-load "~/Documents/kod/site-lisp/ipython-md")
+	(pymacs-load "/data/data/com.termux/files/home/Documents/kod/site-lisp/ipython-md")
 	(global-set-key "\M-," 'ipython-md-run-py-code)
 	(global-set-key [f5] 'ipython-md-complete-py)
 	(tempo-define-template 
