@@ -5,7 +5,7 @@ import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
-import geopy.distance, datetime
+import geopy.distance, datetime, shutil
 import news
 
 app = Flask(__name__)
@@ -242,6 +242,7 @@ def news_action():
     if files_day != todays_day:        
         print ('getting file')
         news.getnews(nfile)
+        shutil.copy(nfile, params['news_output_folder_for_audio'])
     return render_template('/news.html')
 
 if __name__ == '__main__':
