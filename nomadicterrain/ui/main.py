@@ -245,6 +245,18 @@ def news_action():
         shutil.copy(nfile, params['news_output_folder_for_audio'])
     return render_template('/news.html')
 
+@app.route('/trace')
+def trace():
+    df = pd.read_csv(params['gps'])
+    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
+    return render_template('/location.html', location=fout)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
