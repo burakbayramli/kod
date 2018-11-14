@@ -5,7 +5,7 @@ import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
-import geopy.distance
+import geopy.distance, datetime
 import news
 
 app = Flask(__name__)
@@ -233,9 +233,31 @@ def choosemap():
 
 @app.route('/news')
 def news_action():
-    news.getnews("./templates/news.html")
+    nfile = "./templates/news.html"
+    files_day = -1
+    todays_day = datetime.datetime.now().day
+    if os.path.isfile(nfile):
+       files_day = datetime.datetime.fromtimestamp(os.path.getctime(nfile)).day
+    if files_day != todays_day:
+        print ('getting file')
+        news.getnews(nfile)
     return render_template('/news.html')
 
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
+
+
+# import zipfile, csv, io
+# zfile = '/home/burak/Downloads/campdata/geolitecity.zip'
+# zip_file    = zipfile.ZipFile(zfile)
+# items_file  = zip_file.open('geolitecity.csv')
+# items_file  = io.TextIOWrapper(items_file)
+# rd = csv.reader(items_file)
+# headers = {k: v for v, k in enumerate(next(rd))}
+# print (headers)
+# for row in rd:
+#     if "kemalpasa" in row[headers['cityascii2']].lower():
+#         print (row)
+   
+    
