@@ -6,4 +6,5 @@
 */turkey
 */__*
 ui/static/out*.png
+ui/template/news.html
 plants/dataset

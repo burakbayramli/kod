@@ -3,8 +3,10 @@ from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
+import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance
+import news
 
 app = Flask(__name__)
 
@@ -229,6 +231,10 @@ def choosemap():
     print (map)
     return mapset()
 
+@app.route('/news')
+def news_action():
+    news.getnews("./templates/news.html")
+    return render_template('/news.html')
 
 if __name__ == '__main__':
     app.debug = True

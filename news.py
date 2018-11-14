@@ -49,9 +49,9 @@ def getnews(outfile):
                 #print("[[%s](%s)]\n" % (title, link))
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
             except Exception as e:
-                #yprint ('error', repr(e))
+                #print ('error', repr(e))
                 pass
     fout.close()
 
 if __name__ == "__main__": 
-    getnews("/tmp/out.html")
+    getnews("/tmp/news.html")
