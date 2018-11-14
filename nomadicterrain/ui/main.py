@@ -238,7 +238,8 @@ def news_action():
     todays_day = datetime.datetime.now().day
     if os.path.isfile(nfile):
        files_day = datetime.datetime.fromtimestamp(os.path.getctime(nfile)).day
-    if files_day != todays_day:
+    # get news file once each day. if news file exists for today, dont get it again
+    if files_day != todays_day:        
         print ('getting file')
         news.getnews(nfile)
     return render_template('/news.html')
