@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import numpy as np, pandas as pd, os, uuid, glob
-import sys; sys.path.append("../bookread")
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
 import plot_map, json, random, mindmeld
-import book, geopy.distance
+import geopy.distance
 
 app = Flask(__name__)
 

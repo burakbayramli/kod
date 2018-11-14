@@ -1,33 +1,28 @@
 
 
 ```python
-import zipfile, pandas as pd
-z = '/home/burak/Downloads/campdata/geolitecity.zip'
-with zipfile.ZipFile(z, 'r') as z:
-    df = pd.read_csv(z.open('geolitecity.csv'),encoding='utf-8')
-```
-
-
-```python
 import json, os
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 import plot_map
-pts = [[48.306219, 7.452300]] # near mountain
+#pts = [[48.306219, 7.452300]] # near mountain
 #pts = [[51.2130605,4.4174822]] # antwerp
 #pts = [[40.987659,29.036428],[40.992186,29.039228]] # tr
+pts = [[36.551907, 32.193444]] # alanya park
 #pts = [[52.510811, 13.370794]] # pots
-zfile,scale = params['mapzip']['terrain']
+#zfile,scale = params['mapzip']['terrain']
 #zfile,scale = params['mapzip']['istanbul']
 #zfile,scale = params['mapzip']['world2']
+zfile = '/home/burak/Downloads/campdata/turkey1.zip'
+scale = [1450,-2400]
 print (scale)
 plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
 ```
 
 ```text
 [1450, -2400]
-[[48.306219, 7.4523]]
-europe3/europe3_map_48_263232670886076_7_377707683544304.png
-[48.263232670886076 7.377707683544304]
+[[36.551907, 32.193444]]
+turkey/turkey_map_36_58421160759494_32_1309096835443.png
+[36.58421160759494 32.1309096835443]
 ```
 
 

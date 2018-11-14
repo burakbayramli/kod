@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-
+#
+# Kod https://github.com/emres/turkish-deasciifier adresinden alinmistir
+#
 class Deasciifier:
       """
       This class provides a function to deasciify a given Turkish text.
