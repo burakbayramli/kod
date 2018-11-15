@@ -290,6 +290,7 @@ def city_search():
     res = []
     for row in rd:
         if name in row[headers['cityascii2']].lower():
+            print (len(row))
             res.append(row)
     OnlyOne().city_results = res
     return city()
