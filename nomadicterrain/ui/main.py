@@ -308,6 +308,23 @@ def gogeo(coords):
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout)
 
+@app.route('/manual_geo')
+def manual_geo():
+    return render_template('/manual.html')
+
+@app.route("/get_manual_geo", methods=["POST"])
+def get_manual_geo():
+    lat = request.form.get("lat")
+    lon = request.form.get("lon")
+    pts = np.array([[lat, lon]]).astype(float)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    OnlyOne().last_location = [lat,lon]
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
+    return render_template('/location.html', location=fout)
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
