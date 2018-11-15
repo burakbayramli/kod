@@ -6,7 +6,7 @@ import sys; sys.path.append("../../guide")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
-import news
+import news, csv, io, zipfile
 
 app = Flask(__name__)
 
@@ -20,6 +20,7 @@ class OnlyOne(object):
             self.last_location = None
             self.map = "normal"
             self.edible_results = []
+            self.city_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -121,7 +122,7 @@ def edible_detail(name):
 def edible():
     name = request.form.get("name")
     df = OnlyOne().edible
-    OnlyOne().edible_results = df[df['Scientific Name'].str.contains(name,case=False)]['Scientific Name']    
+    OnlyOne().edible_results = df[df['Scientific Name'].str.contains(name,case=False)]['Scientific Name'] 
     return edible_main()
 
 @app.route('/profile_main')
@@ -258,24 +259,27 @@ def trace():
 
 @app.route('/city')
 def city():
-    return render_template('/city.html')
+    return render_template('/city.html',data=OnlyOne().city_results)
 
+@app.route("/city_search", methods=["POST"])
+def city_search():
+    name = request.form.get("name")
+    zfile = params['geocity']
+    zip_file    = zipfile.ZipFile(zfile)
+    items_file  = zip_file.open('geolitecity.csv')
+    items_file  = io.TextIOWrapper(items_file)
+    rd = csv.reader(items_file)
+    headers = {k: v for v, k in enumerate(next(rd))}
+    res = []
+    for row in rd:
+        if name in row[headers['cityascii2']].lower():
+            res.append(row)
+    OnlyOne().city_results = res
+    return city()
 
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
 
-
-# import zipfile, csv, io
-# zfile = '/home/burak/Downloads/campdata/geolitecity.zip'
-# zip_file    = zipfile.ZipFile(zfile)
-# items_file  = zip_file.open('geolitecity.csv')
-# items_file  = io.TextIOWrapper(items_file)
-# rd = csv.reader(items_file)
-# headers = {k: v for v, k in enumerate(next(rd))}
-# print (headers)
-# for row in rd:
-#     if "kemalpasa" in row[headers['cityascii2']].lower():
-#         print (row)
    
     

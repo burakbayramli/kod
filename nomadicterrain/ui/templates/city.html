@@ -14,6 +14,11 @@
       <input type="text" name="name" placeholder="City or town"/>
       <input type="submit" value="Search"/>
 
+      {% for x in data %}
+         <br/>
+         {{x}}
+      {% endfor %}    
+      
     </form>
   </body>
 </html>
