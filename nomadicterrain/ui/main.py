@@ -256,6 +256,10 @@ def trace():
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout)
 
+@app.route('/city')
+def city():
+    return render_template('/city.html')
+
 
 if __name__ == '__main__':
     app.debug = True
