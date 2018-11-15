@@ -221,6 +221,17 @@ def camps_nav_action():
     print (fout)
     return render_template('/camps.html', location=fout)
 
+@app.route('/trace_nav_action', methods=['GET', 'POST'])
+def trace_nav_action():
+    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
+    OnlyOne().last_location = res
+    df = pd.read_csv(params['gps'])
+    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
+    pts[0] = res
+    fout = plot_trace(pts)
+    print (fout)
+    return render_template('/trace.html', location=fout)
+
 @app.route('/mapset')
 def mapset():
     return render_template('/mapset.html', map=OnlyOne().map)
@@ -246,16 +257,22 @@ def news_action():
         shutil.copy(nfile, params['news_output_folder_for_audio'])
     return render_template('/news.html')
 
-@app.route('/trace')
-def trace():
-    df = pd.read_csv(params['gps'])
-    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
+def plot_trace(pts):
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    return fout
+    
+
+@app.route('/trace')
+def trace():
+    df = pd.read_csv(params['gps'])
+    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
+    OnlyOne().last_location = [pts[0][0],pts[0][1]]
+    fout = plot_trace(pts)
+    return render_template('/trace.html', location=fout)
 
 @app.route('/city')
 def city():

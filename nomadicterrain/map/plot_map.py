@@ -18,7 +18,6 @@ def plot(points,outfile,zfile,scale):
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
     """
-    print (points)
     plt.figure()
     center_res = points[0]
     imgcoord = []
