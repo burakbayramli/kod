@@ -35,3 +35,37 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 }
 ```
 
+## Files
+
+### Map files
+
+world2
+
+https://drive.google.com/open?id=1H3KK9MWXXtxcKPw5LY_hAJEC14bX94jJ
+
+istanbul.zip
+
+https://drive.google.com/open?id=16kgu2-QOWShgJZOBp-6mReanzV5E2QRv
+
+europe2.zip
+
+https://drive.google.com/open?id=1qyQJkMt7mNuotGvTVOWCm9SUirtLZQ8P
+
+berlin.zip
+
+https://drive.google.com/open?id=18CtN_FHBOs47zvM3Uvirhgf4vM-5oMZB
+
+### Other
+
+GeoLiteCity
+
+https://drive.google.com/open?id=1lLzsLklIhlAUButeHhsHxMjy6sBsrLte
+
+Edible plants
+
+https://drive.google.com/open?id=1t9470crpqWCKUlXwmK2DB9mvifBjAdCM
+
+Camping locations
+
+https://drive.google.com/open?id=12IouBuu18k1SYmxsseBluhQAHVFrtHsP
+
