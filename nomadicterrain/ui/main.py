@@ -290,10 +290,23 @@ def city_search():
     res = []
     for row in rd:
         if name in row[headers['cityascii2']].lower():
-            print (len(row))
             res.append(row)
     OnlyOne().city_results = res
     return city()
+
+@app.route('/gogeo/<coords>')
+def gogeo(coords):
+    lat,lon = coords.split(';')
+    print (coords)
+    print (lat,lon)
+    pts = np.array([[lat, lon]]).astype(float)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    OnlyOne().last_location = [lat,lon]
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
+    return render_template('/location.html', location=fout)
 
 if __name__ == '__main__':
     app.debug = True
