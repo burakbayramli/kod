@@ -138,6 +138,9 @@ def profile():
     print (d)
     res =  mindmeld.calculate(d)
     res['date'] = d
+    pf = params['spiller_tr']
+    pf = json.loads(open(pf).read())
+    res['spiller_tr'] = pf[res['spiller'].lower()]
     return render_template('/profile.html', res=res)
 
 @app.route("/profile_text/<d>")
@@ -328,6 +331,4 @@ def get_manual_geo():
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
-
-   
     
