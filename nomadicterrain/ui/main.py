@@ -138,17 +138,19 @@ def profile():
     print (d)
     res =  mindmeld.calculate(d)
     res['date'] = d
-    pf = params['spiller_tr']
-    pf = json.loads(open(pf).read())
-    res['spiller_tr'] = pf[res['spiller'].lower()]
+    if 'spiller_tr' in params:
+        pf = params['spiller_tr']
+        pf = json.loads(open(pf).read())
+        res['spiller_tr'] = pf[res['spiller'].lower()]
     return render_template('/profile.html', res=res)
 
 @app.route("/profile_text/<d>")
 def profile_text(d):
     res =  mindmeld.calculate(str(d))
-    pf = params['spiller_tr']
-    pf = json.loads(open(pf).read())
-    res['spiller_tr'] = pf[res['spiller'].lower()]
+    if 'spiller_tr' in params:
+        pf = params['spiller_tr']
+        pf = json.loads(open(pf).read())
+        res['spiller_tr'] = pf[res['spiller'].lower()]
     return render_template('/profile_text.html', res=res)
 
 @app.route('/guide/spiller/<which>')
