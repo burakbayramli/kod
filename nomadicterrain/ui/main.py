@@ -146,6 +146,9 @@ def profile():
 @app.route("/profile_text/<d>")
 def profile_text(d):
     res =  mindmeld.calculate(str(d))
+    pf = params['spiller_tr']
+    pf = json.loads(open(pf).read())
+    res['spiller_tr'] = pf[res['spiller'].lower()]
     return render_template('/profile_text.html', res=res)
 
 @app.route('/guide/spiller/<which>')
