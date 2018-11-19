@@ -138,19 +138,21 @@ def profile():
     print (d)
     res =  mindmeld.calculate(d)
     res['date'] = d
-    if 'spiller_tr' in params:
-        pf = params['spiller_tr']
+    if 'spiller_pdf' in params:
+        pf = params['spiller_pdf']
         pf = json.loads(open(pf).read())
-        res['spiller_tr'] = pf[res['spiller'].lower()]
+        res['spiller_tr'] = pf['tr'][res['spiller'].lower()]
+        res['spiller_en'] = pf['en'][res['spiller'].lower()]
     return render_template('/profile.html', res=res)
 
 @app.route("/profile_text/<d>")
 def profile_text(d):
     res =  mindmeld.calculate(str(d))
-    if 'spiller_tr' in params:
-        pf = params['spiller_tr']
+    if 'spiller_pdf' in params:
+        pf = params['spiller_pdf']
         pf = json.loads(open(pf).read())
-        res['spiller_tr'] = pf[res['spiller'].lower()]
+        res['spiller_tr'] = pf['tr'][res['spiller'].lower()]
+        res['spiller_en'] = pf['en'][res['spiller'].lower()]
     return render_template('/profile_text.html', res=res)
 
 @app.route('/guide/spiller/<which>')
@@ -168,7 +170,10 @@ def guide_chinese(which):
 @app.route('/guide/millman/<which>')
 def guide_millman(which):
     fin = params['guide_detail_dir'] + "/millman/" + which + ".txt"
-    output = open(fin).read()
+    content = open(fin).readlines()
+    output = ""
+    for line in content: 
+        output += line + "<br/>"
     return render_template('/profile_detail.html', output=output)
 
 @app.route('/guide/lewi/<which>')
