@@ -31,7 +31,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   },
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
   "audio_output_folder": "/home/burak/Downloads",
-  "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details"
+  "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
+  "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json"
 }
 ```
 
