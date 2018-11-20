@@ -5,6 +5,10 @@ Python replacement for newsbeuter, an RSS based news reader.
 import feedparser, sys, codecs
 import re, requests, random, os
 import re, time, os
+from bs4 import BeautifulSoup 
+
+def strip_html(input):
+    return BeautifulSoup(input, "lxml").text
 
 def getnews(outfile):
     feeds = [
@@ -38,6 +42,7 @@ def getnews(outfile):
             try:
                 if lim > 0 and i==int(lim): break
                 link = post.link; title = post.title
+                summary = strip_html(post.summary)
                 if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
@@ -47,7 +52,7 @@ def getnews(outfile):
                 if len(re.findall(r"Dreamer", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r" DACA", title, re.IGNORECASE)) > 0: continue
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
-                fout.write("%s<br/><br/>\n" % (post.summary))
+                fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:
                 pass
     fout.close()

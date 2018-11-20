@@ -8,3 +8,6 @@
 ui/static/out*.png
 ui/templates/news.html
 plants/dataset
+*/*/model.json
+*/*/*shard*
+*/*/mnist*
