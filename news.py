@@ -17,12 +17,11 @@ def getnews(outfile):
         ("Reuters (Business)", "http://feeds.reuters.com/reuters/businessNews",-1),
         ('BBC','http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml',20),
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
-        ("The Atlantic", "http://www.theatlantic.com/feed/all/",10),
         ("Bloomberg", "https://twitrss.me/twitter_user_to_rss/?user=business",15),
+        ("The Atlantic", "http://www.theatlantic.com/feed/all/",10),
         ("Deusche Welle (World)", "http://rss.dw.de/rdf/rss-en-all", 15),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
-        ("Deusche Welle (Europe)", "http://rss.dw.de/rdf/rss-en-eu", 15),
-        ("ARD", "http://www.ard.de/home/ard/ARD_Startseite/21920/index.xml", 20)
+        ("Deusche Welle (Europe)", "http://rss.dw.de/rdf/rss-en-eu", 15)
     ]
 
     fout = open(outfile, "w")
