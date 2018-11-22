@@ -86,9 +86,8 @@ def plot_parks(lat, lon):
     return fout
     
 @app.route('/parks')
-def parks():
-    df = pd.read_csv(params['gps'])
-    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+def parks():    
+    lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
     fout = plot_parks(lat, lon)
     return render_template('/parks.html', location=fout)
@@ -113,9 +112,8 @@ def plot_camps(lat, lon):
     return fout
     
 @app.route('/camps')
-def camps():
-    df = pd.read_csv(params['gps'])
-    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+def camps():    
+    lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
     fout = plot_camps(lat, lon)
     return render_template('/camps.html', location=fout)
