@@ -6,12 +6,20 @@ import sys; sys.path.append("../../guide")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
-import news, csv, io, zipfile
+import news, csv, io, zipfile, math
 
 app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
+
+def get_bearing(lat1,lon1,lat2,lon2):
+    dLon = lon2 - lon1;
+    y = math.sin(dLon) * math.cos(lat2);
+    x = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(dLon);
+    brng = np.rad2deg(math.atan2(y, x));
+    if brng < 0: brng+= 360
+    return np.round(brng,2)
 
 class OnlyOne(object):
     class __OnlyOne:
@@ -38,14 +46,18 @@ def clean_dir():
     files = glob.glob("static/out-*.png")
     for f in files: os.remove(f)
 
+def my_curr_location():
+    # take my location from gps logger
+    df = pd.read_csv(params['gps'])
+    return float(df.tail(1).lat), float(df.tail(1).lon)
+
 @app.route('/')
 def index():
     return render_template('/index.html')
 
 @app.route('/location')
 def location():
-    df = pd.read_csv(params['gps'])
-    lat,lon = (float(df.tail(1).lat), float(df.tail(1).lon))
+    lat,lon = my_curr_location()
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -95,7 +107,8 @@ def plot_camps(lat, lon):
             
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
-    zfile,scale = params['mapzip']['terrain']    
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     return fout
     
@@ -213,7 +226,8 @@ def location_nav_action():
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = res
-    zfile,scale = params['mapzip']['terrain']
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
     return render_template('/location.html', location=fout)
 
@@ -329,14 +343,18 @@ def manual_geo():
 def get_manual_geo():
     lat = request.form.get("lat")
     lon = request.form.get("lon")
-    pts = np.array([[lat, lon]]).astype(float)
+    lat2,lon2 = my_curr_location()
+    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
+    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+    distance = np.round(distance.km, 2)
+    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout)
+    return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
 
 if __name__ == '__main__':
     app.debug = True

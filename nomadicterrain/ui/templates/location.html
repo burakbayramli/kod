@@ -7,7 +7,7 @@
   <body>
     
     <div id="arrows2">
-      <form method="POST" action="/location_nav_action">      
+      <form method="POST" action="/location_nav_action">
         <p><input name="action" value="↑" class="imgbtn" type="submit"/></p>
         <p>
           <input name="action" value="←" class="imgbtn" type="submit"/>
@@ -17,6 +17,11 @@
         <input name="action" value="↓" class="imgbtn" type="submit"/>
       </form>
     </div>
+    {% if bearing %} 
+    <div>
+       Distance {{distance}} km, bearing {{bearing}}
+    </div>
+    {% endif %}    
     
     <img src="/{{ location }}"/>
 
