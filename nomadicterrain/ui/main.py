@@ -356,6 +356,17 @@ def get_manual_geo():
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
 
+@app.route('/reset', methods=['GET', 'POST'])
+def reset():
+    if request.form['action'] == 'Yes':
+        print ("yes")
+        df = pd.read_csv(params['gps'])
+        df = df.tail(1)
+        df.to_csv(params['gps'],index=None)
+    elif request.form['action'] == 'No':
+        print ("no") 
+    return index()
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
