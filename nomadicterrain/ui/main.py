@@ -322,16 +322,18 @@ def city_search():
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
-    print (coords)
-    print (lat,lon)
-    pts = np.array([[lat, lon]]).astype(float)
+    lat2,lon2 = my_curr_location()
+    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
+    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+    distance = np.round(distance.km, 2)
+    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout)
+    return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
 
 @app.route('/manual_geo')
 def manual_geo():
