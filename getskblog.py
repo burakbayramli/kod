@@ -2,7 +2,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.request import urlretrieve
-import codecs, os
+import codecs, os, re
 
 base = 'http://sayilarvekuramlar.blogspot.com'
 urls = ['/2018/11/tensorflowjs-javascript-ile-tensorflow.html',
@@ -48,7 +48,28 @@ def get_article(url, local):
         
     fout.close()
 
+def articles():
+    d = {}
+
+    fin = open("/home/burak/Downloads/blog-11-25-2018.xml")
+    content = fin.read()
+    res = re.findall("sayilarvekuramlar.blogspot.com/(.*?.html)",
+                     content,
+                     re.DOTALL)
+
+    count = 0
+    for i,x in enumerate(res):
+        if "feeds" in x: continue
+        if "/html" in x: continue
+        if len(x) < 150:
+            count += 1
+            d[x] = "1"
+            print (x)
+
+    print (len(d))
+    #print (d)
     
+        
 if __name__ == "__main__":    
     local = "/tmp/sk"
     get_article(urls[2], local)
