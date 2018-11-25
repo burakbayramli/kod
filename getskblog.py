@@ -70,7 +70,12 @@ def articles():
     #print (d)
     
         
-if __name__ == "__main__":    
+if __name__ == "__main__":
     local = "/tmp/sk"
-    get_article(urls[2], local)
-    
+    res = articles()
+    for x in res:
+        print (x)
+        try:
+            get_article(x, local)
+        except Exception as e:
+            print ("cannot get article", x, repr(e))    
