@@ -23,11 +23,11 @@ def get_article(url):
     
     imgs = bsObj.find_all("img")
     imgs = [x.get('src') for x in imgs if "bp.blogspot.com" in x.get('src')]
+    tmp_img = []
     for img in imgs:
         imgname = img[img.rfind('/')+1:]
-        print (imgname)
-        print (img)
         urlretrieve(img, subdir + "/" + imgname)
+        tmp_img.append(imgname)
     print (imgs)
     
     active = False
@@ -37,7 +37,13 @@ def get_article(url):
         if active:
             fout.write(line)
             fout.write("\n")
+
+    imgs = bsObj.find_all("img")
+    for img in tmp_img:
+        fout.write("![](%s)\n" % img)
+        
     fout.close()
+
     
 if __name__ == "__main__": 
     get_article(urls[0])
