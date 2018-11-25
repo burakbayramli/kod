@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+from urllib.request import urlretrieve
 import codecs, os
 
 base = 'http://sayilarvekuramlar.blogspot.com'
@@ -19,9 +20,16 @@ def get_article(url):
     title = bsObj.h3.get_text().strip()
     fout.write("# " + title + "\n")
     content = bsObj.get_text()
+    
     imgs = bsObj.find_all("img")
     imgs = [x.get('src') for x in imgs if "bp.blogspot.com" in x.get('src')]
+    for img in imgs:
+        imgname = img[img.rfind('/')+1:]
+        print (imgname)
+        print (img)
+        urlretrieve(img, subdir + "/" + imgname)
     print (imgs)
+    
     active = False
     for i,line in enumerate(content.split("\n")):
         if i==480: active = True
