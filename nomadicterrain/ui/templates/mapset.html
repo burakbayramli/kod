@@ -16,11 +16,9 @@
     <form class="form-inline" name="mapform" action="/choosemap" method="POST">
       <select name="option" id='map' name="mapoption">
         <option value=""></option>
-        <option value="normal">normal</option>
-        <option value="terrain">terrain</option>
-        <option value="world1">world1</option>
-        <option value="world2">world2</option>
-        <option value="turkey1">turkey1</option>
+        {% for x in maps %}    
+        <option value="{{x}}">{{x}}</option>
+        {% endfor %}     
       </select>
       <p>
         <input type="submit" value="Set"/>

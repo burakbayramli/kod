@@ -259,7 +259,7 @@ def trace_nav_action():
 
 @app.route('/mapset')
 def mapset():
-    return render_template('/mapset.html', map=OnlyOne().map)
+    return render_template('/mapset.html', maps=params['mapzip'].keys(), map=OnlyOne().map)
 
 @app.route("/choosemap", methods=["GET","POST"])
 def choosemap():
