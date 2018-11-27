@@ -375,7 +375,7 @@ def reset():
 
 @app.route("/place_search", methods=["POST"])
 def place_search():
-    query = request.form.get("keyword")
+    query = request.form.get("keyword").strip().replace(" ","+")
     stype = request.form.get("type")
     lat,lon = my_curr_location()
     location = "%s,%s" % (lat,lon)    
