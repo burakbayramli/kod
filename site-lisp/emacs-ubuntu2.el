@@ -865,7 +865,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
 
 (defun remove-newlines-in-region ()
   "Removes all newlines in the region."
