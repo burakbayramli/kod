@@ -329,7 +329,7 @@ def city_search():
 def gogeo(coords):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
-    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
+    bearing = get_bearing(float(lat),float(lon),lat2,lon2)
     distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
     pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
@@ -350,7 +350,7 @@ def get_manual_geo():
     lat = request.form.get("lat")
     lon = request.form.get("lon")
     lat2,lon2 = my_curr_location()
-    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
+    bearing = get_bearing(float(lat),float(lon),lat2,lon2)
     distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
     pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)

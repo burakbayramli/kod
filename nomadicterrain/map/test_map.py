@@ -40,6 +40,8 @@ def test_distance():
     print (get_bearing(51.215469, 4.427657, 51.218453, 4.431262))
     print (get_bearing(51.215469, 4.427657, 51.213319, 4.420361))
     print (get_bearing(51.215469, 4.427657, 51.218964, 4.419846))
+    print (get_bearing(51.2130605,4.4174822, 51.213583, 4.424042))
+    print (get_bearing(51.213583, 4.424042, 51.2130605,4.4174822))
     print (dist)
     
 test_distance()
