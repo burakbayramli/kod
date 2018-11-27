@@ -7,6 +7,7 @@ import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
+from urllib.request import urlopen
 
 app = Flask(__name__)
 
@@ -29,6 +30,7 @@ class OnlyOne(object):
             self.map = "normal"
             self.edible_results = []
             self.city_results = []
+            self.place_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -303,6 +305,10 @@ def trace():
 def city():
     return render_template('/city.html',data=OnlyOne().city_results)
 
+@app.route('/place')
+def place():
+    return render_template('/place.html',data=OnlyOne().place_results)
+
 @app.route("/city_search", methods=["POST"])
 def city_search():
     name = request.form.get("name")
@@ -366,6 +372,23 @@ def reset():
     elif request.form['action'] == 'No':
         print ("no") 
     return index()
+
+@app.route("/place_search", methods=["POST"])
+def place_search():
+    query = request.form.get("keyword")
+    stype = request.form.get("type")
+    lat,lon = my_curr_location()
+    location = "%s,%s" % (lat,lon)    
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=1500&type=%s&keyword=%s&key=%s" % (location, stype, query, params['api'])
+    print (url)
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+    res = []
+    for x in json_res['results']:
+        res.append([x['name'],x['geometry']['location']['lat'],x['geometry']['location']['lng']])
+    OnlyOne().place_results = res
+    return place()
+
 
 if __name__ == '__main__':
     app.debug = True

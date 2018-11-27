@@ -22,8 +22,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "nationalpark": "/home/burak/Downloads/campdata/national_parks.csv",
   "campsites": "/home/burak/Downloads/campdata/camping_locations.csv",
   "natpark_mindistance": 100.0,
-  "mapzip": {"normal": ["/home/burak/Downloads/campdata/europe2.zip",[2900,-4600]],
-	     "terrain": ["/home/burak/Downloads/campdata/europe3.zip",[1450,-2400]],
+  "mapzip": {"normal": ["/home/burak/Downloads/campdata/world1.zip",[45,-70]],
 	     "istanbul": ["/home/burak/Downloads/campdata/istanbul.zip",[23000,-35000]],
 	     "berlin": ["/home/burak/Downloads/campdata/berlin.zip",[23000,-35000]],
 	     "world1": ["/home/burak/Downloads/campdata/world1.zip",[45,-70]],
@@ -36,7 +35,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
   "audio_output_folder": "/home/burak/Downloads",
   "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
-  "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json"
+  "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
+  "api": "[GOOGLE API ANAHTARI]"
 }
 ```
 
