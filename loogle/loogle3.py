@@ -5,20 +5,21 @@ import pandas as pd, sqlite3
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
 
+def get_legit_files(crawl_dir):
+    dirs, files = rsync.ls(crawl_dir)
+    files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
+    files = [x for x in files if skip_dir not in x[0]]    
+    return files
+
 def row_exists(conn, path):
     c = conn.cursor()    
     c.execute('''SELECT count(*) FROM BOOKS where path = '%s' ''' % path)
     rows = c.fetchall()
     return rows[0][0]==1
     
-def index(crawl_dir,index_db,new_index=False, stop_after_n=100):    
-    dirs, files = rsync.ls(crawl_dir)
-    files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
-    files = [x for x in files if skip_dir not in x[0]]
+def index(crawl_dir,index_db,new_index=False):
     
-    file_names = [f[0] for f in files]
-    print ('files', files)
-
+    files = get_legit_files(crawl_dir)
     conn = None
     if new_index:
         if os.path.isfile(index_db):
@@ -47,7 +48,21 @@ def index(crawl_dir,index_db,new_index=False, stop_after_n=100):
             conn.commit()
         except Exception as e:
             print ("Error", repr(e))
-            print ("Indexing only ", content)                    
+            print ("Indexing only ", content)
+            
+def delete(crawl_dir,index_db):    
+    files = get_legit_files(crawl_dir)
+    files = [x[0] for x in files]
+    conn = sqlite3.connect(index_db)
+    c = conn.cursor()
+    c.execute('''SELECT path,size FROM BOOKS;''')
+    rows = c.fetchall()
+    for r in rows:
+        if r[0] not in files:
+            c.execute('''DELETE FROM BOOKS WHERE path = '%s';''' % r[0])
+            print (r[0], "deleted")
+                        
+    conn.commit()
     conn.close()
 
 def search(s, index_db):
