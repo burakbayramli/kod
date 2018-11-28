@@ -52,7 +52,8 @@ def index(crawl_dir,index_dir,new_index=False, stop_after_n=100):
             print ('Indexing ', file)
             filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
             filename_as_content = filename_as_content.encode('utf-8')
-            content = filename_as_content
+            content = filename_as_content.decode('utf-8')
+            content = content[0:content.rfind(".")]
             try:
                 content += textract.process(file,encoding='ascii')
             except Exception as e:
@@ -60,7 +61,7 @@ def index(crawl_dir,index_dir,new_index=False, stop_after_n=100):
                 print ("Indexing only ", content)                    
             writer.add_document(path = str(file),
                                 title = str(filename_as_content),
-                                text = content.decode('utf-8'))
+                                text = content)
             file_df = file_df.append({"file": file, "size": size},ignore_index=True)
         else:
             print ("already there")
