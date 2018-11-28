@@ -8,7 +8,7 @@ from whoosh.fields import ID, KEYWORD, TEXT
 from whoosh.qparser import QueryParser 
 import os, shutil, io, codecs, textract, rsync
 
-def index(crawl_dir,index_dir,new_index=False):
+def index(crawl_dir,index_dir,new_index=False, stop_after_n=100):
 
     dirs, files = rsync.ls(crawl_dir)
     file_names = [f[0] for f in files]
@@ -37,6 +37,9 @@ def index(crawl_dir,index_dir,new_index=False):
         writer.delete_by_term('path', f)    
         
     for i,(file,size) in enumerate(files):
+        if i==stop_after_n:
+            print ('Stopping after', i, 'files')
+            break
         if file not in list(file_df.file): 
             print ('Indexing ', file)
             content = textract.process(file,encoding='ascii')
