@@ -5,9 +5,13 @@ import pandas as pd, sqlite3
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
 
-def index(crawl_dir,index_db,new_index=False, stop_after_n=100):
-
+def row_exists(conn, path):
+    c = conn.cursor()    
+    c.execute('''SELECT count(*) FROM BOOKS where path = '%s' ''' % path)
+    rows = c.fetchall()
+    return rows[0][0]==1
     
+def index(crawl_dir,index_db,new_index=False, stop_after_n=100):    
     dirs, files = rsync.ls(crawl_dir)
     files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
     files = [x for x in files if skip_dir not in x[0]]
@@ -21,7 +25,7 @@ def index(crawl_dir,index_db,new_index=False, stop_after_n=100):
             rsync.deleteFile(index_db)
         conn = sqlite3.connect(index_db)
         c = conn.cursor()
-        c.execute('''CREATE VIRTUAL TABLE BOOKS USING fts3(path TEXT, content TEXT, size TEXT); ''')
+        c.execute('''CREATE VIRTUAL TABLE BOOKS USING fts3(path TEXT PRIMARY KEY, content TEXT, size TEXT); ''')
         c.close()
     else:
         conn = sqlite3.connect(index_db)

@@ -9,6 +9,12 @@ def test_simple():
    res = loogle3.search("scientist", index_db)
    print (res)
 
+def test_incr():
+   loogle3.index(cdir, index_db, new_index=True)
+   loogle3.index(cdir, index_db)
+   res = loogle3.search("scientist", index_db)
+   print (res)
+
 # def test_add_new():
 #     loogle2.index(cdir, index_dir, new_index=True)
 #     res = loogle3.search("doctor", index_dir)
