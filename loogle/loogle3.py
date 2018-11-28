@@ -39,15 +39,13 @@ def index(crawl_dir,index_db,new_index=False):
             continue
         filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
         filename_as_content = filename_as_content[0:filename_as_content.rfind(".")]
-        print ("filename_as_content", filename_as_content)
         content = filename_as_content
         try:
             content += " " + textract.process(file, encoding='ascii').decode('utf-8')
-            print (content)
             c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (file,content,size))
             conn.commit()
         except Exception as e:
-            print ("Error", repr(e))
+            print ("Error")
             print ("Indexing only ", content)
             
 def delete(crawl_dir,index_db):    

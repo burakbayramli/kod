@@ -1,8 +1,8 @@
 import sys; sys.path.append('..')
-import loogle2, rsync
+import loogle3, rsync
 
-index_dir = "/home/burak/Downloads/.loogle"
+index_dir = "/home/burak/Downloads/loogle.db"
 cdir = "/media/burak/23B9-71E6/kitaplar"
 
-#loogle2.index(cdir, index_dir, new_index=True, stop_after_n=40)
-loogle2.index(cdir, index_dir, new_index=False, stop_after_n=30)
+loogle3.index(cdir, index_dir, new_index=False)
+#loogle3.index(cdir, index_dir, new_index=True)
