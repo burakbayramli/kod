@@ -10,10 +10,13 @@ import os, shutil, io, codecs, textract, rsync
 
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 
+skip_dir = 'kitaplar/General/novel'
+
 def index(crawl_dir,index_dir,new_index=False, stop_after_n=100):
 
     dirs, files = rsync.ls(crawl_dir)
     files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
+    files = [x for x in files if skip_dir not in x[0]]
     
     file_names = [f[0] for f in files]
     #print ('files', files)
@@ -41,25 +44,26 @@ def index(crawl_dir,index_dir,new_index=False, stop_after_n=100):
         writer.delete_by_term('path', f)    
         
     for i,(file,size) in enumerate(files):
-            if i==stop_after_n:
-                print ('Stopping after', i, 'files')
-                break
-            if file not in list(file_df.file): 
-                print ('Indexing ', file)
-                filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
-                filename_as_content = filename_as_content.encode('utf-8')
-                content = filename_as_content
-                try:
-                    content += textract.process(file,encoding='ascii')
-                except Exception as e:
-                    print ("Error")
-                    print ("Indexing only ", content)                    
-                writer.add_document(path = str(file),
-                                    title = str(filename_as_content),
-                                    text = content.decode('utf-8'))
-                file_df = file_df.append({"file": file, "size": size},ignore_index=True)
-            else:
-                print ("already there")
+        if i % 10==0: print (i)
+        if i==stop_after_n:
+            print ('Stopping after', i, 'files')
+            break
+        if file not in list(file_df.file): 
+            print ('Indexing ', file)
+            filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
+            filename_as_content = filename_as_content.encode('utf-8')
+            content = filename_as_content
+            try:
+                content += textract.process(file,encoding='ascii')
+            except Exception as e:
+                print ("Error")
+                print ("Indexing only ", content)                    
+            writer.add_document(path = str(file),
+                                title = str(filename_as_content),
+                                text = content.decode('utf-8'))
+            file_df = file_df.append({"file": file, "size": size},ignore_index=True)
+        else:
+            print ("already there")
                 
     writer.commit()
     file_df.to_csv(index_dir + "/files.csv",sep='|',index=None) 
