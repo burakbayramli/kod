@@ -17,5 +17,6 @@ triggering incremental updates.
 Requirements
 
 whoosh
+
 pandas
 
