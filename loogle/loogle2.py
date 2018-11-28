@@ -10,6 +10,10 @@ import os, shutil, io, codecs, textract, rsync
 
 def index(crawl_dir,index_dir,new_index=False):
 
+    dirs, files = rsync.ls(crawl_dir)
+    file_names = [f[0] for f in files]
+    print ('files', files)
+    
     if new_index:
         if os.path.isdir(index_dir): rsync.deleteDir(index_dir)
         os.mkdir(index_dir)
@@ -19,13 +23,19 @@ def index(crawl_dir,index_dir,new_index=False):
         index = create_in(index_dir, pdf_schema)
         file_df = pd.DataFrame(columns=['file','size'])
     else:
+        # existing index
         file_df = pd.read_csv(index_dir + "/files.csv",sep='|')
         index = open_dir(index_dir)
+                
+    writer = index.writer()
+
+    # check for deletions first
+    print ('deletions')
+    print ('file names', file_names)
+    for f in list(file_df.file):
+        if f not in file_names: print (f, 'deleted')
+        writer.delete_by_term('path', f)    
         
-    writer = index.writer()         
-        
-    dirs, files = rsync.ls(crawl_dir)
-    print (files)
     for i,(file,size) in enumerate(files):
         if file not in list(file_df.file): 
             print ('Indexing ', file)
