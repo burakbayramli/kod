@@ -27,15 +27,18 @@ def index(crawl_dir,index_dir,new_index=False):
     dirs, files = rsync.ls(crawl_dir)
     print (files)
     for i,(file,size) in enumerate(files):
-        print ('Indexing ', file)
-        content = textract.process(file,encoding='ascii')
-        filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
-        filename_as_content = filename_as_content.encode('utf-8')
-        writer.add_document(path = str(file),
-                            title = str(filename_as_content),
-                            text = content.decode('utf-8'))
-        file_df = file_df.append({"file": file, "size": size},ignore_index=True)
-
+        if file not in list(file_df.file): 
+            print ('Indexing ', file)
+            content = textract.process(file,encoding='ascii')
+            filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
+            filename_as_content = filename_as_content.encode('utf-8')
+            writer.add_document(path = str(file),
+                                title = str(filename_as_content),
+                                text = content.decode('utf-8'))
+            file_df = file_df.append({"file": file, "size": size},ignore_index=True)
+        else:
+            print ("already there")
+            
     writer.commit()
     file_df.to_csv(index_dir + "/files.csv",sep='|',index=None) 
 
@@ -53,6 +56,6 @@ if __name__ == "__main__":
  
     index_dir = "/tmp/idx"    
     index("/home/burak/Documents/kod/loogle/sub", index_dir, new_index=True)
-    #index("/home/burak/Documents/kod/loogle/sub", index_dir)
+    index("/home/burak/Documents/kod/loogle/sub", index_dir)
     res = search("scientist", index_dir)
     print (res)
