@@ -57,7 +57,7 @@ def index(crawl_dir,index_dir,get_first_N=None):
         # remove file from index if file exists in index, but not on
         # file system
         if ff not in files_crawled_dict:
-            print ff, 'removed'
+            print (ff, 'removed')
             writer.delete_by_term('path', unicode(ff))
             tmpvar[ff] = file_indexed_dict[ff]
         elif files_crawled_dict[ff] != file_indexed_dict[ff]:
@@ -65,7 +65,7 @@ def index(crawl_dir,index_dir,get_first_N=None):
             # how I remove an updated file from my index dictionary so
             # its absence will be detected below, and will be freshly
             # reindexed
-            print ff, 'size different update'
+            print (ff, 'size different update')
             writer.delete_by_term('path', unicode(ff))
         else:
             tmpvar[ff] = file_indexed_dict[ff]
@@ -74,13 +74,13 @@ def index(crawl_dir,index_dir,get_first_N=None):
     file_indexed_dict = tmpvar
                 
     if get_first_N: files = files[:get_first_N]
-    print 'processing', len(files), 'files'
+    print ('processing', len(files), 'files')
     for i,(file,size) in enumerate(files):
         try:
             if file in file_indexed_dict:
-                print 'skipping', file
+                print ('skipping', file)
                 continue
-            print 'processing', file
+            print ('processing', file)
             ext = os.path.splitext(file)[1]
             if ext == ".pdf" :
                 cmd = pdfcmd % (file,tmp)
@@ -115,8 +115,8 @@ def index(crawl_dir,index_dir,get_first_N=None):
                                 text = unicode(content))
             df_files.append([file, size])
             
-        except Exception, e:
-            print 'error detected', e
+        except Exception as e:
+            print ('error detected', repr(e))
             continue
     writer.commit() 
     df_files = pd.DataFrame(df_files,columns=['file','size'])
@@ -151,5 +151,5 @@ if __name__ == "__main__":
             # produce emacs friendly output here, file:line_no:content
             # allows emacs find-grep to make the output clickable, C-c C-c
             # will take you to the file
-            print "%s:1:-" % x
+            print ("%s:1:-" % x)
         

@@ -8,7 +8,7 @@ idx = "%s/loogle" % tmp
 def prepare_dir():
     if os.path.isdir(idx): shutil.rmtree(idx)
     os.mkdir(idx)
-    print idx
+    print (idx)
 
 def create_delete_me():
     f = "./sub/delete_me.txt"
@@ -24,31 +24,27 @@ def test_simple():
     loogle.index(crawl_dir="sub",index_dir=idx,get_first_N=10)
 
     res = loogle.search("scientist", index_dir=idx)
-    print res
+    print (res)
     assert 'a1' in res[0]
     
     res = loogle.search("manifesto", index_dir=idx)
-    print res
+    print (res)
     assert 'b1' in res[0]
 
     res = loogle.search("drug bill", index_dir=idx)
-    print res
+    print (res)
     assert 'b2' in res[0]
 
-    res = loogle.search("amaranth", index_dir=idx)
-    print res
-    assert '2006_10_01_archive.html' in res[0]
-
     res = loogle.search("quadratic form", index_dir=idx)
-    print res
+    print (res)
     assert 'tmp.pdf' in res[0]
 
     res = loogle.search("interest rate cash flow", index_dir=idx)
-    print res
+    print (res)
     assert 'veryveryimpo.txt' in res[0]
 
     res = loogle.search("veryveryimpo", index_dir=idx)
-    print res
+    print (res)
     assert 'veryveryimpo.txt' in res[0]    
 
 def test_inc():

@@ -1,1 +1,2 @@
-recoll -t -q "$1"
+recoll -t -q "$1" > /tmp/searchout
+cat /tmp/searchout
