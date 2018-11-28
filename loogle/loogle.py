@@ -1,17 +1,3 @@
-# Your Local Google - index and search your local hard drive
-#
-# Indexes all pdf,djvu,txt,epub files under a given directory [tbd
-# epub], saves the index, and allows search on these indexed
-# documents. Allows updates, and deletes of files already indexed. 
-#
-# Requirements
-# whoosh, pandas, chardet, shutil, rsync (under same repo),
-# webarticle2text (same repo)
-# pdftotext.exe - this is bundled with tetex for windows
-# djvutotext - https://sourceforge.net/projects/djvu/files/
-# unix2dos - for a charset conversion, something else could be used here
-#
-
 import os, sys, pandas as pd; sys.path.append('..')
 from whoosh.index import create_in 
 from whoosh.fields import Schema
