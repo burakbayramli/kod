@@ -33,6 +33,9 @@ def index(crawl_dir,index_db,new_index=False, stop_after_n=100):
     c = conn.cursor()
     for i,(file,size) in enumerate(files):
         print ('Indexing ', file)
+        if row_exists(conn, file):
+            print ("Already there")
+            continue
         filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
         filename_as_content = filename_as_content[0:filename_as_content.rfind(".")]
         print ("filename_as_content", filename_as_content)
