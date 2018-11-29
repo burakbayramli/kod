@@ -30,7 +30,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 	     "europe2": ["/home/burak/Downloads/campdata/europe2.zip",[2900,-4600]],
 	     "europe3": ["/home/burak/Downloads/campdata/europe3.zip",[1450,-2400]],
 	     "turkey1": ["/home/burak/Downloads/campdata/turkey1.zip",[10,-17]],
-	     "turkey2": ["/home/burak/Downloads/campdata/turkey2.zip",[10,-17]] 
+	     "turkey2": ["/home/burak/Downloads/campdata/turkey2.zip",[10,-17]],
+	     "turkey3": ["/home/burak/Downloads/campdata/turkey3.zip",[2900,-3500]]	     
   },
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
   "audio_output_folder": "/home/burak/Downloads",
