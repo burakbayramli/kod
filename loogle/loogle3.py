@@ -4,6 +4,7 @@ import pandas as pd, sqlite3
 
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
+escapes = ''.join([chr(char) for char in range(1, 32)])
 
 def get_legit_files(crawl_dir):
     dirs, files = rsync.ls(crawl_dir)
@@ -16,6 +17,13 @@ def row_exists(conn, path):
     c.execute('''SELECT count(*) FROM BOOKS where path = '%s' ''' % path)
     rows = c.fetchall()
     return rows[0][0]==1
+    
+def get_existing_paths(conn):
+    c = conn.cursor()    
+    c.execute('''SELECT path FROM BOOKS;''')
+    rows = c.fetchall()
+    rows = dict((x[0],"1") for x in rows)
+    return rows
     
 def index(crawl_dir,index_db,new_index=False):
     
@@ -32,9 +40,12 @@ def index(crawl_dir,index_db,new_index=False):
         conn = sqlite3.connect(index_db)
         
     c = conn.cursor()
+
+    existing_paths = get_existing_paths(conn)
+    
     for i,(file,size) in enumerate(files):
         print ('Indexing ', file)
-        if row_exists(conn, file):
+        if file in existing_paths:
             print ("Already there")
             continue
         filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
@@ -42,11 +53,12 @@ def index(crawl_dir,index_db,new_index=False):
         content = filename_as_content
         try:
             content += " " + textract.process(file, encoding='ascii').decode('utf-8')
-            c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (file,content,size))
-            conn.commit()
         except Exception as e:
             print ("Error")
             print ("Indexing only ", content)
+        content = content.replace("'","")
+        c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (file,content,size))
+        conn.commit()
             
 def delete(crawl_dir,index_db):    
     files = get_legit_files(crawl_dir)

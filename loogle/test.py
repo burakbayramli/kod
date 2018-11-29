@@ -1,7 +1,7 @@
 import sys; sys.path.append('..')
 import loogle3, rsync
 
-index_db = "/home/burak/Downloads/books.db"
+index_db = "/home/burak/Downloads/test.db"
 cdir = "/home/burak/Documents/kod/loogle/sub"
 
 def test_simple():
@@ -50,7 +50,7 @@ def test_delete():
     print (res)
     
 if __name__ == "__main__":
-    #test_simple()
-    #test_incr()
-    #test_add_new()
+    test_simple()
+    test_incr()
+    test_add_new()
     test_delete()
