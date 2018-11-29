@@ -1,5 +1,5 @@
 import sys; sys.path.append('..')
-import os, shutil, io, codecs, textract, rsync
+import os, shutil, io, codecs, rsync
 import pandas as pd, sqlite3
 
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
@@ -26,7 +26,7 @@ def get_existing_paths(conn):
     return rows
     
 def index(crawl_dir,index_db,new_index=False):
-    
+    import textract
     files = get_legit_files(crawl_dir)
     conn = None
     if new_index:
