@@ -56,7 +56,7 @@ def index(crawl_dir,index_db,new_index=False):
         except Exception as e:
             print ("Error")
             print ("Indexing only ", content)
-        content = content.replace("'","")
+        content = content.replace("'","").replace("\x00", "")
         c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (file,content,size))
         conn.commit()
             
