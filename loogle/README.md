@@ -8,15 +8,14 @@ updates, and deletes of files already indexed.
 
 Point to any directory, specify an index database name, loogle will
 index all books, documents for you. Content extraction is done through
-textract which can extract files from pretty much all common file
-formats.
+`textract` which can extract files from pretty much all common file
+formats. Loogle can detect additions, removals.
 
-Loogle can detect additions, removals. TBD: file size changes
-triggering incremental updates.
+TODO: file size changes triggering incremental updates.
 
 Requirements
 
-whoosh
+`whoosh`
 
-pandas
+`pandas`
 
