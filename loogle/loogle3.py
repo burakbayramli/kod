@@ -11,12 +11,6 @@ def get_legit_files(crawl_dir):
     files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
     files = [x for x in files if skip_dir not in x[0]]    
     return files
-
-def row_exists(conn, path):
-    c = conn.cursor()    
-    c.execute('''SELECT count(*) FROM BOOKS where path = '%s' ''' % path)
-    rows = c.fetchall()
-    return rows[0][0]==1
     
 def get_existing_paths(conn):
     c = conn.cursor()    
