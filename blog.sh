@@ -1,2 +1,2 @@
-pandoc $1 > /tmp/out.html
-#perl -pi -e 's/<\/p>/<\/p><br\/>/g' /tmp/out.html;
+pandoc $1 > out.html
+perl -pi -e 's/<\/p>/<\/p><br\/>/g' out.html;
