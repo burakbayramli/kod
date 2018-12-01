@@ -3,8 +3,7 @@
 Index and search your local hard drive
 
 Indexes all pdf, djvu, txt, epub files under a given directory, saves
-the index, and allows search on these indexed documents. Allows
-updates, and deletes of files already indexed.
+the index, and allows search on these indexed documents. 
 
 Point to any directory, specify an index database name, loogle will
 index all books, documents for you. Content extraction is done through
