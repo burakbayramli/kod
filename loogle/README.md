@@ -14,7 +14,5 @@ TODO: file size changes triggering incremental updates.
 
 Requirements
 
-`whoosh`
-
 `pandas`
 
