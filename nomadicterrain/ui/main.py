@@ -97,28 +97,30 @@ def parks():
 def plot_camps(lat, lon):
     pt = np.array([[lat, lon]]).astype(float)
     df = pd.read_csv(params['campsites'], sep=',')
-    df2 = df[['Latitude','Longitude']]
+    df2 = df[['Site Name','Latitude','Longitude']]
     pts = []
+    names = []
     pts.append([lat,lon])
     for idx in df.index:
         camp = (df2.ix[idx].Latitude, df2.ix[idx].Longitude)
         dist = geopy.distance.vincenty(camp,(lat,lon))
         if dist.km < float(params['natpark_mindistance']):
             pts.append(list(camp))
+            names.append(df2.ix[idx]['Site Name'])
             
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    return fout
+    return fout,names
     
 @app.route('/camps')
 def camps():    
     lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
-    fout = plot_camps(lat, lon)
-    return render_template('/camps.html', location=fout)
+    fout,names = plot_camps(lat, lon)
+    return render_template('/camps.html', location=fout, names=names)
 
 @app.route('/edible_main')
 def edible_main():
@@ -244,9 +246,9 @@ def parks_nav_action():
 def camps_nav_action():
     res = step(request, OnlyOne().last_location, float(request.form['distance']))    
     OnlyOne().last_location = res
-    fout = plot_camps(res[0], res[1])
+    fout,names = plot_camps(res[0], res[1])
     print (fout)
-    return render_template('/camps.html', location=fout)
+    return render_template('/camps.html', location=fout, names=names)
 
 @app.route('/trace_nav_action', methods=['GET', 'POST'])
 def trace_nav_action():
