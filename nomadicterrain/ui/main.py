@@ -106,7 +106,7 @@ def plot_camps(lat, lon):
         dist = geopy.distance.vincenty(camp,(lat,lon))
         if dist.km < float(params['natpark_mindistance']):
             pts.append(list(camp))
-            names.append(df2.ix[idx]['Site Name'])
+            names.append(df2.ix[idx]['Site Name'] + " " + str(dist.km))
             
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()

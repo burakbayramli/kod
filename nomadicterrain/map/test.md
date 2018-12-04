@@ -9,20 +9,21 @@ import plot_map
 #pts = [[40.987659,29.036428],[40.992186,29.039228]] # tr
 #pts = [[36.551907, 32.193444]] # alanya park
 #pts = [[52.510811, 13.370794]] # pots
-pts = [[36.557532, 32.064841]] # alanya 
+#pts = [[36.557532, 32.064841]] # alanya
+pts = [[40.267429, 28.946028]] 
 #zfile,scale = params['mapzip']['terrain']
 #zfile,scale = params['mapzip']['istanbul']
 #zfile,scale = params['mapzip']['world2']
-zfile = '/home/burak/Downloads/campdata/turkey3.zip'
-scale = [2900,-3500]
+zfile = '/home/burak/Downloads/campdata/turkey1.zip'
+scale = [1600,-2000]
 print (scale)
 plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
 ```
 
 ```text
-[2900, -3500]
-turkey3/turkey3_map_36_52373806329114_32_05089974683544.png
-[36.52373806329114 32.05089974683544]
+[1600, -2000]
+turkey1/turkey1_map_40_233304620253165_28_97916830379747.png
+[40.233304620253165 28.97916830379747]
 ```
 
 
