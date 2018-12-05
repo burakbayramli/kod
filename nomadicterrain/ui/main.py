@@ -55,7 +55,8 @@ def my_curr_location():
 
 @app.route('/')
 def index():
-    return render_template('/index.html')
+    loc = str(my_curr_location())
+    return render_template('/index.html', loc=loc)
 
 @app.route('/location')
 def location():
