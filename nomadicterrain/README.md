@@ -35,7 +35,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "audio_output_folder": "/home/burak/Downloads",
   "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
   "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
-  "api": "[GOOGLE API ANAHTARI]"
+  "api": "[GOOGLE API ANAHTARI]",
+  "weatherapi": "[openweathermap anahtari]"
 }
 ```
 
