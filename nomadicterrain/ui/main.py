@@ -8,6 +8,11 @@ import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
 from urllib.request import urlopen
+import urllib
+from bs4 import BeautifulSoup
+import requests
+import webbrowser
+
 
 app = Flask(__name__)
 
@@ -391,6 +396,17 @@ def place_search():
         res.append([x['name'],x['geometry']['location']['lat'],x['geometry']['location']['lng']])
     OnlyOne().place_results = res
     return place()
+
+@app.route('/weather')
+def weather():
+    url = 'https://google.com/search?q=weather&oq=weather'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'lxml')
+    res = ""
+    for g in soup.find_all(class_='g'):
+        res += g.text + "\n"
+    
+    return render_template('/weather.html', res=res)
 
 
 if __name__ == '__main__':
