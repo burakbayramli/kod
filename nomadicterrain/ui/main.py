@@ -363,9 +363,10 @@ def reset():
 def place_search():
     query = request.form.get("keyword").strip().replace(" ","+").lower()
     stype = request.form.get("type").lower()
+    radius = int(request.form.get("radius"))
     lat,lon = my_curr_location()
     location = "%s,%s" % (lat,lon)    
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=1500&type=%s&keyword=%s&key=%s" % (location, stype, query, params['api'])
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s" % (location, radius, stype, query, params['api'])
     print (url)
     html = urlopen(url)
     json_res = json.loads(html.read().decode('utf-8'))
