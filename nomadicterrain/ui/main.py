@@ -10,8 +10,7 @@ import news, csv, io, zipfile, math
 from urllib.request import urlopen
 import urllib
 from bs4 import BeautifulSoup
-import requests
-import webbrowser
+import requests, json
 
 
 app = Flask(__name__)
@@ -349,27 +348,6 @@ def gogeo(coords):
     plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
     return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
 
-@app.route('/manual_geo')
-def manual_geo():
-    return render_template('/manual.html')
-
-@app.route("/get_manual_geo", methods=["POST"])
-def get_manual_geo():
-    lat = request.form.get("lat")
-    lon = request.form.get("lon")
-    lat2,lon2 = my_curr_location()
-    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
-    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
-    distance = np.round(distance.km, 2)
-    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    OnlyOne().last_location = [lat,lon]
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
-
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
     if request.form['action'] == 'Yes':
@@ -399,14 +377,34 @@ def place_search():
 
 @app.route('/weather')
 def weather():
-    url = 'https://google.com/search?q=weather&oq=weather'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'lxml')
-    res = ""
-    for g in soup.find_all(class_='g'):
-        res += g.text + "\n"
-    
-    return render_template('/weather.html', res=res)
+
+  base_url = 'http://api.openweathermap.org/data/2.5/weather?'
+
+  lat,lon = my_curr_location()
+  payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi'] }
+
+  r = requests.get(base_url, params=payload) 
+  res = []
+  for x in r.iter_lines():
+      x = json.loads(x.decode())
+      res.append(x['name'])
+      res.append (x['main'])
+      res.append (x['wind'])
+      res.append (('clouds', x['clouds']))
+
+  base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
+
+  payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi']}
+
+  r = requests.get(base_url, params=payload) 
+
+  for x in r.iter_lines():
+      x = json.loads(x.decode())
+      for xx in x['list']:
+          res.append ((xx['dt_txt'], xx))
+          res.append ('---------------')
+
+  return render_template('/weather.html', res=res)
 
 
 if __name__ == '__main__':
