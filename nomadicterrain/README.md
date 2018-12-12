@@ -32,7 +32,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 	     "turkey3": ["/home/burak/Downloads/campdata/turkey3.zip",[2900,-3500]]	     
   },
   "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
-  "audio_output_folder": "/home/burak/Downloads",
+  "trails": "/home/burak/Downloads/campdata/trails",
   "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
   "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
   "api": "[GOOGLE API ANAHTARI]",
@@ -73,4 +73,13 @@ https://drive.google.com/open?id=1t9470crpqWCKUlXwmK2DB9mvifBjAdCM
 Camping locations
 
 https://drive.google.com/open?id=12IouBuu18k1SYmxsseBluhQAHVFrtHsP
+
+Trails
+
+You can use shared trails from others. Such data is shared on
+wikiloc.com, sign-up and download, and drop the gpx files under
+`trails` directory (defined above) and simply visit
+`/trail/<file.gpx>` which will plot the trail.
+
+
 
