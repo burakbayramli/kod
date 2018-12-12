@@ -268,7 +268,9 @@ def trace_nav_action():
 
 @app.route('/mapset')
 def mapset():
-    return render_template('/mapset.html', maps=params['mapzip'].keys(), map=OnlyOne().map)
+    return render_template('/mapset.html',
+                           maps=params['mapzip'].keys(),
+                           map=OnlyOne().map)
 
 @app.route("/choosemap", methods=["GET","POST"])
 def choosemap():
@@ -438,8 +440,12 @@ def trails_nav_action():
     OnlyOne().last_location = res
     fout = plot_trail(res[0], res[1], OnlyOne().last_gpx_file)
     print (fout)
-    return render_template('/trails.html', location=fout)
+    return render_template('/trail.html', location=fout)
 
+@app.route('/trails')
+def trails():
+    res = glob.glob(params['trails'] + "/*.gpx" )
+    return render_template('/trails.html', res=res)
 
 if __name__ == '__main__':
     app.debug = True
