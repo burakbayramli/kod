@@ -12,8 +12,6 @@ import urllib, requests, json
 from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx
 
-
-
 app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
@@ -33,6 +31,7 @@ class OnlyOne(object):
             self.edible = None
             self.last_location = None
             self.map = "normal"
+            self.last_gpx_file = ""
             self.edible_results = []
             self.city_results = []
             self.place_results = []
@@ -412,6 +411,7 @@ def weather():
 def trail(gpx_file):
     lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
+    OnlyOne().last_gpx_file = gpx_file
     fout = plot_trail(lat, lon, gpx_file)
     return render_template('/trails.html', location=fout)
 
@@ -431,6 +431,15 @@ def plot_trail(lat, lon, gpx_file):
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     return fout
+
+@app.route('/trails_nav_action', methods=['GET', 'POST'])
+def trails_nav_action():
+    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
+    OnlyOne().last_location = res
+    fout = plot_trail(res[0], res[1], OnlyOne().last_gpx_file)
+    print (fout)
+    return render_template('/trails.html', location=fout)
+
 
 if __name__ == '__main__':
     app.debug = True
