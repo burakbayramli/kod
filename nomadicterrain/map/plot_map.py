@@ -54,7 +54,7 @@ def plot(points,outfile,zfile,scale):
              if i==0:
                  plt.plot(xx,yy,'rx')
              else:
-                 plt.plot(xx,yy,'r.')
+                 plt.plot(xx,yy,'r.',markersize=0.1)
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 

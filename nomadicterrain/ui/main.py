@@ -8,9 +8,10 @@ import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
 from urllib.request import urlopen
-import urllib
+import urllib, requests, json
 from bs4 import BeautifulSoup
-import requests, json
+import gpxpy, gpxpy.gpx
+
 
 
 app = Flask(__name__)
@@ -407,6 +408,27 @@ def weather():
 
   return render_template('/weather.html', res=res)
 
+@app.route('/trail/<gpx_file>')
+def trail(gpx_file):
+    lat,lon = my_curr_location()
+    OnlyOne().last_location = [lat,lon]
+    print (gpx_file)
+    pts = []
+    gpx_file = open(params['trails'] + "/" + gpx_file)
+    gpx = gpxpy.parse(gpx_file)
+    pts.append([lat,lon])
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                pts.append([point.latitude, point.longitude])
+
+    clean_dir()
+    fout = "static/out-%s.png" % uuid.uuid4()
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    return render_template('/trails.html', location=fout)
+            
 
 if __name__ == '__main__':
     app.debug = True
