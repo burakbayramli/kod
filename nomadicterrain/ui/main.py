@@ -412,7 +412,10 @@ def weather():
 def trail(gpx_file):
     lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
-    print (gpx_file)
+    fout = plot_trail(lat, lon, gpx_file)
+    return render_template('/trails.html', location=fout)
+
+def plot_trail(lat, lon, gpx_file):
     pts = []
     gpx_file = open(params['trails'] + "/" + gpx_file)
     gpx = gpxpy.parse(gpx_file)
@@ -426,12 +429,8 @@ def trail(gpx_file):
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    print (map)
-    print (zfile)
-    print (scale)
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    return render_template('/trails.html', location=fout)
-            
+    return fout
 
 if __name__ == '__main__':
     app.debug = True
