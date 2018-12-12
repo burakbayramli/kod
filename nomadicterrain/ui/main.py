@@ -426,6 +426,9 @@ def trail(gpx_file):
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
+    print (map)
+    print (zfile)
+    print (scale)
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     return render_template('/trails.html', location=fout)
             
