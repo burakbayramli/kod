@@ -290,7 +290,7 @@ def news_action():
     if files_day != todays_day:        
         print ('getting file')
         news.getnews(nfile)
-        shutil.copy(nfile, params['news_output_folder_for_audio'])
+        #shutil.copy(nfile, params['news_output_folder'])
     return render_template('/news.html')
 
 def plot_trace(pts):
