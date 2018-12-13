@@ -14,6 +14,11 @@ the program in the subdir.
 * given a book file and from percentage to percentage parameters, it will extract
   the text from the file, and write it as text in out directory.
 
+GPS coordinates are retrieved from gpslogger, install this app first
+before using this application and have gpslogger log
+its output to a known file. The name of that file goes
+under `gps` label in the config below.
+
 Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX and SCALEY). 
 
 ```
