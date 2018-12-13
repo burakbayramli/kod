@@ -290,7 +290,6 @@ def news_action():
     if files_day != todays_day:        
         print ('getting file')
         news.getnews(nfile)
-        #shutil.copy(nfile, params['news_output_folder'])
     return render_template('/news.html')
 
 def plot_trace(pts):
@@ -415,7 +414,7 @@ def trail(gpx_file):
     OnlyOne().last_location = [lat,lon]
     OnlyOne().last_gpx_file = gpx_file
     fout = plot_trail(lat, lon, gpx_file)
-    return render_template('/trails.html', location=fout)
+    return render_template('/trail.html', location=fout)
 
 def plot_trail(lat, lon, gpx_file):
     pts = []
@@ -444,7 +443,11 @@ def trails_nav_action():
 
 @app.route('/trails')
 def trails():
-    res = glob.glob(params['trails'] + "/*.gpx" )
+    res = []
+    files = glob.glob(params['trails'] + "/*.gpx" )
+    for x in files:
+        res.append(x[x.rindex('/')+1:])
+    
     return render_template('/trails.html', res=res)
 
 if __name__ == '__main__':
