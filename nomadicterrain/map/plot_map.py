@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 SCALEX = 1450. 
 SCALEY = -2400.
 
-def plot(points,outfile,zfile,scale):
+def plot(points,outfile,zfile,scale,pixel=False):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
@@ -54,7 +54,10 @@ def plot(points,outfile,zfile,scale):
              if i==0:
                  plt.plot(xx,yy,'rx')
              else:
-                 plt.plot(xx,yy,'r,',markersize=0.1)
+                 if pixel:
+                     plt.plot(xx,yy,'r,')
+                 else:
+                     plt.plot(xx,yy,'r.')
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 

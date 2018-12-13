@@ -297,7 +297,7 @@ def plot_trace(pts):
     clean_dir()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale, markersize=0.1)
     return fout
     
 
@@ -430,7 +430,7 @@ def plot_trail(lat, lon, gpx_file):
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale, pixel=True)
     return fout
 
 @app.route('/trails_nav_action', methods=['GET', 'POST'])
