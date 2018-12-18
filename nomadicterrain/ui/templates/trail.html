@@ -20,6 +20,11 @@
         <input name="action" value="↓" class="imgbtn" type="submit"/>
       </form>
     </div>
+
+      {% for x in disp %}
+         <br/>
+         {{x}}
+      {% endfor %}    
     
     <img src="/{{ location }}"/>
     

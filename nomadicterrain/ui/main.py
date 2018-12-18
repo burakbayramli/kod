@@ -415,7 +415,57 @@ def trail(gpx_file):
     OnlyOne().last_location = [lat,lon]
     OnlyOne().last_gpx_file = gpx_file
     fout = plot_trail(lat, lon, gpx_file)
-    return render_template('/trail.html', location=fout)
+
+    gpx_file = open(params['trails'] + "/" + gpx_file)
+    gpx = gpxpy.parse(gpx_file)
+
+    #lat,lon = (36.831865, 28.310244)
+    disp = []
+
+    elev_min = 10000
+    elev_max = -10000
+    total_dist = 0.0
+    dists = []
+    prev = None
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                if prev:
+                    prev_dist = geopy.distance.vincenty((point.latitude, point.longitude),(prev.latitude,prev.longitude))
+                    total_dist +=  prev_dist.km
+                if point.elevation < elev_min: elev_min = point.elevation
+                if point.elevation > elev_max: elev_max = point.elevation
+                d = geopy.distance.vincenty((point.latitude, point.longitude),(lat,lon))
+                dists.append([point, d.km])
+                prev = point
+
+    disp.append("Total distance %f " % total_dist)
+    disp.append("Total elevation %f " % (elev_max-elev_min))
+    dists = np.array(dists)
+    start_idx = dists[:,1].argmin()
+
+    front = [0.1, 0.2, 10000.0]
+    elev_mins = [10000.0, 10000.0, 10000.0]
+    elev_maxs = [-10000.0, -10000.0, -10000.0]
+    curr_dist= float(0.0)
+    prev = None
+    for i in range(start_idx, len(dists)):    
+        if prev: curr_dist += (geopy.distance.vincenty((dists[i][0].latitude,
+                                                        dists[i][0].longitude),
+                                                       (prev.latitude,
+                                                        prev.longitude))).km
+        for j in range(len(front)):
+            if curr_dist < front[j]:
+                if dists[i][0].elevation < elev_mins[j]: elev_mins[j] = dists[i][0].elevation
+                if dists[i][0].elevation > elev_maxs[j]: elev_maxs[j] = dists[i][0].elevation
+        prev = dists[i][0] 
+
+    disp.append("For the next x km the elevation change will be")
+    for j in range(len(front)):
+        disp.append("%f %f" % (front[j], elev_maxs[j]-elev_mins[j]))
+        #print (front[j], elev_maxs[j]-elev_mins[j])
+    
+    return render_template('/trail.html', location=fout, disp=disp)
 
 def plot_trail(lat, lon, gpx_file):
     pts = []
