@@ -42,6 +42,11 @@ def getnews(outfile):
                 if lim > 0 and i==int(lim): break
                 link = post.link; title = post.title
                 summary = strip_html(post.summary)
+                summary = re.sub('\shttp.*?pic\.twitter.*?\<','<',summary)
+                summary = re.sub('\shttp.*?pic\.twitter.*?\s',' ',summary)
+                title = re.sub('\shttp.*?pic\.twitter.*?\<','<',title)
+                title = re.sub('\shttp.*?pic\.twitter.*?\s',' ',title)
+                title = re.sub('\shttp.*?pic\.twitter.*?[$]','\n',title)
                 if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
@@ -56,5 +61,7 @@ def getnews(outfile):
                 pass
     fout.close()
 
-if __name__ == "__main__": 
-    getnews("/tmp/news.html")
+if __name__ == "__main__":
+    dir = os.environ['TMPDIR'] + "/news.html"
+    print (dir)
+    getnews(dir)
