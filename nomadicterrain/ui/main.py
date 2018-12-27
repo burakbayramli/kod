@@ -25,6 +25,49 @@ def get_bearing(lat1,lon1,lat2,lon2):
     if brng < 0: brng+= 360
     return np.round(brng,2)
 
+def been_walking():
+    df = pd.read_csv(params['gps'])
+    df1 = df.iloc[::-1]
+    df1['lat1'] = df1.lat.shift(-1)
+    df1['lon1'] = df1.lon.shift(-1)
+    df1 = df1.fillna(0)
+    df1.loc[:,'dist'] = df1.apply(lambda x: geopy.distance.vincenty((x.lat1, x.lon1),(x.lat,x.lon)).km, axis=1)
+    df1['dists'] = df1.dist.cumsum()
+
+    mylat, mylon = my_curr_location()
+    
+    res = {}
+    for idx in df1.index:
+        currd = int(df1.loc[idx,'dists']*1000.0)
+        if currd > 1000.0: break
+        if int(df1.loc[idx,'dists']*1000.0)-1000 < 10:
+            res['1000'] = get_bearing(float(df1.loc[idx,'lat']),
+                                    float(df1.loc[idx,'lon']),
+                                    mylat,
+                                    mylon)
+        if int(df1.loc[idx,'dists']*1000.0)-200 <10:
+            res['200'] = get_bearing(float(df1.loc[idx,'lat']),
+                                    float(df1.loc[idx,'lon']),
+                                    mylat,
+                                    mylon)
+        if int(df1.loc[idx,'dists']*1000.0)-100 < 10:
+            res['100'] = get_bearing(float(df1.loc[idx,'lat']),
+                                    float(df1.loc[idx,'lon']),
+                                    mylat,
+                                    mylon)
+        if int(df1.loc[idx,'dists']*1000.0)-50 < 10:
+            res['50'] = get_bearing(float(df1.loc[idx,'lat']),
+                                    float(df1.loc[idx,'lon']),
+                                    mylat,
+                                    mylon)
+        if int(df1.loc[idx,'dists']*1000.0)-10 < 10:
+            res['10'] = get_bearing(float(df1.loc[idx,'lat']),
+                                    float(df1.loc[idx,'lon']),
+                                    mylat,
+                                    mylon)
+    return res
+    
+
 class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
@@ -347,8 +390,10 @@ def gogeo(coords):
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout, bearing=bearing, distance=distance)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)    
+    walking = been_walking()
+    
+    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance)
 
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
