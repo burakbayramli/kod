@@ -17,6 +17,8 @@
         <input name="action" value="↓" class="imgbtn" type="submit"/>
       </form>
     </div>
+    <a href="https://www.google.com/maps/@{{lat}},{{lon}},17z">gm</a>
+    <br/>
     {% if bearing %} 
     <div>
        Distance {{distance}} km, bearing {{bearing}}
@@ -24,7 +26,7 @@
     {% endif %}
 
     <p>
-      Been walking towards last distance | bearing
+      Movement direction (last distance: bearing)
     </p>
     {{ walking }}
     

@@ -114,8 +114,9 @@ def location():
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale) 
-    return render_template('/location.html', location=fout)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    walking = been_walking()    
+    return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon)
 
 def plot_parks(lat, lon):
     pt = np.array([[lat, lon]]).astype(float)
@@ -390,10 +391,10 @@ def gogeo(coords):
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)    
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     walking = been_walking()
     
-    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance)
+    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon)
 
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
@@ -549,4 +550,7 @@ def trails():
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost", port=5000)
+    
+
+#https://www.google.com/maps/@36.8492383,28.2628305,17z
     
