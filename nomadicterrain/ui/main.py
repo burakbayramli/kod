@@ -45,17 +45,17 @@ def been_walking():
                                     float(df1.loc[idx,'lon']),
                                     mylat,
                                     mylon)
-        if currd-200 <10:
+        if currd-200 <60:
             res['200'] = get_bearing(float(df1.loc[idx,'lat']),
                                     float(df1.loc[idx,'lon']),
                                     mylat,
                                     mylon)
-        if currd-100 < 10:
+        if currd-100 < 20:
             res['100'] = get_bearing(float(df1.loc[idx,'lat']),
                                     float(df1.loc[idx,'lon']),
                                     mylat,
                                     mylon)
-        if currd-50 < 10:
+        if currd-50 < 30:
             res['50'] = get_bearing(float(df1.loc[idx,'lat']),
                                     float(df1.loc[idx,'lon']),
                                     mylat,
