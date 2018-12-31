@@ -342,7 +342,7 @@ def plot_trace(pts):
     clean_dir()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale, markersize=0.1)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale, pixel=True)
     return fout
     
 
