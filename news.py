@@ -52,9 +52,6 @@ def getnews(outfile):
                 if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Erdo.an", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Obama", title, re.IGNORECASE)) > 0: continue
-                if len(re.findall(r"Musk", title, re.IGNORECASE)) > 0: continue
-                if len(re.findall(r"Dreamer", title, re.IGNORECASE)) > 0: continue
-                if len(re.findall(r" DACA", title, re.IGNORECASE)) > 0: continue
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
                 fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:

@@ -511,7 +511,7 @@ def trail(gpx_file):
         disp.append("%f %f" % (front[j], elev_maxs[j]-elev_mins[j]))
         #print (front[j], elev_maxs[j]-elev_mins[j])
     
-    return render_template('/trail.html', location=fout, disp=disp)
+    return render_template('/trail.html', location=fout, disp=disp, link=gpx.link)
 
 def plot_trail(lat, lon, gpx_file):
     pts = []
