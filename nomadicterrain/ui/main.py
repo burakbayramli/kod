@@ -475,9 +475,10 @@ def weather():
   for x in r.iter_lines():
       x = json.loads(x.decode())
       for xx in x['list']:
+          rain = xx.get('rain')
           res.append ((xx['dt_txt'],
                        xx['weather'][0]['description'],
-                       xx['rain'],
+                       rain,
                        xx))
           res.append ('---------------')
 
