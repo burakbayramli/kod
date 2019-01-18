@@ -185,6 +185,10 @@ def food_main():
 def btype_main():
     return render_template('/btype.html')
 
+@app.route('/btype/<type>')
+def btype_detail(type):
+    print (type)
+
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
