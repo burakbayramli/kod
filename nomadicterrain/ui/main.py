@@ -187,9 +187,12 @@ def btype_main():
 
 @app.route('/btype/<type>')
 def btype_detail(type):
-    print ('------------------------')
-    print (type)
-    return render_template('/btype.html')
+    d = params['btype']
+    df = pd.read_csv(d + '/food.dat',sep=';')
+    res = None
+    if type=='a':
+        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','A_S','A_NS']])
+    return render_template('/btype.html', res=res)
 
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
