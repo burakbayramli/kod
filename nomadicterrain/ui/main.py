@@ -452,26 +452,6 @@ def place_search():
     OnlyOne().place_results = res
     return place()
 
-@app.route("/pos_search", methods=["GET"])
-def pos_search():
-    query = "garanti"
-    stype = "atm"
-    radius = 1000
-    lat,lon = my_curr_location()
-    location = "%s,%s" % (lat,lon)    
-    url = place_query % (location, radius, stype, query, params['api'])
-    print (url)
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-    res = []
-    for x in json_res['results']:
-        olat = x['geometry']['location']['lat']
-        olon = x['geometry']['location']['lng']
-        d = geopy.distance.vincenty((lat,lon),(olat,olon))
-        res.append([x['name'],olat,olon,np.round(d.km,2)])
-    OnlyOne().place_results = res
-    return place()
-
 @app.route('/weather')
 def weather():
 
