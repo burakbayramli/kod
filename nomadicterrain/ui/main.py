@@ -177,6 +177,14 @@ def camps():
 def edible_main():
     return render_template('/edible.html',data=OnlyOne().edible_results)
 
+@app.route('/food_main')
+def food_main():
+    return render_template('/food.html')
+
+@app.route('/btype_main')
+def btype_main():
+    return render_template('/btype.html')
+
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
