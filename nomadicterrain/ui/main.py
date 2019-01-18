@@ -189,9 +189,15 @@ def btype_main():
 def btype_detail(type):
     d = params['btype']
     df = pd.read_csv(d + '/food.dat',sep=';')
-    res = None
+    res = []
     if type=='a':
         res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','A_S','A_NS']])
+    if type=='b':
+        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','B_S','B_NS']])
+    if type=='O':
+        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','O_S','O_NS']])
+    if type=='ab':
+        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','AB_S','AB_NS']])
     return render_template('/btype.html', res=res)
 
 @app.route('/edible_detail/<name>')
