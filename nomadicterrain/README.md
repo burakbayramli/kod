@@ -88,4 +88,34 @@ wikiloc.com, sign-up and download, and drop the gpx files under
 `/trail/<file.gpx>` which will plot the trail.
 
 
+Food
+
+
+Common European tree names
+
+http://forest.jrc.ec.europa.eu/european-atlas-of-forest-tree-species/atlas-data-and-metadata/
+
+Common European plant names
+
+https://www.first-nature.com/flowers/index.php
+
+Plant edibility data came from a combination of sources. First did a dump on
+
+https://plants.sc.egov.usda.gov/adv_search.html
+
+By enabling as many as edibility parameters, including scientific name etc.
+
+Then scraped "Food", "Cuisine", "Culinary" headings on Wikipedia, by
+passing the scientific name.
+
+Then scraped PFAF by using
+
+https://pfaf.org/user/Plant.aspx?LatinName=__name__
+
+for scientific name.
+
+The combined results is below:
+
+https://www.dropbox.com/s/9xk33ruzvpmq57f/edible_plants.csv?dl=1
+
 

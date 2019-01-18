@@ -187,7 +187,9 @@ def btype_main():
 
 @app.route('/btype/<type>')
 def btype_detail(type):
+    print ('------------------------')
     print (type)
+    return render_template('/btype.html')
 
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
