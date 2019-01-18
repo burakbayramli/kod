@@ -16,6 +16,10 @@
         document.getElementById('keyword').value="AVM";
         document.getElementById('type').value="shopping";
       }
+      function fillBusMain(){
+        document.getElementById('keyword').value="otogar";
+        document.getElementById('type').value="";
+      }
     </script>
   </head>
   <body>
@@ -26,6 +30,7 @@
     <a href="#" onClick="fillGarantiPos(); return true;">POS</a>&nbsp;
     <a href="#" onClick="fillIndian(); return true;">Hint</a>&nbsp;
     <a href="#" onClick="fillMall(); return true;">Mall</a>&nbsp;
+    <a href="#" onClick="fillBusMain(); return true;">Bus</a>&nbsp;
     <br/>        
     <br/>        
     <form class="form-inline" action="/place_search" method="POST">
