@@ -1,18 +1,35 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="5">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       function speak() {
         responsiveVoice.speak('hello');
       }
+      function dd() {        
+        document.getElementById('aa').innerHTML = Date.now();
+      }
     </script>
   </head>
   
-  <body>
-    laksdflajlksdf
-    <a href="#" onClick="speak();">Speak</a>    
+  <body onload="dd()">
+    <a href="#" onClick="speak();">Speak</a>
+    <br/>
+    <br/>
+    <a href="#" onClick="dd();">Date</a>
+    <br/>
+    <br/>
+    <a href="#" onClick="location.reload();">Reload</a>
+    <br/>
+
+    <div id='aa'></div>
+
+    <div id='distance'>23.34</div>
+    
+    <div id='bearing'>120.22</div>
+    
   </body>  
   
 </html>
