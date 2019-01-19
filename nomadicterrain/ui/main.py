@@ -587,7 +587,7 @@ def hay():
 
 @app.route("/hay_search", methods=["POST"])
 def hay_search():    
-    name = request.form.get("name")
+    name = request.form.get("name").lower()
     hayf = params['hay'] + "/hay.txt"
     content = open(hayf).read()
     content = content.replace("\n-"," -")
