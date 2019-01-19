@@ -1,10 +1,21 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" charset="utf-8">
+      function speak() {
+        s = document.getElementById('distance').innerHTML;
+        s1 =  'you are ' + s + ' kilometers away ';
+        s = document.getElementById('bearing').innerHTML;
+        s2 = s1 + 'keep walking in the direction ' + s + ' degrees';
+        responsiveVoice.speak(s2);
+      }
+      speak();
+    </script>
   </head>
   
-  <body>
+  <body onload="speak()">
     
     <div id="arrows2">
       <form method="POST" action="/location_nav_action">
@@ -14,21 +25,31 @@
           <input name="distance" value="10" type="text"/>
           <input name="action" value="→" class="imgbtn" type="submit"/>
         </p>
-        <input name="action" value="↓" class="imgbtn" type="submit"/>
+    <input name="action" value="↓" class="imgbtn"
+    type="submit"/>
       </form>
     </div>
     <a href="https://www.google.com/maps/@{{lat}},{{lon}},17z">gm</a>
     <br/>
     {% if bearing %} 
     <div>
-       Distance {{distance}} km, bearing {{bearing}}
+      Distance <div id='distance'>{{distance}}</div> km,
+      bearing <div id='bearing'>{{bearing}}</div>
     </div>
     {% endif %}
 
     <p>
       Movement direction (last distance: bearing)
+      {{ walking }}
     </p>
-    {{ walking }}
+
+    <br/>
+    <a href="#" onClick="speak();">SPEAK</a>
+    <br/>
+    <br/>
+    <a href="#" onClick="location.reload();">RELOAD</a>
+    <br/>
+    <br/>
     
     <img src="/{{ location }}"/>
 
