@@ -11,6 +11,7 @@ from urllib.request import urlopen
 import urllib, requests, json
 from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx
+from io import StringIO
 
 app = Flask(__name__)
 
@@ -80,6 +81,7 @@ class OnlyOne(object):
             self.edible_results = []
             self.city_results = []
             self.place_results = []
+            self.hay_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -578,6 +580,27 @@ def trails():
         res.append(x[x.rindex('/')+1:])
     
     return render_template('/trails.html', res=res)
+
+@app.route('/hay')
+def hay():
+    return render_template('/hay.html',data=OnlyOne().hay_results)
+
+@app.route("/hay_search", methods=["POST"])
+def hay_search():    
+    name = request.form.get("name")
+    hayf = params['hay'] + "/hay.txt"
+    content = open(hayf).read()
+    content = content.replace("\n-"," -")
+    sio = StringIO(content)
+    res = []
+    for line in sio.readlines():
+        tokens = line.split(":")
+        if name in tokens[0].lower(): 
+            res.append(line.replace("-","\n-"))
+    
+    OnlyOne().hay_results = res
+    return hay()
+
 
 if __name__ == '__main__':
     app.debug = True
