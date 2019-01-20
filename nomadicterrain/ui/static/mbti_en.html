@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script src="jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
     function test_settings() {
         // check arbitrary radio buttons automatically for testing
@@ -28,7 +28,7 @@
      function evaluate_mbti() {
        // if you want to see some results immediately, just enable
        // line below and hit button evaluate
-       //test_settings();    
+       test_settings();    
        for (var i=0;i<70;i++){
          var j = i+1;
          res = $("input[name='group"+j+"']:checked").val();
