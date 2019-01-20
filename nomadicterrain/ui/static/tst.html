@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="refresh" content="10">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        var input = [1, -1, -1, 1, 0, 0, 0,
+         1, 0, -1, 0, 0, -1, -1,
+         1, -1, 0, 0, 1, 1, -1,
+         1, 1, 1, 0, 0, 0, -1,
+         1, 0, 1, 1, 0, 0,0,
+         0, 0, 1, -1, -1, 1,1,
+         1, 1, 1, 1, -1, 1,1,
+         1, 0, -1, -1, -1, -1,1,
+         0, 0, 0, 0, -1, 0,0,
+         -1, 0, -1, -1, -1, 0, 0];
+         
+       function dd() {
+         var res = [];
+         for (var i=0;i<7;i++){
+           for (var j=0;j<10;j++){
+               res.push(input[(j*7)+i]);;
+           }
+           res.push(9999);
+         }
+         document.getElementById('aa').innerHTML = res;
+      }
+    </script>
+  </head>
+  
+  <body onload="dd()">
+
+    <div id='aa'></div>
+    
+  </body>  
+  
+</html>
