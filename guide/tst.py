@@ -23,6 +23,9 @@ def calculate_mb(choices):
     jp = sum(new_choices[5]) + sum(new_choices[6])
     if jp < 0: res[3] = 'J'
     else: res[3] = 'P'
+
+    for i in range(7):
+        print (sum(new_choices[i]));
     
     return str(''.join(res))
 

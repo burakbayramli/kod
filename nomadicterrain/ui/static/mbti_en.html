@@ -6,7 +6,7 @@
     <script type="text/javascript" charset="utf-8">
     function test_settings() {
         // check arbitrary radio buttons automatically for testing
-        input = [1, -1, -1, 1, 0, 0, 0,
+        var input = [1, -1, -1, 1, 0, 0, 0,
          1, 0, -1, 0, 0, -1, -1,
          1, -1, 0, 0, 1, 1, -1,
          1, 1, 1, 0, 0, 0, -1,
@@ -28,11 +28,37 @@
             $('input[name=group'+j+']:eq(2)').attr('checked', 'checked');    
         }
      }
-    
+
+     function calculate_mbti(input) { 
+         var mbti = "";
+         var res = [];
+         for (var i=0;i<7;i++){
+           var s = 0;
+           for (var j=0;j<10;j++){
+               s = s + input[(j*7)+i];
+           }
+           res.push(s);
+           }
+
+          ei = res[0];
+          if (ei<0) mbti = mbti + "E";
+          else mbti = mbti + "I";
+
+          sn = res[1]+res[2];
+          if (sn<0) mbti = mbti + "S";
+          else mbti = mbti + "N";
+
+          tf = res[3]+res[4];
+          if (tf<0) mbti = mbti + "T";
+          else mbti = mbti + "F";
+
+          jp = res[5]+res[6];
+          if (jp<0) mbti = mbti + "J";
+          else mbti = mbti + "P";
+          return mbti;
+     }
+     
      function evaluate_mbti() {
-       // if you want to see some results immediately, just enable
-       // line below and hit button evaluate
-       test_settings();    
        for (var i=0;i<70;i++){
          var j = i+1;
          res = $("input[name='group"+j+"']:checked").val();
@@ -41,13 +67,14 @@
            	return;
            }
        }    
-       var list = "";
+       var list = [];
        for (var i=0;i<70;i++){
          var j = i+1;
          res = $("input[name=group"+j+"]:checked").val();
-         list += ":" + res;
+         list.push(res);
        }  
-       alert(list);
+       mb = calculate_mbti(list);
+       document.getElementById('mbtires').innerHTML = mb;
      }
     </script>        
   </head>
@@ -739,7 +766,11 @@
         <div id="mbtiresult">
           Myers-Briggs Psikolojik Tipiniz <a href=""></a>
         </div>
-        
+
+        <br/>        
+        <font color='red'>
+          <div id="mbtires"></div>
+        </font>        
         <br/>        
         
         </form>
@@ -748,6 +779,8 @@
     </div>
 
     <input onclick="evaluate_mbti()" type="button" value="Evaluate" id="mbtibutton"/>
+    
+    <input onclick="test_settings()" type="button" value="Test" id="mbtibutton"/>
     
   </body>  
   
