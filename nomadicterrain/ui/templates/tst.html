@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      function speak() {
+        s = window.frames[0].document.getElementById('distance').innerHTML;
+        s1 =  'you are ' + s + ' meters away ';
+        responsiveVoice.speak(s1);
+      }
+      function dd() {        
+        //document.getElementById('aa').innerHTML = Date.now();
+        
+      }
+      function reload() {        
+        window.frames[0].location.reload();
+      }
+    </script>
+  </head>
+
+  <body>
+
+  <a href="#" onClick="speak();">Speak</a>
+  <br/>  
+  <br/>  
+  <br/>  
+  <a href="#" onClick="reload();">Reload</a>
+  <br/>
+  <br/>  
+  <br/>  
+  
+  <iframe frameborder="0" src="/inc" id="sub1">
+  </iframe>
+
+  </body>
+  
+  
+</html>

@@ -581,6 +581,14 @@ def trails():
     
     return render_template('/trails.html', res=res)
 
+@app.route('/inc')
+def inc():
+    return render_template('/inc.html',rnd=np.round(random.random(),3))
+
+@app.route('/tst')
+def tst():
+    return render_template('/tst.html')
+
 @app.route('/hay')
 def hay():
     return render_template('/hay.html',data=OnlyOne().hay_results)
