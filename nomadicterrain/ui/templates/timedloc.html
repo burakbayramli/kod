@@ -1,7 +1,6 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
-    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" charset="utf-8">      
@@ -12,6 +11,11 @@
         s2 = s1 + 'keep walking in the direction ' + s + ' degrees';
         responsiveVoice.speak(s2);
       }
+      function reload() {        
+         window.frames[0].location.reload();
+      } 
+      setInterval( () => reload(), 60000);
+      setInterval( () => speak(), 60500);             
     </script>
   </head>
   
@@ -27,7 +31,7 @@
     <a href="#" onClick="speak();">SPEAK</a>
     <br/>
     <br/>
-    <a href="#" onClick="location.reload();">RELOAD</a>
+    <a href="#" onClick="reload();">RELOAD</a>
     <br/>
     <br/>
     
