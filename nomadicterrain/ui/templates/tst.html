@@ -9,13 +9,16 @@
         s1 =  'you are ' + s + ' meters away ';
         responsiveVoice.speak(s1);
       }
-      function dd() {        
-        //document.getElementById('aa').innerHTML = Date.now();
-        
+      function Sleep(milliseconds) {
+          return new Promise(resolve =>setTimeout(resolve,  milliseconds));
       }
       function reload() {        
-        window.frames[0].location.reload();
-      }
+         window.frames[0].location.reload();
+      } 
+      
+      setInterval( () => reload(), 5000);
+      //setInterval( () => speak(), 5500);
+        
     </script>
   </head>
 
