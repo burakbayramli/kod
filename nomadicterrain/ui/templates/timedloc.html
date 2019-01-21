@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/responsivevoice.js" type="text/javascript" charset="utf-8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" charset="utf-8">      
+      function speak() {
+        s = window.frames[0].document.getElementById('distance').innerHTML;
+        s1 =  'you are ' + s + ' kilometers away ';
+        s = window.frames[0].document.getElementById('bearing').innerHTML;
+        s2 = s1 + 'keep walking in the direction ' + s + ' degrees';
+        responsiveVoice.speak(s2);
+      }
+    </script>
+  </head>
+  
+  <body>
+
+    <iframe frameborder="0"
+            src="/gogeo/{{lat}};{{lon}}"
+            height="1200"
+            width="1200" id="sub1">
+    </iframe>
+    
+    <br/>
+    <a href="#" onClick="speak();">SPEAK</a>
+    <br/>
+    <br/>
+    <a href="#" onClick="location.reload();">RELOAD</a>
+    <br/>
+    <br/>
+    
+  </body>
+  
+</html>

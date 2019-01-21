@@ -405,6 +405,11 @@ def city_search():
     OnlyOne().city_results = res
     return city()
 
+@app.route('/timedgogeo/<coords>')
+def timedgogeo(coords):
+    lat,lon = coords.split(';')
+    return render_template('/timedloc.html', lat=lat, lon=lon)
+    
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
