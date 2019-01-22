@@ -30,7 +30,9 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
   "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
   "api": "[GOOGLE API ANAHTARI]",
-  "weatherapi": "[openweathermap anahtari]"
+  "weatherapi": "[openweathermap anahtari]",
+  "btype": "[BLOOD TYPE DIET csv, see ../guide/data/food.dat]",
+  "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]"
 }
 ```
 
@@ -99,9 +101,5 @@ Then scraped PFAF by using
 https://pfaf.org/user/Plant.aspx?LatinName=__name__
 
 for scientific name.
-
-The combined results is below:
-
-https://www.dropbox.com/s/9xk33ruzvpmq57f/edible_plants.csv?dl=1
 
 
