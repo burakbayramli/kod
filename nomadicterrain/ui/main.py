@@ -10,7 +10,7 @@ import news, csv, io, zipfile, math
 from urllib.request import urlopen
 import urllib, requests, json
 from bs4 import BeautifulSoup
-import gpxpy, gpxpy.gpx
+import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
 
 app = Flask(__name__)
@@ -19,6 +19,8 @@ params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
 
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
+
+elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
 def get_bearing(lat1,lon1,lat2,lon2):
     dLon = lon2 - lon1;
@@ -614,6 +616,29 @@ def hay_search():
     OnlyOne().hay_results = res
     return hay()
 
+@app.route('/lineelev')
+def lineelev():
+    return render_template('/lineelev.html')
+
+@app.route("/line_elev_calc", methods=["POST"])
+def line_elev_calc():
+    npts = request.form.get("npts")
+    bearing = int(request.form.get("bearing"))
+    far = float(request.form.get("far")) / 1000.0
+    lat,lon = my_curr_location()
+    locs = []
+    for x in np.linspace(0,far,npts):
+        locs.append(tuple(plot_map.goto_from_coord([lat,lon], x, bearing)))
+    
+    locs = polyline.encode(locs)
+
+    url = elev_query % (locs, params['api'])
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+    for x in json_res['results']:
+        print (x['elevation'])
+
+    return lineelev()
 
 if __name__ == '__main__':
     app.debug = True
