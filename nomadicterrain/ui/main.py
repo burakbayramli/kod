@@ -83,6 +83,7 @@ class OnlyOne(object):
             self.edible_results = []
             self.city_results = []
             self.place_results = []
+            self.line_elev_results = []
             self.hay_results = []
         def __str__(self):
             return self.val
@@ -618,7 +619,7 @@ def hay_search():
 
 @app.route('/lineelev')
 def lineelev():
-    return render_template('/lineelev.html')
+    return render_template('/lineelev.html',data=OnlyOne().line_elev_results)
 
 @app.route("/line_elev_calc", methods=["POST"])
 def line_elev_calc():
@@ -631,13 +632,17 @@ def line_elev_calc():
         locs.append(tuple(plot_map.goto_from_coord([lat,lon], x, bearing)))
     
     locs = polyline.encode(locs)
+    print ('end',locs[-1])
 
     url = elev_query % (locs, params['api'])
     html = urlopen(url)
     json_res = json.loads(html.read().decode('utf-8'))
+    res = []
     for x in json_res['results']:
-        print (x['elevation'])
+        res.append(x['elevation'])
 
+    OnlyOne().line_elev_results = res
+    
     return lineelev()
 
 if __name__ == '__main__':

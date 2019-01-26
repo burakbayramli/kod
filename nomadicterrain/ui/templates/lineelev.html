@@ -19,7 +19,13 @@
       Bearing: <br/>
       <input type="text" id="bearing" name="bearing"  value="180"/><br/><br/>
 
-      <input type="submit" value="Calculate"/>      
+      <input type="submit" value="Calculate"/>
+
+      {% for x in data %}
+         <br/>{{x}},
+      {% endfor %}    
+
+      
     </form>
   </body>
 </html>
