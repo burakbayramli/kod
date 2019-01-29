@@ -6,38 +6,6 @@ import numpy as np
 
 eps = 10e-5
 
-def get_grid(lat1,lon1,lat2,lon2,npts=10):
-   def pointiterator(fra,til,steps):    
-       val = fra
-       if til < fra:
-           til += 360.0
-       stepsize = (til - fra)/steps
-       while val < til + stepsize:
-           if (val > 180.0):
-               yield val - 360.0
-           else:
-               yield val
-           val += stepsize
-
-   xiter = pointiterator(np.min([lat1,lat2]),np.max([lat1,lat2]),npts)
-   yiter = pointiterator(np.min([lon1,lon2]),np.max([lon1,lon2]),npts)
-
-   xx=np.fromiter(xiter,dtype=np.float)
-   yy=np.fromiter(yiter,dtype=np.float)
-   xo, yo = np.meshgrid(xx,yy,indexing='xy')
-
-   start_idx = None
-   if xo[0,0]-lat1<eps and yo[0,0]-lon1<eps:
-       start_idx = (0,0)
-   elif xo[0,-1]-lat1<eps and yo[0,-1]-lon1<eps:
-       start_idx = (0,-1)
-   elif xo[-1,-1]-lat1<eps and yo[-1,-1]-lon1<eps:
-       start_idx = (-1,-1)
-   elif xo[-1,0]-lat1<eps and yo[-1,0]-lon1<eps:
-       start_idx = (-1,0)
-
-   return xo,yo,start_idx
-
 def get_neighbor_idx(x,y,dims):
     res = []
     for i in ([0,-1,1]):
@@ -75,6 +43,28 @@ def dijkstra(C,s,e):
     return path
     
     
+def get_grid(lat1,lon1,lat2,lon2,npts=10):
+   def pointiterator(fra,til,steps):    
+       val = fra
+       if til < fra:
+           til += 360.0
+       stepsize = (til - fra)/steps
+       while val < til + stepsize:
+           if (val > 180.0):
+               yield val - 360.0
+           else:
+               yield val
+           val += stepsize
+
+   xiter = pointiterator(np.min([lat1,lat2]),np.max([lat1,lat2]),npts)
+   yiter = pointiterator(np.min([lon1,lon2]),np.max([lon1,lon2]),npts)
+
+   xx=np.fromiter(xiter,dtype=np.float)
+   yy=np.fromiter(yiter,dtype=np.float)
+   xo, yo = np.meshgrid(xx,yy,indexing='xy')
+
+   return xo,yo
+
 #C = np.ones((4,4)) * 999.9
 #C[:,-1] = 0.0
 #C[-1,:] = 0.0
@@ -82,17 +72,26 @@ def dijkstra(C,s,e):
 #p = dijkstra(C,(3,0),(0,3))
 #print (p)
 
-if __name__ == "__main__": 
-   xo,yo,start_idx = get_grid(36.54,32.0,37.54,33.0)
-   print (start_idx)
-   print (xo[0,0],yo[0,0])
-    
-   get_neighbor_idx(3,3,xo.shape)
+if __name__ == "__main__":
+   lat1,lon1 = 36.54,32.0
+   lat2,lon2 = 37.54,33.0
+   xo,yo = get_grid(lat1,lon1,lat2,lon2)
+   #get_neighbor_idx(3,3,xo.shape)
    #get_neighbor_idx(0,3,xo.shape)
    coords = []
+   start_idx = None
+   end_idx = None
    for i in range(xo.shape[0]):
       for j in range(xo.shape[1]):
          coords.append((xo[i,j],yo[i,j]))
+         if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
+             start_idx = (i,j)
+         if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
+             end_idx = (i,j)
+
+   print ('s',start_idx)
+   print ('e',end_idx)
+    
          
    locs = polyline.encode(coords)
    elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
@@ -115,7 +114,10 @@ if __name__ == "__main__":
       for j in range(xo.shape[1]):
          elev_mat[i,j] = json_res['results'][k]['elevation']
          k += 1
-   print (elev_mat)
+         
+   #print (elev_mat)
    
-   find_flattest_path(xo, yo, elev_mat, start_idx)
-
+   #find_flattest_path(xo, yo, elev_mat, start_idx)
+   #find_flattest_path(xo, yo, elev_mat, start_idx)
+   p = dijkstra(elev_mat, start_idx, end_idx)
+   print (p)
