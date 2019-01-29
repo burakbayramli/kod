@@ -10,8 +10,7 @@ def get_neighbor_idx(x,y,dims):
                 res.append((x+i,y+j))
     return res
 
-def dijkstra(C,s,e):
-    
+def dijkstra(C,s,e):    
     D = {}  
     Q = priorityDictionary() 
     Q[s] = 0
@@ -19,7 +18,7 @@ def dijkstra(C,s,e):
        D[v] = Q[v]
        print ('v',v)
        print ('e',e)
-       if str(v) == str(e): break      
+       #if str(v) == str(e): break      
        neighs = get_neighbor_idx(v[0],v[1],[4,4])
        print (neighs)
        for n in neighs:
