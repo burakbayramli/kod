@@ -1,4 +1,4 @@
-from priodict import priorityDictionary # onemsel kuyruk
+from priodict import priorityDictionary
 import numpy as np
 
 def get_neighbor_idx(x,y,dims):
@@ -29,8 +29,6 @@ def dijkstra(C,s,e):
                 Q[w] = vwLength
                 P[w] = v
             
-    print (D)
-
     path = []
     while 1:
        path.append(e)
@@ -44,7 +42,5 @@ C = np.ones((4,4)) * 999.9
 C[:,-1] = 0.0
 C[-1,:] = 0.0
 print (C)
-#neighs = get_neighbor_idx(3,0,[4,4])
-#print (neighs)
 p = dijkstra(C,(3,0),(0,3))
 print (p)
