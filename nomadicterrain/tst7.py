@@ -114,11 +114,11 @@ if __name__ == "__main__":
    print ('len json',len(json_res['results']))
    
    elev_mat = np.zeros(xo.shape)
-   k = 0
-   for i in range(xo.shape[1]):
-      for j in range(xo.shape[0]):
-         elev_mat[i,j] = json_res['results'][k]['elevation']
-         k += 1
+   tmp = []
+   for i in range(xo.shape[0]*xo.shape[1]):
+       tmp.append(json_res['results'][i]['elevation'])
+   elev_mat = np.array(tmp).reshape(xo.shape)
+   #elev_mat[i,j] = json_res['results'][k]['elevation']
          
    #print (elev_mat)
    #print (xo)
