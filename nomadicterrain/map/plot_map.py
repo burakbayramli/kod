@@ -6,13 +6,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# enlem/boylam ve pikseller arasinda gecis icin,
-# her zoom seviyesi icin deneme/yanilma ile kendimiz bulduk
-#SCALEX = 2900. 
-#SCALEY = -4600.
-SCALEX = 1450. 
-SCALEY = -2400.
-
 def plot(points,outfile,zfile,scale,pixel=False):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
