@@ -1,4 +1,5 @@
 from priodict import priorityDictionary
+from pqdict import pqdict
 import numpy as np
 
 def get_neighbor_idx(x,y,dims):
@@ -14,6 +15,7 @@ def dijkstra(C,s,e):
     D = {}
     P = {}
     Q = priorityDictionary() 
+    #Q = pqdict() 
     Q[s] = 0
 
     for v in Q:

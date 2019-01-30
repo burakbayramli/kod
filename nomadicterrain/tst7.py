@@ -19,8 +19,8 @@ def get_neighbor_idx(x,y,dims):
 def dijkstra(C,s,e):    
     D = {}
     P = {}
-    #Q = priorityDictionary()
-    Q = pqdict()
+    Q = priorityDictionary()
+    #Q = pqdict()
     Q[s] = 0
 
     for v in Q:
@@ -130,6 +130,14 @@ if __name__ == "__main__":
    print (p)
 
    pts = [(xo[c],yo[c]) for c in p]
+   elevs = [elev_mat[c] for c in p]
+   
+   s = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
+   lines = ""
+   for c in p:
+       lines += s % (xo[c],yo[c],elev_mat[c])
+   print (lines)
+   exit()
    
    import sys; sys.path.append("./map")
    import numpy as np, plot_map, json, os
