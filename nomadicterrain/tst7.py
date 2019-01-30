@@ -4,6 +4,7 @@ import os, pickle
 from priodict import priorityDictionary
 import numpy as np
 
+
 eps = 10e-5
 
 def get_neighbor_idx(x,y,dims):
@@ -121,3 +122,19 @@ if __name__ == "__main__":
    #find_flattest_path(xo, yo, elev_mat, start_idx)
    p = dijkstra(elev_mat, start_idx, end_idx)
    print (p)
+
+   pts = [(xo[c],yo[c]) for c in p]
+   
+   import sys; sys.path.append("./map")
+   import numpy as np, plot_map, json, os
+   import matplotlib.pyplot as plt
+   import geopy.distance, math, plot_map
+
+   params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+   print (params)
+
+   #pts = [[42.876171,19.131251],[43.031762, 19.045051],[43.070930, 18.999914], [43.101077, 18.935496], [43.161137, 18.982317], [43.261345, 18.978468], [43.233038, 19.110457], [43.273118, 19.114791], [43.156164, 19.317700], [43.079581, 19.398182], [42.998883, 19.478512], [42.960230, 19.398504], [43.016464, 19.386628], [43.099906, 19.343365], [43.161493, 19.237960], [43.201855, 19.150940], [43.197383, 19.093906], [43.167841, 19.067103], [43.152306, 19.097991], [43.131266, 19.106896], [43.087648, 19.097299], [43.058066, 19.102760], [43.047023, 19.073270], [43.029972, 19.056787], [43.066094, 19.039636], [43.062582, 19.009424], [43.067587, 18.973714]]
+   zfile,scale = params['mapzip']['turkey1']
+   plot_map.plot(pts, 'out.png', zfile=zfile,scale=scale)
+   
+       

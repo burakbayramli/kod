@@ -6,8 +6,9 @@ params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 print (params)
 
 def test_map0():
-    pts = [[51.2130605,4.4174822]]
-    plot_map.plot(pts,'out.png',zfile=params['mapzip'])
+    pts = [[36.54,32.0]]
+    zfile,scale = params['mapzip']['turkey3']
+    plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
 
 def test_map1():
     park1 = [[51.198689, 4.386747],[51.192246, 4.428266],[51.221485, 4.452641],[51.235894, 4.422429]]
@@ -24,8 +25,9 @@ def test_map2():
     plot_map.plot_area(pt, parks, 'out.png', zfile=params['mapzip'])
     
 def test_map3():
-    pts = [[42.876171,19.131251],[43.031762, 19.045051],[43.070930, 18.999914], [43.101077, 18.935496], [43.161137, 18.982317], [43.261345, 18.978468], [43.233038, 19.110457], [43.273118, 19.114791], [43.156164, 19.317700], [43.079581, 19.398182], [42.998883, 19.478512], [42.960230, 19.398504], [43.016464, 19.386628], [43.099906, 19.343365], [43.161493, 19.237960], [43.201855, 19.150940], [43.197383, 19.093906], [43.167841, 19.067103], [43.152306, 19.097991], [43.131266, 19.106896], [43.087648, 19.097299], [43.058066, 19.102760], [43.047023, 19.073270], [43.029972, 19.056787], [43.066094, 19.039636], [43.062582, 19.009424], [43.067587, 18.973714]]
-    plot_map.plot(pts, 'out.png', zfile=params['mapzip'])
+    zfile,scale = params['mapzip']['turkey1']
+    pts = [[36.54,32.0],[36.64,32.1],[36.7,32.2], [36.84,32.3]]
+    plot_map.plot(pts, 'out.png', zfile=zfile,scale=scale)
 
 def get_bearing(lat1,lon1,lat2,lon2):
     dLon = lon2 - lon1;
@@ -43,6 +45,8 @@ def test_distance():
     print (get_bearing(51.2130605,4.4174822, 51.213583, 4.424042))
     print (dist)
     
+#test_map0()
+test_map3()
 test_distance()
 
     
