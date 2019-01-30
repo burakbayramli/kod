@@ -71,7 +71,6 @@ def dijkstra(C,s,e):
     for v in Q:
         D[v] = Q[v]       
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
-        #print (neighs)
         for w in neighs:
             vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
             if w in D:
