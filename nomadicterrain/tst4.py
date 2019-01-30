@@ -45,11 +45,7 @@ def get_neighbor_idx(x,y,dims):
 
 def find_flattest_path(lat_mat, lon_mat, elev_mat, start_idx):
    print (start_idx)
-   
-
-
-
-   
+      
 if __name__ == "__main__": 
    xo,yo,start_idx = get_grid(36.54,32.0,37.54,33.0)
    print (start_idx)

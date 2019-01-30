@@ -2,7 +2,7 @@ from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle
 from priodict import priorityDictionary
-import numpy as np
+import numpy as np, util
 from pqdict import pqdict
 
 eps = 10e-5
@@ -19,13 +19,12 @@ def get_neighbor_idx(x,y,dims):
 def dijkstra(C,s,e):    
     D = {}
     P = {}
-    Q = priorityDictionary()
-    #Q = pqdict()
+    #Q = priorityDictionary()
+    Q = pqdict()
     Q[s] = 0
 
     for v in Q:
-        D[v] = Q[v]
-        print ('c',C.shape)
+        D[v] = Q[v]       
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
         #print (neighs)
         for w in neighs:
@@ -80,9 +79,9 @@ def get_grid(lat1,lon1,lat2,lon2,npts=10):
 
 if __name__ == "__main__":
    lat1,lon1 = 36.54,32.0
-   lat2,lon2 = 36.616666, 32.133332
-
-   xo,yo = get_grid(lat1,lon1,lat2,lon2)
+   lat2,lon2 = 36.648548, 32.039130
+   
+   xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=15)
    #get_neighbor_idx(3,3,xo.shape)
    #get_neighbor_idx(0,3,xo.shape)
    coords = []
@@ -98,16 +97,15 @@ if __name__ == "__main__":
 
    print ('s',start_idx)
    print ('e',end_idx)
-    
          
    locs = polyline.encode(coords)
    elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-#   url = elev_query % (locs, params['api'])
-#   html = urlopen(url)
-#   json_res = json.loads(html.read().decode('utf-8'))
-#   print (json_res)
-#   pickle.dump(json_res,open("/data/data/com.termux/files/home/Downloads/elev.pkl","wb"))
+   url = elev_query % (locs, params['api'])
+   html = urlopen(url)
+   json_res = json.loads(html.read().decode('utf-8'))
+   #print (json_res)
+   pickle.dump(json_res,open("/data/data/com.termux/files/home/Downloads/elev.pkl","wb"))
 
    json_res = pickle.load(open("/data/data/com.termux/files/home/Downloads/elev.pkl","rb"))
    #print (json_res)
@@ -115,40 +113,44 @@ if __name__ == "__main__":
    print ('xo',xo.shape)
    print ('len json',len(json_res['results']))
    
-   elev_mat = np.zeros(xo.shape)
+   elev_mat = np.zeros(xo.shape)   
    tmp = []
    for i in range(xo.shape[0]*xo.shape[1]):
        tmp.append(json_res['results'][i]['elevation'])
    elev_mat = np.array(tmp).reshape(xo.shape)
-   #elev_mat[i,j] = json_res['results'][k]['elevation']
-         
+   print ('elev start', elev_mat[(0,0)])
+   print ('elev end', elev_mat[(15,15)])
    #print (elev_mat)
    #print (xo)
    #print (yo)
 #   exit()
    p = dijkstra(elev_mat, start_idx, end_idx)
-   print (p)
+   #print (p)
 
    pts = [(xo[c],yo[c]) for c in p]
    elevs = [elev_mat[c] for c in p]
-   
-   s = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
+
    lines = ""
+   lines += util.gpxbegin   
+   templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
    for c in p:
-       lines += s % (xo[c],yo[c],elev_mat[c])
-   print (lines)
-   exit()
+       lines += templ % (xo[c],yo[c],elev_mat[c])
+   lines += util.gpxend
+   #print (lines)
+   fout = open(params['trails'] + "/01_calc_path.gpx","w")
+   fout.write(lines)
+   fout.close()
    
-   import sys; sys.path.append("./map")
-   import numpy as np, plot_map, json, os
-   import matplotlib.pyplot as plt
-   import geopy.distance, math, plot_map
+   # import sys; sys.path.append("./map")
+   # import numpy as np, plot_map, json, os
+   # import matplotlib.pyplot as plt
+   # import geopy.distance, math, plot_map
 
-   params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-   print (params)
+   # params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+   # print (params)
 
-   #pts = [[42.876171,19.131251],[43.031762, 19.045051],[43.070930, 18.999914], [43.101077, 18.935496], [43.161137, 18.982317], [43.261345, 18.978468], [43.233038, 19.110457], [43.273118, 19.114791], [43.156164, 19.317700], [43.079581, 19.398182], [42.998883, 19.478512], [42.960230, 19.398504], [43.016464, 19.386628], [43.099906, 19.343365], [43.161493, 19.237960], [43.201855, 19.150940], [43.197383, 19.093906], [43.167841, 19.067103], [43.152306, 19.097991], [43.131266, 19.106896], [43.087648, 19.097299], [43.058066, 19.102760], [43.047023, 19.073270], [43.029972, 19.056787], [43.066094, 19.039636], [43.062582, 19.009424], [43.067587, 18.973714]]
-   zfile,scale = params['mapzip']['turkey1']
-   plot_map.plot(pts, 'out.png', zfile=zfile,scale=scale)
+   # #pts = [[42.876171,19.131251],[43.031762, 19.045051],[43.070930, 18.999914], [43.101077, 18.935496], [43.161137, 18.982317], [43.261345, 18.978468], [43.233038, 19.110457], [43.273118, 19.114791], [43.156164, 19.317700], [43.079581, 19.398182], [42.998883, 19.478512], [42.960230, 19.398504], [43.016464, 19.386628], [43.099906, 19.343365], [43.161493, 19.237960], [43.201855, 19.150940], [43.197383, 19.093906], [43.167841, 19.067103], [43.152306, 19.097991], [43.131266, 19.106896], [43.087648, 19.097299], [43.058066, 19.102760], [43.047023, 19.073270], [43.029972, 19.056787], [43.066094, 19.039636], [43.062582, 19.009424], [43.067587, 18.973714]]
+   # zfile,scale = params['mapzip']['turkey1']
+   # plot_map.plot(pts, 'out.png', zfile=zfile,scale=scale)
    
        
