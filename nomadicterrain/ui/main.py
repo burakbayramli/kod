@@ -12,6 +12,7 @@ import urllib, requests, json
 from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
+import route
 
 app = Flask(__name__)
 
@@ -645,6 +646,62 @@ def line_elev_calc():
     
     return lineelev()
 
+@app.route('/flattestroute/<coords>')
+def flattestroute(coords):
+    lat1,lon1 = coords.split(';')
+    lat1 = float(lat1)
+    lon1 = float(lon1)
+    lat2,lon2 = my_curr_location()
+
+    xo,yo = route.get_grid(lat1,lon1,lat2,lon2,npts=15)
+    coords = []
+    start_idx = None
+    end_idx = None
+    for i in range(xo.shape[0]):
+        for j in range(xo.shape[1]):
+            coords.append((xo[i,j],yo[i,j]))
+            if np.abs(xo[i,j]-lat1)<route.eps and np.abs(yo[i,j]-lon1)<route.eps:
+                start_idx = (i,j)
+            if np.abs(xo[i,j]-lat2)<route.eps and np.abs(yo[i,j]-lon2)<route.eps:
+                end_idx = (i,j)
+
+    print ('s',start_idx)
+    print ('e',end_idx)
+         
+    locs = polyline.encode(coords)
+    elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
+    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+    url = elev_query % (locs, params['api'])
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+
+    print ('xo',xo.shape)
+    print ('len json',len(json_res['results']))
+   
+    elev_mat = np.zeros(xo.shape)   
+    tmp = []
+    for i in range(xo.shape[0]*xo.shape[1]):
+        tmp.append(json_res['results'][i]['elevation'])
+    elev_mat = np.array(tmp).reshape(xo.shape)
+   
+    print ('elev start', elev_mat[(0,0)])
+    print ('elev end', elev_mat[(15,15)])
+   
+    p = route.dijkstra(elev_mat, start_idx, end_idx)
+    pts = [(xo[c],yo[c]) for c in p]
+    elevs = [elev_mat[c] for c in p]
+    lines = ""
+    lines += route.gpxbegin   
+    templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
+    for c in p:
+        lines += templ % (xo[c],yo[c],elev_mat[c])
+    lines += route.gpxend
+    gpxfile = "01_calc_path.gpx"
+    fout = open(params['trails'] + "/" + gpxfile,"w")
+    fout.write(lines)
+    fout.close()
+    return trail(gpxfile)
+    
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost",port=5000)

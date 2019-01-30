@@ -5,3 +5,4 @@ geopy
 feedparser
 flask
 gpxpy
+pqdict
