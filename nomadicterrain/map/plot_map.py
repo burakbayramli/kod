@@ -150,14 +150,5 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
-def goto_from_coord(start, distance, bearing):
-    """
-    distance: in kilometers
-    bearing: 0 degree is north, 90 is east
-    """
-    s = geopy.Point(start[0],start[1])
-    d = geopy.distance.VincentyDistance(kilometers = distance)
-    reached = d.destination(point=s, bearing=bearing)
-    return [reached.latitude, reached.longitude]
 
          

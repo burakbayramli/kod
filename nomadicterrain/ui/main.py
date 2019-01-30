@@ -23,14 +23,6 @@ place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?loca
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
-def get_bearing(lat1,lon1,lat2,lon2):
-    dLon = lon2 - lon1;
-    y = math.sin(dLon) * math.cos(lat2);
-    x = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(dLon);
-    brng = np.rad2deg(math.atan2(y, x));
-    if brng < 0: brng+= 360
-    return np.round(brng,2)
-
 def been_walking():
     df = pd.read_csv(params['gps'])
     df1 = df.iloc[::-1]
@@ -47,30 +39,30 @@ def been_walking():
         currd = int(df1.loc[idx,'dists']*1000.0)
         if currd > 1000.0: break
         if currd-1000 < 100:
-            res['1000'] = get_bearing(float(df1.loc[idx,'lat']),
-                                    float(df1.loc[idx,'lon']),
-                                    mylat,
-                                    mylon)
+            res['1000'] = route.get_bearing(float(df1.loc[idx,'lat']),
+                                            float(df1.loc[idx,'lon']),
+                                            mylat,
+                                            mylon)
         if currd-200 <60:
-            res['200'] = get_bearing(float(df1.loc[idx,'lat']),
-                                    float(df1.loc[idx,'lon']),
-                                    mylat,
-                                    mylon)
+            res['200'] = route.get_bearing(float(df1.loc[idx,'lat']),
+                                           float(df1.loc[idx,'lon']),
+                                           mylat,
+                                           mylon)
         if currd-100 < 20:
-            res['100'] = get_bearing(float(df1.loc[idx,'lat']),
-                                    float(df1.loc[idx,'lon']),
-                                    mylat,
-                                    mylon)
+            res['100'] = route.get_bearing(float(df1.loc[idx,'lat']),
+                                           float(df1.loc[idx,'lon']),
+                                           mylat,
+                                           mylon)
         if currd-50 < 30:
-            res['50'] = get_bearing(float(df1.loc[idx,'lat']),
-                                    float(df1.loc[idx,'lon']),
-                                    mylat,
-                                    mylon)
+            res['50'] = route.get_bearing(float(df1.loc[idx,'lat']),
+                                          float(df1.loc[idx,'lon']),
+                                          mylat,
+                                          mylon)
         if currd-10 < 5:
-            res['10'] = get_bearing(float(df1.loc[idx,'lat']),
-                                    float(df1.loc[idx,'lon']),
-                                    mylat,
-                                    mylon)
+            res['10'] = route.get_bearing(float(df1.loc[idx,'lat']),
+                                          float(df1.loc[idx,'lon']),
+                                          mylat,
+                                          mylon)
     return res
     
 
@@ -283,22 +275,22 @@ def test():
 
 def step(request, location, distance):
     if request.form['action'] == '↑':
-        res = plot_map.goto_from_coord(OnlyOne().last_location,
-                                       distance,
-                                       0)
+        res = route.goto_from_coord(OnlyOne().last_location,
+                                    distance,
+                                    0)
         
     elif request.form['action'] == '↓':
-        res = plot_map.goto_from_coord(OnlyOne().last_location,
-                                       distance,
-                                       180)
+        res = route.goto_from_coord(OnlyOne().last_location,
+                                    distance,
+                                    180)
     elif request.form['action'] == '→':
-        res = plot_map.goto_from_coord(OnlyOne().last_location,
-                                       distance,
-                                       90)
+        res = route.goto_from_coord(OnlyOne().last_location,
+                                    distance,
+                                    90)
     elif request.form['action'] == '←':
-        res = plot_map.goto_from_coord(OnlyOne().last_location,
-                                       float(request.form['distance']),
-                                       270)
+        res = route.goto_from_coord(OnlyOne().last_location,
+                                    float(request.form['distance']),
+                                    270)
     return res
     
 @app.route('/location_nav_action', methods=['GET', 'POST'])
@@ -418,7 +410,7 @@ def timedgogeo(coords):
 def gogeo(coords):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
-    bearing = get_bearing(lat2,lon2,float(lat),float(lon))
+    bearing = route.get_bearing(lat2,lon2,float(lat),float(lon))
     distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
     pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
@@ -630,7 +622,7 @@ def line_elev_calc():
     lat,lon = my_curr_location()
     locs = []
     for x in np.linspace(0,far,npts):
-        locs.append(tuple(plot_map.goto_from_coord([lat,lon], x, bearing)))
+        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
     
     locs = polyline.encode(locs)
     print ('end',locs[-1])
