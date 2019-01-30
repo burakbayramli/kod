@@ -24,6 +24,33 @@ def goto_from_coord(start, distance, bearing):
     reached = d.destination(point=s, bearing=bearing)
     return [reached.latitude, reached.longitude]
 
+
+def expand_coords(lat1,lon1,lat2,lon2):
+    res = get_bearing(lat1,lon1,lat2,lon2)
+    if (res >= 0 and res < 90):
+        lat3,lon3 = goto_from_coord((lat2,lon2),1,90)
+        lat4,lon4 = goto_from_coord((lat3,lon3),1,0)        
+        lat5,lon5 = goto_from_coord((lat1,lon1),1,180)
+        lat6,lon6 = goto_from_coord((lat5,lon5),1,270)
+    elif (res >= 90 and res < 180):
+        lat3,lon3 = goto_from_coord((lat2,lon2),1,90)
+        lat4,lon4 = goto_from_coord((lat3,lon3),1,180)        
+        lat5,lon5 = goto_from_coord((lat1,lon1),1,270)
+        lat6,lon6 = goto_from_coord((lat5,lon5),1,0)
+    elif (res >= 180 and res < 270):
+        lat3,lon3 = goto_from_coord((lat2,lon2),1,180)
+        lat4,lon4 = goto_from_coord((lat3,lon3),1,270)
+        lat5,lon5 = goto_from_coord((lat1,lon1),1,90)
+        lat6,lon6 = goto_from_coord((lat5,lon5),1,0)
+    elif (res >= 270 and res < 360):
+        lat3,lon3 = goto_from_coord((lat2,lon2),1,0)
+        lat4,lon4 = goto_from_coord((lat3,lon3),1,270)
+        lat5,lon5 = goto_from_coord((lat1,lon1),1,90)
+        lat6,lon6 = goto_from_coord((lat5,lon5),1,180)
+        
+    return lat4,lon4,lat6,lon6
+        
+
 def get_neighbor_idx(x,y,dims):
     res = []
     for i in ([0,-1,1]):
@@ -60,8 +87,7 @@ def dijkstra(C,s,e):
        e = P[e]
     path.reverse()
     return path
-    
-    
+        
 def get_grid(lat1,lon1,lat2,lon2,npts=10):
    def pointiterator(fra,til,steps):    
        val = fra

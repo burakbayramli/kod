@@ -645,7 +645,8 @@ def flattestroute(coords):
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
 
-    xo,yo = route.get_grid(lat1,lon1,lat2,lon2,npts=15)
+    lat11,lon11,lat22,lon22 = route.expand_coords(lat1,lon1,lat2,lon2)
+    xo,yo = route.get_grid(lat11,lon11,lat22,lon22,npts=15)
     coords = []
     start_idx = None
     end_idx = None
