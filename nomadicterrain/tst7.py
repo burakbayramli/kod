@@ -62,8 +62,11 @@ def get_grid(lat1,lon1,lat2,lon2,npts=10):
 
    xx=np.fromiter(xiter,dtype=np.float)
    yy=np.fromiter(yiter,dtype=np.float)
+   print (xx.shape)
+   print (yy.shape)
    xo, yo = np.meshgrid(xx,yy,indexing='xy')
-
+   print ('xo',xo.shape)
+   print ('yo',yo.shape)
    return xo,yo
 
 #C = np.ones((4,4)) * 999.9
@@ -75,7 +78,8 @@ def get_grid(lat1,lon1,lat2,lon2,npts=10):
 
 if __name__ == "__main__":
    lat1,lon1 = 36.54,32.0
-   lat2,lon2 = 37.54,33.0
+   lat2,lon2 = 36.616666, 32.133332
+
    xo,yo = get_grid(lat1,lon1,lat2,lon2)
    #get_neighbor_idx(3,3,xo.shape)
    #get_neighbor_idx(0,3,xo.shape)
@@ -97,7 +101,7 @@ if __name__ == "__main__":
    locs = polyline.encode(coords)
    elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-   url = elev_query % (locs, params['api'])
+#   url = elev_query % (locs, params['api'])
 #   html = urlopen(url)
 #   json_res = json.loads(html.read().decode('utf-8'))
 #   print (json_res)
@@ -106,20 +110,20 @@ if __name__ == "__main__":
    json_res = pickle.load(open("/data/data/com.termux/files/home/Downloads/elev.pkl","rb"))
    #print (json_res)
 
-   print (xo.shape)
-   print (len(json_res['results']))
+   print ('xo',xo.shape)
+   print ('len json',len(json_res['results']))
    
    elev_mat = np.zeros(xo.shape)
    k = 0
-   for i in range(xo.shape[0]):
-      for j in range(xo.shape[1]):
+   for i in range(xo.shape[1]):
+      for j in range(xo.shape[0]):
          elev_mat[i,j] = json_res['results'][k]['elevation']
          k += 1
          
    #print (elev_mat)
-   
-   #find_flattest_path(xo, yo, elev_mat, start_idx)
-   #find_flattest_path(xo, yo, elev_mat, start_idx)
+   #print (xo)
+   #print (yo)
+#   exit()
    p = dijkstra(elev_mat, start_idx, end_idx)
    print (p)
 
