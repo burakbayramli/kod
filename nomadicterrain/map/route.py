@@ -1,10 +1,11 @@
+import geopy.distance
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle
+import os, pickle, math
 import numpy as np
 from pqdict import pqdict
 
-eps = 10e-5
+eps = 0.003
 
 def get_bearing(lat1,lon1,lat2,lon2):
     dLon = lon2 - lon1;
