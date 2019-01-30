@@ -647,7 +647,7 @@ def flattestroute(coords):
 
     lat11,lon11,lat22,lon22 = route.expand_coords(lat1,lon1,lat2,lon2)
     print (lat11,lon11,lat22,lon22)
-    xo,yo = route.get_grid(lat11,lon11,lat22,lon22,npts=15)
+    xo,yo = route.get_grid(lat11,lon11,lat22,lon22,npts=20)
     #xo,yo = route.get_grid(lat1,lon1,lat2,lon2,npts=15)
     coords = []
     start_idx = None
@@ -664,7 +664,6 @@ def flattestroute(coords):
     print ('e',end_idx)
          
     locs = polyline.encode(coords)
-    elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
     params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
     url = elev_query % (locs, params['api'])
     html = urlopen(url)
