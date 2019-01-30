@@ -3,7 +3,7 @@ import numpy as np, polyline, json
 import os, pickle
 from priodict import priorityDictionary
 import numpy as np
-
+from pqdict import pqdict
 
 eps = 10e-5
 
@@ -19,18 +19,20 @@ def get_neighbor_idx(x,y,dims):
 def dijkstra(C,s,e):    
     D = {}
     P = {}
-    Q = priorityDictionary() 
+    #Q = priorityDictionary()
+    Q = pqdict()
     Q[s] = 0
 
     for v in Q:
         D[v] = Q[v]
+        print ('c',C.shape)
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
         #print (neighs)
         for w in neighs:
             vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
             if w in D:
                 if vwLength < D[v]:
-                    raise ValueError
+                    raise ValueError("error")
             elif w not in Q or vwLength < Q[w]:
                 Q[w] = vwLength
                 P[w] = v
