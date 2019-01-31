@@ -20,6 +20,9 @@
         document.getElementById('keyword').value="otogar";
         document.getElementById('type').value="";
       }
+      function fillPOI(){
+        document.getElementById('keyword').value="[city] point of interest";
+      }
     </script>
   </head>
   <body>
@@ -31,6 +34,7 @@
     <a href="#" onClick="fillIndian(); return true;">Hint</a>&nbsp;
     <a href="#" onClick="fillMall(); return true;">Mall</a>&nbsp;
     <a href="#" onClick="fillBusMain(); return true;">Bus</a>&nbsp;
+    <a href="#" onClick="fillPOI(); return true;">POI</a>&nbsp;
     <br/>        
     <br/>        
     <form class="form-inline" action="/place_search" method="POST">
