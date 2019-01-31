@@ -68,8 +68,7 @@ def dijkstra(C,s,e):
     Q = pqdict()
     Q[s] = 0
 
-    while True:
-        if len(Q)==0: break
+    while len(Q)>0:
         (v,vv) = Q.popitem()
         D[v] = vv
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
