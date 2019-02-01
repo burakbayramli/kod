@@ -51,7 +51,7 @@ def goto_from_coord(start, distance, bearing):
     return [reached.latitude, reached.longitude]
 
 
-def expand_coords(lat1,lon1,lat2,lon2,margin=3.0):
+def expand_coords(lat1,lon1,lat2,lon2,margin=5.0):
     res = get_bearing(lat1,lon1,lat2,lon2)
     print ('bearing before expansion', res)
     if (res >= 0 and res < 90):
