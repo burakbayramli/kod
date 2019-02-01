@@ -5,9 +5,7 @@ import os, pickle, math
 import numpy as np
 from pqdict import pqdict
 
-eps = 1e-5
-
-elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
+eps = 0.003
 
 def get_bearing(lat1,lon1,lat2,lon2):
     dLon = lon2 - lon1;
@@ -75,7 +73,6 @@ def dijkstra(C,s,e):
         D[v] = vv
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
         for w in neighs:
-            #if C[w[0],w[1]] < 0.0: continue # skip negative candidates
             vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
             if w in D:
                 if vwLength < D[v]:
@@ -92,7 +89,7 @@ def dijkstra(C,s,e):
     path.reverse()
     return path
         
-def get_grid(lat1,lon1,lat2,lon2,npts):
+def get_grid(lat1,lon1,lat2,lon2,npts=10):
    def pointiterator(fra,til,steps):    
        val = fra
        if til < fra:
@@ -116,45 +113,6 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
    print ('xo',xo.shape)
    print ('yo',yo.shape)
    return xo,yo
-
-def get_elev_data(lat1,lon1,lat2,lon2,npts):
-    
-    #eps = 1e-2
-    eps = 1e-1
-    lat11,lon11,lat22,lon22 = expand_coords(lat1,lon1,lat2,lon2)
-    print (lat11,lon11,lat22,lon22)
-    xo,yo = get_grid(lat11,lon11,lat22,lon22,npts)
-    #xo,yo = route.get_grid(lat1,lon1,lat2,lon2,npts=15)
-    coords = []
-    start_idx = None
-    end_idx = None
-    for i in range(xo.shape[0]):
-        for j in range(xo.shape[1]):
-            coords.append((xo[i,j],yo[i,j]))
-            if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
-                start_idx = (i,j)
-            if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
-                end_idx = (i,j)
-
-    print ('s',start_idx)
-    print ('e',end_idx)
-         
-    locs = polyline.encode(coords)
-    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-    url = elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-
-    print ('xo',xo.shape)
-    print ('len json',len(json_res['results']))
-   
-    elev_mat = np.zeros(xo.shape)   
-    tmp = []
-    for i in range(xo.shape[0]*xo.shape[1]):
-        tmp.append(json_res['results'][i]['elevation'])
-    elev_mat = np.array(tmp).reshape(xo.shape)
-    
-    return elev_mat, start_idx, end_idx, xo, yo
 
 gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"
