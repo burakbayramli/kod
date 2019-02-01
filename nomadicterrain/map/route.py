@@ -7,7 +7,9 @@ from pqdict import pqdict
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
-eps = 0.003
+def chunks(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
 
 def get_bearing(lat1,lon1,lat2,lon2):
     dLon = lon2 - lon1;
@@ -139,20 +141,27 @@ def get_elev_data(lat1,lon1,lat2,lon2,npts):
          
     print ('s',start_idx)
     print ('e',end_idx)
-         
-    locs = polyline.encode(coords)
-    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-    url = elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
 
-    print ('xo',xo.shape)
-    print ('len json',len(json_res['results']))
+    json_res_results = []
+    for c in chunks(coords, 100):
+        locs = polyline.encode(c)
+        params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+        url = elev_query % (locs, params['api'])
+        html = urlopen(url)
+        json_res = json.loads(html.read().decode('utf-8'))
+        for i in range(len(json_res['results'])):
+            json_res_results.append(json_res['results'][i])
+        
+#    locs = polyline.encode(coords)
+#    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+#    url = elev_query % (locs, params['api'])
+#    html = urlopen(url)
+#    json_res = json.loads(html.read().decode('utf-8'))
    
     elev_mat = np.zeros(xo.shape)   
     tmp = []
     for i in range(xo.shape[0]*xo.shape[1]):
-        tmp.append(json_res['results'][i]['elevation'])
+        tmp.append(json_res_results[i]['elevation'])
     elev_mat = np.array(tmp).reshape(xo.shape)
 
     return elev_mat, start_idx, end_idx, xo, yo 

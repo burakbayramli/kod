@@ -55,7 +55,7 @@ def test_get_elev_data():
     #lat2,lon2 = (36.545528, 32.142943)
     lat2,lon2 = (36.07653, 32.836227)
     
-    res = route.get_elev_data(lat1,lon1,lat2,lon2,15)
+    res = route.get_elev_data(lat1,lon1,lat2,lon2,npts=20)
 
     
 #test_map0()
