@@ -77,6 +77,7 @@ def dijkstra(C,s,e):
         D[v] = vv
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
         for w in neighs:
+            if C[w[0],w[1]] < 0.0: continue # skip negative candidates
             vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
             if w in D:
                 if vwLength < D[v]:
@@ -151,13 +152,7 @@ def get_elev_data(lat1,lon1,lat2,lon2,npts):
         json_res = json.loads(html.read().decode('utf-8'))
         for i in range(len(json_res['results'])):
             json_res_results.append(json_res['results'][i])
-        
-#    locs = polyline.encode(coords)
-#    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-#    url = elev_query % (locs, params['api'])
-#    html = urlopen(url)
-#    json_res = json.loads(html.read().decode('utf-8'))
-   
+           
     elev_mat = np.zeros(xo.shape)   
     tmp = []
     for i in range(xo.shape[0]*xo.shape[1]):
