@@ -645,44 +645,14 @@ def flattestroute(coords):
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
 
-    lat11,lon11,lat22,lon22 = route.expand_coords(lat1,lon1,lat2,lon2)
-    print (lat11,lon11,lat22,lon22)
-    #xo,yo = route.get_grid(lat11,lon11,lat22,lon22,npts=20)
-    xo,yo = route.get_grid(lat11,lon11,lat22,lon22,npts=10)
-    #xo,yo = route.get_grid(lat1,lon1,lat2,lon2,npts=15)
-    coords = []
-    start_idx = None
-    end_idx = None
-    eps = route.eps
-    for eps in [0.01, 0.1, 1.0]:
-        for i in range(xo.shape[0]):
-            for j in range(xo.shape[1]):
-                coords.append((xo[i,j],yo[i,j]))
-                if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
-                    start_idx = (i,j)
-                if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
-                    end_idx = (i,j)
-        if start_idx!=None and end_idx != None: break
-         
-    print ('s',start_idx)
-    print ('e',end_idx)
-         
-    locs = polyline.encode(coords)
-    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-    url = elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-
-    print ('xo',xo.shape)
-    print ('len json',len(json_res['results']))
-   
-    elev_mat = np.zeros(xo.shape)   
-    tmp = []
-    for i in range(xo.shape[0]*xo.shape[1]):
-        tmp.append(json_res['results'][i]['elevation'])
-    elev_mat = np.array(tmp).reshape(xo.shape)
+    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data(lat1,
+                                                               lon1,
+                                                               lat2,
+                                                               lon2,
+                                                               npts=20)
       
     p = route.dijkstra(elev_mat, start_idx, end_idx)
+    
     pts = [(xo[c],yo[c]) for c in p]
     elevs = [elev_mat[c] for c in p]
     lines = ""

@@ -49,10 +49,18 @@ def test_dijks1():
     exp = [(3, 0), (3, 1), (3, 2), (2, 3), (1, 3), (0, 3)]
     if exp != res: raise Exception("dijks")
     print (res)
+
+def test_get_elev_data():
+    lat1,lon1 = (36.545471, 31.98567)
+    #lat2,lon2 = (36.545528, 32.142943)
+    lat2,lon2 = (36.07653, 32.836227)
+    
+    res = route.get_elev_data(lat1,lon1,lat2,lon2,15)
+
     
 #test_map0()
 #test_distance()
-test_dijks1()
-
+#test_dijks1()
+test_get_elev_data()
 
     
