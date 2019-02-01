@@ -649,7 +649,7 @@ def flattestroute(coords):
                                                                lon1,
                                                                lat2,
                                                                lon2,
-                                                               npts=20)
+                                                               npts=30)
       
     p = route.dijkstra(elev_mat, start_idx, end_idx)
     

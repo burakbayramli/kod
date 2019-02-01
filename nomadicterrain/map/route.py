@@ -7,6 +7,27 @@ from pqdict import pqdict
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
+gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
+<gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"
+     xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><name>ddddd</name><author><name>ddddd</name>
+<link href="https://www.wikiloc.com/wikiloc/user.do?id=1111676">
+<text>dddddd</text></link></author><link href="https://www.wikiloc.com/hiking-trails/alanya-oba-kadipinari-cayi-yuruyusu-6911676">
+<text>Test1</text></link><time>2014-05-23T08:45:39Z</time></metadata>
+<trk>
+<name>Test1</name><cmt></cmt><desc>
+</desc>
+<trkseg>
+'''
+
+gpxend = '''
+</trkseg>
+</trk>
+</gpx>
+'''
+
 def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
@@ -16,7 +37,7 @@ def get_bearing(lat1,lon1,lat2,lon2):
     y = math.sin(dLon) * math.cos(lat2);
     x = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(dLon);
     brng = np.rad2deg(math.atan2(y, x));
-    if brng < 0: brng+= 360
+    brng = 360 - ((brng + 360) % 360)
     return np.round(brng,2)
 
 def goto_from_coord(start, distance, bearing):
@@ -30,28 +51,29 @@ def goto_from_coord(start, distance, bearing):
     return [reached.latitude, reached.longitude]
 
 
-def expand_coords(lat1,lon1,lat2,lon2):
+def expand_coords(lat1,lon1,lat2,lon2,margin=3.0):
     res = get_bearing(lat1,lon1,lat2,lon2)
+    print ('bearing before expansion', res)
     if (res >= 0 and res < 90):
-        lat3,lon3 = goto_from_coord((lat2,lon2),1,90)
-        lat4,lon4 = goto_from_coord((lat3,lon3),1,0)        
-        lat5,lon5 = goto_from_coord((lat1,lon1),1,180)
-        lat6,lon6 = goto_from_coord((lat5,lon5),1,270)
+        lat3,lon3 = goto_from_coord((lat2,lon2),margin,90)
+        lat4,lon4 = goto_from_coord((lat3,lon3),margin,0)        
+        lat5,lon5 = goto_from_coord((lat1,lon1),margin,180)
+        lat6,lon6 = goto_from_coord((lat5,lon5),margin,270)
     elif (res >= 90 and res < 180):
-        lat3,lon3 = goto_from_coord((lat2,lon2),1,90)
-        lat4,lon4 = goto_from_coord((lat3,lon3),1,180)        
-        lat5,lon5 = goto_from_coord((lat1,lon1),1,270)
-        lat6,lon6 = goto_from_coord((lat5,lon5),1,0)
+        lat3,lon3 = goto_from_coord((lat2,lon2),margin,90)
+        lat4,lon4 = goto_from_coord((lat3,lon3),margin,180)        
+        lat5,lon5 = goto_from_coord((lat1,lon1),margin,270)
+        lat6,lon6 = goto_from_coord((lat5,lon5),margin,0)
     elif (res >= 180 and res < 270):
-        lat3,lon3 = goto_from_coord((lat2,lon2),1,180)
-        lat4,lon4 = goto_from_coord((lat3,lon3),1,270)
-        lat5,lon5 = goto_from_coord((lat1,lon1),1,90)
-        lat6,lon6 = goto_from_coord((lat5,lon5),1,0)
+        lat3,lon3 = goto_from_coord((lat2,lon2),margin,180)
+        lat4,lon4 = goto_from_coord((lat3,lon3),margin,270)
+        lat5,lon5 = goto_from_coord((lat1,lon1),margin,90)
+        lat6,lon6 = goto_from_coord((lat5,lon5),margin,0)
     elif (res >= 270 and res < 360):
-        lat3,lon3 = goto_from_coord((lat2,lon2),1,0)
-        lat4,lon4 = goto_from_coord((lat3,lon3),1,270)
-        lat5,lon5 = goto_from_coord((lat1,lon1),1,90)
-        lat6,lon6 = goto_from_coord((lat5,lon5),1,180)
+        lat3,lon3 = goto_from_coord((lat2,lon2),margin,0)
+        lat4,lon4 = goto_from_coord((lat3,lon3),margin,270)
+        lat5,lon5 = goto_from_coord((lat1,lon1),margin,90)
+        lat6,lon6 = goto_from_coord((lat5,lon5),margin,180)
         
     return lat4,lon4,lat6,lon6
         
@@ -94,7 +116,7 @@ def dijkstra(C,s,e):
     path.reverse()
     return path
         
-def get_grid(lat1,lon1,lat2,lon2,npts=10):
+def get_grid(lat1,lon1,lat2,lon2,npts):
    def pointiterator(fra,til,steps):    
        val = fra
        if til < fra:
@@ -120,12 +142,9 @@ def get_grid(lat1,lon1,lat2,lon2,npts=10):
    return xo,yo
 
 def get_elev_data(lat1,lon1,lat2,lon2,npts):
-
     lat11,lon11,lat22,lon22 = expand_coords(lat1,lon1,lat2,lon2)
     print (lat11,lon11,lat22,lon22)
-    #xo,yo = get_grid(lat11,lon11,lat22,lon22,npts=20)
     xo,yo = get_grid(lat11,lon11,lat22,lon22,npts=npts)
-    #xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=15)
     coords = []
     start_idx = None
     end_idx = None
@@ -160,25 +179,3 @@ def get_elev_data(lat1,lon1,lat2,lon2,npts):
     elev_mat = np.array(tmp).reshape(xo.shape)
 
     return elev_mat, start_idx, end_idx, xo, yo 
-
-gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
-<gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"
-     xmlns="http://www.topografix.com/GPX/1/1"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
-<metadata><name>ddddd</name><author><name>ddddd</name>
-<link href="https://www.wikiloc.com/wikiloc/user.do?id=1111676">
-<text>dddddd</text></link></author><link href="https://www.wikiloc.com/hiking-trails/alanya-oba-kadipinari-cayi-yuruyusu-6911676">
-<text>Test1</text></link><time>2014-05-23T08:45:39Z</time></metadata>
-<trk>
-<name>Test1</name><cmt></cmt><desc>
-</desc>
-<trkseg>
-'''
-
-gpxend = '''
-</trkseg>
-</trk>
-</gpx>
-'''
-
