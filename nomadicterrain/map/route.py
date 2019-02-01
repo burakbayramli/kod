@@ -73,6 +73,7 @@ def dijkstra(C,s,e):
         D[v] = vv
         neighs = get_neighbor_idx(v[0],v[1],C.shape)
         for w in neighs:
+            if C[w[0],w[1]] < 0.0: continue # skip negative candidates
             vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
             if w in D:
                 if vwLength < D[v]:
