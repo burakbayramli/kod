@@ -39,7 +39,7 @@ def test_distance():
     print (route.get_bearing(51.2130605,4.4174822, 51.213583, 4.424042))
     print (dist)
 
-def test_dijks1():
+def test_dijks():
     m = np.array([[999.9, 999.9, 999.9,   0. ],
                   [999.9, 999.9, 999.9,   0. ],
                   [999.9, 999.9, 999.9,   0. ],
@@ -49,7 +49,16 @@ def test_dijks1():
     exp = [(3, 0), (3, 1), (3, 2), (2, 3), (1, 3), (0, 3)]
     if exp != res: raise Exception("dijks")
     print (res)
-
+    m = np.array([[999.9, 999.9, 999.9,   0. ],
+                  [999.9, 999.9, 999.9,   0. ],
+                  [999.9, 0,     999.9,   0. ],
+                  [  0.,  -10.,    0.,    0. ]])
+    
+    res = route.dijkstra(m,(3,0),(0,3))
+    exp = [(3, 0), (2, 1), (3, 2), (2, 3), (1, 3), (0, 3)]
+    if exp != res: raise Exception("dijks")
+    print (res)
+    
 def test_get_elev_data():
     lat1,lon1 = (36.545471, 31.98567)
     #lat2,lon2 = (36.545528, 32.142943)
@@ -60,7 +69,7 @@ def test_get_elev_data():
     
 #test_map0()
 #test_distance()
-#test_dijks1()
-test_get_elev_data()
+test_dijks()
+#test_get_elev_data()
 
     
