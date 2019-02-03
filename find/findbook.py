@@ -6,5 +6,6 @@ import loogle3, rsync
 index_db = os.environ['HOME'] + "/Downloads/Dropbox/loogle.db"
 #print (sys.argv[1])
 
-res = loogle3.search(sys.argv[1], index_db)
+search_term = ' '.join(sys.argv[1:])
+res = loogle3.search(search_term, index_db)
 for x in res: print ("%s:1:-" % x)
