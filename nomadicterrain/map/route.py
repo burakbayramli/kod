@@ -1,9 +1,11 @@
-import geopy.distance
+import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math
 import numpy as np
 from pqdict import pqdict
+
+params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
@@ -198,7 +200,63 @@ def gen_gps_sample_coords():
 
     sample_idx = np.random.choice(idx, S, replace=False)
 
-    sample=res[idx]
+    print (len(sample_idx))
+    
+    sample=res[sample_idx,:]
+    
+    print (len(sample))
+    
+    np.save(params['coordidx'],sample)
 
-    np.save(gps_coord_sample_file,sample)
+def create_elev_table():
 
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL, elevation REAL); ''')
+
+    
+def insert_gps_int_rows(latint, lonint):
+    
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+
+    gpsidx = np.load(params['coordidx'])
+    print (len(gpsidx))
+
+    sql = "DELETE FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
+    c.execute(sql)
+    conn.commit()
+    for i,g in enumerate(gpsidx):
+        sql = "INSERT INTO ELEVATION(latint,lonint,lat,lon) VALUES(%d,%d,%f,%f);" %(latint,lonint,latint+g[0],lonint+g[1])
+        res = c.execute(sql)
+        if i%100==0: print (i)
+        conn.commit()
+        
+def get_elev_data(latint, lonint):
+    
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+
+    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
+    res = c.execute(sql)
+    for x in res: print (x)
+
+    sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
+    res = c.execute(sql)
+    res = list(res)
+    for chunk in chunks(res, 100):        
+        locs = polyline.encode(chunk)
+        url = elev_query % (locs, params['api'])
+        html = urlopen(url)
+        json_res = json.loads(html.read().decode('utf-8'))
+        for i in range(len(json_res['results'])):
+            #print (json_res['results'][i] )
+            #print (chunk[i])
+            sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (json_res['results'][i]['elevation'],chunk[i][0],chunk[i][1])
+            #print (sql)
+            c.execute(sql)
+            conn.commit()            
+
+
+#insert_gps_int_rows(36,32)
+get_elev_data(36,32)
