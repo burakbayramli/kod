@@ -7,6 +7,8 @@ from pqdict import pqdict
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
+gps_coord_sample_file = 'gps_coord_sample.npy'
+
 gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"
      xmlns="http://www.topografix.com/GPX/1/1"
@@ -179,3 +181,24 @@ def get_elev_data(lat1,lon1,lat2,lon2,npts):
     elev_mat = np.array(tmp).reshape(xo.shape)
 
     return elev_mat, start_idx, end_idx, xo, yo 
+
+def gen_gps_sample_coords():
+    
+    M=1000
+    S=40000
+    res = np.zeros((M*M,2))
+    k=0
+    for i in range(M):
+        for j in range(M):
+            res[k,0] = i*0.001
+            res[k,1] = j*0.001
+            k+=1
+
+    idx = range(M*M)
+
+    sample_idx = np.random.choice(idx, S, replace=False)
+
+    sample=res[idx]
+
+    np.save(gps_coord_sample_file,sample)
+
