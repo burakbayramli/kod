@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("/data/data/com.termux/files/home/Downloads/alanelev.csv")
 
 lat1,lon1 = (36.549177, 31.981221)
+#            36.532236, 31.992439 mount
 
 d = df.apply(lambda x:geopy.distance.vincenty((x['lat'], x['lon']),(lat1,lon1)).km,axis=1)
 

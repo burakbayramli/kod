@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 import numpy.linalg as lin
 from scipy.spatial.distance import cdist
 
-gamma=0.5
+gamma=100.0
 
 df =  pd.read_csv("/data/data/com.termux/files/home/Downloads/alanelev2.csv")
-df = df[df.elev > 0.0]
+df = df[df.elev > 30.0]
 
-xr=np.array(df.lat)
+xr=np.array(df.lon)
 xr=xr.reshape(len(xr),1)
-yr=np.array(df.lon)
+yr=np.array(df.lat)
 yr=yr.reshape(len(xr),1)
 zr=np.array(df.elev)
 zr=zr.reshape(len(xr),1)
@@ -27,7 +27,7 @@ print (Phi.shape)
 
 w = np.dot(lin.pinv(Phi),zr)
 
-D = 50
+D = 40
 
 x = np.linspace(np.min(xr),np.max(xr),D)
 y = np.linspace(np.min(yr),np.max(yr),D)
@@ -43,8 +43,10 @@ znew = np.dot(w.T,np.exp(-gamma * d)).reshape(D,D)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-#ax.view_init(elev=0,azim=100)
-ax.view_init(elev=30,azim=120)
-surf = ax.plot_surface(xx, yy, znew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
+ax.view_init(elev=30,azim=200)
+surf = ax.plot_surface(xx, yy, znew, cmap=cm.coolwarm, linewidth=0, antialiased=False)
 fig.colorbar(surf, shrink=0.5, aspect=5)
 plt.savefig('/data/data/com.termux/files/home/Downloads/out3.png')
+
+#            36.549177, 31.981221
+#            36.532236, 31.992439 mount
