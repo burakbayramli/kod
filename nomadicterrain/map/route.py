@@ -257,16 +257,7 @@ def get_elev_data(latint, lonint):
             c.execute(sql)
             conn.commit()            
 
-def tmp_elev_data(latint, lonint):
-    
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-
-    sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
-    res = c.execute(sql)
-    for x in res: print (x)
-
-
-#insert_gps_int_rows(36,32)
-#get_elev_data(36,32)
-#tmp_elev_data(36,32)
+if __name__ == "__main__":
+    #insert_gps_int_rows(36,31)
+    #get_elev_data(36,31)
+    pass

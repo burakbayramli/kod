@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import numpy.linalg as lin
 from scipy.spatial.distance import cdist
 
-gamma=2.0
+gamma=0.5
 
 df =  pd.read_csv("/data/data/com.termux/files/home/Downloads/alanelev2.csv")
-df = df[df.elev > 10.0]
+df = df[df.elev > 0.0]
 
 xr=np.array(df.lat)
 xr=xr.reshape(len(xr),1)
@@ -43,7 +43,8 @@ znew = np.dot(w.T,np.exp(-gamma * d)).reshape(D,D)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.view_init(azim=120)
+#ax.view_init(elev=0,azim=100)
+ax.view_init(elev=30,azim=120)
 surf = ax.plot_surface(xx, yy, znew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 fig.colorbar(surf, shrink=0.5, aspect=5)
 plt.savefig('/data/data/com.termux/files/home/Downloads/out3.png')
