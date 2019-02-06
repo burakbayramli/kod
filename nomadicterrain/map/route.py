@@ -41,7 +41,7 @@ def get_bearing(lat1,lon1,lat2,lon2):
     y = math.sin(dLon) * math.cos(lat2);
     x = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(dLon);
     brng = np.rad2deg(math.atan2(y, x));
-    brng = 360 - ((brng + 360) % 360)
+    if brng < 0: brng+= 360
     return np.round(brng,2)
 
 def goto_from_coord(start, distance, bearing):
