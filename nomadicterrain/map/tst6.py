@@ -1,15 +1,16 @@
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from matplotlib.colors import LightSource
 import numpy as np, pandas as pd
 import matplotlib.pyplot as plt
 import numpy.linalg as lin
 from scipy.spatial.distance import cdist
 
-gamma=100.0
+gamma=0.3
 
 df =  pd.read_csv("/data/data/com.termux/files/home/Downloads/alanelev2.csv")
-df = df[df.elev > 30.0]
+df = df[df.elev > 0.0]
 
 xr=np.array(df.lon)
 xr=xr.reshape(len(xr),1)
@@ -26,8 +27,10 @@ Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
 print (Phi.shape)
 
 w = np.dot(lin.pinv(Phi),zr)
+#w = np.dot(lin.pinv(Phi),zr)
+w = lin.solve(Phi,zr)
 
-D = 40
+D = 100
 
 x = np.linspace(np.min(xr),np.max(xr),D)
 y = np.linspace(np.min(yr),np.max(yr),D)
@@ -43,10 +46,16 @@ znew = np.dot(w.T,np.exp(-gamma * d)).reshape(D,D)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.view_init(elev=30,azim=200)
-surf = ax.plot_surface(xx, yy, znew, cmap=cm.coolwarm, linewidth=0, antialiased=False)
-fig.colorbar(surf, shrink=0.5, aspect=5)
+ax.view_init(elev=30,azim=240)
+#surf = ax.plot_surface(xx, yy, znew, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+#surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, cmap='viridis', edgecolor='none')
+#fig.colorbar(surf, shrink=0.5, aspect=5)
+
+ls = LightSource(270, 45)
+rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+
 plt.savefig('/data/data/com.termux/files/home/Downloads/out3.png')
 
-#            36.549177, 31.981221
+#            36.549177, 31.981221 me
 #            36.532236, 31.992439 mount
