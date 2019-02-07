@@ -257,7 +257,26 @@ def get_elev_data(latint, lonint):
             c.execute(sql)
             conn.commit()            
 
+def create_rbf1_table():
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    c.execute('''CREATE TABLE RBF1 (lat REAL, lon REAL, W TEXT); ''')
+    
+def insert_rbf1_recs():
+    
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+
+    sql = "SELECT distinct latint, lonint  FROM ELEVATION "
+    res = c.execute(sql)
+    res = list(res)
+    print (res)
+    
+
+    
 if __name__ == "__main__":
     #insert_gps_int_rows(36,31)
     #get_elev_data(36,31)
+    #create_rbf1_table()
+    insert_rbf1_recs()
     pass
