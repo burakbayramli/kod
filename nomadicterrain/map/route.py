@@ -1,9 +1,13 @@
+from scipy.spatial.distance import cdist
+import numpy.linalg as lin
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math
 import numpy as np, pandas as pd
 from pqdict import pqdict
+
+gamma = 0.3
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
@@ -277,7 +281,7 @@ def insert_rbf1_recs(latint,lonint):
     for i,r1 in enumerate(np.array(df)):
         for j,r2 in enumerate(np.array(df)):
             if j==S-1 or i==S-1: continue
-            pts = []
+            X = []; Z=[]
             latlow = float(latint)+r1[0]
             lathigh = float(latint)+r1[1]
             lonlow = float(lonint)+r1[0]
@@ -285,8 +289,17 @@ def insert_rbf1_recs(latint,lonint):
             print (latlow,lathigh,lonlow,lonhigh)
             for (rlat,rlon,relev) in res:
                 if rlat>=latlow and rlat<lathigh and rlon>=lonlow and rlon<lonhigh:
-                    pts.append((rlat,rlon,relev))
-            print ('len',len(pts))
+                    X.append([rlon,rlat])
+                    Z.append([relev])
+            print ('len',len(X))
+            X = np.array(X)
+            Z = np.array(Z)
+            Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
+            print (Phi.shape)
+            print (Z.shape)
+            w = lin.solve(Phi,Z)
+            print (w[0])
+            exit()
         #sql = "INSERT INTO RBF1(lat,lon,W) VALUES(%f,%f,%s);" $(latint+x,lonint+y,w)
         #res = c.execute(sql)
         #conn.commit()

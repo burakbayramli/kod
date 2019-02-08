@@ -26,7 +26,7 @@ Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
 
 print (Phi.shape)
 
-w = np.dot(lin.pinv(Phi),zr)
+#w = np.dot(lin.pinv(Phi),zr)
 #w = np.dot(lin.pinv(Phi),zr)
 w = lin.solve(Phi,zr)
 
