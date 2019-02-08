@@ -751,7 +751,7 @@ This command does not push erased text to kill-ring."
 (autoload 'pymacs-load "pymacs" nil t)
 
 (pymacs-load "/data/data/com.termux/files/home/Documents/kod/site-lisp/deascify")
-
+(pymacs-load "/data/data/com.termux/files/home/Documents/kod/site-lisp/githist")
 
 (global-unset-key "\M-]")
 (global-set-key "\C-x\]" 'deascify-convert)
