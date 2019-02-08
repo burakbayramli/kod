@@ -277,7 +277,16 @@ def insert_rbf1_recs(latint,lonint):
     for i,r1 in enumerate(np.array(df)):
         for j,r2 in enumerate(np.array(df)):
             if j==S-1 or i==S-1: continue
-            print (r1, r2)
+            pts = []
+            latlow = float(latint)+r1[0]
+            lathigh = float(latint)+r1[1]
+            lonlow = float(lonint)+r1[0]
+            lonhigh = float(lonint)+r1[1]
+            print (latlow,lathigh,lonlow,lonhigh)
+            for (rlat,rlon,relev) in res:
+                if rlat>=latlow and rlat<lathigh and rlon>=lonlow and rlon<lonhigh:
+                    pts.append((rlat,rlon,relev))
+            print ('len',len(pts))
         #sql = "INSERT INTO RBF1(lat,lon,W) VALUES(%f,%f,%s);" $(latint+x,lonint+y,w)
         #res = c.execute(sql)
         #conn.commit()
