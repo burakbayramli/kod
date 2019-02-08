@@ -302,8 +302,8 @@ def insert_rbf1_recs(latint,lonint):
             print ('len',len(X))
             X = np.array(X)
             Z = np.array(Z)
-            Z[Z[:,0]>0.0]=0.0
-            if len(Z)<10: continue
+            X = X[Z[:,0]>0.0]
+            Z = Z[Z[:,0]>0.0]
             Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
             print (Phi.shape)
             print (Z.shape)
