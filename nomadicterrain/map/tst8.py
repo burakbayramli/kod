@@ -25,10 +25,6 @@ print (gamma)
 df = pickle.loads(W)
 print (df)
 
-#d = df.apply(lambda x:geopy.distance.vincenty((x[1], x[0]),(lat,lon)).km,axis=1)
-#df = df[d<10.0]
-#print (df)
-
 D=100
 xr=np.array(df[0])
 xr=xr.reshape(len(xr),1)
