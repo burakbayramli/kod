@@ -261,6 +261,12 @@ def get_elev_data(latint, lonint):
             c.execute(sql)
             conn.commit()            
 
+def show_ints():
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    res = c.execute('''select distinct latint, lonint from elevation; ''')
+    print (list(res))
+    
 def create_rbf1_table():
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
@@ -300,15 +306,17 @@ def insert_rbf1_recs(latint,lonint):
             print (Phi.shape)
             print (Z.shape)
             w = np.round(lin.solve(Phi,Z),3)
-            w = bytes(w)
-            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, w))
+            X = pd.DataFrame(X)
+            X['w'] = w.reshape(len(w))
+            X = pickle.dumps(X)
+            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, X))
             conn.commit()
-
     
     
 if __name__ == "__main__":
     #insert_gps_int_rows(36,31)
     #get_elev_data(36,31)
     #create_rbf1_table()
-    insert_rbf1_recs(36,31)
+    #show_ints()
+    insert_rbf1_recs(36,32)
     pass

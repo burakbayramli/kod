@@ -1,10 +1,14 @@
 import numpy as np, gzip, binascii, codecs, base64
+import pandas as pd
+import pickle
 
-a = b'asdjflakjdsflkjalskjflkaslkf'
-a = base64.b32encode(a).encode('UTF-8')
+
+a = np.array([[3,4,45]]).T
+a = pd.DataFrame(a)
 print (a)
-print (type(a))
 
-a = np.array([[3,4,45]])
-print (base64.b32encode(a))
+e = pickle.dumps(a)
+print (e)
 
+df = pickle.loads(e)
+print (df)
