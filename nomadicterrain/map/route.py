@@ -2,7 +2,7 @@ import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math
-import numpy as np
+import numpy as np, pandas as pd
 from pqdict import pqdict
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
@@ -262,21 +262,34 @@ def create_rbf1_table():
     c = conn.cursor()
     c.execute('''CREATE TABLE RBF1 (lat REAL, lon REAL, W TEXT); ''')
     
-def insert_rbf1_recs():
-    
+def insert_rbf1_recs(latint,lonint):
+    S = 5
+    df=pd.DataFrame(np.linspace(0,1.0,S))
+    df['s'] = df.shift(-1)
+    print (df)
+           
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
+    sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
+    res = list(c.execute(sql))
+    print (res[100])
+    
+    for i,r1 in enumerate(np.array(df)):
+        for j,r2 in enumerate(np.array(df)):
+            if j==S-1 or i==S-1: continue
+            print (r1, r2)
+        #sql = "INSERT INTO RBF1(lat,lon,W) VALUES(%f,%f,%s);" $(latint+x,lonint+y,w)
+        #res = c.execute(sql)
+        #conn.commit()
 
-    sql = "SELECT distinct latint, lonint  FROM ELEVATION "
-    res = c.execute(sql)
-    res = list(res)
-    print (res)
     
 
+
+    
     
 if __name__ == "__main__":
     #insert_gps_int_rows(36,31)
     #get_elev_data(36,31)
     #create_rbf1_table()
-    insert_rbf1_recs()
+    insert_rbf1_recs(36,31)
     pass
