@@ -29,6 +29,7 @@ print (Phi.shape)
 #w = np.dot(lin.pinv(Phi),zr)
 #w = np.dot(lin.pinv(Phi),zr)
 w = lin.solve(Phi,zr)
+print ('w',w)
 
 D = 100
 

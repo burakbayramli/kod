@@ -306,11 +306,11 @@ def insert_rbf1_recs(latint,lonint):
             Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
             print (Phi.shape)
             print (Z.shape)
-            w = np.round(lin.solve(Phi,Z),3)
-            X = pd.DataFrame(X)
-            X['w'] = w.reshape(len(w))
-            X = pickle.dumps(X)
-            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, X))
+            w = lin.solve(Phi,Z)
+            df = pd.DataFrame(X)
+            df['w'] = w.reshape(len(w))
+            df = pickle.dumps(df)
+            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, df))
             conn.commit()
     
     
