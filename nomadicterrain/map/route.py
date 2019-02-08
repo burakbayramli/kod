@@ -3,7 +3,7 @@ import numpy.linalg as lin
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle, math
+import os, pickle, math, base64
 import numpy as np, pandas as pd
 from pqdict import pqdict
 
@@ -264,7 +264,8 @@ def get_elev_data(latint, lonint):
 def create_rbf1_table():
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
-    c.execute('''CREATE TABLE RBF1 (lat REAL, lon REAL, W TEXT); ''')
+    c.execute('''DROP TABLE RBF1; ''')
+    c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
     
 def insert_rbf1_recs(latint,lonint):
     S = 5
@@ -274,10 +275,11 @@ def insert_rbf1_recs(latint,lonint):
            
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
+    sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
+    c.execute(sql)
+    conn.commit()
     sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
-    res = list(c.execute(sql))
-    print (res[100])
-    
+    res = list(c.execute(sql))    
     for i,r1 in enumerate(np.array(df)):
         for j,r2 in enumerate(np.array(df)):
             if j==S-1 or i==S-1: continue
@@ -297,15 +299,10 @@ def insert_rbf1_recs(latint,lonint):
             Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
             print (Phi.shape)
             print (Z.shape)
-            w = lin.solve(Phi,Z)
-            print (w[0])
-            exit()
-        #sql = "INSERT INTO RBF1(lat,lon,W) VALUES(%f,%f,%s);" $(latint+x,lonint+y,w)
-        #res = c.execute(sql)
-        #conn.commit()
-
-    
-
+            w = np.round(lin.solve(Phi,Z),3)
+            w = bytes(w)
+            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, w))
+            conn.commit()
 
     
     
