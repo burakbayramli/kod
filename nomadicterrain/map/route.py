@@ -274,7 +274,7 @@ def create_rbf1_table():
     c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
     
 def insert_rbf1_recs(latint,lonint):
-    S = 5
+    S = 8
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
     print (df)
@@ -295,7 +295,6 @@ def insert_rbf1_recs(latint,lonint):
             lonlow = float(lonint)+r2[0]
             lonhigh = float(lonint)+r2[1]
             print (latlow,lathigh,lonlow,lonhigh)
-
             for (rlat,rlon,relev) in res:
                 if rlat>=latlow and rlat<lathigh and rlon>=lonlow and rlon<lonhigh:
                     X.append([rlon,rlat])
@@ -303,14 +302,16 @@ def insert_rbf1_recs(latint,lonint):
             print ('len',len(X))
             X = np.array(X)
             Z = np.array(Z)
+            Z[Z[:,0]>0.0]=0.0
+            if len(Z)<10: continue
             Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
             print (Phi.shape)
             print (Z.shape)
             w = lin.solve(Phi,Z)
-            df = pd.DataFrame(X)
-            df['w'] = w.reshape(len(w))
-            df = pickle.dumps(df)
-            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, df))
+            wdf = pd.DataFrame(X)
+            wdf['w'] = w.reshape(len(w))
+            wdf = pickle.dumps(wdf)
+            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, wdf))
             conn.commit()
     
     
@@ -319,5 +320,5 @@ if __name__ == "__main__":
     #get_elev_data(36,31)
     #create_rbf1_table()
     #show_ints()
-    #insert_rbf1_recs(36,32)
+    insert_rbf1_recs(36,31)
     pass
