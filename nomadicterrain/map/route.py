@@ -278,7 +278,7 @@ def insert_rbf1_recs(latint,lonint):
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
     print (df)
-           
+    
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
@@ -288,13 +288,14 @@ def insert_rbf1_recs(latint,lonint):
     res = list(c.execute(sql))    
     for i,r1 in enumerate(np.array(df)):
         for j,r2 in enumerate(np.array(df)):
-            if j==S-1 or i==S-1: continue
+            if j==S-1 or i==S-1: continue            
             X = []; Z=[]
             latlow = float(latint)+r1[0]
             lathigh = float(latint)+r1[1]
-            lonlow = float(lonint)+r1[0]
-            lonhigh = float(lonint)+r1[1]
+            lonlow = float(lonint)+r2[0]
+            lonhigh = float(lonint)+r2[1]
             print (latlow,lathigh,lonlow,lonhigh)
+
             for (rlat,rlon,relev) in res:
                 if rlat>=latlow and rlat<lathigh and rlon>=lonlow and rlon<lonhigh:
                     X.append([rlon,rlat])
@@ -318,5 +319,5 @@ if __name__ == "__main__":
     #get_elev_data(36,31)
     #create_rbf1_table()
     #show_ints()
-    insert_rbf1_recs(36,32)
+    #insert_rbf1_recs(36,32)
     pass
