@@ -166,9 +166,7 @@ def plot_topo(lat,lon,fout1,fout2):
     res = list(res)
     if (len(res)!=1): raise Exception()
     W,gamma = res[0]
-    print (gamma)
     df = pickle.loads(W)
-    print (df)
 
     D=100
     xr=np.array(df[0])
@@ -185,11 +183,9 @@ def plot_topo(lat,lon,fout1,fout2):
 
     tmp = np.vstack((xxx,yyy))
     d = cdist(X,tmp.T)
-    print (d)
+
     znew = np.dot(df.w.T,np.exp(-gamma * d)).reshape(D,D)
     znew[znew<0] = 0
-    print (znew.shape)
-    print (znew)
 
 
     fig = plt.figure()
