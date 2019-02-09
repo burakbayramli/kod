@@ -23,7 +23,7 @@ if (len(res)!=1): raise Exception()
 W,gamma = res[0]
 print (gamma)
 df = pickle.loads(W)
-print (df)
+#print (df)
 
 lat2,lon2 = (36.07653,32.836227) # anamur
 
@@ -39,7 +39,7 @@ def get_grid(lat,lon,step):
     pts.append(route.goto_from_coord((lat,lon), step, 315))
     return pts
 
-neighs = get_grid(lat1,lon1,1.0)
+neighs = get_grid(lat1,lon1,0.1)
 
 xr=np.array(df[0])
 xr=xr.reshape(len(xr),1)
@@ -47,6 +47,9 @@ yr=np.array(df[1])
 yr=yr.reshape(len(xr),1)
 X = np.hstack((xr,yr))
 
+xnew = np.array([[lon1,lat1]])
+print (np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum())
+print ('-')
 for pt in neighs:
     xnew = np.array([[pt[1],pt[0]]])
     print (np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum())
