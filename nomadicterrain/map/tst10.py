@@ -5,7 +5,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import matplotlib.pyplot as plt
-import numpy.linalg as lin
+import numpy.linalg as lin, random
 import pandas as pd, pickle
 import geopy.distance, route
 from pqdict import pqdict
@@ -17,14 +17,17 @@ c = conn.cursor()
 
 def get_grid(lat,lon,step):
     pts = []
-    pts.append(route.goto_from_coord((lat,lon), step, 0))
-    pts.append(route.goto_from_coord((lat,lon), step, 45))
+    step = step# + random.random()
+#    pts.append(route.goto_from_coord((lat,lon), step, 0))
+    pts.append(route.goto_from_coord((lat,lon), step, 30))
+    pts.append(route.goto_from_coord((lat,lon), step, 60))
     pts.append(route.goto_from_coord((lat,lon), step, 90))
-    pts.append(route.goto_from_coord((lat,lon), step, 135))
-    pts.append(route.goto_from_coord((lat,lon), step, 180))
-    pts.append(route.goto_from_coord((lat,lon), step, 225))
-    pts.append(route.goto_from_coord((lat,lon), step, 270))
-    pts.append(route.goto_from_coord((lat,lon), step, 315))
+    pts.append(route.goto_from_coord((lat,lon), step, 120))
+    pts.append(route.goto_from_coord((lat,lon), step, 150))
+#    pts.append(route.goto_from_coord((lat,lon), step, 180))
+#    pts.append(route.goto_from_coord((lat,lon), step, 225))
+#    pts.append(route.goto_from_coord((lat,lon), step, 270))
+#    pts.append(route.goto_from_coord((lat,lon), step, 315))
     return pts
 
 def get_elev_single(lat,lon):
@@ -54,11 +57,12 @@ def get_neighs(lat,lon):
     yr=np.array(df[1])
     yr=yr.reshape(len(xr),1)
     X = np.hstack((xr,yr))    
-    neighs = get_grid(lat,lon,0.1)
+    neighs = get_grid(lat,lon,3.0)
     res = []
     for pt in neighs:
         xnew = np.array([[pt[1],pt[0]]])
-        res.append((pt[0],pt[1],np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()))
+        d = np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
+        res.append((pt[0],pt[1],d))
     return res
 
 def dijkstra(s,e):    
@@ -69,7 +73,10 @@ def dijkstra(s,e):
 
     while len(Q)>0:
         (v,vv) = Q.popitem()
-        if geopy.distance.vincenty(v,e).km < 0.100: break
+        print (v)
+        d = geopy.distance.vincenty(v,e).km
+        print ('d',d)
+        if d < 5.0: break
         D[v] = vv
         neighs = get_neighs(v[0],v[1])
         velev = get_elev_single(v[0],v[1])
