@@ -197,7 +197,7 @@ def insert_gps_int_rows(latint, lonint):
         if i%100==0: print (i)
         conn.commit()
         
-def get_elev_data(latint, lonint):
+def get_elev_missing_goog_update(latint, lonint):
     
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
@@ -280,7 +280,7 @@ def get_elev_single(lat,lon,c):
     sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     r = c.execute(sql,(lat,lat,lon,lon))
     r = list(r)
-    return -10.0
+    if len(r)==0: return -10.0
     W,gamma = r[0]
     df = pickle.loads(W)
     xr=np.array(df[0])
@@ -311,8 +311,7 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
     elev_mat = np.zeros(xo.shape)   
     for i in range(xo.shape[0]):
         for j in range(xo.shape[1]):
-            get_elev_single(xo[i,j],yo[i,j],c)
-
+            elev_mat[i,j]=get_elev_single(xo[i,j],yo[i,j],c)
     
     return elev_mat, start_idx, end_idx, xo, yo 
     

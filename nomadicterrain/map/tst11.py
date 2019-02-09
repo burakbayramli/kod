@@ -72,7 +72,7 @@ def get_elev_single(lat,lon,c):
     sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     r = c.execute(sql,(lat,lat,lon,lon))
     r = list(r)
-    return -10.0
+    if len(r)==0: return -10.0
     W,gamma = r[0]
     df = pickle.loads(W)
     xr=np.array(df[0])
