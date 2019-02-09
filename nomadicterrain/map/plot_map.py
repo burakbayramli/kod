@@ -160,10 +160,10 @@ def plot_topo(lat,lon,fout1,fout2):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     
-    lat,lon=(36.549177, 31.981221)
     sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     res = c.execute(sql,(lat,lat,lon,lon))
     res = list(res)
+    print ('len',len(res))
     if (len(res)!=1): raise Exception()
     W,gamma = res[0]
     df = pickle.loads(W)
@@ -195,12 +195,12 @@ def plot_topo(lat,lon,fout1,fout2):
     ls = LightSource(270, 45)
     rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
-    ax.plot([lon],[lat],[1000],'r.')
+#    ax.plot([lon],[lat],[1000],'r.')
     plt.savefig(fout1)
 
     plt.figure()
     cs=plt.contour(xx,yy,znew,20)
     plt.clabel(cs,inline=1,fontsize=9)
-    plt.plot(lon,lat,'rd')
+#    plt.plot(lon,lat,'rd')
     plt.savefig(fout2)
          
