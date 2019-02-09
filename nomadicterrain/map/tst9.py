@@ -39,7 +39,7 @@ def get_grid(lat,lon,step):
     pts.append(route.goto_from_coord((lat,lon), step, 315))
     return pts
 
-neighs = get_grid(lat1,lon1,2.0)
+neighs = get_grid(lat1,lon1,1.0)
 
 xr=np.array(df[0])
 xr=xr.reshape(len(xr),1)
@@ -48,7 +48,7 @@ yr=yr.reshape(len(xr),1)
 X = np.hstack((xr,yr))
 
 for pt in neighs:
-    xnew = np.array([[pt[0],pt[1]]])
+    xnew = np.array([[pt[1],pt[0]]])
     print (np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum())
 
 

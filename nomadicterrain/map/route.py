@@ -304,6 +304,7 @@ def insert_rbf1_recs(latint,lonint):
             Z = np.array(Z)
             X = X[Z[:,0]>0.0]
             Z = Z[Z[:,0]>0.0]
+            if (len(Z)<10): continue
             Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
             print (Phi.shape)
             print (Z.shape)
@@ -320,5 +321,5 @@ if __name__ == "__main__":
     #get_elev_data(36,31)
     #create_rbf1_table()
     #show_ints()
-    insert_rbf1_recs(36,31)
+    insert_rbf1_recs(36,32)
     pass
