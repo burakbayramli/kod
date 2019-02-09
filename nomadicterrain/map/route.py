@@ -95,7 +95,6 @@ def get_neighbor_idx(x,y,dims):
                 res.append((x+i,y+j))
     return res
 
-
 def dijkstra(C,s,e):    
     D = {}
     P = {}
@@ -321,5 +320,5 @@ if __name__ == "__main__":
     #get_elev_data(36,31)
     #create_rbf1_table()
     #show_ints()
-    insert_rbf1_recs(36,32)
+    insert_rbf1_recs(36,31)
     pass
