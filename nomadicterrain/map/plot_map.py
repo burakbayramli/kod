@@ -1,10 +1,16 @@
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.spatial.distance import cdist
+from matplotlib.colors import LightSource
+from matplotlib import cm
+import os, glob, re, zipfile
+import pandas as pd, pickle
+import numpy as np, sqlite3, json
+import matplotlib.pyplot as plt
+from PIL import Image
 import geopy.distance
 import pandas as pd, io
-from PIL import Image
-import os, glob, re, zipfile
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+
+params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
 def plot(points,outfile,zfile,scale,pixel=False):
     """
@@ -150,5 +156,55 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
+def plot_topo(lat,lon,fout1,fout2):
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    
+    lat,lon=(36.549177, 31.981221)
+    sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
+    res = c.execute(sql,(lat,lat,lon,lon))
+    res = list(res)
+    if (len(res)!=1): raise Exception()
+    W,gamma = res[0]
+    print (gamma)
+    df = pickle.loads(W)
+    print (df)
 
+    D=100
+    xr=np.array(df[0])
+    xr=xr.reshape(len(xr),1)
+    yr=np.array(df[1])
+    yr=yr.reshape(len(xr),1)
+    X = np.hstack((xr,yr))
+
+    x = np.linspace(np.min(xr),np.max(xr),D)
+    y = np.linspace(np.min(yr),np.max(yr),D)
+    xx,yy = np.meshgrid(x,y)
+    xxx = xx.reshape(D*D)
+    yyy = yy.reshape(D*D)
+
+    tmp = np.vstack((xxx,yyy))
+    d = cdist(X,tmp.T)
+    print (d)
+    znew = np.dot(df.w.T,np.exp(-gamma * d)).reshape(D,D)
+    znew[znew<0] = 0
+    print (znew.shape)
+    print (znew)
+
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    #ax.set_zlim3d(0, 2000)
+    ax.view_init(elev=30,azim=250)
+    ls = LightSource(270, 45)
+    rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    ax.plot([lon],[lat],[1000],'r.')
+    plt.savefig(fout1)
+
+    plt.figure()
+    cs=plt.contour(xx,yy,znew,20)
+    plt.clabel(cs,inline=1,fontsize=9)
+    plt.plot(lon,lat,'rd')
+    plt.savefig(fout2)
          

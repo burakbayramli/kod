@@ -666,7 +666,18 @@ def flattestroute(coords):
     fout.write(lines)
     fout.close()
     return trail(gpxfile)
-    
+
+@app.route('/gotopo/<coords>')
+def gotopo(coords):
+    lat,lon = coords.split(';')
+    lat2,lon2 = my_curr_location()
+    fout1 = "static/out-%s.png" % uuid.uuid4()
+    fout2 = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    plot_map.plot_topo(lat2,lon2,fout1,fout2)
+    return render_template('/topo.html', location1=fout1, location2=fout2)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost",port=5000)
