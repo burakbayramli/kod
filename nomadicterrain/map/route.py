@@ -148,44 +148,6 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
    print ('yo',yo.shape)
    return xo,yo
 
-def get_elev_data(lat1,lon1,lat2,lon2,npts):
-    lat11,lon11,lat22,lon22 = expand_coords(lat1,lon1,lat2,lon2)
-    print (lat11,lon11,lat22,lon22)
-    xo,yo = get_grid(lat11,lon11,lat22,lon22,npts=npts)
-    coords = []
-    start_idx = None
-    end_idx = None
-
-    for eps in [0.003, 0.01, 0.1, 1.0]:
-        for i in range(xo.shape[0]):
-            for j in range(xo.shape[1]):
-                coords.append((xo[i,j],yo[i,j]))
-                if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
-                    start_idx = (i,j)
-                if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
-                    end_idx = (i,j)
-        if start_idx!=None and end_idx != None: break
-         
-    print ('s',start_idx)
-    print ('e',end_idx)
-
-    json_res_results = []
-    for c in chunks(coords, 100):
-        locs = polyline.encode(c)
-        params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-        url = elev_query % (locs, params['api'])
-        html = urlopen(url)
-        json_res = json.loads(html.read().decode('utf-8'))
-        for i in range(len(json_res['results'])):
-            json_res_results.append(json_res['results'][i])
-           
-    elev_mat = np.zeros(xo.shape)   
-    tmp = []
-    for i in range(xo.shape[0]*xo.shape[1]):
-        tmp.append(json_res_results[i]['elevation'])
-    elev_mat = np.array(tmp).reshape(xo.shape)
-
-    return elev_mat, start_idx, end_idx, xo, yo 
 
 def gen_gps_sample_coords():
     
@@ -314,6 +276,45 @@ def insert_rbf1_recs(latint,lonint):
             c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, wdf))
             conn.commit()
     
+def get_elev_single(lat,lon,c):
+    sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
+    r = c.execute(sql,(lat,lat,lon,lon))
+    r = list(r)
+    return -10.0
+    W,gamma = r[0]
+    df = pickle.loads(W)
+    xr=np.array(df[0])
+    xr=xr.reshape(len(xr),1)
+    yr=np.array(df[1])
+    yr=yr.reshape(len(xr),1)
+    X = np.hstack((xr,yr))
+    xnew = np.array([[lon,lat]])
+    return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
+
+def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
+    xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
+    start_idx = None
+    end_idx = None
+
+    for eps in [0.003, 0.01, 0.1, 1.0]:
+        for i in range(xo.shape[0]):
+            for j in range(xo.shape[1]):
+                if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
+                    start_idx = (i,j)
+                if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
+                    end_idx = (i,j)
+        if start_idx!=None and end_idx != None: break
+         
+    print ('s',start_idx)
+    print ('e',end_idx)
+
+    elev_mat = np.zeros(xo.shape)   
+    for i in range(xo.shape[0]):
+        for j in range(xo.shape[1]):
+            get_elev_single(xo[i,j],yo[i,j],c)
+
+    
+    return elev_mat, start_idx, end_idx, xo, yo 
     
 if __name__ == "__main__":
     #insert_gps_int_rows(36,31)

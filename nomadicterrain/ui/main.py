@@ -12,7 +12,7 @@ import urllib, requests, json
 from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
-import route
+import route, sqlite3
 
 app = Flask(__name__)
 
@@ -644,12 +644,12 @@ def flattestroute(coords):
     lat1 = float(lat1)
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
-
-    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data(lat1,
-                                                               lon1,
-                                                               lat2,
-                                                               lon2,
-                                                               npts=30)
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data_rbf(lat1,lon1,
+                                                                   lat2,lon2,
+                                                                   c,
+                                                                   npts=300)
       
     p = route.dijkstra(elev_mat, start_idx, end_idx)
     

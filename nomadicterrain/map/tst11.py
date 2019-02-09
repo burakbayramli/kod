@@ -68,7 +68,7 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
    print ('yo',yo.shape)
    return xo,yo
 
-def get_elev_single(lat,lon):
+def get_elev_single(lat,lon,c):
     sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     r = c.execute(sql,(lat,lat,lon,lon))
     r = list(r)
@@ -92,7 +92,7 @@ def get_neighbor_idx(x,y,dims):
                 res.append((x+i,y+j))
     return res
 
-def get_elev_data(lat1,lon1,lat2,lon2,npts):
+def get_elev_data(lat1,lon1,lat2,lon2,c,npts):
     xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
     start_idx = None
     end_idx = None
@@ -112,17 +112,19 @@ def get_elev_data(lat1,lon1,lat2,lon2,npts):
     elev_mat = np.zeros(xo.shape)   
     for i in range(xo.shape[0]):
         for j in range(xo.shape[1]):
-            get_elev_single(xo[i,j],yo[i,j])
+            get_elev_single(xo[i,j],yo[i,j],c)
 
     
     return elev_mat, start_idx, end_idx, xo, yo 
 
+conn = sqlite3.connect(params['elevdb'])
+c = conn.cursor()
 
 lat1,lon1=(36.549177, 31.981221)
 lat2,lon2 = (36.07653,32.836227) # anamur
 
 elev_mat, start_idx, end_idx, xo, yo = get_elev_data(lat1,lon1,
-                                                     lat2,lon2,
+                                                     lat2,lon2,c,
                                                      npts=200)
 print ('data retrieved')
 p = dijkstra(elev_mat, start_idx, end_idx)
