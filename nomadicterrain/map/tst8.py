@@ -14,8 +14,8 @@ params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 conn = sqlite3.connect(params['elevdb'])
 c = conn.cursor()
 
-#lat,lon=(36.549177, 31.981221)
-lat,lon=(36.07653, 31.981221)
+lat,lon=(36.549177, 31.981221)
+#lat,lon=(36.07653, 31.981221)
 
 sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
 #sql = "SELECT W, gamma from RBF1 "
@@ -23,13 +23,13 @@ sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and
 res = c.execute(sql,(lat,lat,lon,lon))
 #res = c.execute(sql)
 res = list(res)
-print (res)
+#print (res)
 if (len(res)!=1): raise Exception()
 W,gamma = res[0]
 print (gamma)
 df = pickle.loads(W)
 print (df)
-exit()
+#exit()
 
 D=100
 xr=np.array(df[0])
