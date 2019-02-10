@@ -387,7 +387,7 @@ def place():
 
 @app.route("/city_search", methods=["POST"])
 def city_search():
-    name = request.form.get("name")
+    name = request.form.get("name").lower()
     zfile = params['geocity']
     zip_file    = zipfile.ZipFile(zfile)
     items_file  = zip_file.open('geolitecity.csv')
