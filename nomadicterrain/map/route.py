@@ -202,6 +202,14 @@ def get_elev_missing_goog_update(latint, lonint):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
 
+    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
+    res = c.execute(sql)
+    res = list(res)
+    print(res)
+    if res[0][0]==0:
+        print ('insert empty rows for %d,%dfirst' % (latint,lonint))
+        exit()
+    
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     for x in res: print (x)
@@ -316,9 +324,9 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
     return elev_mat, start_idx, end_idx, xo, yo 
     
 if __name__ == "__main__":
-    #insert_gps_int_rows(36,31)
-    #get_elev_data(36,31)
+    #insert_gps_int_rows(36,33)
+    get_elev_missing_goog_update(36,33)
     #create_rbf1_table()
     #show_ints()
-    insert_rbf1_recs(36,31)
+    #insert_rbf1_recs(36,31)
     pass
