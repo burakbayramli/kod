@@ -33,6 +33,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "weatherapi": "[openweathermap anahtari]",
   "btype": "[BLOOD TYPE DIET csv, see ../guide/data/food.dat]",
   "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]"
+  "coordidx": "[DIR]/gps_coord_sample.npy",
+  "elevdb": "/dir/dir/file.db",
 }
 ```
 
@@ -76,6 +78,35 @@ You can use shared trails from others. Such data is shared on
 wikiloc.com, sign-up and download, and drop the gpx files under
 `trails` directory (defined above) and simply visit
 `/trail/<file.gpx>` which will plot the trail.
+
+Elevation
+
+We can create elevation / topographic models from sampled elevation
+data taken from Google Elevation API. First create the main table
+`create_elev_table` which will be created in file defined in parameter
+`elevdb``. We take and store 40k sample elevation data points per
+degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
+block. 0.001 degrees correspond to 100 meters.
+
+Once table is created, run `insert_gps_int_rows` to insert 40k sample
+*coordinates* (they are the same for every block), with empty
+elevation values.  Sample coordinates can be created with
+`gen_gps_sample_coords`.
+
+Then run `get_elev_goog` per block, to get its missing elevation
+data. This call is restartable, will always work on missing data, so
+if it crashes you can restart, it will continue from where it left
+off.
+
+Now we are ready to create model. Run `create_rbf1_table` (one time).
+Then, run `insert_rbf1_recs` for any block. This inserts model
+parameters for block in `RBF1` table. Now for any coordinate in this
+block, you can run `/gotopo/lat/lon`.
+
+Flattest Path
+
+To get flattest path to a destination, visit `/flattestroute/lat/lon`. 
+
 
 Food
 

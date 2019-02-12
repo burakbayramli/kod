@@ -148,7 +148,6 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
    print ('yo',yo.shape)
    return xo,yo
 
-
 def gen_gps_sample_coords():
     
     M=1000
@@ -197,7 +196,7 @@ def insert_gps_int_rows(latint, lonint):
         if i%100==0: print (i)
         conn.commit()
         
-def get_elev_missing_goog_update(latint, lonint):
+def get_elev_goog(latint, lonint):
     
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
@@ -209,7 +208,7 @@ def get_elev_missing_goog_update(latint, lonint):
     if res[0][0]==0:
         print ('insert empty rows for %d,%dfirst' % (latint,lonint))
         exit()
-    
+
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     for x in res: print (x)
@@ -234,6 +233,8 @@ def show_ints():
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     res = c.execute('''select distinct latint, lonint from elevation; ''')
+    print (list(res))
+    res = c.execute('''select distinct latint, lonint from rbf1; ''')
     print (list(res))
     
 def create_rbf1_table():
@@ -324,9 +325,9 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
     return elev_mat, start_idx, end_idx, xo, yo 
     
 if __name__ == "__main__":
-    #insert_gps_int_rows(36,33)
-    get_elev_missing_goog_update(36,33)
+    #insert_gps_int_rows(35,33)
+    #get_elev_goog(35,33)
     #create_rbf1_table()
-    #show_ints()
-    #insert_rbf1_recs(36,31)
+    show_ints()
+    #insert_rbf1_recs(35,33)
     pass
