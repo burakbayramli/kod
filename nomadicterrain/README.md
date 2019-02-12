@@ -91,9 +91,17 @@ wikiloc.com, sign-up and download, and drop the gpx files under
 
 ## Elevation
 
-It is expensive to get and store elevation data granular enough to be
-useful on the phone. We can create elevation / topographic models from
-sampled elevation data taken from Google Elevation API.
+From `/lineelev`, you can get elevation data displayed starting from
+your location along points on a line pointing to any bearing chosen by
+the user. Data comes from Google Elevation API. Make sure EA is
+enabled for the api key (project) you entered in the config file.
+
+But it is expensive to get and store elevation data granular enough to
+be useful, for an entire terrain on the phone that can show mountains
+and contour lines. We need to create elevation / topographic models
+from sampled elevation data taken from Google Elevation API. The
+method below uses Radial Basis Functions method to interpolate
+elevation data for any point in a region modeled by RBF.
 
 First create the main table `create_elev_table` which will be created
 in file defined in parameter `elevdb``. We take and store 40k sample
