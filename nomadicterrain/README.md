@@ -1,4 +1,14 @@
 
+## Termux
+
+To run on termux
+
+pkg install python python-dev libjpeg-turbo-dev libcrypt-dev ndk-sysroot clang
+
+LDFLAGS="-L/system/lib/" CFLAGS="-I/data/data/com.termux/files/usr/include/" pip install Pillow
+
+## General
+
 Some tools that might come in handy to run on smartphone (Android)
 through Termux. 
 
@@ -72,21 +82,23 @@ Camping locations
 
 https://drive.google.com/open?id=12IouBuu18k1SYmxsseBluhQAHVFrtHsP
 
-Trails
+## Trails
 
 You can use shared trails from others. Such data is shared on
 wikiloc.com, sign-up and download, and drop the gpx files under
 `trails` directory (defined above) and simply visit
 `/trail/<file.gpx>` which will plot the trail.
 
-Elevation
+## Elevation
 
-We can create elevation / topographic models from sampled elevation
-data taken from Google Elevation API. First create the main table
-`create_elev_table` which will be created in file defined in parameter
-`elevdb``. We take and store 40k sample elevation data points per
-degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
-block. 0.001 degrees correspond to 100 meters.
+It is expensive to get and store elevation data granular enough to be
+useful on the phone. We can create elevation / topographic models from
+sampled elevation data taken from Google Elevation API.
+
+First create the main table `create_elev_table` which will be created
+in file defined in parameter `elevdb``. We take and store 40k sample
+elevation data points per degree block, e.g. lat/lon 31-32 and 40-41
+would be one degree block. 0.001 degrees correspond to 100 meters.
 
 Once table is created, run `insert_gps_int_rows` to insert 40k sample
 *coordinates* (they are the same for every block), with empty
@@ -101,14 +113,13 @@ off.
 Now we are ready to create model. Run `create_rbf1_table` (one time).
 Then, run `insert_rbf1_recs` for any block. This inserts model
 parameters for block in `RBF1` table. Now for any coordinate in this
-block, you can run `/gotopo/lat/lon`.
+block, you can run `/gotopo/lat;lon`. 
 
 Flattest Path
 
-To get flattest path to a destination, visit `/flattestroute/lat/lon`. 
+To get flattest path to a destination, visit `/flattestroute/lat;lon`. 
 
-
-Food
+## Food
 
 Common European tree names
 
