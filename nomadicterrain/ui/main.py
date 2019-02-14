@@ -469,40 +469,48 @@ def place_search():
     OnlyOne().place_results = res
     return place()
 
+def get_weather(lat,lon):
+    base_url = 'http://api.openweathermap.org/data/2.5/weather?'
+
+    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi'] }
+
+    r = requests.get(base_url, params=payload) 
+    res = []
+    for x in r.iter_lines():
+        x = json.loads(x.decode())
+        res.append(x['name'])
+        res.append (x['main'])
+        res.append (x['wind'])
+        res.append (('clouds', x['clouds']))
+
+    base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
+
+    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi']}
+
+    r = requests.get(base_url, params=payload) 
+
+    for x in r.iter_lines():
+        x = json.loads(x.decode())
+        for xx in x['list']:
+            rain = xx.get('rain')
+            res.append ((xx['dt_txt'],
+                         xx['weather'][0]['description'],
+                         rain,
+                         xx))
+            res.append ('---------------')
+    return res
+
+@app.route('/goweather/<coords>')
+def goweather(coords):
+    lat,lon = coords.split(';')
+    res = get_weather(lat,lon)
+    return render_template('/weather.html', res=res)
+
 @app.route('/weather')
 def weather():
-
-  base_url = 'http://api.openweathermap.org/data/2.5/weather?'
-
-  lat,lon = my_curr_location()
-  payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi'] }
-
-  r = requests.get(base_url, params=payload) 
-  res = []
-  for x in r.iter_lines():
-      x = json.loads(x.decode())
-      res.append(x['name'])
-      res.append (x['main'])
-      res.append (x['wind'])
-      res.append (('clouds', x['clouds']))
-
-  base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
-
-  payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi']}
-
-  r = requests.get(base_url, params=payload) 
-
-  for x in r.iter_lines():
-      x = json.loads(x.decode())
-      for xx in x['list']:
-          rain = xx.get('rain')
-          res.append ((xx['dt_txt'],
-                       xx['weather'][0]['description'],
-                       rain,
-                       xx))
-          res.append ('---------------')
-
-  return render_template('/weather.html', res=res)
+    lat,lon = my_curr_location()
+    res = get_weather(lat,lon)
+    return render_template('/weather.html', res=res)
 
 @app.route('/trail/<gpx_file>')
 def trail(gpx_file):
@@ -514,7 +522,6 @@ def trail(gpx_file):
     gpx_file = open(params['trails'] + "/" + gpx_file)
     gpx = gpxpy.parse(gpx_file)
 
-    #lat,lon = (36.831865, 28.310244)
     disp = []
 
     elev_min = 10000
