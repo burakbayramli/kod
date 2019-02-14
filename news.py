@@ -44,9 +44,11 @@ def getnews(outfile):
                 summary = strip_html(post.summary)
                 summary = re.sub('\shttp.*?pic\.twitter.*?\<','<',summary)
                 summary = re.sub('\shttp.*?pic\.twitter.*?\s',' ',summary)
+                summary = re.sub('Shan Wang at swang@theatlantic.com','',summary)
                 title = re.sub('\shttp.*?pic\.twitter.*?\<','<',title)
                 title = re.sub('\shttp.*?pic\.twitter.*?\s',' ',title)
                 title = re.sub('\shttp.*?pic\.twitter.*?[$]','\n',title)
+
                 if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
@@ -59,6 +61,7 @@ def getnews(outfile):
     fout.close()
 
 if __name__ == "__main__":
+    print (os.environ['TMPDIR'])
     dir = os.environ['TMPDIR'] + "/news.html"
     print (dir)
     getnews(dir)
