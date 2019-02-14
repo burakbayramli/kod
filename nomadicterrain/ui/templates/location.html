@@ -34,8 +34,12 @@
     {% endif %}
 
     <p>
-      Movement direction (last distance: bearing)
+      Movement direc (dist: bearing)<br/>
       {{ walking }}
+    </p>
+    
+    <p>
+      Estimated elevation: {{elev}}
     </p>
     
     <img src="/{{ location }}"/>

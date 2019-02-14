@@ -115,8 +115,9 @@ def location():
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    walking = been_walking()    
-    return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon)
+    walking = been_walking()
+    elev = get_elev(lat,lon)
+    return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
 
 def plot_parks(lat, lon):
     pt = np.array([[lat, lon]]).astype(float)
@@ -405,7 +406,20 @@ def city_search():
 def timedgogeo(coords):
     lat,lon = coords.split(';')
     return render_template('/timedloc.html', lat=lat, lon=lon)
-    
+
+def get_elev(lat,lon):
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()    
+    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (int(lat),int(lon))
+    print (sql)
+    res = c.execute(sql)
+    res = list(res)
+    if res[0][0]>0:
+        elev = route.get_elev_single(lat,lon,c)
+        return np.round(elev,2)
+    else:
+        return None
+
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
@@ -421,8 +435,8 @@ def gogeo(coords):
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     walking = been_walking()
-    
-    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon)
+    elev = get_elev(float(lat),float(lon))
+    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
 
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():

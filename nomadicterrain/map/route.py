@@ -195,6 +195,13 @@ def insert_gps_int_rows(latint, lonint):
         res = c.execute(sql)
         if i%100==0: print (i)
         conn.commit()
+
+def get_elev_goog_single(lat,lon):
+    locs = polyline.encode([lat,lon])
+    url = elev_query % (locs, params['api'])
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+    print (json_res)
         
 def get_elev_goog(latint, lonint):
     
@@ -325,9 +332,9 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
     return elev_mat, start_idx, end_idx, xo, yo 
     
 if __name__ == "__main__":
-    #insert_gps_int_rows(35,33)
-    #get_elev_goog(35,33)
+    #insert_gps_int_rows(34,32)
+    #get_elev_goog(34,32)
     #create_rbf1_table()
-    show_ints()
-    #insert_rbf1_recs(35,33)
+    #show_ints()
+    insert_rbf1_recs(34,32)
     pass
