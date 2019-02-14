@@ -100,10 +100,15 @@ def my_curr_location():
     df = pd.read_csv(params['gps'])
     return float(df.tail(1).lat), float(df.tail(1).lon)
 
+def my_curr_elevation():
+    df = pd.read_csv(params['gps'])
+    return np.round(float(df.tail(1).elevation),2)
+
 @app.route('/')
 def index():
     loc = str(my_curr_location())
-    return render_template('/index.html', loc=loc)
+    elev = str(my_curr_elevation())
+    return render_template('/index.html', loc=loc,elev=elev)
 
 @app.route('/location')
 def location():
