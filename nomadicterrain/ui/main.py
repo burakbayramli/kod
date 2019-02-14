@@ -309,7 +309,7 @@ def location_nav_action():
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
-    return render_template('/location.html', location=fout)
+    return render_template('/location.html', location=fout, lat=res[0],lon=res[1])
 
 
 @app.route('/parks_nav_action', methods=['GET', 'POST'])
