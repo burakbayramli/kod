@@ -119,58 +119,6 @@ def location():
     elev = get_elev(lat,lon)
     return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
 
-def plot_parks(lat, lon):
-    pt = np.array([[lat, lon]]).astype(float)
-    df = pd.read_csv(params['nationalpark'], sep='|')
-    parks = []
-    for x in df.index:
-        ps = eval(df.ix[x,'Polyline'])
-        p_centroid_x,p_centroid_y = plot_map.get_centroid(ps)
-        dist = geopy.distance.vincenty((p_centroid_x, p_centroid_y),(lat,lon))
-        if dist.km < float(params['natpark_mindistance']):
-            parks.append(ps)                
-
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot_area(pt, parks, fout, zfile=zfile, scale=scale)
-    return fout
-    
-@app.route('/parks')
-def parks():    
-    lat,lon = my_curr_location()
-    OnlyOne().last_location = [lat,lon]
-    fout = plot_parks(lat, lon)
-    return render_template('/parks.html', location=fout)
-
-def plot_camps(lat, lon):
-    pt = np.array([[lat, lon]]).astype(float)
-    df = pd.read_csv(params['campsites'], sep=',')
-    df2 = df[['Site Name','Latitude','Longitude']]
-    pts = []
-    names = []
-    pts.append([lat,lon])
-    for idx in df.index:
-        camp = (df2.ix[idx].Latitude, df2.ix[idx].Longitude)
-        dist = geopy.distance.vincenty(camp,(lat,lon))
-        if dist.km < float(params['natpark_mindistance']):
-            pts.append(list(camp))
-            names.append(df2.ix[idx]['Site Name'] + " " + str(dist.km))
-            
-    clean_dir()
-    fout = "static/out-%s.png" % uuid.uuid4()
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    return fout,names
-    
-@app.route('/camps')
-def camps():    
-    lat,lon = my_curr_location()
-    OnlyOne().last_location = [lat,lon]
-    fout,names = plot_camps(lat, lon)
-    return render_template('/camps.html', location=fout, names=names)
 
 @app.route('/edible_main')
 def edible_main():
