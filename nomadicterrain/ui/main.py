@@ -416,8 +416,8 @@ def get_elev(lat,lon):
     else:
         return None
 
-@app.route('/gogeos/<coords>')
-def gogeos(coords):
+@app.route('/gogeos/<coords>/<refresh>')
+def gogeos(coords, refresh):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
     bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
@@ -442,7 +442,7 @@ def gogeos(coords):
     plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     walking = been_walking()
     elev = get_elev(float(lat),float(lon))
-    return render_template('/locations.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
+    return render_template('/locations.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev, refresh=refresh)
     
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
