@@ -39,30 +39,25 @@ def been_walking():
         currd = int(df1.loc[idx,'dists']*1000.0)
         if currd > 1000.0: break
         if currd-1000 < 100:
-            res['1000'] = route.get_bearing(float(df1.loc[idx,'lat']),
-                                            float(df1.loc[idx,'lon']),
-                                            mylat,
-                                            mylon)
+            res['1000'] = route.get_bearing((float(df1.loc[idx,'lat']),
+                                            float(df1.loc[idx,'lon'])),
+                                            (mylat,mylon))
         if currd-200 <60:
-            res['200'] = route.get_bearing(float(df1.loc[idx,'lat']),
-                                           float(df1.loc[idx,'lon']),
-                                           mylat,
-                                           mylon)
+            res['200'] = route.get_bearing((float(df1.loc[idx,'lat']),
+                                           float(df1.loc[idx,'lon'])),
+                                           (mylat,mylon))
         if currd-100 < 20:
-            res['100'] = route.get_bearing(float(df1.loc[idx,'lat']),
-                                           float(df1.loc[idx,'lon']),
-                                           mylat,
-                                           mylon)
+            res['100'] = route.get_bearing((float(df1.loc[idx,'lat']),
+                                           float(df1.loc[idx,'lon'])),
+                                           (mylat,mylon))
         if currd-50 < 30:
-            res['50'] = route.get_bearing(float(df1.loc[idx,'lat']),
-                                          float(df1.loc[idx,'lon']),
-                                          mylat,
-                                          mylon)
+            res['50'] = route.get_bearing((float(df1.loc[idx,'lat']),
+                                          float(df1.loc[idx,'lon'])),
+                                          (mylat,mylon))
         if currd-10 < 5:
-            res['10'] = route.get_bearing(float(df1.loc[idx,'lat']),
-                                          float(df1.loc[idx,'lon']),
-                                          mylat,
-                                          mylon)
+            res['10'] = route.get_bearing((float(df1.loc[idx,'lat']),
+                                          float(df1.loc[idx,'lon'])),
+                                          (mylat, mylon))
     return res
     
 
@@ -429,7 +424,7 @@ def get_elev(lat,lon):
 def gogeo(coords):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
-    bearing = route.get_bearing(lat2,lon2,float(lat),float(lon))
+    bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
     distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
     pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)

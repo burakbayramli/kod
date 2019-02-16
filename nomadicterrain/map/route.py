@@ -40,13 +40,21 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
-def get_bearing(lat1,lon1,lat2,lon2):
-    dLon = lon2 - lon1;
-    y = math.sin(dLon) * math.cos(lat2);
-    x = math.cos(lat1)*math.sin(lat2) - math.sin(lat1)*math.cos(lat2)*math.cos(dLon);
-    brng = np.rad2deg(math.atan2(y, x));
-    if brng < 0: brng+= 360
-    return np.round(brng,2)
+def get_bearing(pointA, pointB):
+    lat1 = math.radians(pointA[0])
+    lat2 = math.radians(pointB[0])
+    
+    diffLong = math.radians(pointB[1] - pointA[1])
+
+    x = math.sin(diffLong) * math.cos(lat2)
+    y = math.cos(lat1) * math.sin(lat2) - (math.sin(lat1) * math.cos(lat2) * math.cos(diffLong))
+
+    initial_bearing = math.atan2(x, y)
+
+    initial_bearing = math.degrees(initial_bearing)
+    compass_bearing = (initial_bearing + 360) % 360
+
+    return compass_bearing
 
 def goto_from_coord(start, distance, bearing):
     """
@@ -60,7 +68,7 @@ def goto_from_coord(start, distance, bearing):
 
 
 def expand_coords(lat1,lon1,lat2,lon2,margin=5.0):
-    res = get_bearing(lat1,lon1,lat2,lon2)
+    res = get_bearing((lat1,lon1),(lat2,lon2))
     print ('bearing before expansion', res)
     if (res >= 0 and res < 90):
         lat3,lon3 = goto_from_coord((lat2,lon2),margin,90)

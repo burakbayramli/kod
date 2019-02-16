@@ -31,13 +31,23 @@ def test_map3():
     pts = [[36.54,32.0],[36.64,32.1],[36.7,32.2], [36.84,32.3]]
     plot_map.plot(pts, 'out.png', zfile=zfile,scale=scale)
     
-def test_distance():
+def test_dist_bearing():
     dist = geopy.distance.vincenty((51.215469, 4.427657),(51.218453, 4.431262))
-    print (route.get_bearing(36.545471, 31.98567, 36.07653, 32.836227) )
-    print (route.get_bearing(51.215469, 4.427657, 51.218453, 4.431262))
-    print (route.get_bearing(51.215469, 4.427657, 51.213319, 4.420361))
-    print (route.get_bearing(51.215469, 4.427657, 51.218964, 4.419846))
-    print (route.get_bearing(51.2130605,4.4174822, 51.213583, 4.424042))
+
+    res = route.get_bearing((36.545471, 31.98567), (36.07653, 32.836227))
+    assert (res > 90.0 and res < 180.0)
+    print (res)
+    
+    res = route.get_bearing((51.215469, 4.427657), (51.218453, 4.431262))
+    assert (res > 0.0 and res < 90.0)
+    print (res)
+    
+    pt1 = (35.3354469, 33.309691)
+    pt2 = (35.334978, 33.327677)
+    res = route.get_bearing(pt1,pt2)
+    print (res)
+    assert (res > 85.0 and res < 95.0)
+    
     print (dist)
 
 def test_dijks():
@@ -67,7 +77,7 @@ def test_get_elev_data():
     res = route.get_elev_data(lat1,lon1,lat2,lon2,npts=20)
     
 #test_map0()
-test_distance()
+test_dist_bearing()
 #test_dijks()
 #test_get_elev_data()
 
