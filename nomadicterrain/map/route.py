@@ -54,7 +54,7 @@ def get_bearing(pointA, pointB):
     initial_bearing = math.degrees(initial_bearing)
     compass_bearing = (initial_bearing + 360) % 360
 
-    return compass_bearing
+    return np.round(compass_bearing,2)
 
 def goto_from_coord(start, distance, bearing):
     """
