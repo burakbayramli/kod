@@ -416,6 +416,34 @@ def get_elev(lat,lon):
     else:
         return None
 
+@app.route('/gogeos/<coords>')
+def gogeos(coords):
+    lat,lon = coords.split(';')
+    lat2,lon2 = my_curr_location()
+    bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
+    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+    distance = np.round(distance.km, 2)
+
+    vin = os.environ['TMPDIR'] + "/locspeak.txt"
+    vout = os.environ['TMPDIR'] + "/out.wav"
+    fout = open(vin,"w")
+    fout.write("You are %0.2f away. Keep walking towards %0.2f degrees" % (distance,bearing))
+    fout.close()
+
+    os.system("espeak -f %s -v en-us -w %s" % (vin,vout))
+    os.system("mpv %s" % vout) 
+    
+    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    OnlyOne().last_location = [lat,lon]
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    walking = been_walking()
+    elev = get_elev(float(lat),float(lon))
+    return render_template('/locations.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
+    
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
