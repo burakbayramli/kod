@@ -187,20 +187,21 @@ def plot_topo(lat,lon,fout1,fout2):
     znew = np.dot(df.w.T,np.exp(-gamma * d)).reshape(D,D)
     znew[znew<0] = 0
 
-
+    plon,plat = np.round(float(lon),3),np.round(float(lat),3)
+    
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     #ax.set_zlim3d(0, 2000)
     ax.view_init(elev=30,azim=250)
+    ax.plot([plon],[plat],[1000],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
-#    ax.plot([lon],[lat],[1000],'r.')
     plt.savefig(fout1)
 
     plt.figure()
+    plt.plot(plon,plat,'rd')
     cs=plt.contour(xx,yy,znew,20)
     plt.clabel(cs,inline=1,fontsize=9)
-#    plt.plot(lon,lat,'rd')
     plt.savefig(fout2)
          
