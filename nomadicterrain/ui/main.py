@@ -402,6 +402,26 @@ def city_search():
     OnlyOne().city_results = res
     return city()
 
+@app.route('/poi')
+def poi():
+    return render_template('/poi.html',data=OnlyOne().city_results)
+
+@app.route("/poi_search", methods=["POST"])
+def poi_search():
+    name = request.form.get("name").lower()
+    rd = csv.reader(open(params['poi']),delimiter='|')
+    headers = {k: v for v, k in enumerate(next(rd))}
+    res = []
+    for row in rd:
+        if name in row[headers['Type']].lower() or \
+           name in row[headers['Name']].lower() or \
+           name in row[headers['Description']].lower():
+            res.append(row)
+            print (row)
+
+    return poi()
+
+
 
 def get_elev(lat,lon):
     conn = sqlite3.connect(params['elevdb'])
