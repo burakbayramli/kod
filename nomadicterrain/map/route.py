@@ -343,6 +343,6 @@ if __name__ == "__main__":
     #insert_gps_int_rows(34,32)
     #get_elev_goog(34,32)
     #create_rbf1_table()
-    #show_ints()
-    insert_rbf1_recs(34,32)
+    show_ints()
+    #insert_rbf1_recs(34,32)
     pass

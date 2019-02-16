@@ -70,15 +70,13 @@ def test_dijks():
     if exp != res: raise Exception("dijks")
     print (res)
     
-def test_get_elev_data():
-    lat1,lon1 = (36.545471, 31.98567)
-    #lat2,lon2 = (36.545528, 32.142943)
-    lat2,lon2 = (36.07653, 32.836227)    
-    res = route.get_elev_data(lat1,lon1,lat2,lon2,npts=20)
     
-#test_map0()
+test_map0()
+test_map1()
+test_map2()
+test_map3()
 test_dist_bearing()
-#test_dijks()
-#test_get_elev_data()
+test_dijks()
+
 
     
