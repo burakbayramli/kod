@@ -693,9 +693,10 @@ def gotopo(coords):
     lat,lon = coords.split(';')
     fout1 = "static/out-%s.png" % uuid.uuid4()
     fout2 = "static/out-%s.png" % uuid.uuid4()
+    fout3 = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    plot_map.plot_topo(lat,lon,fout1,fout2)
-    return render_template('/topo.html', location1=fout1, location2=fout2)
+    plot_map.plot_topo(lat,lon,fout1,fout2,fout3)
+    return render_template('/topo.html', location1=fout1, location2=fout2, location3=fout3)
 
 
 if __name__ == '__main__':

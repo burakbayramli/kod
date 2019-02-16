@@ -156,7 +156,7 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
-def plot_topo(lat,lon,fout1,fout2):
+def plot_topo(lat,lon,fout1,fout2,fout3):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     
@@ -199,9 +199,19 @@ def plot_topo(lat,lon,fout1,fout2):
     surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout1)
 
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    #ax.set_zlim3d(0, 2000)
+    ax.view_init(elev=30,azim=40)
+    ax.plot([plon],[plat],[1000],'r.')
+    ls = LightSource(270, 45)
+    rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    plt.savefig(fout2)
+    
     plt.figure()
     plt.plot(plon,plat,'rd')
     cs=plt.contour(xx,yy,znew,20)
     plt.clabel(cs,inline=1,fontsize=9)
-    plt.savefig(fout2)
+    plt.savefig(fout3)
          
