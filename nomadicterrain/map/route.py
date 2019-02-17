@@ -338,7 +338,25 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
             elev_mat[i,j]=get_elev_single(xo[i,j],yo[i,j],c)
     
     return elev_mat, start_idx, end_idx, xo, yo 
+
+def dist(x1,y1, x2,y2, xp,yp):
+    px = x2-x1
+    py = y2-y1
+    something = px*px + py*py
+    u =  ((xp - x1) * px + (yp - y1) * py) / float(something)
+    if u > 1:
+        u = 1
+    elif u < 0:
+        u = 0        
+    x = x1 + u * px
+    y = y1 + u * py    
+    dx = x - xp
+    dy = y - yp
+    dist = math.sqrt(dx*dx + dy*dy)
     
+    return dist
+
+
 if __name__ == "__main__":
     #insert_gps_int_rows(34,32)
     #get_elev_goog(34,32)
