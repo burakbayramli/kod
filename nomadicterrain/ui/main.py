@@ -709,8 +709,8 @@ def gopoly(coords):
     zfile,scale = params['mapzip'][map]
     locs.insert(0,pt)
     print ('pt',pt)
-    plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True)
-    return poi()
+    plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=False)
+    return render_template('/poly.html', location=fout)
 
 
 if __name__ == '__main__':

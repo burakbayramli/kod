@@ -12,7 +12,7 @@ import pandas as pd, io
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
-def plot(points,outfile,zfile,scale,pixel=False):
+def plot(points,outfile,zfile,scale,pixel=False,bp=True):
     """
     Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
     tum noktalari bu harita uzerinde grafikle
@@ -51,7 +51,8 @@ def plot(points,outfile,zfile,scale,pixel=False):
              yy = c[1]+dy
              if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
              if i==0:
-                 plt.plot(xx,yy,'rx')
+                 if bp: plt.plot(xx,yy,'rx')
+                 else: plt.plot(xx,yy,'r,')
              else:
                  if pixel:
                      plt.plot(xx,yy,'r,')
