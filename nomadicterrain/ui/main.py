@@ -73,6 +73,7 @@ class OnlyOne(object):
             self.place_results = []
             self.line_elev_results = []
             self.hay_results = []
+            self.poi_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -352,7 +353,7 @@ def city_search():
 
 @app.route('/poi')
 def poi():
-    return render_template('/poi.html',data=OnlyOne().city_results)
+    return render_template('/poi.html',data=OnlyOne().poi_results)
 
 @app.route("/poi_search", methods=["POST"])
 def poi_search():
@@ -360,16 +361,29 @@ def poi_search():
     rd = csv.reader(open(params['poi']),delimiter='|')
     headers = {k: v for v, k in enumerate(next(rd))}
     res = []
-    for row in rd:
-        if name in row[headers['Type']].lower() or \
-           name in row[headers['Name']].lower() or \
-           name in row[headers['Description']].lower():
-            res.append(row)
-            print (row)
-
+    print ('t',type(name))
+    for row in rd:        
+        if u'torkul' in row[headers['Name']].lower():
+            locs = row[headers['Coords']]
+            print ('-----------')
+            print ('locs',locs)
+            if "[[" in locs:
+                locs = eval(locs)
+                locs = polyline.encode(locs)
+            else:                
+                locs = eval(locs)
+                locs = "%s;%s" % (locs[0],locs[1])
+            print (locs)
+            name = row[headers['Name']]
+            desc = row[headers['Description']]
+            xx = [row[headers['CoordType']],
+                  row[headers['Type']],
+                  name,desc,locs]
+            print ('xx',xx)
+            res.append(xx)
+            
+    OnlyOne().poi_results = res
     return poi()
-
-
 
 def get_elev(lat,lon):
     conn = sqlite3.connect(params['elevdb'])
@@ -594,14 +608,6 @@ def trails():
         res.append(x[x.rindex('/')+1:])
     
     return render_template('/trails.html', res=res)
-
-@app.route('/inc')
-def inc():
-    return render_template('/inc.html',rnd=np.round(random.random(),3))
-
-@app.route('/tst')
-def tst():
-    return render_template('/tst.html')
 
 @app.route('/hay')
 def hay():

@@ -13,6 +13,17 @@
 
       <input type="text" name="name" placeholder="POI"/>
       <input type="submit" value="Search"/>
+
+      {% for x in data %}
+         <br/>
+         <br/>
+         {% if 'Polygon' in x[0] %}
+            {{x[0]}} &nbsp; {{x[1]}} &nbsp; {{x[2]}} &nbsp; {{x[3]}} &nbsp;{{x[4]}} 
+         {% endif %}    
+         {% if 'Single' in x[0] %}
+           {{x[0]}} {{x[1]}} {{x[2]}} {{x[3]}}  {{x[4]}} 
+         {% endif %}    
+      {% endfor %}    
       
     </form>
   </body>

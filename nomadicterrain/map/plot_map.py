@@ -62,8 +62,9 @@ def plot(points,outfile,zfile,scale,pixel=False):
 
 def plot_area(pt, point_sets, outfile, zfile, scale):
     """
-    Birinci noktayi baz alarak gerekli harita inajini bul, ve diger
-    tum noktalari etrafi cizgilerle belirli alan olarak ciz
+    Nokta pt'yi baz alarak gerekli harita
+    imajini bul, sonra diger noktalar points_sets
+    bas
     """
     plt.figure()
     if 'numpy' in str(type(pt)):
