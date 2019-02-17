@@ -8,7 +8,7 @@ import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
 from urllib.request import urlopen
-import urllib, requests, json
+import urllib, requests, json, re
 from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
@@ -357,13 +357,14 @@ def poi():
 
 @app.route("/poi_search", methods=["POST"])
 def poi_search():
-    name = request.form.get("name").lower()
+    name = request.form.get("name")
     rd = csv.reader(open(params['poi']),delimiter='|')
     headers = {k: v for v, k in enumerate(next(rd))}
     res = []
     print ('t',type(name))
     for row in rd:        
-        if u'torkul' in row[headers['Name']].lower():
+        #if u'torkul' in row[headers['Name']].lower():
+        if re.search(name, row[headers['Name']],re.IGNORECASE):
             locs = row[headers['Coords']]
             print ('-----------')
             print ('locs',locs)
