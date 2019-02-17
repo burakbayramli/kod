@@ -59,62 +59,6 @@ def plot(points,outfile,zfile,scale,pixel=False):
                      plt.plot(xx,yy,'r.')
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
-
-def plot_area(pt, point_sets, outfile, zfile, scale):
-    """
-    Nokta pt'yi baz alarak gerekli harita
-    imajini bul, sonra diger noktalar points_sets
-    bas
-    """
-    plt.figure()
-    if 'numpy' in str(type(pt)):
-        pt = [pt[0][0], pt[0][1]]
-    
-    center_res = pt
-    imgcoord = []
-    with zipfile.ZipFile(zfile, 'r') as z:
-        for f in z.namelist():
-            # the lat/lon middle of the map is encoded in the map's
-            # filename
-            tmp = re.findall("map_(\d+)_(\d+)_(\d+)_(\d+)",f,re.DOTALL)
-            if len(tmp)==0: continue
-            tmp = tmp[0]
-            imgcoord.append([float(tmp[0] + "." + tmp[1]), float(tmp[2] + "." + tmp[3]), f])
-    imgcoord2 = pd.DataFrame(imgcoord,columns=['lat','lon','file'])
-    dists = imgcoord2.apply(lambda x: geopy.distance.vincenty((x['lat'],x['lon']),center_res).km, axis=1)
-    # the closest map is picked
-    found = imgcoord2.ix[dists.idxmin()]
-    print (found.file)
-    mapcenter = np.array(found[['lat','lon']])
-    print (mapcenter)
-    
-    with zipfile.ZipFile(zfile, 'r') as z:
-         im = Image.open(z.open(found.file))
-         nim = np.array(im)
-         c = nim.shape[0] / 2, nim.shape[0] / 2
-         plt.axis('off')
-         fig=plt.imshow(im)
-         fig.axes.get_xaxis().set_visible(False)
-         fig.axes.get_yaxis().set_visible(False)
-         plt.imshow(im)
-         
-         for points in point_sets:
-             tmp_points = [x for x in points]
-             tmp_points.insert(0,pt) # basa koy, o nokta nerede oldugumuz
-             for i,[lat,lon] in enumerate(tmp_points):
-                 dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
-                 xx = c[0]+dx
-                 yy = c[1]+dy
-                 if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
-                 if i==0:
-                     plt.plot(xx,yy,'rx')
-                 else:
-                     plt.plot(xx,yy,'r.')
-
-                 
-         plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
-
-
 def get_centroid(poly):
     """Calculates the centroid of a non-intersecting polygon.
     Args:

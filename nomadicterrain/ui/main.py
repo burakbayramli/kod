@@ -701,16 +701,15 @@ def gotopo(coords):
 def gopoly(coords):
     locs = polyline.decode(coords)
     locs = [list(x) for x in locs]
-    print (locs)
     centroid_x,centroid_y = plot_map.get_centroid(locs)
+    pt = [centroid_x,centroid_y]
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    pt=[centroid_x,centroid_y]
-    print (pt)
-#    plot_map.plot_area(pt, locs, fout, zfile=zfile, scale=scale)    
-#    print (locs)
+    locs.insert(0,pt)
+    print ('pt',pt)
+    plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True)
     return poi()
 
 
