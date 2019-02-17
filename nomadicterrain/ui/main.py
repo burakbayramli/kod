@@ -697,6 +697,22 @@ def gotopo(coords):
     plot_map.plot_topo(lat,lon,fout1,fout2,fout3)
     return render_template('/topo.html', location1=fout1, location2=fout2, location3=fout3)
 
+@app.route('/gopoly/<coords>')
+def gopoly(coords):
+    locs = polyline.decode(coords)
+    locs = [list(x) for x in locs]
+    print (locs)
+    centroid_x,centroid_y = plot_map.get_centroid(locs)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    map = OnlyOne().map
+    zfile,scale = params['mapzip'][map]
+    pt=[centroid_x,centroid_y]
+    print (pt)
+#    plot_map.plot_area(pt, locs, fout, zfile=zfile, scale=scale)    
+#    print (locs)
+    return poi()
+
 
 if __name__ == '__main__':
     app.debug = True

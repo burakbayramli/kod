@@ -17,10 +17,10 @@
          <br/>
          <br/>
          {% if 'Polygon' in x[0] %}
-            {{x[0]}} &nbsp; {{x[1]}} &nbsp; {{x[2]}} &nbsp; {{x[3]}} &nbsp;{{x[4]}} 
+           <a href="/gopoly/{{x[4]}}">{{x[1]}} {{x[2]}} {{x[3]}} </a>
          {% endif %}    
          {% if 'Single' in x[0] %}
-           {{x[0]}} {{x[1]}} {{x[2]}} {{x[3]}}  {{x[4]}} 
+           <a href="/gogeo/{{x[4]}}">{{x[1]}} {{x[2]}} {{x[3]}} </a>
          {% endif %}    
       {% endfor %}    
       
