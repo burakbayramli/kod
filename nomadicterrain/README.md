@@ -24,21 +24,21 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 ```
 {
   "gps": "/home/burak/Downloads/gpslogger.csv",
-  "nationalpark": "/home/burak/Downloads/campdata/national_parks.csv",
-  "campsites": "/home/burak/Downloads/campdata/camping_locations.csv",
+  "nationalpark": "/dir/dir/national_parks.csv",
+  "campsites": "/dir/dir/camping_locations.csv",
   "natpark_mindistance": 100.0,
   "mapzip": {"normal": <one of the settings below, as the default startup value>
-	     "istanbul": ["/home/burak/Downloads/campdata/istanbul.zip",[23000,-35000]],
-	     "berlin": ["/home/burak/Downloads/campdata/berlin.zip",[23000,-35000]],
-	     "world1": ["/home/burak/Downloads/campdata/world1.zip",[45,-50]],
-	     "world2": ["/home/burak/Downloads/campdata/world2.zip",[10,-17]],
-	     "europe2": ["/home/burak/Downloads/campdata/europe2.zip",[2900,-4600]],
-	     "europe3": ["/home/burak/Downloads/campdata/europe3.zip",[1450,-2400]],
-	     "turkey1": ["/home/burak/Downloads/campdata/turkey1.zip",[1450,-1850]],
-	     "turkey3": ["/home/burak/Downloads/campdata/turkey3.zip",[2900,-3500]]	     
+	     "istanbul": ["/dir/dir/istanbul.zip",[23000,-35000]],
+	     "berlin": ["/dir/dir/berlin.zip",[23000,-35000]],
+	     "world1": ["/dir/dir/world1.zip",[45,-50]],
+	     "world2": ["/dir/dir/world2.zip",[10,-17]],
+	     "europe2": ["/dir/dir/europe2.zip",[2900,-4600]],
+	     "europe3": ["/dir/dir/europe3.zip",[1450,-2400]],
+	     "turkey1": ["/dir/dir/turkey1.zip",[1450,-1850]],
+	     "turkey3": ["/dir/dir/turkey3.zip",[2900,-3500]]	     
   },
-  "edible_plants": "/home/burak/Downloads/campdata/edible_plants.csv",
-  "trails": "/home/burak/Downloads/campdata/trails",
+  "edible_plants": "/dir/dir/edible_plants.csv",
+  "trails": "/dir/dir/trails",
   "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
   "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
   "api": "[GOOGLE API ANAHTARI]",
@@ -47,6 +47,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]"
   "coordidx": "[DIR]/gps_coord_sample.npy",
   "elevdb": "/dir/dir/file.db",
+  "poi": "/dir/dir/poi.csv"
 }
 ```
 
@@ -80,9 +81,9 @@ Edible plants
 
 https://drive.google.com/open?id=1t9470crpqWCKUlXwmK2DB9mvifBjAdCM
 
-Camping locations
+Points / Regions of Interests
 
-https://drive.google.com/open?id=12IouBuu18k1SYmxsseBluhQAHVFrtHsP
+https://drive.google.com/file/d/1e8ClH8WDSZTUW_MF17hTh2oZmu8m7CKK/view?usp=drivesdk
 
 ## Trails
 
@@ -90,6 +91,16 @@ You can use shared trails from others. Such data is shared on
 wikiloc.com, sign-up and download, and drop the gpx files under
 `trails` directory (defined above) and simply visit
 `/trail/<file.gpx>` which will plot the trail.
+
+## POI / ROI
+
+The ROI file above can be searched by keyword. Any matching point or
+region will be listed, once clicked, is shown as either a list of
+points or single point. I included some camping locations as points in
+the file, also some region based national parks. But region the user
+can put anything in this file, for example the Berlin Wall / dividing
+line between East and West? Put them here! 
+
 
 ## Elevation
 
@@ -136,15 +147,8 @@ To get flattest path to a destination, visit `/flattestroute/lat;lon`.
 
 ## Food
 
-Common European tree names
-
-http://forest.jrc.ec.europa.eu/european-atlas-of-forest-tree-species/atlas-data-and-metadata/
-
-Common European plant names
-
-https://www.first-nature.com/flowers/index.php
-
-Plant edibility data came from a combination of sources. First did a dump on
+Plant edibility data came from a combination of sources. First did a
+dump on
 
 https://plants.sc.egov.usda.gov/adv_search.html
 
@@ -158,5 +162,13 @@ Then scraped PFAF by using
 https://pfaf.org/user/Plant.aspx?LatinName=__name__
 
 for scientific name.
+
+Common European tree names
+
+http://forest.jrc.ec.europa.eu/european-atlas-of-forest-tree-species/atlas-data-and-metadata/
+
+Common European plant names
+
+https://www.first-nature.com/flowers/index.php
 
 

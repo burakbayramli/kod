@@ -19,6 +19,9 @@ def dist(x1,y1, x2,y2, xp,yp):
     dx = x - xp
     dy = y - yp
     dist = math.sqrt(dx*dx + dy*dy)
+
+    print (u)    
+    print (dx,dy)    
     
     return dist
 
