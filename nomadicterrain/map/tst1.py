@@ -18,23 +18,34 @@ def dist(x1,y1, x2,y2, xp,yp):
     y = y1 + u * py    
     dx = x - xp
     dy = y - yp
-    dist = math.sqrt(dx*dx + dy*dy)
-
-    print (u)    
-    print (dx,dy)    
+    d = math.sqrt(dx*dx + dy*dy)
     
-    return dist
+    return d
 
-x1,y1=2,2
-x2,y2=5,5
-px,py=4,0
+def dist2(x1,y1,x2,y2,px,py):
+    a = np.array([[x1,y1]]).T
+    b = np.array([[x2,y2]]).T
+    x = np.array([[px,py]]).T
+    tp = (np.dot(x.T, b) - np.dot(a.T, b)) / np.dot(b.T, b)
+    tp = tp[0][0]
+    tmp = x - (a + tp*b)
+    d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
+    return d, (a + tp*b)
+
+x1,y1=2.,2.
+x2,y2=5.,5.
+px,py=4.,1.
+
+print (dist(x1,y1, x2,y2, px,py))
+
+print (dist2(x1,y1, x2,y2, px,py))
+
+exit()
 
 plt.plot(x1,y1,'rd')
 plt.plot(x2,y2,'rd')
 plt.plot(px,py,'rd')
 plt.savefig('/data/data/com.termux/files/home/Downloads/out.png')
-
-print (dist(x1,y1, x2,y2, px,py))
 
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
