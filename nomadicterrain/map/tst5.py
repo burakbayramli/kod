@@ -28,9 +28,15 @@ def dist(x1,y1,x2,y2,px,py):
     d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
     return d, (a + tp*b)
 
+p = [35.266684, 33.357093]
+
 roi = [[35.323294, 33.308268],
        [35.289657, 33.307907],
        [35.323202, 33.373341]]
+
+print (route.dist_to_roi_outer(roi, p))
+
+exit()
 
 l = map(lambda x: LatLon_To_XY(x[0],x[1]),roi)
 roi2 = [[x[0],x[1]] for x in l]
@@ -41,8 +47,6 @@ r = np.roll(roi2,-1,axis=0)
 df[2] = r[:,0]
 df[3] = r[:,1]
 df.columns = ['x1','y1','x2','y2']
-
-p = [35.266684, 33.357093]
 
 p2 = LatLon_To_XY(p[0],p[1])
 

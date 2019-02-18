@@ -6,7 +6,7 @@ import geopy.distance, math, route, polyline
 from scipy.interpolate import interp1d
 import math
 
-def dist(x1,y1, x2,y2, xp,yp):
+def dist1(x1,y1, x2,y2, xp,yp):
     px = x2-x1
     py = y2-y1
     something = px*px + py*py
@@ -21,7 +21,7 @@ def dist(x1,y1, x2,y2, xp,yp):
     dy = y - yp
     d = math.sqrt(dx*dx + dy*dy)
     
-    return d
+    return d, (x,y)
 
 def dist2(x1,y1,x2,y2,px,py):
     a = np.array([[x1,y1]]).T
@@ -36,11 +36,13 @@ def dist2(x1,y1,x2,y2,px,py):
 
 x1,y1=2.,2.
 x2,y2=5.,5.
-px,py=4.,1.
+#px,py=4.,1.
+px,py=7.,5.
 
 #print (dist(x1,y1, x2,y2, px,py))
 
-d,c = dist2(x1,y1, x2,y2, px,py)
+#d,c = dist2(x1,y1, x2,y2, px,py)
+d,c = dist1(x1,y1, x2,y2, px,py)
 
 plt.xlim(0,10)
 plt.ylim(0,10)
