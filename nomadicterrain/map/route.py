@@ -352,45 +352,7 @@ def dist_to_seg(x1,y1,x2,y2,px,py):
     d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
     return d, (a + tp*b)
 
-def LatLon_To_XY(Lat,Lon):
-    return P(Lat,Lon)
-
-def XY_To_LatLon(x,y):
-    return P(x,y,inverse=True)
-
-def dist_to_roi_outer2(roi,p):
-    df = pd.DataFrame(roi)
-    r = np.roll(roi,-1,axis=0)
-    df[2] = r[:,0]
-    df[3] = r[:,1]
-    df.columns = ['y1','x1','y2','x2']
-    df['d'] = df.apply(lambda r: dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p[1],p[0])[0],axis=1)
-    df['i'] = df.apply(lambda r: dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p[1],p[0])[1],axis=1)
-    lonc,latc = df.ix[df['d'].idxmin(),'i'].flatten()
-    dis = geopy.distance.vincenty(p, (latc,lonc)).km
-    b = get_bearing(p,(latc,lonc))
-    return dis, b
-   
-def dist_to_roi_outer(roi, p):
-    l = map(lambda x: LatLon_To_XY(x[0],x[1]),roi)
-    roi2 = [[x[0],x[1]] for x in l]
-    df = pd.DataFrame(roi2)
-    r = np.roll(roi2,1,axis=0)
-    df[2] = r[:,0]
-    df[3] = r[:,1]
-    df.columns = ['x1','y1','x2','y2']
-    p2 = LatLon_To_XY(p[0],p[1])
-    df['d'] = df.apply(lambda r: dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p2[0],p2[1])[0],axis=1)
-    df['i'] = df.apply(lambda r: dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p2[0],p2[1])[1],axis=1)
-
-    c = df.ix[df['d'].idxmin(),'i'].flatten()
-    c = XY_To_LatLon(c[0],c[1])
-    dis = geopy.distance.vincenty(p, c).km
-    print ('intersection',c)
-    b = get_bearing(p,c)
-    return dis, b
     
-
 if __name__ == "__main__":
     #insert_gps_int_rows(34,32)
     #get_elev_goog(34,32)

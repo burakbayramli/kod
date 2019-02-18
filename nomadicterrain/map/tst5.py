@@ -34,9 +34,7 @@ roi = [[35.323294, 33.308268],
        [35.289657, 33.307907],
        [35.323202, 33.373341]]
 
-print (route.dist_to_roi_outer(roi, p))
-
-exit()
+print (route.dist_to_roi_outer2(roi, p))
 
 l = map(lambda x: LatLon_To_XY(x[0],x[1]),roi)
 roi2 = [[x[0],x[1]] for x in l]

@@ -703,7 +703,6 @@ def gopoly(coords):
     locs = [list(x) for x in locs]
 
     lat2,lon2 = my_curr_location()
-    d,b = route.dist_to_roi_outer(locs, (lat2,lon2))
     
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -711,7 +710,7 @@ def gopoly(coords):
     zfile,scale = params['mapzip'][map]
     locs.insert(0,(lat2,lon2))
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
-    return render_template('/poly.html', location=fout, distance=d, bearing=b)
+    return render_template('/poly.html', location=fout)
 
 
 if __name__ == '__main__':

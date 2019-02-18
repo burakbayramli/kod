@@ -30,19 +30,20 @@ def dist2(x1,y1,x2,y2,px,py):
     tp = (np.dot(x.T, b) - np.dot(a.T, b)) / np.dot(b.T, b)
     tp = tp[0][0]
     tmp = x - (a + tp*b)
-    print (tp)
+    print ('tp',tp)
     d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
     return d, (a + tp*b)
 
 x1,y1=2.,2.
 x2,y2=5.,5.
 #px,py=4.,1.
-px,py=7.,5.
+px,py=2.,6.
 
 #print (dist(x1,y1, x2,y2, px,py))
 
 #d,c = dist2(x1,y1, x2,y2, px,py)
-d,c = dist1(x1,y1, x2,y2, px,py)
+d,c = dist2(x1,y1, x2,y2, px,py)
+print (d,c)
 
 plt.xlim(0,10)
 plt.ylim(0,10)
