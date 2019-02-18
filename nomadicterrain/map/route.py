@@ -3,9 +3,12 @@ import numpy.linalg as lin
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle, math, base64
+import os, pickle, math, pyproj
 import numpy as np, pandas as pd
 from pqdict import pqdict
+
+P = pyproj.Proj(proj='utm', zone=31, ellps='WGS84', preserve_units=True)
+G = pyproj.Geod(ellps='WGS84')
 
 gamma = 0.3
 
@@ -339,23 +342,21 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
     
     return elev_mat, start_idx, end_idx, xo, yo 
 
-def dist(x1,y1, x2,y2, xp,yp):
-    px = x2-x1
-    py = y2-y1
-    something = px*px + py*py
-    u =  ((xp - x1) * px + (yp - y1) * py) / float(something)
-    if u > 1:
-        u = 1
-    elif u < 0:
-        u = 0        
-    x = x1 + u * px
-    y = y1 + u * py    
-    dx = x - xp
-    dy = y - yp
-    dist = math.sqrt(dx*dx + dy*dy)
-    
-    return dist
+def dist_to_seg(x1,y1,x2,y2,px,py):
+    a = np.array([[x1,y1]]).T
+    b = np.array([[x2,y2]]).T
+    x = np.array([[px,py]]).T
+    tp = (np.dot(x.T, b) - np.dot(a.T, b)) / np.dot(b.T, b)
+    tp = tp[0][0]
+    tmp = x - (a + tp*b)
+    d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
+    return d, (a + tp*b)
 
+def LatLon_To_XY(Lat,Lon):
+    return P(Lat,Lon)
+
+def XY_To_LatLon(x,y):
+    return P(x,y,inverse=True)
 
 if __name__ == "__main__":
     #insert_gps_int_rows(34,32)
