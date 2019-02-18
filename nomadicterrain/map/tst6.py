@@ -37,7 +37,7 @@ p2 = LatLon_To_XY(p[0],p[1])
 df['d'] = df.apply(lambda r: route.dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p2[0],p2[1])[0],axis=1)
 df['i'] = df.apply(lambda r: route.dist_to_seg(r['x1'],r['y1'],r['x2'],r['y2'],p2[0],p2[1])[1],axis=1)
 
-df.to_csv('out.csv')
+df.to_csv('/data/data/com.termux/files/home/Downloads/out.csv')
 
 print (df['d'].idxmin())
 
