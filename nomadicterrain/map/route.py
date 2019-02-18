@@ -341,17 +341,6 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
             elev_mat[i,j]=get_elev_single(xo[i,j],yo[i,j],c)
     
     return elev_mat, start_idx, end_idx, xo, yo 
-
-def dist_to_seg(x1,y1,x2,y2,px,py):
-    a = np.array([[x1,y1]]).T
-    b = np.array([[x2,y2]]).T
-    x = np.array([[px,py]]).T
-    tp = (np.dot(x.T, b) - np.dot(a.T, b)) / np.dot(b.T, b)
-    tp = tp[0][0]
-    tmp = x - (a + tp*b)
-    d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
-    return d, (a + tp*b)
-
     
 if __name__ == "__main__":
     #insert_gps_int_rows(34,32)

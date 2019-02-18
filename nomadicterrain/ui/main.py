@@ -703,14 +703,30 @@ def gopoly(coords):
     locs = [list(x) for x in locs]
 
     lat2,lon2 = my_curr_location()
+
+    # sample / interpolate to create more points from line segments
+    # so closest point is more fine grained
+    roi = np.array(locs)
+    steps = np.linspace(roi[:,0].min(), roi[:,0].max(),100.0)
+    fsampled = np.interp(steps, roi[:,0], roi[:,1])
+    fs2 = [[lat,lon] for (lat,lon) in zip(steps, fsampled)]
+    df = pd.DataFrame(fs2)
+    df.loc[:,'dist'] = df.apply(lambda x: geopy.distance.vincenty((lat2,lon2),(x[0],x[1])).km, axis=1)
+    res = df.ix[df['dist'].idxmin()]
+    c = [res[0],res[1]]
+    d = geopy.distance.vincenty((lat2,lon2),c).km
+    b = route.get_bearing([lat2,lon2],(c[0],c[1]))
+
+    print (d,b)
     
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     locs.insert(0,(lat2,lon2))
+    locs.insert(0,c)
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
-    return render_template('/poly.html', location=fout)
+    return render_template('/poly.html', location=fout, distance=d, bearing=b)
 
 
 if __name__ == '__main__':
