@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 import numpy as np, plot_map, json, os, re
 import matplotlib.pyplot as plt, csv
@@ -29,6 +30,7 @@ def dist2(x1,y1,x2,y2,px,py):
     tp = (np.dot(x.T, b) - np.dot(a.T, b)) / np.dot(b.T, b)
     tp = tp[0][0]
     tmp = x - (a + tp*b)
+    print (tp)
     d = np.sqrt(np.dot(tmp.T,tmp)[0][0])
     return d, (a + tp*b)
 
@@ -36,26 +38,19 @@ x1,y1=2.,2.
 x2,y2=5.,5.
 px,py=4.,1.
 
-print (dist(x1,y1, x2,y2, px,py))
+#print (dist(x1,y1, x2,y2, px,py))
 
-print (dist2(x1,y1, x2,y2, px,py))
+d,c = dist2(x1,y1, x2,y2, px,py)
 
-exit()
-
+plt.xlim(0,10)
+plt.ylim(0,10)
 plt.plot(x1,y1,'rd')
 plt.plot(x2,y2,'rd')
 plt.plot(px,py,'rd')
+plt.plot(c[0],c[1],'bd')
+
 plt.savefig('/data/data/com.termux/files/home/Downloads/out.png')
 
-
-params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-                   
-#x = [[35.323294, 33.308268],[35.289657, 33.307907],[35.323202, 33.373341]]
-#x = np.array(x)
-
-
-#zfile,scale = params['mapzip']['turkey3']
-#plot_map.plot(res,'/data/data/com.termux/files/home/Downloads/out.png',zfile=zfile,scale=scale)
 
 
 
