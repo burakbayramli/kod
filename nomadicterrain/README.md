@@ -85,6 +85,12 @@ Points / Regions of Interests
 
 https://drive.google.com/file/d/1e8ClH8WDSZTUW_MF17hTh2oZmu8m7CKK/view?usp=drivesdk
 
+Water
+
+Lines (small, narrow water resources) - https://drive.google.com/file/d/1Xv3hwem4F5j5JXSTMaoNd3JCqpihpyuR/view?usp=drivesdk
+
+Polygons (bigger ones, lakes) - https://drive.google.com/file/d/18CvBtmtmwvqsLs0sMbtQPsybWcjQ3eyT/view?usp=drivesdk
+
 ## Trails
 
 You can use shared trails from others. Such data is shared on
