@@ -23,9 +23,6 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 ```
 {
   "gps": "/home/burak/Downloads/gpslogger.csv",
-  "nationalpark": "/dir/dir/national_parks.csv",
-  "campsites": "/dir/dir/camping_locations.csv",
-  "natpark_mindistance": 100.0,
   "mapzip": {"normal": <one of the settings below, as the default startup value>
 	     "istanbul": ["/dir/dir/istanbul.zip",[23000,-35000]],
 	     "berlin": ["/dir/dir/berlin.zip",[23000,-35000]],
@@ -38,10 +35,10 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   },
   "edible_plants": "/dir/dir/edible_plants.csv",
   "trails": "/dir/dir/trails",
-  "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
-  "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/ui/static/spiller.json",
+  "guide_detail_dir": "[see ../guide/doc/details]",
+  "spiller_pdf": "[see /ui/static/spiller.json]",
   "api": "[GOOGLE API ANAHTARI]",
-  "weatherapi": "[openweathermap anahtari]",
+  "weatherapi": "[openweathermap key]",
   "btype": "[BLOOD TYPE DIET csv, see ../guide/data/food.dat]",
   "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]"
   "coordidx": "[DIR]/gps_coord_sample.npy",
