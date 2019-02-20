@@ -35,6 +35,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   },
   "edible_plants": "/dir/dir/edible_plants.csv",
   "trails": "/dir/dir/trails",
+  "news_dir": "/dir/dir",
   "guide_detail_dir": "[see ../guide/doc/details]",
   "spiller_pdf": "[see /ui/static/spiller.json]",
   "api": "[GOOGLE API ANAHTARI]",
