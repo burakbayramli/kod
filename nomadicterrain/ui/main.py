@@ -631,34 +631,6 @@ def hay_search():
     OnlyOne().hay_results = res
     return hay()
 
-@app.route('/lineelev')
-def lineelev():
-    return render_template('/lineelev.html',data=OnlyOne().line_elev_results)
-
-@app.route("/line_elev_calc", methods=["POST"])
-def line_elev_calc():
-    npts = request.form.get("npts")
-    bearing = int(request.form.get("bearing"))
-    far = float(request.form.get("far")) / 1000.0
-    lat,lon = my_curr_location()
-    locs = []
-    for x in np.linspace(0,far,npts):
-        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-    
-    locs = polyline.encode(locs)
-    print ('end',locs[-1])
-
-    url = elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-    res = []
-    for x in json_res['results']:
-        res.append(x['elevation'])
-
-    OnlyOne().line_elev_results = res
-    
-    return lineelev()
-
 @app.route('/flattestroute/<coords>')
 def flattestroute(coords):
     lat1,lon1 = coords.split(';')
@@ -729,6 +701,35 @@ def gopoly(coords):
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
 
+@app.route('/lineelev')
+def lineelev():
+    return render_template('/lineelev.html',data=OnlyOne().line_elev_results)
+
+@app.route("/line_elev_calc", methods=["POST"])
+def line_elev_calc():
+    npts = request.form.get("npts")
+    bearing = int(request.form.get("bearing"))
+    far = float(request.form.get("far")) / 1000.0
+    lat,lon = my_curr_location()
+    locs = []
+    for x in np.linspace(0,far,npts):
+        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
+    
+    locs = polyline.encode(locs)
+
+    url = elev_query % (locs, params['api'])
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+    res = []
+    for x in json_res['results']:
+        res.append(x['elevation'])
+
+    plt.figure()
+    plt.plot(np.linspace(0,far,npts),res)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    plt.savefig(fout)
+    return render_template('/lineelev.html', fout=fout)
+    
 @app.route('/goestelevline/<coords>')
 def goestelevline(coords):
     npts = 200
