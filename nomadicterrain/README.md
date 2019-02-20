@@ -88,6 +88,10 @@ Points / Regions of Interests
 
 https://drive.google.com/file/d/1e8ClH8WDSZTUW_MF17hTh2oZmu8m7CKK/view?usp=drivesdk
 
+Country Bounding Boxes
+
+https://drive.google.com/file/d/1YfDMEUVEa578q6B4iHZNkgts9OMWw7GX/view?usp=drivesdk
+
 ## Trails
 
 You can use shared trails from others. Such data is shared on
