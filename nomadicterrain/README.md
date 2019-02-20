@@ -129,10 +129,7 @@ c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL,
 ```
 
 which will be created in the database (file) defined in parameter
-`elevdb`. We will take and store 40k sample elevation data points per
-degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
-block. 0.001 degrees correspond to 100 meters.
-
+`elevdb`. 
 
 For the model,
 
@@ -142,6 +139,10 @@ c = conn.cursor()
 c.execute('''DROP TABLE RBF1; ''')
 c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
 ```
+
+We will take and store 40k sample elevation data points per
+degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
+block. 0.001 degrees correspond to 100 meters.
 
 Now for any lat/lon integer pair, you run `get_elev_data`, which
 under-the-hood runs
