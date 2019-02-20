@@ -1,4 +1,6 @@
 
+# Installation
+
 ## Termux
 
 To run on termux
@@ -9,10 +11,7 @@ LDFLAGS="-L/system/lib/" CFLAGS="-I/data/data/com.termux/files/usr/include/" pip
 
 `mpv` is also needed.
 
-## General
-
-Some tools that might come in handy to run on smartphone (Android)
-through Termux. 
+## Configuration File
 
 GPS coordinates are retrieved from gpslogger, install this app first
 before using this application and have gpslogger log
@@ -51,7 +50,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 }
 ```
 
-## Files
+## Data Files
 
 ### Map files
 
@@ -71,6 +70,12 @@ berlin.zip
 
 https://drive.google.com/open?id=18CtN_FHBOs47zvM3Uvirhgf4vM-5oMZB
 
+## Water
+
+Lines (small, narrow water resources) - https://drive.google.com/file/d/1Xv3hwem4F5j5JXSTMaoNd3JCqpihpyuR/view?usp=drivesdk
+
+Polygons (bigger ones, lakes) - https://drive.google.com/file/d/18CvBtmtmwvqsLs0sMbtQPsybWcjQ3eyT/view?usp=drivesdk
+
 ### Other
 
 GeoLiteCity
@@ -84,12 +89,6 @@ https://drive.google.com/open?id=1t9470crpqWCKUlXwmK2DB9mvifBjAdCM
 Points / Regions of Interests
 
 https://drive.google.com/file/d/1e8ClH8WDSZTUW_MF17hTh2oZmu8m7CKK/view?usp=drivesdk
-
-Water
-
-Lines (small, narrow water resources) - https://drive.google.com/file/d/1Xv3hwem4F5j5JXSTMaoNd3JCqpihpyuR/view?usp=drivesdk
-
-Polygons (bigger ones, lakes) - https://drive.google.com/file/d/18CvBtmtmwvqsLs0sMbtQPsybWcjQ3eyT/view?usp=drivesdk
 
 ## Trails
 
@@ -106,7 +105,6 @@ points or single point. I included some camping locations as points in
 the file, also some region based national parks. But region the user
 can put anything in this file, for example the Berlin Wall / dividing
 line between East and West? Put them here! 
-
 
 ## Elevation
 
