@@ -732,8 +732,12 @@ def gopoly(coords):
 @app.route('/goestelevline/<coords>')
 def goestelevline(coords):
     npts = 200
-    lat,lon = (36.878729, 30.664349)
-    lat2,lon2 = (36.8829284,30.6593747)
+    lat,lon = my_curr_location()
+    lat2,lon2 = coords.split(';')
+    lat2 = float(lat2)
+    lon2 = float(lon2)
+    print (lat,lon)
+    print (lat2,lon2)
     far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
     print (far)
     bearing = route.get_bearing((lat,lon),(lat2,lon2))
@@ -755,8 +759,10 @@ def goestelevline(coords):
 @app.route('/gogoogelevline/<coords>')
 def gogoogelevline(coords):
     npts = 200
-    lat,lon = (36.878729, 30.664349)
-    lat2,lon2 = (36.8829284,30.6593747)
+    lat,lon = my_curr_location()
+    lat2,lon2 = coords.split(';')
+    lat2 = float(lat2)
+    lon2 = float(lon2)
     far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
     bearing = route.get_bearing((lat,lon),(lat2,lon2))
     locs = []
