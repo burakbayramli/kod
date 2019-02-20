@@ -147,11 +147,11 @@ block. 0.001 degrees correspond to 100 meters.
 Now for any lat/lon integer pair, you run `get_elev_data`, which
 under-the-hood runs
 
-* `insert_gps_int_rows` to insert 40k sample coordinates* (they are
-*the same for every block) per block, with empty elevation values.
-*Sample coordinates themselves (random numbers to be appended after
-*decimal points) can be created with `gen_gps_sample_coords`. These
-*coordinates are locations to be sampled within each block.
+* `insert_gps_int_rows` to insert 40k sample coordinates (they are the
+same for every block) per block, with empty elevation values.  Sample
+coordinates themselves (random numbers to be appended after decimal
+points) can be created with `gen_gps_sample_coords`. These coordinates
+are locations to be sampled within each block.
 
 * `get_elev_goog` per block, to get its missing elevation data. This
 call is restartable, will always work on missing data, so if it
