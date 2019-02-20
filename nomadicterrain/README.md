@@ -104,9 +104,9 @@ wikiloc.com, sign-up and download, and drop the gpx files under
 The ROI file above can be searched by keyword. Any matching point or
 region will be listed, once clicked, is shown as either a list of
 points or single point. I included some camping locations as points in
-the file, also some region based national parks. But region the user
-can put anything in this file, for example the Berlin Wall / dividing
-line between East and West? Put them here! 
+the file, also some region based national parks. But the user can put
+anything in this file, for example the Berlin Wall / dividing line
+between East and West? Put them here!
 
 ## Elevation
 
