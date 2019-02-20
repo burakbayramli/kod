@@ -12,6 +12,8 @@ G = pyproj.Geod(ellps='WGS84')
 
 gamma = 0.3
 
+SROWS=40000
+
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
@@ -162,7 +164,6 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
 def gen_gps_sample_coords():
     
     M=1000
-    S=40000
     res = np.zeros((M*M,2))
     k=0
     for i in range(M):
@@ -173,7 +174,7 @@ def gen_gps_sample_coords():
 
     idx = range(M*M)
 
-    sample_idx = np.random.choice(idx, S, replace=False)
+    sample_idx = np.random.choice(idx, SROWS, replace=False)
 
     print (len(sample_idx))
     
@@ -182,12 +183,6 @@ def gen_gps_sample_coords():
     print (len(sample))
     
     np.save(params['coordidx'],sample)
-
-def create_elev_table():
-
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-    c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL, elevation REAL); ''')
 
     
 def insert_gps_int_rows(latint, lonint):
@@ -219,14 +214,6 @@ def get_elev_goog(latint, lonint):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
 
-    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
-    res = c.execute(sql)
-    res = list(res)
-    print(res)
-    if res[0][0]==0:
-        print ('insert empty rows for %d,%dfirst' % (latint,lonint))
-        exit()
-
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     for x in res: print (x)
@@ -254,13 +241,7 @@ def show_ints():
     print (list(res))
     res = c.execute('''select distinct latint, lonint from rbf1; ''')
     print (list(res))
-    
-def create_rbf1_table():
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-    c.execute('''DROP TABLE RBF1; ''')
-    c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
-    
+        
 def insert_rbf1_recs(latint,lonint):
     S = 8
     df=pd.DataFrame(np.linspace(0,1.0,S))
@@ -341,11 +322,24 @@ def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
             elev_mat[i,j]=get_elev_single(xo[i,j],yo[i,j],c)
     
     return elev_mat, start_idx, end_idx, xo, yo 
-    
+
+def get_elev_data(latint, lonint):
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
+    res = c.execute(sql)
+    res = list(res)
+    print(res)
+    if res[0][0]<SROWS:
+        print ('inserting')
+        insert_gps_int_rows(latint,lonint)
+    get_elev_goog(latint,lonint)
+    insert_rbf1_recs(latint,lonint)
+
 if __name__ == "__main__":
     #insert_gps_int_rows(34,32)
     #get_elev_goog(34,32)
-    #create_rbf1_table()
-    show_ints()
+    #show_ints()
     #insert_rbf1_recs(34,32)
+    get_elev_data(36,30)
     pass

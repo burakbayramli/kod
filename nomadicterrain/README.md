@@ -122,11 +122,18 @@ from sampled elevation data taken from Google Elevation API. The
 approach explained below uses Radial Basis Functions method to
 interpolate elevation data for any point in a region modeled by RBF.
 
-First create the main table `create_elev_table` which will be created
-in the database (file) defined in parameter `elevdb`. We will take and
-store 40k sample elevation data points per degree block, e.g. lat/lon
-31-32 and 40-41 would be one degree block. 0.001 degrees correspond to
-100 meters.
+First create the main table
+
+```
+conn = sqlite3.connect(params['elevdb'])
+c = conn.cursor()
+c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL, elevation REAL); ''')
+```
+
+which will be created in the database (file) defined in parameter
+`elevdb`. We will take and store 40k sample elevation data points per
+degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
+block. 0.001 degrees correspond to 100 meters.
 
 Once table is created, run `insert_gps_int_rows` to insert 40k sample
 *coordinates* (they are the same for every block) per block, with
@@ -140,9 +147,17 @@ data. This call is restartable, will always work on missing data, so
 if it crashes you can restart, it will continue from where it left
 off.
 
-Now we are ready to create model. Run `create_rbf1_table` (one time).
-Then, run `insert_rbf1_recs` for any block. This calculates and
-inserts RBF model parameters for block in `RBF1` table.
+Now we are ready to create model. Run
+
+```
+conn = sqlite3.connect(params['elevdb'])
+c = conn.cursor()
+c.execute('''DROP TABLE RBF1; ''')
+c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
+```
+
+Then, run `insert_rbf1_recs` for any block. This
+calculates and inserts RBF model parameters for block in `RBF1` table.
 
 To use, now for any coordinate for blocks we have a model for, we can
 run `/gotopo/lat;lon`.
