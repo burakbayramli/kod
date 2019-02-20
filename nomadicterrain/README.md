@@ -135,19 +135,8 @@ which will be created in the database (file) defined in parameter
 degree block, e.g. lat/lon 31-32 and 40-41 would be one degree
 block. 0.001 degrees correspond to 100 meters.
 
-Once table is created, run `insert_gps_int_rows` to insert 40k sample
-*coordinates* (they are the same for every block) per block, with
-empty elevation values.  Sample coordinates themselves (random numbers
-to be appended after decimal points) can be created with
-`gen_gps_sample_coords`. These coordinates are locations to be sampled
-within each block.
 
-Then run `get_elev_goog` per block, to get its missing elevation
-data. This call is restartable, will always work on missing data, so
-if it crashes you can restart, it will continue from where it left
-off.
-
-Now we are ready to create model. Run
+For the model,
 
 ```
 conn = sqlite3.connect(params['elevdb'])
@@ -156,8 +145,21 @@ c.execute('''DROP TABLE RBF1; ''')
 c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')
 ```
 
-Then, run `insert_rbf1_recs` for any block. This
-calculates and inserts RBF model parameters for block in `RBF1` table.
+Now for any lat/lon integer pair, you run `get_elev_data`, which
+under-the-hood runs
+
+* `insert_gps_int_rows` to insert 40k sample coordinates* (they are
+*the same for every block) per block, with empty elevation values.
+*Sample coordinates themselves (random numbers to be appended after
+*decimal points) can be created with `gen_gps_sample_coords`. These
+*coordinates are locations to be sampled within each block.
+
+* `get_elev_goog` per block, to get its missing elevation data. This
+call is restartable, will always work on missing data, so if it
+crashes you can restart, it will continue from where it left off.
+
+* `insert_rbf1_recs` for any block. This calculates and inserts RBF
+model parameters for block in `RBF1` table.
 
 To use, now for any coordinate for blocks we have a model for, we can
 run `/gotopo/lat;lon`.
