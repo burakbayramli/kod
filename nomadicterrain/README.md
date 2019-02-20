@@ -157,8 +157,8 @@ are locations to be sampled within each block.
 call is restartable, will always work on missing data, so if it
 crashes you can restart, it will continue from where it left off.
 
-* `insert_rbf1_recs` for any block. This calculates and inserts RBF
-model parameters for block in `RBF1` table.
+* `insert_rbf1_recs` for any block, takes raw data inserted earlier,
+calculates and inserts RBF model parameters for block in `RBF1` table.
 
 To use, now for any coordinate for blocks we have a model for, we can
 run `/gotopo/lat;lon`.
