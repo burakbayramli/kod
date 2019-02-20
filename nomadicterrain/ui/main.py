@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
+import matplotlib.pyplot as plt
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
@@ -666,10 +667,10 @@ def flattestroute(coords):
     lat2,lon2 = my_curr_location()
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
-    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data_rbf(lat1,lon1,
-                                                                   lat2,lon2,
-                                                                   c,
-                                                                   npts=300)
+    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data_grid_rbf(lat1,lon1,
+                                                                        lat2,lon2,
+                                                                        c,
+                                                                        npts=300)
       
     p = route.dijkstra(elev_mat, start_idx, end_idx)
     
@@ -728,6 +729,51 @@ def gopoly(coords):
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
 
+@app.route('/goestelevline/<coords>')
+def goestelevline(coords):
+    npts = 200
+    lat,lon = (36.878729, 30.664349)
+    lat2,lon2 = (36.8829284,30.6593747)
+    far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
+    print (far)
+    bearing = route.get_bearing((lat,lon),(lat2,lon2))
+    locs = []
+    for x in np.linspace(0,far,npts):
+        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
+
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+
+    res = [route.get_elev_single(lat,lon,c) for (lat,lon) in  locs]
+
+    plt.figure()
+    plt.plot(np.linspace(0,far,npts),res)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    plt.savefig(fout)
+    return render_template('/lineelev.html', fout=fout)
+
+@app.route('/gogoogelevline/<coords>')
+def gogoogelevline(coords):
+    npts = 200
+    lat,lon = (36.878729, 30.664349)
+    lat2,lon2 = (36.8829284,30.6593747)
+    far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
+    bearing = route.get_bearing((lat,lon),(lat2,lon2))
+    locs = []
+    for x in np.linspace(0,far,npts):
+        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
+    locs = polyline.encode(locs)
+    url = route.elev_query % (locs, params['api'])
+    html = urlopen(url)
+    json_res = json.loads(html.read().decode('utf-8'))
+    res = []
+    for x in json_res['results']:
+        res.append(x['elevation'])
+    plt.figure()
+    plt.plot(np.linspace(0,far,npts),res)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    plt.savefig(fout)
+    return render_template('/lineelev.html', fout=fout)
 
 if __name__ == '__main__':
     app.debug = True

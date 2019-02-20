@@ -3,16 +3,15 @@ import numpy.linalg as lin
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle, math, pyproj
+import os, pickle, math
 import numpy as np, pandas as pd
 from pqdict import pqdict
-
-P = pyproj.Proj(proj='utm', zone=31, ellps='WGS84', preserve_units=True)
-G = pyproj.Geod(ellps='WGS84')
 
 gamma = 0.3
 
 SROWS=40000
+
+S = 8 # RBF grid division
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
@@ -243,7 +242,6 @@ def show_ints():
     print (list(res))
         
 def insert_rbf1_recs(latint,lonint):
-    S = 8
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
     print (df)
@@ -299,7 +297,7 @@ def get_elev_single(lat,lon,c):
     xnew = np.array([[lon,lat]])
     return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
 
-def get_elev_data_rbf(lat1,lon1,lat2,lon2,c,npts):
+def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
     xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
     start_idx = None
     end_idx = None
@@ -338,5 +336,5 @@ def get_elev_data(latint, lonint):
 
 if __name__ == "__main__":
     #show_ints()
-    get_elev_data(36,30)
-    pass
+    #get_elev_data(42,19)
+    insert_rbf1_recs(36,30)
