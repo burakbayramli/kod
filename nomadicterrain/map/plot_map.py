@@ -106,14 +106,14 @@ def plot_topo(lat,lon,fout1,fout2,fout3):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     
-    sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
+    sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
 
     res = c.execute(sql,(lat,lat,lon,lon))
     res = list(res)
     print ('len',len(res))
     if (len(res)!=1): raise Exception()
-    rbfi,gamma = res[0]
-    latlow,lathigh,lonlow,lonhigh,rbfi = pickle.loads(rbfi)
+    latlow,lathigh,lonlow,lonhigh,rbfi = res[0]
+    rbfi = pickle.loads(rbfi)
     
 
     D=100
