@@ -287,7 +287,6 @@ def get_elev_single(lat,lon,c):
     rbfi = pickle.loads(rbfi)
     xnew = np.array([[lon,lat]])
     return rbfi(lon, lat)
-#    return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
 
 def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
     xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
