@@ -240,21 +240,18 @@ def show_ints():
     res = c.execute('''select distinct latint, lonint from rbf1; ''')
     print (list(res))
         
-def insert_rbf1_recs(latint,lonint):
+def insert_rbf1_recs(latint,lonint,conn):
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
-    print (df)
-    
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
+    c = conn.cursor()    
     sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
     c.execute(sql)
     conn.commit()
     sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
-    res = list(c.execute(sql))    
+    res = list(c.execute(sql)) 
     for i,r1 in enumerate(np.array(df)):
         for j,r2 in enumerate(np.array(df)):
-            if j==S-1 or i==S-1: continue            
+            if j==S-1 or i==S-1: continue
             X = []; Z=[]
             latlow = float(latint)+r1[0]
             lathigh = float(latint)+r1[1]
@@ -323,7 +320,18 @@ def get_elev_data(latint, lonint):
     get_elev_goog(latint,lonint)
     insert_rbf1_recs(latint,lonint)
 
+def do_all_rbf_ints():
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    res = c.execute('''select distinct latint, lonint from elevation; ''')
+    for (latint,lonint) in res:
+        print (latint,lonint)
+        insert_rbf1_recs(latint,lonint,conn)
+        
+    
+    
 if __name__ == "__main__":
-    #show_ints()
+    show_ints()
     #get_elev_data(42,19)
-    insert_rbf1_recs(36,30)
+    #insert_rbf1_recs(36,30)
+
