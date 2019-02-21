@@ -8,8 +8,6 @@ import numpy as np, pandas as pd
 from scipy.interpolate import Rbf
 from pqdict import pqdict
 
-gamma = 0.3
-
 SROWS=40000
 
 S = 8 # RBF grid division
