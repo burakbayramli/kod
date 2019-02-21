@@ -107,31 +107,26 @@ def plot_topo(lat,lon,fout1,fout2,fout3):
     c = conn.cursor()
     
     sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
+
     res = c.execute(sql,(lat,lat,lon,lon))
     res = list(res)
     print ('len',len(res))
     if (len(res)!=1): raise Exception()
-    W,gamma = res[0]
-    df = pickle.loads(W)
+    rbfi,gamma = res[0]
+    latlow,lathigh,lonlow,lonhigh,rbfi = pickle.loads(rbfi)
+    
 
     D=100
-    xr=np.array(df[0])
-    xr=xr.reshape(len(xr),1)
-    yr=np.array(df[1])
-    yr=yr.reshape(len(xr),1)
-    X = np.hstack((xr,yr))
 
-    x = np.linspace(np.min(xr),np.max(xr),D)
-    y = np.linspace(np.min(yr),np.max(yr),D)
+    x = np.linspace(lonlow,lonhigh,D)
+    y = np.linspace(latlow,lathigh,D)
     xx,yy = np.meshgrid(x,y)
     xxx = xx.reshape(D*D)
     yyy = yy.reshape(D*D)
+    znew = rbfi(xxx,yyy)
 
-    tmp = np.vstack((xxx,yyy))
-    d = cdist(X,tmp.T)
-
-    znew = np.dot(df.w.T,np.exp(-gamma * d)).reshape(D,D)
     znew[znew<0] = 0
+    znew = znew.reshape(xx.shape)
 
     plon,plat = np.round(float(lon),3),np.round(float(lat),3)
     

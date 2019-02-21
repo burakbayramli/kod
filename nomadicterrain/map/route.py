@@ -5,6 +5,7 @@ from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math
 import numpy as np, pandas as pd
+from scipy.interpolate import Rbf
 from pqdict import pqdict
 
 gamma = 0.3
@@ -272,13 +273,14 @@ def insert_rbf1_recs(latint,lonint):
             X = X[Z[:,0]>0.0]
             Z = Z[Z[:,0]>0.0]
             if (len(Z)<10): continue
-            Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
-            print (Phi.shape)
-            print (Z.shape)
-            w = lin.solve(Phi,Z)
-            wdf = pd.DataFrame(X)
-            wdf['w'] = w.reshape(len(w))
-            wdf = pickle.dumps(wdf)
+#            Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
+#            print (Phi.shape)
+#            print (Z.shape)
+#            w = lin.solve(Phi,Z)
+#            wdf = pd.DataFrame(X)
+#            wdf['w'] = w.reshape(len(w))
+            rbfi = Rbf(X[:,0], X[:,1], Z) 
+            wdf = pickle.dumps([latlow,lathigh,lonlow,lonhigh,rbfi])
             c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, wdf))
             conn.commit()
     
@@ -287,15 +289,12 @@ def get_elev_single(lat,lon,c):
     r = c.execute(sql,(lat,lat,lon,lon))
     r = list(r)
     if len(r)==0: return -10.0
-    W,gamma = r[0]
-    df = pickle.loads(W)
-    xr=np.array(df[0])
-    xr=xr.reshape(len(xr),1)
-    yr=np.array(df[1])
-    yr=yr.reshape(len(xr),1)
-    X = np.hstack((xr,yr))
+    rbfi,gamma = r[0]
+    latlow,lathigh,lonlow,lonhigh,rbfi = pickle.loads(rbfi)
     xnew = np.array([[lon,lat]])
-    return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
+    print (rbfi(lon, lat))
+    return rbfi(lon, lat)
+#    return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
 
 def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
     xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
