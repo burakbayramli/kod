@@ -318,7 +318,7 @@ def get_elev_data(latint, lonint):
         print ('inserting')
         insert_gps_int_rows(latint,lonint)
     get_elev_goog(latint,lonint)
-    insert_rbf1_recs(latint,lonint)
+    insert_rbf1_recs(latint,lonint,conn)
 
 def do_all_rbf_ints():
     conn = sqlite3.connect(params['elevdb'])
@@ -331,7 +331,7 @@ def do_all_rbf_ints():
     
     
 if __name__ == "__main__":
-    show_ints()
-    #get_elev_data(42,19)
+    #show_ints()
+    get_elev_data(44,17)
     #insert_rbf1_recs(36,30)
 
