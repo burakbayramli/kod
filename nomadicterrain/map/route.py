@@ -280,17 +280,17 @@ def insert_rbf1_recs(latint,lonint):
 #            wdf = pd.DataFrame(X)
 #            wdf['w'] = w.reshape(len(w))
             rbfi = Rbf(X[:,0], X[:,1], Z) 
-            wdf = pickle.dumps([latlow,lathigh,lonlow,lonhigh,rbfi])
-            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,gamma,W) VALUES(?,?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, gamma, wdf))
+            wdf = pickle.dumps(rbfi)
+            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
             conn.commit()
     
 def get_elev_single(lat,lon,c):
-    sql = "SELECT W, gamma from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
+    sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     r = c.execute(sql,(lat,lat,lon,lon))
     r = list(r)
     if len(r)==0: return -10.0
-    rbfi,gamma = r[0]
-    latlow,lathigh,lonlow,lonhigh,rbfi = pickle.loads(rbfi)
+    latlow,lathigh,lonlow,lonhigh,rbfi = r[0]
+    rbfi = pickle.loads(rbfi)
     xnew = np.array([[lon,lat]])
     print (rbfi(lon, lat))
     return rbfi(lon, lat)
