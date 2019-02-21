@@ -273,12 +273,6 @@ def insert_rbf1_recs(latint,lonint):
             X = X[Z[:,0]>0.0]
             Z = Z[Z[:,0]>0.0]
             if (len(Z)<10): continue
-#            Phi = np.exp(-gamma*cdist(X,X,metric='euclid'))
-#            print (Phi.shape)
-#            print (Z.shape)
-#            w = lin.solve(Phi,Z)
-#            wdf = pd.DataFrame(X)
-#            wdf['w'] = w.reshape(len(w))
             rbfi = Rbf(X[:,0], X[:,1], Z) 
             wdf = pickle.dumps(rbfi)
             c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
@@ -292,7 +286,6 @@ def get_elev_single(lat,lon,c):
     latlow,lathigh,lonlow,lonhigh,rbfi = r[0]
     rbfi = pickle.loads(rbfi)
     xnew = np.array([[lon,lat]])
-    print (rbfi(lon, lat))
     return rbfi(lon, lat)
 #    return np.multiply(df.w.T,np.exp(-gamma*lin.norm(X-xnew,axis=1))).sum()
 
