@@ -68,12 +68,6 @@ berlin.zip
 
 https://drive.google.com/open?id=18CtN_FHBOs47zvM3Uvirhgf4vM-5oMZB
 
-## Water
-
-Lines (small, narrow water resources) - https://drive.google.com/file/d/1Xv3hwem4F5j5JXSTMaoNd3JCqpihpyuR/view?usp=drivesdk
-
-Polygons (bigger ones, lakes) - https://drive.google.com/file/d/18CvBtmtmwvqsLs0sMbtQPsybWcjQ3eyT/view?usp=drivesdk
-
 ### Other
 
 GeoLiteCity
