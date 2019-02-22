@@ -232,7 +232,15 @@ def show_ints():
     print (list(res))
     res = c.execute('''select distinct latint, lonint from rbf1; ''')
     print (list(res))
-        
+
+def gdist(x1,x2):
+    x1=x1.reshape(-1,2)
+    x2=x2.reshape(-1,2)
+    #for x in x1: print (x)
+    dists = [geopy.distance.vincenty((a2[0],a1[0]),(a2[1],a1[1])).km for a1,a2 in zip(x1,x2)]
+    print (dists)
+    return np.array(dists)
+    
 def insert_rbf1_recs(latint,lonint,conn):
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
@@ -261,7 +269,7 @@ def insert_rbf1_recs(latint,lonint,conn):
             X = X[Z[:,0]>0.0]
             Z = Z[Z[:,0]>0.0]
             if (len(Z)<10): continue
-            rbfi = Rbf(X[:,0], X[:,1], Z) 
+            rbfi = Rbf(X[:,0], X[:,1], Z)
             wdf = pickle.dumps(rbfi)
             c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
             conn.commit()
@@ -300,7 +308,7 @@ def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
     
     return elev_mat, start_idx, end_idx, xo, yo 
 
-def get_elev_data(latint, lonint):
+def get_elev_data(latint, lonint, rbf=True):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
@@ -311,7 +319,7 @@ def get_elev_data(latint, lonint):
         print ('inserting')
         insert_gps_int_rows(latint,lonint)
     get_elev_goog(latint,lonint)
-    insert_rbf1_recs(latint,lonint,conn)
+    if rbf: insert_rbf1_recs(latint,lonint,conn)
 
 def do_all_rbf_ints():
     conn = sqlite3.connect(params['elevdb'])
@@ -331,11 +339,13 @@ def get_all_countries():
         for lon in (range(int(longmin),int(longmax)+1)):
             for lat in (range(int(latmin),int(latmax)+1)):
                 print (lat,lon)
-                get_elev_data(lat,lon)
+                get_elev_data(lat,lon,rbf=False)
 
     
 if __name__ == "__main__":
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
     #show_ints()
     #get_elev_data(44,17)
-    #insert_rbf1_recs(36,30)
+    #insert_rbf1_recs(36,30,conn)
     get_all_countries()
