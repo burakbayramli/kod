@@ -199,13 +199,6 @@ def insert_gps_int_rows(latint, lonint):
         res = c.execute(sql)
         if i%100==0: print (i)
         conn.commit()
-
-def get_elev_goog_single(lat,lon):
-    locs = polyline.encode([lat,lon])
-    url = elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-    print (json_res)
         
 def get_elev_goog(latint, lonint):
     
@@ -328,10 +321,21 @@ def do_all_rbf_ints():
         print (latint,lonint)
         insert_rbf1_recs(latint,lonint,conn)
         
-    
+def get_all_countries():
+    print (params['countries'])
+    df = pd.read_csv(params['countries'])
+    #print (df)
+    for row in np.array(df):
+        longmin,latmin,longmax,latmax =  (row[2],row[3],row[4],row[5])
+        print (longmin,latmin,longmax,latmax)
+        for lon in (range(int(longmin),int(longmax)+1)):
+            for lat in (range(int(latmin),int(latmax)+1)):
+                print (lat,lon)
+                get_elev_data(lat,lon)
+
     
 if __name__ == "__main__":
     #show_ints()
-    get_elev_data(44,17)
+    #get_elev_data(44,17)
     #insert_rbf1_recs(36,30)
-
+    get_all_countries()
