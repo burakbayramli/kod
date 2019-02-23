@@ -829,35 +829,44 @@ def finance():
     fout1 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['SP500'].plot()
+    s = np.array(df1['SP500'])
+    c1 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout1)
 
     fout2 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['usd'].plot()
+    s = np.array(df1['usd'])
+    c2 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout2)
 
     fout3 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['oil'].plot()
+    s = np.array(df1['oil'])
+    c3 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout3)
 
     fout4 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['djia'].plot()
+    s = np.array(df1['djia'])
+    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout4)
 
     fout5 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
-    print (df1['10yr'])
     df1['10yr'].dropna().plot()
+    s = np.array(df1.dropna()['djia'])
+    c5 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout5)
     
     return render_template('/finance.html',
-                           location1=fout1,
-                           location2=fout2,
-                           location3=fout3,
-                           location4=fout4,
-                           location5=fout5)
+                           location1=fout1,c1=c1,
+                           location2=fout2,c2=c2,
+                           location3=fout3,c3=c3,
+                           location4=fout4,c4=c4,
+                           location5=fout5,c5=c5)
 
 
 if __name__ == '__main__':
