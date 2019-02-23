@@ -826,20 +826,23 @@ def finance():
     df1['SP500'].plot()
     s = np.array(df1['SP500'])
     c1 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
+    c1 = np.round(c1*100.0,2)
     plt.savefig(fout1)
 
     fout2 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['usd'].plot()
-    s = np.array(df1['usd'])
+    s = np.array(df1['usd'].dropna())
     c2 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
+    c2 = np.round(c2*100.0,2)
     plt.savefig(fout2)
 
     fout3 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['oil'].plot()
-    s = np.array(df1['oil'])
+    s = np.array(df1['oil'].dropna())
     c3 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
+    c3 = np.round(c3*100.0,2)
     plt.savefig(fout3)
 
     fout4 = "static/out-%s.png" % uuid.uuid4()
@@ -847,6 +850,7 @@ def finance():
     df1['10yr'].dropna().plot()
     s = np.array(df1['10yr'].dropna())
     c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
+    c4 = np.round(c4*100.0,2)
     plt.savefig(fout4)
     
     return render_template('/finance.html',
