@@ -802,8 +802,8 @@ def finance():
 
     df1 = df.copy()
 
-    df = web.DataReader("WGS10YR", 'fred', start_d, end_d)
-    df1.loc[:,'10yr'] = df.WGS10YR
+    df = web.DataReader("DGS10", 'fred', start_d, end_d)
+    df1.loc[:,'10yr'] = df.DGS10
 
     df = quandl.get("EIA/PET_RWTC_D",                 
                     returns="pandas",
@@ -812,13 +812,6 @@ def finance():
                     authtoken=auth)
 
     df1.loc[:,'oil'] = df.Value
-
-    df = quandl.get("BCB/UDJIAD1",                 
-                    returns="pandas",
-                    start_date=start_s,
-                    end_date=today.strftime('%Y-%m-%d'),
-                    authtoken=auth)
-    df1.loc[:,'djia'] = df.Value
 
     df = quandl.get("FRED/DTWEXM",                 
                     returns="pandas",
@@ -852,9 +845,8 @@ def finance():
     fout4 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['10yr'].dropna().plot()
-#    s = np.array(df1.dropna()['10yr'])
-#    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    c4 = 0
+    s = np.array(df1['10yr'].dropna())
+    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     plt.savefig(fout4)
     
     return render_template('/finance.html',
