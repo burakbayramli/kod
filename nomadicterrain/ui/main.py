@@ -788,24 +788,26 @@ def gogoogelevline(coords):
 def finance():
     clean_dir()
 
+    start_s = '2018-06-01'
+    start_d = datetime.datetime(2018, 6, 1)    
     today = datetime.datetime.now()
-    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-    auth = params['quandl']
+    end_d=datetime.datetime(today.year, today.month, today.day)
 
-    start=datetime.datetime(2013, 1, 1)
+    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+
+    auth = params['quandl']
+    
     end=datetime.datetime(today.year, today.month, today.day)
-    df = web.DataReader("SP500", 'fred', start, end)
+    df = web.DataReader("SP500", 'fred', start_d, end_d)
 
     df1 = df.copy()
 
-    start=datetime.datetime(2013, 1, 1)
-    end=datetime.datetime(today.year, today.month, today.day)
-    df = web.DataReader("WGS10YR", 'fred', start, end)
+    df = web.DataReader("WGS10YR", 'fred', start_d, end_d)
     df1.loc[:,'10yr'] = df.WGS10YR
 
     df = quandl.get("EIA/PET_RWTC_D",                 
                     returns="pandas",
-                    start_date='2010-01-01',
+                    start_date=start_s,
                     end_date=today.strftime('%Y-%m-%d'),
                     authtoken=auth)
 
@@ -813,14 +815,14 @@ def finance():
 
     df = quandl.get("BCB/UDJIAD1",                 
                     returns="pandas",
-                    start_date='2010-01-01',
+                    start_date=start_s,
                     end_date=today.strftime('%Y-%m-%d'),
                     authtoken=auth)
     df1.loc[:,'djia'] = df.Value
 
     df = quandl.get("FRED/DTWEXM",                 
                     returns="pandas",
-                    start_date='2010-01-01',
+                    start_date=start_s,
                     end_date=today.strftime('%Y-%m-%d'),
                     authtoken=auth)
 
@@ -849,24 +851,17 @@ def finance():
 
     fout4 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
-    df1['djia'].plot()
-    s = np.array(df1['djia'])
-    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    plt.savefig(fout4)
-
-    fout5 = "static/out-%s.png" % uuid.uuid4()
-    plt.figure()
     df1['10yr'].dropna().plot()
-    s = np.array(df1.dropna()['djia'])
-    c5 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    plt.savefig(fout5)
+#    s = np.array(df1.dropna()['10yr'])
+#    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
+    c4 = 0
+    plt.savefig(fout4)
     
     return render_template('/finance.html',
                            location1=fout1,c1=c1,
                            location2=fout2,c2=c2,
                            location3=fout3,c3=c3,
-                           location4=fout4,c4=c4,
-                           location5=fout5,c5=c5)
+                           location4=fout4,c4=c4)
 
 
 if __name__ == '__main__':
