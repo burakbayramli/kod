@@ -10,10 +10,12 @@ import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
 from urllib.request import urlopen
 import urllib, requests, json, re
-from bs4 import BeautifulSoup
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
 import route, sqlite3
+import pandas_datareader.data as web
+import quandl, os
+
 
 app = Flask(__name__)
 
@@ -824,7 +826,6 @@ def finance():
 
     df1.loc[:,'usd'] = df.Value
 
-
     fout1 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['SP500'].plot()
@@ -847,7 +848,8 @@ def finance():
 
     fout5 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
-    df1['10yr'].plot()
+    print (df1['10yr'])
+    df1['10yr'].dropna().plot()
     plt.savefig(fout5)
     
     return render_template('/finance.html',

@@ -53,24 +53,5 @@ df1.loc[:,'usd'] = df.Value
 
 df1.to_csv("out.csv")
 
-plt.figure()
-df1['SP500'].plot()
-plt.savefig('out1.png')
-
-plt.figure()
-df1['usd'].plot()
-plt.savefig('out2.png')
-
-plt.figure()
-df1['oil'].plot()
-plt.savefig('out3.png')
-
-plt.figure()
-df1['djia'].plot()
-plt.savefig('out4.png')
-
-plt.figure()
-df1['10yr'].plot()
-plt.savefig('out5.png')
 
 
