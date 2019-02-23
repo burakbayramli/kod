@@ -784,9 +784,78 @@ def gogoogelevline(coords):
 
 @app.route('/finance')
 def finance():
+    clean_dir()
+
+    today = datetime.datetime.now()
+    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+    auth = params['quandl']
+
+    start=datetime.datetime(2013, 1, 1)
+    end=datetime.datetime(today.year, today.month, today.day)
+    df = web.DataReader("SP500", 'fred', start, end)
+
+    df1 = df.copy()
+
+    start=datetime.datetime(2013, 1, 1)
+    end=datetime.datetime(today.year, today.month, today.day)
+    df = web.DataReader("WGS10YR", 'fred', start, end)
+    df1.loc[:,'10yr'] = df.WGS10YR
+
+    df = quandl.get("EIA/PET_RWTC_D",                 
+                    returns="pandas",
+                    start_date='2010-01-01',
+                    end_date=today.strftime('%Y-%m-%d'),
+                    authtoken=auth)
+
+    df1.loc[:,'oil'] = df.Value
+
+    df = quandl.get("BCB/UDJIAD1",                 
+                    returns="pandas",
+                    start_date='2010-01-01',
+                    end_date=today.strftime('%Y-%m-%d'),
+                    authtoken=auth)
+    df1.loc[:,'djia'] = df.Value
+
+    df = quandl.get("FRED/DTWEXM",                 
+                    returns="pandas",
+                    start_date='2010-01-01',
+                    end_date=today.strftime('%Y-%m-%d'),
+                    authtoken=auth)
+
+    df1.loc[:,'usd'] = df.Value
+
+
     fout1 = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()    
-    return render_template('/finance.html', location1=fout1)
+    plt.figure()
+    df1['SP500'].plot()
+    plt.savefig(fout1)
+
+    fout2 = "static/out-%s.png" % uuid.uuid4()
+    plt.figure()
+    df1['usd'].plot()
+    plt.savefig(fout2)
+
+    fout3 = "static/out-%s.png" % uuid.uuid4()
+    plt.figure()
+    df1['oil'].plot()
+    plt.savefig(fout3)
+
+    fout4 = "static/out-%s.png" % uuid.uuid4()
+    plt.figure()
+    df1['djia'].plot()
+    plt.savefig(fout4)
+
+    fout5 = "static/out-%s.png" % uuid.uuid4()
+    plt.figure()
+    df1['10yr'].plot()
+    plt.savefig(fout5)
+    
+    return render_template('/finance.html',
+                           location1=fout1,
+                           location2=fout2,
+                           location3=fout3,
+                           location4=fout4,
+                           location5=fout5)
 
 
 if __name__ == '__main__':

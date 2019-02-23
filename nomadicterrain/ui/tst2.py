@@ -16,7 +16,14 @@ end=datetime.datetime(today.year, today.month, today.day)
 df = web.DataReader("SP500", 'fred', start, end)
 print (df.tail(10))
 
-print (today.strftime('%Y-%m-%d'))
+df1 = df.copy()
+
+start=datetime.datetime(2013, 1, 1)
+end=datetime.datetime(today.year, today.month, today.day)
+df = web.DataReader("WGS10YR", 'fred', start, end)
+print (df.tail(10))
+df1.loc[:,'10yr'] = df.WGS10YR
+
 
 # oil
 df = quandl.get("EIA/PET_RWTC_D",                 
@@ -24,7 +31,8 @@ df = quandl.get("EIA/PET_RWTC_D",
                  start_date='2010-01-01',
                  end_date=today.strftime('%Y-%m-%d'),
                  authtoken=auth)
-print (df.tail(10))
+
+df1.loc[:,'oil'] = df.Value
 
 # dow jones
 df = quandl.get("BCB/UDJIAD1",                 
@@ -32,7 +40,7 @@ df = quandl.get("BCB/UDJIAD1",
                  start_date='2010-01-01',
                  end_date=today.strftime('%Y-%m-%d'),
                  authtoken=auth)
-print (df.tail(10))
+df1.loc[:,'djia'] = df.Value
 
 # dollar
 df = quandl.get("FRED/DTWEXM",                 
@@ -40,6 +48,29 @@ df = quandl.get("FRED/DTWEXM",
                  start_date='2010-01-01',
                  end_date=today.strftime('%Y-%m-%d'),
                  authtoken=auth)
-print (df.tail(10))
+
+df1.loc[:,'usd'] = df.Value
+
+df1.to_csv("out.csv")
+
+plt.figure()
+df1['SP500'].plot()
+plt.savefig('out1.png')
+
+plt.figure()
+df1['usd'].plot()
+plt.savefig('out2.png')
+
+plt.figure()
+df1['oil'].plot()
+plt.savefig('out3.png')
+
+plt.figure()
+df1['djia'].plot()
+plt.savefig('out4.png')
+
+plt.figure()
+df1['10yr'].plot()
+plt.savefig('out5.png')
 
 
