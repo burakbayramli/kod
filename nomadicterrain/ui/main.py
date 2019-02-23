@@ -782,6 +782,14 @@ def gogoogelevline(coords):
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
 
+@app.route('/finance')
+def finance():
+    fout1 = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    
+    return render_template('/finance.html', location1=fout1)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost",port=5000)

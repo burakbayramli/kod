@@ -38,13 +38,15 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "news_dir": "/dir/dir",
   "guide_detail_dir": "[see ../guide/doc/details]",
   "spiller_pdf": "[see /ui/static/spiller.json]",
-  "api": "[GOOGLE API ANAHTARI]",
+  "api": "[GOOGLE API KEY]",
   "weatherapi": "[openweathermap key]",
   "btype": "[BLOOD TYPE DIET csv, see ../guide/data/food.dat]",
-  "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]"
+  "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]",
   "coordidx": "[DIR]/gps_coord_sample.npy",
-  "elevdb": "/dir/dir/file.db",
-  "poi": "/dir/dir/poi.csv"
+  "elevdb": "/dir/dir/elev.db",
+  "poi": "/dir/dir/poi.csv",
+  "countries": "/dir/dir/country-bb.csv"
+  "quandl": "[QUANDL API KEY]"
 }
 ```
 
