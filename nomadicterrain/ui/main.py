@@ -785,8 +785,7 @@ def gogoogelevline(coords):
 @app.route('/finance')
 def finance():
     fout1 = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    
+    clean_dir()    
     return render_template('/finance.html', location1=fout1)
 
 
