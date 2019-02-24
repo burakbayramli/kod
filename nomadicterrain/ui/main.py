@@ -16,11 +16,13 @@ import route, sqlite3
 import pandas_datareader.data as web
 import quandl, os
 
-
 app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-print (params)
+
+nfile = "./templates/news.html"
+
+wfile = os.environ['TMPDIR'] + "/weather.pkl"
 
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
 
@@ -301,7 +303,6 @@ def choosemap():
 
 @app.route('/news')
 def news_action():
-    nfile = "./templates/news.html"
     files_day = -1
     todays_day = datetime.datetime.now().day
     if os.path.isfile(nfile):
@@ -448,15 +449,16 @@ def gogeo(coords):
     elev = get_elev(float(lat),float(lon))
     return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
 
-@app.route('/reset', methods=['GET', 'POST'])
-def reset():
-    if request.form['action'] == 'Yes':
-        print ("yes")
+@app.route('/reset/<what>')
+def reset(what):
+    if what == "log":
         df = pd.read_csv(params['gps'])
         df = df.tail(1)
         df.to_csv(params['gps'],index=None)
-    elif request.form['action'] == 'No':
-        print ("no") 
+    elif what == "weather":
+        if os.path.isfile(wfile): os.remove(wfile)
+    elif what == "news":
+        if os.path.isfile(nfile): os.remove(nfile)
     return index()
 
 @app.route("/place_search", methods=["POST"])
@@ -518,7 +520,6 @@ def goweather(coords):
 
 @app.route('/weather')
 def weather():
-    wfile = os.environ['TMPDIR'] + "/weather.pkl"
     print (wfile)
     files_day = -1
     todays_day = datetime.datetime.now().day
