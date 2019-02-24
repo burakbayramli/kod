@@ -859,6 +859,7 @@ def finance():
     s = np.array(df1['SP500'])
     c1 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     c1 = np.round(c1*100.0,2)
+    l1 = np.float(s[-1])
     plt.savefig(fout1)
 
     fout2 = "static/out-%s.png" % uuid.uuid4()
@@ -867,6 +868,7 @@ def finance():
     s = np.array(df1['usd'].dropna())
     c2 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     c2 = np.round(c2*100.0,2)
+    l2 = np.float(s[-1])
     plt.savefig(fout2)
 
     fout3 = "static/out-%s.png" % uuid.uuid4()
@@ -875,6 +877,7 @@ def finance():
     s = np.array(df1['oil'].dropna())
     c3 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     c3 = np.round(c3*100.0,2)
+    l3 = np.float(s[-1])
     plt.savefig(fout3)
 
     fout4 = "static/out-%s.png" % uuid.uuid4()
@@ -883,13 +886,14 @@ def finance():
     s = np.array(df1['10yr'].dropna())
     c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
     c4 = np.round(c4*100.0,2)
+    l4 = np.float(s[-1])
     plt.savefig(fout4)
     
     return render_template('/finance.html',
-                           location1=fout1,c1=c1,
-                           location2=fout2,c2=c2,
-                           location3=fout3,c3=c3,
-                           location4=fout4,c4=c4)
+                           location1=fout1,c1=c1,l1=l1,
+                           location2=fout2,c2=c2,l2=l2,
+                           location3=fout3,c3=c3,l3=l3,
+                           location4=fout4,c4=c4,l4=l4)
 
 
 if __name__ == '__main__':
