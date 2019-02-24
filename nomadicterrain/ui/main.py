@@ -767,6 +767,7 @@ def goestelevline(coords):
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
 
@@ -791,6 +792,7 @@ def gogoogelevline(coords):
         res.append(x['elevation'])
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
+    clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
