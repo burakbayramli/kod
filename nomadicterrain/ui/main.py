@@ -453,17 +453,22 @@ def gogeo(coords):
 
 @app.route('/reset/<what>')
 def reset(what):
+    msg = ""
     if what == "log":
         df = pd.read_csv(params['gps'])
         df = df.tail(1)
+        msg = "Log is reset"
         df.to_csv(params['gps'],index=None)
     elif what == "weather":
         if os.path.isfile(wfile): os.remove(wfile)
+        msg = "Weather is reset"
     elif what == "news":
         if os.path.isfile(nfile): os.remove(nfile)
+        msg = "News is reset"
     elif what == "finance":
         if os.path.isfile(finfile): os.remove(finfile)
-    return index()
+        msg = "Finance is reset"
+    return render_template('/reset.html', msg=msg)
 
 @app.route("/place_search", methods=["POST"])
 def place_search():
