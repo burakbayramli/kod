@@ -24,6 +24,8 @@ nfile = "./templates/news.html"
 
 wfile = os.environ['TMPDIR'] + "/weather.pkl"
 
+finfile = os.environ['TMPDIR'] + "/finance.csv"
+
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
@@ -459,6 +461,8 @@ def reset(what):
         if os.path.isfile(wfile): os.remove(wfile)
     elif what == "news":
         if os.path.isfile(nfile): os.remove(nfile)
+    elif what == "finance":
+        if os.path.isfile(finfile): os.remove(finfile)
     return index()
 
 @app.route("/place_search", methods=["POST"])
@@ -802,39 +806,49 @@ def gogoogelevline(coords):
 def finance():
     clean_dir()
 
-    start_s = '2018-06-01'
-    start_d = datetime.datetime(2018, 6, 1)    
-    today = datetime.datetime.now()
-    end_d=datetime.datetime(today.year, today.month, today.day)
+    files_day = -1
+    todays_day = datetime.datetime.now().day
+    if os.path.isfile(nfile):
+       files_day = datetime.datetime.fromtimestamp(os.path.getctime(nfile)).day
+       
+    if files_day != todays_day:        
+       start_s = '2018-06-01'
+       start_d = datetime.datetime(2018, 6, 1)    
+       today = datetime.datetime.now()
+       end_d=datetime.datetime(today.year, today.month, today.day)
 
-    params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-
-    auth = params['quandl']
+       auth = params['quandl']
     
-    end=datetime.datetime(today.year, today.month, today.day)
-    df = web.DataReader("SP500", 'fred', start_d, end_d)
+       end=datetime.datetime(today.year, today.month, today.day)
+       df = web.DataReader("SP500", 'fred', start_d, end_d)
 
-    df1 = df.copy()
+       df1 = df.copy()
 
-    df = web.DataReader("DGS10", 'fred', start_d, end_d)
-    df1.loc[:,'10yr'] = df.DGS10
+       df = web.DataReader("DGS10", 'fred', start_d, end_d)
+       df1.loc[:,'10yr'] = df.DGS10
 
-    df = quandl.get("EIA/PET_RWTC_D",                 
-                    returns="pandas",
-                    start_date=start_s,
-                    end_date=today.strftime('%Y-%m-%d'),
-                    authtoken=auth)
+       df = quandl.get("EIA/PET_RWTC_D",                 
+                       returns="pandas",
+                       start_date=start_s,
+                       end_date=today.strftime('%Y-%m-%d'),
+                       authtoken=auth)
 
-    df1.loc[:,'oil'] = df.Value
+       df1.loc[:,'oil'] = df.Value
 
-    df = quandl.get("FRED/DTWEXM",                 
-                    returns="pandas",
-                    start_date=start_s,
-                    end_date=today.strftime('%Y-%m-%d'),
-                    authtoken=auth)
+       df = quandl.get("FRED/DTWEXM",                 
+                       returns="pandas",
+                       start_date=start_s,
+                       end_date=today.strftime('%Y-%m-%d'),
+                       authtoken=auth)
+       
+       df1.loc[:,'usd'] = df.Value
+       
+       df1.to_csv(finfile)
+       
+    df1 = pd.read_csv(finfile)
 
-    df1.loc[:,'usd'] = df.Value
-
+    clean_dir()
+    
     fout1 = "static/out-%s.png" % uuid.uuid4()
     plt.figure()
     df1['SP500'].plot()
