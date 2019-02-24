@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, pickle
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
@@ -518,8 +518,19 @@ def goweather(coords):
 
 @app.route('/weather')
 def weather():
-    lat,lon = my_curr_location()
-    res = get_weather(lat,lon)
+    wfile = os.environ['TMPDIR'] + "/weather.pkl"
+    print (wfile)
+    files_day = -1
+    todays_day = datetime.datetime.now().day
+    if os.path.isfile(wfile):
+       files_day = datetime.datetime.fromtimestamp(os.path.getctime(wfile)).day       
+    # get news file once each day. if news file exists for today, dont get it again
+    if files_day != todays_day:            
+        lat,lon = my_curr_location()
+        res = get_weather(lat,lon)
+        pickle.dump(res, open(wfile,"wb"))
+        
+    res = pickle.load(open(wfile,"rb"))
     return render_template('/weather.html', res=res)
 
 @app.route('/trail/<gpx_file>')
