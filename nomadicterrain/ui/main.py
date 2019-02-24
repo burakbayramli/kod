@@ -810,11 +810,10 @@ def gogoogelevline(coords):
 @app.route('/finance')
 def finance():
     clean_dir()
-
     files_day = -1
     todays_day = datetime.datetime.now().day
-    if os.path.isfile(nfile):
-       files_day = datetime.datetime.fromtimestamp(os.path.getctime(nfile)).day
+    if os.path.isfile(finfile):
+       files_day = datetime.datetime.fromtimestamp(os.path.getctime(finfile)).day
        
     if files_day != todays_day:        
        start_s = '2018-06-01'
