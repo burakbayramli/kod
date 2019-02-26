@@ -809,9 +809,10 @@ def gogoogelevline(coords):
 
 @app.route('/finance')
 def finance():
-    clean_dir()
     files_day = -1
     todays_day = datetime.datetime.now().day
+    auth = params['quandl']
+    
     if os.path.isfile(finfile):
        files_day = datetime.datetime.fromtimestamp(os.path.getctime(finfile)).day
        
@@ -821,8 +822,6 @@ def finance():
        today = datetime.datetime.now()
        end_d=datetime.datetime(today.year, today.month, today.day)
 
-       auth = params['quandl']
-    
        end=datetime.datetime(today.year, today.month, today.day)
        df = web.DataReader("SP500", 'fred', start_d, end_d)
 
@@ -849,7 +848,7 @@ def finance():
        
        df1.to_csv(finfile)
        
-    df1 = pd.read_csv(finfile)
+    df1 = pd.read_csv(finfile,index_col=0,parse_dates=True)
 
     clean_dir()
     
