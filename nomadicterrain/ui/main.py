@@ -14,7 +14,7 @@ import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
 import route, sqlite3
 import pandas_datareader.data as web
-import quandl, os, calendar
+import quandl, os, calendar, timezonefinder
 from pytz import timezone
 
 app = Flask(__name__)
@@ -898,6 +898,8 @@ def finance():
 @app.route('/time')
 def time():
 
+    lat,lon = my_curr_location()
+    
     y = datetime.datetime.now().year
     m = datetime.datetime.now().month
     cal = str(calendar.month(y, m))
@@ -911,8 +913,14 @@ def time():
     tr = timezone('Turkey')
     tr_time = datetime.datetime.now(tr)
     times['tr'] = tr_time.strftime('%Y-%m-%d %H:%M')
-        
-    return render_template('/time.html', cal=cal, times=times)
+
+    tf = timezonefinder.TimezoneFinder()
+    timezone_str = tf.certain_timezone_at(lat=lat, lng=lon)
+    timezone_curr = timezone(timezone_str)
+    curr_time = datetime.datetime.now(timezone_curr)
+    times['curr'] = curr_time.strftime('%Y-%m-%d %H:%M')
+    
+    return render_template('/time.html', cal=cal, times=times, tzone=timezone_str)
 
 
 if __name__ == '__main__':
