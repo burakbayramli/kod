@@ -12,7 +12,7 @@ from urllib.request import urlopen
 import urllib, requests, json, re
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
-import route, sqlite3
+import route, sqlite3, datedelta
 import pandas_datareader.data as web
 import quandl, os, calendar, timezonefinder
 from pytz import timezone
@@ -902,8 +902,13 @@ def time():
     
     y = datetime.datetime.now().year
     m = datetime.datetime.now().month
-    cal = str(calendar.month(y, m))
+    calcurr = str(calendar.month(y, m))
 
+    prev = datetime.datetime.now() - datedelta.MONTH
+    next = datetime.datetime.now() + datedelta.MONTH
+    calprev = str(calendar.month(prev.year, prev.month))
+    calnext = str(calendar.month(next.year, next.month))    
+    
     times = {}
     
     ny = timezone('US/Eastern')
@@ -920,7 +925,12 @@ def time():
     curr_time = datetime.datetime.now(timezone_curr)
     times['curr'] = curr_time.strftime('%Y-%m-%d %H:%M')
     
-    return render_template('/time.html', cal=cal, times=times, tzone=timezone_str)
+    return render_template('/time.html',
+                           calprev=calprev,
+                           calcurr=calcurr,
+                           calnext=calnext,
+                           times=times,
+                           tzone=timezone_str)
 
 
 if __name__ == '__main__':
