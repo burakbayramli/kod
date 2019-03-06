@@ -19,6 +19,8 @@ from pytz import timezone
 
 app = Flask(__name__)
 
+if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
+
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
 nfile = "./templates/news.html"
