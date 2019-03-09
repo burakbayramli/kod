@@ -205,25 +205,26 @@ def get_elev_goog(latint, lonint):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
 
-    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
-    res = c.execute(sql)
+    sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
+    res = c.execute(sql1)
     for x in res: print (x)
 
     sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     res = list(res)
-    for chunk in chunks(res, 100):        
+    for chunk in chunks(res, 100):
         locs = polyline.encode(chunk)
         url = elev_query % (locs, params['api'])
         html = urlopen(url)
         json_res = json.loads(html.read().decode('utf-8'))
         for i in range(len(json_res['results'])):
-            #print (json_res['results'][i] )
-            #print (chunk[i])
             sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (json_res['results'][i]['elevation'],chunk[i][0],chunk[i][1])
-            #print (sql)
             c.execute(sql)
-            conn.commit()            
+        conn.commit()
+
+        res1 = c.execute(sql1)
+        for x in res1: print (x)
+
 
 def show_ints():
     conn = sqlite3.connect(params['elevdb'])
