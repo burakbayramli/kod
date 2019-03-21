@@ -917,20 +917,19 @@ def time():
     calnext = str(calendar.month(next.year, next.month))    
     
     times = {}
-    
-    ny = timezone('US/Eastern')
-    ny_time = datetime.datetime.now(ny)
-    times['ny'] = ny_time.strftime('%Y-%m-%d %H:%M')
+    fmt = '%Y-%m-%d %H:%M'
+    now_utc = datetime.datetime.now(timezone('UTC'))
 
-    tr = timezone('Turkey')
-    tr_time = datetime.datetime.now(tr)
-    times['tr'] = tr_time.strftime('%Y-%m-%d %H:%M')
+    now_ny = now_utc.astimezone(timezone('US/Eastern'))
+    times['ny'] = now_ny.strftime(fmt)
+
+    now_tr = now_utc.astimezone(timezone('Turkey'))
+    times['tr'] = now_tr.strftime(fmt)
 
     tf = timezonefinder.TimezoneFinder()
     timezone_str = tf.certain_timezone_at(lat=lat, lng=lon)
-    timezone_curr = timezone(timezone_str)
-    curr_time = datetime.datetime.now(timezone_curr)
-    times['curr'] = curr_time.strftime('%Y-%m-%d %H:%M')
+    now_curr = now_utc.astimezone(timezone(timezone_str))
+    times['curr'] = now_curr.strftime(fmt)
     
     return render_template('/time.html',
                            calprev=calprev,
