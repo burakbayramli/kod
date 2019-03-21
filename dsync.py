@@ -33,3 +33,6 @@ if sys.argv[1] == "acer_flash":
 if sys.argv[1] == "kitaplar":
     os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/archive/kitaplar' '/media/burak/23B9-71E6/kitaplar' --delete 1")
     
+if sys.argv[1] == "sams60gb":
+    pass
+    #/storage/1BC3-0618

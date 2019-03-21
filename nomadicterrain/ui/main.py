@@ -13,6 +13,7 @@ import urllib, requests, json, re
 import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
 import route, sqlite3, datedelta
+from datetime import timedelta
 import pandas_datareader.data as web
 import quandl, os, calendar, timezonefinder
 from pytz import timezone
@@ -821,9 +822,10 @@ def finance():
        
     if files_day != todays_day:        
        start_s = '2018-06-01'
-       start_d = datetime.datetime(2018, 6, 1)    
+       #start_d = datetime.datetime(2018, 6, 1)
        today = datetime.datetime.now()
        end_d=datetime.datetime(today.year, today.month, today.day)
+       start_d = end_d - timedelta(days=180)
 
        end=datetime.datetime(today.year, today.month, today.day)
        df = web.DataReader("SP500", 'fred', start_d, end_d)
