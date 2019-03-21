@@ -811,8 +811,8 @@ def gogoogelevline(coords):
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
 
-@app.route('/finance')
-def finance():
+@app.route('/finance/<bdays>')
+def finance(bdays):
     files_day = -1
     todays_day = datetime.datetime.now().day
     auth = params['quandl']
@@ -820,12 +820,13 @@ def finance():
     if os.path.isfile(finfile):
        files_day = datetime.datetime.fromtimestamp(os.path.getctime(finfile)).day
        
-    if files_day != todays_day:        
+    if files_day != todays_day:
        start_s = '2018-06-01'
+       bdays = int(bdays)
        #start_d = datetime.datetime(2018, 6, 1)
        today = datetime.datetime.now()
        end_d=datetime.datetime(today.year, today.month, today.day)
-       start_d = end_d - timedelta(days=180)
+       start_d = end_d - timedelta(days=bdays)
 
        end=datetime.datetime(today.year, today.month, today.day)
        df = web.DataReader("SP500", 'fred', start_d, end_d)
@@ -837,7 +838,7 @@ def finance():
 
        df = quandl.get("EIA/PET_RWTC_D",                 
                        returns="pandas",
-                       start_date=start_s,
+                       start_date=start_d.strftime('%Y-%m-%d'),
                        end_date=today.strftime('%Y-%m-%d'),
                        authtoken=auth)
 
@@ -845,7 +846,7 @@ def finance():
 
        df = quandl.get("FRED/DTWEXM",                 
                        returns="pandas",
-                       start_date=start_s,
+                       start_date=start_d.strftime('%Y-%m-%d'),
                        end_date=today.strftime('%Y-%m-%d'),
                        authtoken=auth)
        

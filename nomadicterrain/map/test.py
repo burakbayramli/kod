@@ -1,5 +1,5 @@
 import numpy as np, plot_map, json, os
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, quandl
 import geopy.distance, math, route
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
@@ -62,10 +62,10 @@ def test_dist_to_segment():
     assert (res > 2.0 and res < 3.0)
 
 
-test_map0()
-test_map3()
+test_map0()#test_map3()
 test_dist_bearing()
 test_dijks()
 test_dist_to_segment()
+
 
     
