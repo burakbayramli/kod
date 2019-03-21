@@ -1,6 +1,9 @@
 import numpy as np, plot_map, json, os
 import matplotlib.pyplot as plt, quandl
 import geopy.distance, math, route
+from datetime import timedelta
+import datetime
+import pandas_datareader.data as web
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 #print (params)
@@ -61,8 +64,21 @@ def test_dist_to_segment():
     res = route.dist(x1,y1, x2,y2, px,py)
     assert (res > 2.0 and res < 3.0)
 
+def test_findata():
+    bdays = 6000
+    today = datetime.datetime.now()
+    end_d=datetime.datetime(today.year, today.month, today.day)
+    start_d = end_d - timedelta(days=bdays)
+    df = web.DataReader("^GSPC", 'yahoo', start_d, end_d)
+    df = df[['Close']]
+    df.columns = ['SP500']
+    print (len(df))
+    print (df)
 
-test_map0()#test_map3()
+test_findata()
+exit()
+test_map0()
+test_map3()
 test_dist_bearing()
 test_dijks()
 test_dist_to_segment()

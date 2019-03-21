@@ -829,7 +829,9 @@ def finance(bdays):
        start_d = end_d - timedelta(days=bdays)
 
        end=datetime.datetime(today.year, today.month, today.day)
-       df = web.DataReader("SP500", 'fred', start_d, end_d)
+       df = web.DataReader("^GSPC", 'yahoo', start_d, end_d)
+       df = df[['Close']]
+       df.columns = ['SP500']
 
        df1 = df.copy()
 
