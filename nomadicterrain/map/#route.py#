@@ -366,7 +366,7 @@ if __name__ == "__main__":
 #    latint,lonint = 29,1
 #    sql = "DELETE FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
 #    c.execute(sql)
-#    conn.commit()
+<65;2;28M<65;2;28M# conn.commit()
     
 
     #show_ints()
