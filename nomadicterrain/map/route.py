@@ -267,6 +267,7 @@ def insert_rbf1_recs(latint,lonint,conn):
             print ('len',len(X))
             X = np.array(X)
             Z = np.array(Z)
+            print (Z[:,0])
             X = X[Z[:,0]>0.0]
             Z = Z[Z[:,0]>0.0]
             if (len(Z)<10): continue
@@ -325,10 +326,26 @@ def get_elev_data(latint, lonint, rbf=True):
 def do_all_rbf_ints():
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
+    #c.execute("delete from RBF1")
     res = c.execute('''select distinct latint, lonint from elevation; ''')
+
     for (latint,lonint) in res:
         print (latint,lonint)
-        insert_rbf1_recs(latint,lonint,conn)
+
+        sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
+        c2 = conn.cursor()
+        res1 = c2.execute(sql1)
+        res1 = list(res1)
+        
+        sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
+        c3 = conn.cursor()
+        res2 = c3.execute(sql2)
+        res2 = list(res2)
+        
+        print(res1[0][0], res2[0][0])
+        
+        if res1[0][0]==SROWS and res2[0][0] == 0:
+            insert_rbf1_recs(latint,lonint,conn)
         
 def get_all_countries():
     print (params['countries'])
@@ -349,5 +366,6 @@ if __name__ == "__main__":
     c = conn.cursor()
     #show_ints()
     #get_elev_data(44,17)
-    #insert_rbf1_recs(36,30,conn)
-    get_all_countries()
+    #insert_rbf1_recs(40,22,conn)
+    #do_all_rbf_ints()
+    #get_all_countries()
