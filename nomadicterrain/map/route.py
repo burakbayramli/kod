@@ -362,14 +362,8 @@ def get_all_countries():
     
 if __name__ == "__main__":
     conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-#    latint,lonint = 29,1
-#    sql = "DELETE FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
-#    c.execute(sql)
-#    conn.commit()
-    
-
+    c = conn.cursor()    
     #show_ints()
     #get_elev_data(44,17)
-    do_all_rbf_ints()
+    #do_all_rbf_ints()
     #get_all_countries()
