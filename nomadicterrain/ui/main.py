@@ -687,14 +687,15 @@ def flattestroute(coords):
     fout.close()
     return trail(gpxfile)
 
-@app.route('/gotopo/<coords>')
-def gotopo(coords):
+@app.route('/gotopo/<coords>/<how_far>')
+def gotopo(coords,how_far):
     lat,lon = coords.split(';')
+    how_far = float(how_far)
     fout1 = "static/out-%s.png" % uuid.uuid4()
     fout2 = "static/out-%s.png" % uuid.uuid4()
     fout3 = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    plot_map.plot_topo(lat,lon,fout1,fout2,fout3)
+    plot_map.plot_topo(lat,lon,fout1,fout2,fout3,how_far)
     return render_template('/topo.html', location1=fout1, location2=fout2, location3=fout3)
 
 @app.route('/gopoly/<coords>')

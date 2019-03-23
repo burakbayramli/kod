@@ -102,9 +102,8 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
-def plot_topo(lat1,lon1,fout1,fout2,fout3):
+def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 30
-    how_far = 10.0
     lat1,lon1 = (42.431028999999995, 18.694765)
 
 
