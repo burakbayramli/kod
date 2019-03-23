@@ -22,18 +22,17 @@ boxlonhigh = np.max([boxlon1,boxlon2])
 D = 20
 x = np.linspace(boxlonlow,boxlonhigh,D)
 y = np.linspace(boxlatlow,boxlathigh,D)
-xi = np.unique([int(xx) for xx in x])
-yi = np.unique([int(yy) for yy in y])
-print (xi)
-print (yi)
 
-#xx,yy = np.meshgrid(x,y)
 #print (xx)
 #print (yy)
 
 conn = sqlite3.connect(params['elevdb'])
 c = conn.cursor()
 
+xi = np.unique([int(xx) for xx in x])
+yi = np.unique([int(yy) for yy in y])
+print (xi)
+print (yi)
 windows = []
 Ws = []
 for latint in yi:
@@ -58,7 +57,14 @@ def isin(lat,lon):
                         lon<x.lonhigh, \
                         axis=1)
     W = Ws[res]
-    return W
+    return W[0]
 
 W = isin(lat1,lon1)
-print (W.shape)
+
+xx,yy = np.meshgrid(x,y)
+for i in range(xx.shape[0]):
+    for j in range(xx.shape[1]):
+        #print (yy[i,j],xx[i,j])
+        W = isin(yy[i,j],xx[i,j])
+        #print (type(W))
+
