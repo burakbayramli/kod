@@ -50,11 +50,15 @@ windows = pd.DataFrame(windows)
 windows.columns = ['latlow','lathigh','lonlow','lonhigh']
 Ws = pd.DataFrame(Ws)
 
-res = windows.apply(lambda x: \
-                    lat1>x.latlow and \
-                    lon1>x.lonlow and \
-                    lat1<x.lathigh and \
-                    lon1<x.lonhigh, \
-                    axis=1)
-print (res)
+def isin(lat,lon):
+    res = windows.apply(lambda x: \
+                        lat>x.latlow  and \
+                        lon>x.lonlow  and \
+                        lat<x.lathigh and \
+                        lon<x.lonhigh, \
+                        axis=1)
+    W = Ws[res]
+    return W
 
+W = isin(lat1,lon1)
+print (W.shape)
