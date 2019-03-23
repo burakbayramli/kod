@@ -7,7 +7,7 @@ import pandas as pd, pickle
 import numpy as np, sqlite3, json
 import matplotlib.pyplot as plt
 from PIL import Image
-import geopy.distance
+import geopy.distance, route
 import pandas as pd, io
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
@@ -102,43 +102,86 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
-def plot_topo(lat,lon,fout1,fout2,fout3):
+def plot_topo(lat1,lon1,fout1,fout2,fout3):
+    D = 30
+    how_far = 10.0
+    lat1,lon1 = (42.431028999999995, 18.694765)
+
+
+    boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
+    boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
+
+    boxlatlow = np.min([boxlat1,boxlat2])
+    print (boxlatlow)
+    boxlonlow = np.min([boxlon1,boxlon2])
+    boxlathigh = np.max([boxlat1,boxlat2])
+    boxlonhigh = np.max([boxlon1,boxlon2])
+
+    x = np.linspace(boxlonlow,boxlonhigh,D)
+    y = np.linspace(boxlatlow,boxlathigh,D)
+
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
-    
-    sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
 
-    res = c.execute(sql,(lat,lat,lon,lon))
-    res = list(res)
-    print ('len',len(res))
-    if (len(res)!=1): raise Exception()
-    latlow,lathigh,lonlow,lonhigh,rbfi = res[0]
-    rbfi = pickle.loads(rbfi)
-    
+    xi = np.unique([int(xx) for xx in x])
+    yi = np.unique([int(yy) for yy in y])
+    print (xi)
+    print (yi)
+    windows = []
+    Ws = []
+    for latint in yi:
+        for lonint in xi:
+            print (latint,lonint)
+            sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where latint=? and lonint=?"
+            res = c.execute(sql,(int(latint),int(lonint)))
+            for latlow,lathigh,lonlow,lonhigh,W in res:
+                windows.append([latlow,lathigh,lonlow,lonhigh])
+                Ws.append(W)
 
-    D=100
+    windows = pd.DataFrame(windows)
+    #print (windows)
+    windows.columns = ['latlow','lathigh','lonlow','lonhigh']
+    Ws = np.array(Ws)
 
-    x = np.linspace(lonlow,lonhigh,D)
-    y = np.linspace(latlow,lathigh,D)
+    def isin(lat,lon):
+        res = windows.apply(lambda x: \
+                            lat>x.latlow  and \
+                            lon>x.lonlow  and \
+                            lat<x.lathigh and \
+                            lon<x.lonhigh, \
+                            axis=1)
+        W = Ws[res]
+        rbfi = pickle.loads(W[0])
+        return rbfi
+
+    W = isin(lat1,lon1)
     xx,yy = np.meshgrid(x,y)
-    xxx = xx.reshape(D*D)
-    yyy = yy.reshape(D*D)
-    znew = rbfi(xxx,yyy)
+    zz = np.zeros(xx.shape)
+    for i in range(xx.shape[0]):
+        for j in range(xx.shape[1]):
+            #print (yy[i,j],xx[i,j])
+            rbfi = isin(yy[i,j],xx[i,j])        
+            znew = rbfi(xx[i,j],yy[i,j])
+            if znew > 0.0: zz[i,j] = znew
 
-    znew[znew<0] = 0
-    znew = znew.reshape(xx.shape)
 
-    plon,plat = np.round(float(lon),3),np.round(float(lat),3)
-    
+    plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
+
+    plt.figure()
+    plt.plot(plon,plat,'rd')
+    cs=plt.contour(xx,yy,zz,10)
+    plt.clabel(cs,inline=1,fontsize=9)
+    plt.savefig(fout1)
+
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     #ax.set_zlim3d(0, 2000)
     ax.view_init(elev=30,azim=250)
     ax.plot([plon],[plat],[1000],'r.')
     ls = LightSource(270, 45)
-    rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
-    surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
-    plt.savefig(fout1)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    plt.savefig(fout2)
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
@@ -146,13 +189,7 @@ def plot_topo(lat,lon,fout1,fout2,fout3):
     ax.view_init(elev=30,azim=40)
     ax.plot([plon],[plat],[1000],'r.')
     ls = LightSource(270, 45)
-    rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
-    surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
-    plt.savefig(fout2)
-    
-    plt.figure()
-    plt.plot(plon,plat,'rd')
-    cs=plt.contour(xx,yy,znew,20)
-    plt.clabel(cs,inline=1,fontsize=9)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
-         
+

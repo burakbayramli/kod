@@ -9,11 +9,13 @@ import pandas as pd, io
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
+D = 30
+how_far = 10.0
 lat1,lon1 = (42.431028999999995, 18.694765)
 
 
-boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), 10.0, 45)
-boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), 10.0, 215)
+boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
+boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
 boxlatlow = np.min([boxlat1,boxlat2])
 print (boxlatlow)
@@ -21,12 +23,8 @@ boxlonlow = np.min([boxlon1,boxlon2])
 boxlathigh = np.max([boxlat1,boxlat2])
 boxlonhigh = np.max([boxlon1,boxlon2])
 
-D = 20
 x = np.linspace(boxlonlow,boxlonhigh,D)
 y = np.linspace(boxlatlow,boxlathigh,D)
-
-#print (xx)
-#print (yy)
 
 conn = sqlite3.connect(params['elevdb'])
 c = conn.cursor()
@@ -80,3 +78,23 @@ plt.plot(plon,plat,'rd')
 cs=plt.contour(xx,yy,zz,10)
 plt.clabel(cs,inline=1,fontsize=9)
 plt.savefig('/data/data/com.termux/files/home/Downloads/out.png')
+
+# fig = plt.figure()
+# ax = fig.gca(projection='3d')
+# #ax.set_zlim3d(0, 2000)
+# ax.view_init(elev=30,azim=250)
+# ax.plot([plon],[plat],[1000],'r.')
+# ls = LightSource(270, 45)
+# rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+# surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+# plt.savefig(fout1)
+
+# fig = plt.figure()
+# ax = fig.gca(projection='3d')
+# #ax.set_zlim3d(0, 2000)
+# ax.view_init(elev=30,azim=40)
+# ax.plot([plon],[plat],[1000],'r.')
+# ls = LightSource(270, 45)
+# rgb = ls.shade(znew, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+# surf = ax.plot_surface(xx, yy, znew, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+# plt.savefig(fout2)
