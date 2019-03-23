@@ -47,7 +47,7 @@ for latint in yi:
 windows = pd.DataFrame(windows)
 #print (windows)
 windows.columns = ['latlow','lathigh','lonlow','lonhigh']
-Ws = pd.DataFrame(Ws)
+Ws = np.array(Ws)
 
 def isin(lat,lon):
     res = windows.apply(lambda x: \
@@ -57,14 +57,17 @@ def isin(lat,lon):
                         lon<x.lonhigh, \
                         axis=1)
     W = Ws[res]
-    return W[0]
+    rbfi = pickle.loads(W[0])
+    return rbfi
 
 W = isin(lat1,lon1)
-
 xx,yy = np.meshgrid(x,y)
+zz = np.zeros(xx.shape)
 for i in range(xx.shape[0]):
     for j in range(xx.shape[1]):
         #print (yy[i,j],xx[i,j])
-        W = isin(yy[i,j],xx[i,j])
-        #print (type(W))
+        rbfi = isin(yy[i,j],xx[i,j])        
+        znew = rbfi(xx[i,j],yy[i,j])
+        zz[i,j] = znew
+        #print (znew)
 
