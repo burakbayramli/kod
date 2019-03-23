@@ -108,7 +108,6 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
     boxlatlow = np.min([boxlat1,boxlat2])
-    print (boxlatlow)
     boxlonlow = np.min([boxlon1,boxlon2])
     boxlathigh = np.max([boxlat1,boxlat2])
     boxlonhigh = np.max([boxlon1,boxlon2])

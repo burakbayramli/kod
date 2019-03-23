@@ -670,7 +670,7 @@ def flattestroute(coords):
     elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data_grid_rbf(lat1,lon1,
                                                                         lat2,lon2,
                                                                         c,
-                                                                        npts=300)
+                                                                        npts=50)
       
     p = route.dijkstra(elev_mat, start_idx, end_idx)
     
