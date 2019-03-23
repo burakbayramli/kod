@@ -135,10 +135,9 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
                 Ws.append(W)
 
     windows = pd.DataFrame(windows)
-    #print (windows)
     windows.columns = ['latlow','lathigh','lonlow','lonhigh']
     Ws = np.array(Ws)
-
+    def nullfunc(d1,d2): return 0.0
     def isin(lat,lon):
         res = windows.apply(lambda x: \
                             lat>x.latlow  and \
@@ -146,7 +145,8 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
                             lat<x.lathigh and \
                             lon<x.lonhigh, \
                             axis=1)
-        W = Ws[res]
+        if np.any(res) == False: return nullfunc
+        W = Ws[res]       
         rbfi = pickle.loads(W[0])
         return rbfi
 
@@ -164,7 +164,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     plt.figure()
     plt.plot(plon,plat,'rd')
-    cs=plt.contour(xx,yy,zz,10)
+    cs=plt.contour(xx,yy,zz,[100.0,300.0,500,1000.0,1500.0])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
 
