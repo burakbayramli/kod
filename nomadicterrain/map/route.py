@@ -366,4 +366,4 @@ if __name__ == "__main__":
     #show_ints()
     #get_elev_data(44,17)
     #do_all_rbf_ints()
-    #get_all_countries()
+    get_all_countries()
