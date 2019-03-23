@@ -1,3 +1,5 @@
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 import os, glob, re, zipfile
 import pandas as pd, pickle
 import numpy as np, sqlite3, json
@@ -68,6 +70,13 @@ for i in range(xx.shape[0]):
         #print (yy[i,j],xx[i,j])
         rbfi = isin(yy[i,j],xx[i,j])        
         znew = rbfi(xx[i,j],yy[i,j])
-        zz[i,j] = znew
-        #print (znew)
+        if znew > 0.0: zz[i,j] = znew
 
+
+plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
+
+plt.figure()
+plt.plot(plon,plat,'rd')
+cs=plt.contour(xx,yy,zz,10)
+plt.clabel(cs,inline=1,fontsize=9)
+plt.savefig('/data/data/com.termux/files/home/Downloads/out.png')
