@@ -28,7 +28,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 	     "berlin": ["/dir/dir/berlin.zip",[23000,-35000]],
 	     "world1": ["/dir/dir/world1.zip",[45,-50]],
 	     "world2": ["/dir/dir/world2.zip",[10,-17]],
-	     "europe2": ["/dir/dir/europe2.zip",[2900,-4600]],
+	     "europe2": ["/dir/dir/europe2.zip",[3300,-4600]],
 	     "europe3": ["/dir/dir/europe3.zip",[1450,-2400]],
 	     "turkey1": ["/dir/dir/turkey1.zip",[1450,-1850]],
 	     "turkey3": ["/dir/dir/turkey3.zip",[2900,-3500]]	     
