@@ -695,6 +695,7 @@ def gotopo(coords,how_far):
     fout2 = "static/out-%s.png" % uuid.uuid4()
     fout3 = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
+    lat=float(lat);lon=float(lon)
     plot_map.plot_topo(lat,lon,fout1,fout2,fout3,how_far)
     return render_template('/topo.html', location1=fout1, location2=fout2, location3=fout3)
 

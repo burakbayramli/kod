@@ -104,9 +104,6 @@ def get_centroid(poly):
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 30
-    lat1,lon1 = (42.431028999999995, 18.694765)
-
-
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -158,7 +155,6 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     zz = np.zeros(xx.shape)
     for i in range(xx.shape[0]):
         for j in range(xx.shape[1]):
-            #print (yy[i,j],xx[i,j])
             rbfi = isin(yy[i,j],xx[i,j])        
             znew = rbfi(xx[i,j],yy[i,j])
             if znew > 0.0: zz[i,j] = znew
