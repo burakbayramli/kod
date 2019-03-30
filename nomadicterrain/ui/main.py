@@ -372,17 +372,25 @@ def poi_search():
     rd = csv.reader(open(params['poi']),delimiter='|')
     headers = {k: v for v, k in enumerate(next(rd))}
     res = []
+    lat,lon = my_curr_location()
     print ('t',type(name))
     for row in rd:        
-        if re.search(name, row[headers['Name']],re.IGNORECASE):
+        if re.search(name, row[headers['Name']],re.IGNORECASE) or \
+           re.search(name, row[headers['Type']],re.IGNORECASE):
             locs = row[headers['Coords']]
             if "[[" in locs:
                 locs = eval(locs)
+                m = np.mean(locs)
                 locs = polyline.encode(locs,precision=6)
             else:                
                 locs = eval(locs)
+                m = locs
                 locs = "%s;%s" % (locs[0],locs[1])
-            print (locs)
+            
+            print (m)
+            lat2,lon2 = m
+            d = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+            print (d)            
             name = row[headers['Name']]
             desc = row[headers['Description']]
             xx = [row[headers['CoordType']],
