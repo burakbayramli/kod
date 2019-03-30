@@ -380,7 +380,7 @@ def poi_search():
             locs = row[headers['Coords']]
             if "[[" in locs:
                 locs = eval(locs)
-                m = np.mean(locs)
+                m = route.get_centroid(locs)
                 locs = polyline.encode(locs,precision=6)
             else:                
                 locs = eval(locs)
@@ -390,7 +390,8 @@ def poi_search():
             print (m)
             lat2,lon2 = m
             d = geopy.distance.vincenty((lat2,lon2),(lat, lon))
-            print (d)            
+            print (d)
+            if d > 10.0: continue
             name = row[headers['Name']]
             desc = row[headers['Description']]
             xx = [row[headers['CoordType']],
