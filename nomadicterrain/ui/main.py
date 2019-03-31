@@ -651,8 +651,20 @@ def trails_nav_action():
 def trails():
     res = []
     files = glob.glob(params['trails'] + "/*.gpx" )
+    lat2,lon2 = my_curr_location()
     for x in files:
-        res.append(x[x.rindex('/')+1:])
+        gpx_file = open(x)
+        gpx = gpxpy.parse(gpx_file)
+        for track in gpx.tracks:
+            for segment in track.segments:
+                for point in segment.points:
+                    lat,lon = point.latitude, point.longitude
+                    d = geopy.distance.vincenty((lat2,lon2),(lat,lon)).km
+                    break
+                break
+            break
+        
+        res.append([x[x.rindex('/')+1:],np.round(d,2)])
     
     return render_template('/trails.html', res=res)
 

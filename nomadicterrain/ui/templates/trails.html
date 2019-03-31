@@ -10,7 +10,7 @@
     <h2>Trails</h2>
 
       {% for x in res %}
-         <a href="/trail/{{x}}">{{x}}</a>
+         <a href="/trail/{{x[0]}}">{{x[0]}}</a>&nbsp;{{x[1]}}
          <br/><br/>
       {% endfor %}    
       
