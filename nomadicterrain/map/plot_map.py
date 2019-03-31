@@ -12,7 +12,7 @@ import pandas as pd, io
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
-def plot2(points,outfile,zfile,scale,map_retrieval_on,pixel=False,bp=True):
+def plot2(points,outfile,zfile,scale,map_retrieval_on,my_curr_location,pixel=False,bp=True):
     plt.figure()
     center_res = map_retrieval_on
     imgcoord = []
@@ -43,6 +43,13 @@ def plot2(points,outfile,zfile,scale,map_retrieval_on,pixel=False,bp=True):
          plt.imshow(im)
 
          lat,lon = map_retrieval_on
+         dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
+         xx = c[0]+dx
+         yy = c[1]+dy
+         if not (xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0): 
+             plt.plot(xx,yy,'ro',markersize=7,markerfacecolor='None')
+         
+         lat,lon = my_curr_location
          dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
          xx = c[0]+dx
          yy = c[1]+dy

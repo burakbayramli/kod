@@ -576,8 +576,9 @@ def trail(gpx_file):
     #lat,lon = my_curr_location()
     OnlyOne().last_location = [lat,lon]
 
+    lat2,lon2 = my_curr_location()
     OnlyOne().last_gpx_file = gpx_file
-    fout = plot_trail(lat, lon, gpx_file)  
+    fout = plot_trail(lat, lon, gpx_file, (lat2,lon2))  
 
     for track in gpx.tracks:
         for segment in track.segments:
@@ -622,7 +623,7 @@ def trail(gpx_file):
     
     return render_template('/trail.html', location=fout, disp=disp, link=gpx.link)
 
-def plot_trail(lat, lon, gpx_file):
+def plot_trail(lat, lon, gpx_file, my_curr_location):
     pts = []
     gpx_file = open(params['trails'] + "/" + gpx_file)
     gpx = gpxpy.parse(gpx_file)
@@ -635,7 +636,7 @@ def plot_trail(lat, lon, gpx_file):
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), pixel=True)
+    plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), my_curr_location=my_curr_location, pixel=True)
     return fout
 
 @app.route('/trails_nav_action', methods=['GET', 'POST'])
