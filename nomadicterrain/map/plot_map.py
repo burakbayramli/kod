@@ -41,19 +41,23 @@ def plot2(points,outfile,zfile,scale,map_retrieval_on,pixel=False,bp=True):
          fig.axes.get_xaxis().set_visible(False)
          fig.axes.get_yaxis().set_visible(False)
          plt.imshow(im)
+
+         lat,lon = map_retrieval_on
+         dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
+         xx = c[0]+dx
+         yy = c[1]+dy
+         if not (xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0): 
+             plt.plot(xx,yy,'rx')
+         
          for i,[lat,lon] in enumerate(points):
              dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
              xx = c[0]+dx
              yy = c[1]+dy
              if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
-             if i==0:
-                 if bp: plt.plot(xx,yy,'rx')
-                 else: plt.plot(xx,yy,'r,')
+             if pixel:
+                 plt.plot(xx,yy,'r,')
              else:
-                 if pixel:
-                     plt.plot(xx,yy,'r,')
-                 else:
-                     plt.plot(xx,yy,'r.')
+                 plt.plot(xx,yy,'r.')
          plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 
