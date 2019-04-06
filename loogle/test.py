@@ -1,8 +1,8 @@
 import sys; sys.path.append('..')
-import loogle3, rsync
+import loogle3, rsync, os
 
-index_db = "/home/burak/Downloads/test.db"
-cdir = "/home/burak/Documents/kod/loogle/sub"
+index_db = os.environ['TMPDIR'] + "/test.db"
+cdir = "."
 
 def test_simple():
    loogle3.index(cdir, index_db, new_index=True)
