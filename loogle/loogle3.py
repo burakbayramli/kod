@@ -6,6 +6,15 @@ exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
 escapes = ''.join([chr(char) for char in range(1, 32)])
 
+def process(file):
+    import textract
+    if ".pdf" in file:
+        os.system("pdftotext %s /tmp/out.txt" % file)
+        res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
+        return res
+    else:
+        textract.process(file, encoding='ascii').decode('utf-8')        
+
 def get_legit_files(crawl_dir):
     dirs, files = rsync.ls(crawl_dir)
     files = [(f,size) for (f,size) in files if os.path.splitext(f)[1] in exts]
@@ -20,7 +29,6 @@ def get_existing_paths(conn):
     return rows
     
 def index(crawl_dir,index_db,new_index=False):
-    import textract
     files = get_legit_files(crawl_dir)
     conn = None
     if new_index:
@@ -48,7 +56,7 @@ def index(crawl_dir,index_db,new_index=False):
         filename_as_content = filename_as_content[0:filename_as_content.rfind(".")]
         content = filename_as_content
         try:
-            content += " " + textract.process(file, encoding='ascii').decode('utf-8')
+            content += " " + process(file)
         except Exception as e:
             print ("Error")
             print ("Indexing only ", content)
