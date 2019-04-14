@@ -12,6 +12,10 @@ def process(file):
         os.system("/usr/bin/pdftotext '%s' /tmp/out.txt" % file)
         res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
         return res
+    elif ".djvu" in file: 
+        os.system("/usr/bin/djvutxt '%s' /tmp/out.txt" % file)
+        res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
+        return res
     else:
         textract.process(file, encoding='ascii').decode('utf-8')        
 
