@@ -14,5 +14,13 @@ TODO: file size changes triggering incremental updates.
 
 Requirements
 
+Python packages
+
 `pandas`
+`textract`
+`sqlite3`
+
+Programs
+
+`pdftotext`
 
