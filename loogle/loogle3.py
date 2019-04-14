@@ -41,7 +41,7 @@ def index(crawl_dir,index_db,new_index=False):
         print ('Indexing ', file)
         rel_file = file.replace(crawl_dir,"")
         print ("Rel",rel_file)
-        if file in existing_paths:
+        if rel_file in existing_paths:
             print ("Already there")
             continue
         filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
