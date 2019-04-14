@@ -1,7 +1,9 @@
 import sys; sys.path.append('..')
 import loogle3, rsync, os
 
-index_db = os.environ['TMPDIR'] + "/test.db"
+tmpdir = "/tmp"
+if "TMPDIR" in os.environ.keys(): tmpdir = os.environ['TMPDIR']
+index_db = tmpdir + "/test.db"
 cdir = "."
 
 def test_simple():
