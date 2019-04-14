@@ -3,7 +3,7 @@ sys.path.append(os.environ['HOME'] + '/Documents/kod/loogle/')
 sys.path.append(os.environ['HOME'] + '/Documents/kod')
 import loogle3, rsync
 
-index_db = os.environ['HOME'] + "/Downloads/loogle.db"
+index_db = os.environ['HOME'] + "/Downloads/loogle2.db"
 #print (sys.argv[1])
 
 search_term = ' '.join(sys.argv[1:])
