@@ -36,9 +36,11 @@ def index(crawl_dir,index_db,new_index=False):
     c = conn.cursor()
 
     existing_paths = get_existing_paths(conn)
-    
+    print ("crawl",crawl_dir)
     for i,(file,size) in enumerate(files):
         print ('Indexing ', file)
+        rel_file = file.replace(crawl_dir,"")
+        print ("Rel",rel_file)
         if file in existing_paths:
             print ("Already there")
             continue
@@ -51,7 +53,7 @@ def index(crawl_dir,index_db,new_index=False):
             print ("Error")
             print ("Indexing only ", content)
         content = content.replace("'","").replace("\x00", "")
-        c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (file,content,size))
+        c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (rel_file,content,size))
         conn.commit()
             
 def delete(crawl_dir,index_db):    
