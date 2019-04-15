@@ -46,7 +46,10 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "elevdb": "/dir/dir/elev.db",
   "poi": "/dir/dir/poi.csv",
   "countries": "/dir/dir/country-bb.csv"
-  "quandl": "[QUANDL API KEY]"
+  "quandl": "[QUANDL API KEY]",
+  "book_idx": "/dir/dir/loogle.db",
+  "book_base_url": "http://localhost:5000/static/some/symlink/to/your/books/under/static/flask/folder"
+  
 }
 ```
 
