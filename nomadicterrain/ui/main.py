@@ -973,13 +973,13 @@ def time():
 
 @app.route('/book')
 def book():
-    return render_template('/book.html',data=OnlyOne().book_results)
+    return render_template('/book.html',base=params['book_base_url'],data=OnlyOne().book_results)
 
 @app.route("/book_search", methods=["POST"])
 def book_search():
     query = request.form.get("keyword").lower()
     res = loogle3.search(query, params['book_idx'])
-    full_res = [params['book_base_url'] + str(x[0]) for x in res]
+    full_res = [str(x[0]) for x in res]
     OnlyOne().book_results = full_res
     return book()
 
