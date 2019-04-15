@@ -406,6 +406,6 @@ if __name__ == "__main__":
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()    
     #show_ints()
-    get_elev_data(40,31)
+    get_elev_data(40,29)
     #do_all_rbf_ints()
     #get_all_countries()

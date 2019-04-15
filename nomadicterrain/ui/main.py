@@ -1,10 +1,10 @@
-
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
 import matplotlib.pyplot as plt, pickle
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../../guide")
+import sys; sys.path.append("../../loogle")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
@@ -15,7 +15,7 @@ import gpxpy, gpxpy.gpx, polyline
 from io import StringIO
 import route, sqlite3, datedelta
 from datetime import timedelta
-import pandas_datareader.data as web
+import pandas_datareader.data as web, loogle3
 import quandl, os, calendar, timezonefinder
 from pytz import timezone
 
@@ -86,6 +86,7 @@ class OnlyOne(object):
             self.line_elev_results = []
             self.hay_results = []
             self.poi_results = []
+            self.book_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -969,6 +970,19 @@ def time():
                            calnext=calnext,
                            times=times,
                            tzone=timezone_str)
+
+@app.route('/book')
+def book():
+    return render_template('/book.html',data=OnlyOne().book_results)
+
+@app.route("/book_search", methods=["POST"])
+def book_search():
+    query = request.form.get("keyword").lower()
+    res = loogle3.search(query, params['book_idx'])
+    for x in res: print (str(x[0]))
+    full_res = [params['book_crawl_dir'] + str(x[0]) for x in res]
+    OnlyOne().book_results = full_res
+    return book()
 
 
 if __name__ == '__main__':
