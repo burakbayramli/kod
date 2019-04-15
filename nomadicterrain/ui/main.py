@@ -979,7 +979,7 @@ def book():
 def book_search():
     query = request.form.get("keyword").lower()
     res = loogle3.search(query, params['book_idx'])
-    full_res = [params['book_crawl_dir'] + str(x[0]) for x in res]
+    full_res = [params['book_base_url'] + str(x[0]) for x in res]
     OnlyOne().book_results = full_res
     return book()
 
