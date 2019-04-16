@@ -409,7 +409,8 @@ def poi_search():
 def poi_cache():
     lat,lon = my_curr_location()
     location = "%s,%s" % (lat,lon)
-    fout = open (os.environ['TMPDIR'] + "/poitmp.csv","w")
+    tmppoi = os.environ['TMPDIR'] + "/poitmp.csv"
+    fout = open (tmppoi,"w")
     for type in ['campground','atm','bus_station','shopping_mall','hospital']:
         url = place_query2 % (location, type, params['api'])
         print (url)
@@ -423,6 +424,11 @@ def poi_cache():
             fout.write("\n")
         fout.flush()
     fout.close()
+
+    destination = open("/tmp/concat",'wb')
+    shutil.copyfileobj(open(params['poi_base'],'rb'), destination)
+    shutil.copyfileobj(open(tmppoi,'rb'), destination)
+    destination.close() 
     
     return render_template('/results.html',data="done")
 
