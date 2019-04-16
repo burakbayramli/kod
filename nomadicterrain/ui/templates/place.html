@@ -4,21 +4,25 @@
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" charset="utf-8">
-      function fillGarantiPos(){
-        document.getElementById('keyword').value="garanti";
-        document.getElementById('type').value="pos";
+      function fillAtm(){
+        document.getElementById('keyword').value="";
+        document.getElementById('type').value="atm";
       }
       function fillIndian(){
         document.getElementById('keyword').value="indian";
         document.getElementById('type').value="restaurant";
       }
       function fillMall(){
-        document.getElementById('keyword').value="AVM";
-        document.getElementById('type').value="shopping";
+        document.getElementById('keyword').value="";
+        document.getElementById('type').value="shopping_mall";
       }
       function fillBusMain(){
-        document.getElementById('keyword').value="otogar";
-        document.getElementById('type').value="";
+        document.getElementById('keyword').value="";
+        document.getElementById('type').value="bus_station";
+      }
+      function fillCamp(){
+        document.getElementById('keyword').value="";
+        document.getElementById('type').value="campground";
       }
       function fillPOI(){
         document.getElementById('keyword').value="[city] point of interest";
@@ -30,11 +34,12 @@
     <br/>    
     <h2>Place Search</h2>
     <br/>    
-    <a href="#" onClick="fillGarantiPos(); return true;">POS</a>&nbsp;
+    <a href="#" onClick="fillAtm(); return true;">ATM</a>&nbsp;
     <a href="#" onClick="fillIndian(); return true;">Hint</a>&nbsp;
     <a href="#" onClick="fillMall(); return true;">Mall</a>&nbsp;
     <a href="#" onClick="fillBusMain(); return true;">Bus</a>&nbsp;
     <a href="#" onClick="fillPOI(); return true;">POI</a>&nbsp;
+    <a href="#" onClick="fillCamp(); return true;">Camp</a>&nbsp;
     <br/>        
     <br/>        
     <form class="form-inline" action="/place_search" method="POST">
