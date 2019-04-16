@@ -1,6 +1,6 @@
 # Loogle - Your Local Google
 
-Index and search your local hard drive.
+Index and search your local hard drive aimed to replace recoll. 
 
 Indexes all pdf, djvu, txt, epub files under a given directory, saves
 the index, and allows search on these indexed documents. 
@@ -16,11 +16,13 @@ Requirements
 
 Python packages
 
-`pandas`
 `textract`
 `sqlite3`
 
 Programs
 
 `pdftotext`
+`djvutxt`
+
+
 

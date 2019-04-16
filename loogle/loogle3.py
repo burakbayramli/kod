@@ -1,6 +1,6 @@
 import sys; sys.path.append('..')
-import os, shutil, io, codecs, rsync
-import pandas as pd, sqlite3
+import os, io, codecs, rsync
+import sqlite3
 
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
