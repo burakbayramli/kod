@@ -124,9 +124,9 @@ enabled for the api key (project) you entered in the config file.
 But it is expensive to get and store elevation data granular enough to
 be useful, for an entire terrain on the phone that can show mountains
 and contour lines. We need to create elevation / topographic models
-from sampled elevation data taken from Google Elevation API. The
-approach explained below uses Radial Basis Functions method to
-interpolate elevation data for any point in a region modeled by RBF.
+from sampled elevation data taken from open sources. The approach uses
+Radial Basis Functions method to interpolate elevation data for any
+point in a region modeled by RBF.
 
 First create the main table
 
