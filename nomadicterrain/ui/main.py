@@ -35,6 +35,8 @@ place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?loca
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
+place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=50000&keyword=&type=%s&key=%s"
+
 def been_walking():
     df = pd.read_csv(params['gps'])
     df1 = df.iloc[::-1]
@@ -402,6 +404,28 @@ def poi_search():
             
     OnlyOne().poi_results = res
     return poi()
+
+@app.route('/poi_cache')
+def poi_cache():
+    lat,lon = my_curr_location()
+    location = "%s,%s" % (lat,lon)
+    fout = open (os.environ['TMPDIR'] + "/poitmp.csv","w")
+    for type in ['campground','atm','bus_station','shopping_mall','hospital']:
+        url = place_query2 % (location, type, params['api'])
+        print (url)
+        html = urlopen(url)
+        json_res = json.loads(html.read().decode('utf-8'))
+        for x in json_res['results']:
+            olat = x['geometry']['location']['lat']
+            olon = x['geometry']['location']['lng']
+            line = "%s|%s|%s|%s|[%s,%s]" % (type,"X",x['name'],"Single",olat,olon)
+            fout.write(line)
+            fout.write("\n")
+        fout.flush()
+    fout.close()
+    
+    return render_template('/results.html',data="done")
+
 
 def get_elev(lat,lon):
     conn = sqlite3.connect(params['elevdb'])
