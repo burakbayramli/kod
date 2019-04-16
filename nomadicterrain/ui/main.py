@@ -11,7 +11,7 @@ import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math
 from urllib.request import urlopen
 import urllib, requests, json, re
-import gpxpy, gpxpy.gpx, polyline
+import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import route, sqlite3, datedelta
 from datetime import timedelta
@@ -369,17 +369,18 @@ def city_search():
 def poi():
     return render_template('/poi.html',data=OnlyOne().poi_results)
 
+def match(ms, s):
+    return not re.search(s,ms,re.IGNORECASE) is None
+
 @app.route("/poi_search", methods=["POST"])
 def poi_search():
-    name = request.form.get("name")
-    rd = csv.reader(open(params['poi']),delimiter='|')
+    keyword = request.form.get("name")
+    rd = csv.reader(codecs.open(params['poi'],encoding="utf-8"),delimiter='|')
     headers = {k: v for v, k in enumerate(next(rd))}
     res = []
     lat,lon = my_curr_location()
-    print ('t',type(name))
-    for row in rd:        
-        if re.search(name, row[headers['Name']],re.IGNORECASE) or \
-           re.search(name, row[headers['Type']],re.IGNORECASE):
+    for row in rd:
+        if match(row[headers['Name']], keyword) or match(row[headers['Type']], keyword): 
             locs = row[headers['Coords']]
             if "[[" in locs:
                 locs = eval(locs)
@@ -389,18 +390,16 @@ def poi_search():
                 locs = eval(locs)
                 m = locs
                 locs = "%s;%s" % (locs[0],locs[1])
-            
-            #print (m)
+
             lat2,lon2 = m
             d = geopy.distance.vincenty((lat2,lon2),(lat, lon))
-            #print (d)
-            if d > 10.0: continue
-            name = row[headers['Name']]
-            desc = row[headers['Description']]
-            xx = [row[headers['CoordType']],
-                  row[headers['Type']],
-                  name,desc,locs]
-            res.append(xx)
+            if d < 30.0:
+                rowname = row[headers['Name']]
+                rowdesc = row[headers['Description']]
+                rowxx = [row[headers['CoordType']],
+                      row[headers['Type']],
+                      rowname,rowdesc,locs]
+                res.append(rowxx)
             
     OnlyOne().poi_results = res
     return poi()
@@ -419,13 +418,13 @@ def poi_cache():
         for x in json_res['results']:
             olat = x['geometry']['location']['lat']
             olon = x['geometry']['location']['lng']
-            line = "%s|%s|%s|%s|[%s,%s]" % (type,"X",x['name'],"Single",olat,olon)
+            line = "%s|%s|%s|%s|%s|[%s,%s]" % (type,"X",x['name'],"","Single",olat,olon)
             fout.write(line)
             fout.write("\n")
         fout.flush()
     fout.close()
 
-    destination = open("/tmp/concat",'wb')
+    destination = open(params['poi'],'wb')
     shutil.copyfileobj(open(params['poi_base'],'rb'), destination)
     shutil.copyfileobj(open(tmppoi,'rb'), destination)
     destination.close() 
