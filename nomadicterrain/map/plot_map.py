@@ -178,7 +178,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     plt.figure()
     plt.plot(plon,plat,'rd')
-    cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000])
+    cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
 
