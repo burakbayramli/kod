@@ -397,8 +397,8 @@ def poi_search():
                 rowname = row[headers['Name']]
                 rowdesc = row[headers['Description']]
                 rowxx = [row[headers['CoordType']],
-                      row[headers['Type']],
-                      rowname,rowdesc,locs]
+                         row[headers['Type']],
+                         rowname,rowdesc,locs,np.round(d.km,2)]
                 res.append(rowxx)
             
     OnlyOne().poi_results = res
@@ -966,7 +966,6 @@ def finance(bdays):
 
 @app.route('/time')
 def time():
-
     lat,lon = my_curr_location()
     
     y = datetime.datetime.now().year
@@ -1012,9 +1011,7 @@ def book_search():
     OnlyOne().book_results = full_res
     return book()
 
-
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost",port=5000)
-    
-    
+       

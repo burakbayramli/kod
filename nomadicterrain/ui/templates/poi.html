@@ -16,11 +16,12 @@
       {% for x in data %}
          <br/>
          <br/>
+         {{x[5]}},
          {% if 'Polygon' in x[0] %}
-           <a href="/gopoly/{{x[4]}}">{{x[1]}} {{x[2]}} {{x[3]}} </a>
+           <a href="/gopoly/{{x[4]}}">{{x[2]}} {{x[3]}} </a>
          {% endif %}    
          {% if 'Single' in x[0] %}
-           <a href="/gogeo/{{x[4]}}">{{x[1]}} {{x[2]}} {{x[3]}} </a>
+           <a href="/gogeo/{{x[4]}}">{{x[2]}} {{x[3]}} </a>
          {% endif %}    
       {% endfor %}    
       
