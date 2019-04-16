@@ -35,7 +35,7 @@ place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?loca
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
-place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=50000&keyword=&type=%s&key=%s"
+place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=10000&keyword=&type=%s&key=%s"
 
 def been_walking():
     df = pd.read_csv(params['gps'])
