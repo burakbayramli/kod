@@ -44,7 +44,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]",
   "coordidx": "[DIR]/gps_coord_sample.npy",
   "elevdb": "/dir/dir/elev.db",
-  "poi": "/dir/dir/poi.csv",
+  "poi_base": "/dir/dir/poi.csv",
+  "poi": "/dir/dir/poi2.csv",
   "countries": "/dir/dir/country-bb.csv"
   "quandl": "[QUANDL API KEY]",
   "book_idx": "/dir/dir/loogle.db",
@@ -100,12 +101,18 @@ wikiloc.com, sign-up and download, and drop the gpx files under
 
 ## POI / ROI
 
-The ROI file above can be searched by keyword. Any matching point or
-region will be listed, once clicked, is shown as either a list of
-points or single point. I included some camping locations as points in
-the file, also some region based national parks. But the user can put
-anything in this file, for example the Berlin Wall / dividing line
-between East and West? Put them here!
+The POI file can be searched by keyword. Any matching line (by type,
+name) will be listed, as point or region. Once clicked, is shown as
+either a list of points or single point. I included some camping
+locations as points in the file, also some region based national
+parks. But the user can put anything in this file, for example the
+Berlin Wall / dividing line between East and West? Put them here!
+
+The `poi_base` should point to the master poi file. `poi` is a
+combined file between `poi_base` and "cached POIs". Cached POIs come
+from Google, at any location you can "cache" which will download bus
+stops, hospitals, atms, camp sites near you and save them in a local
+file. 
 
 ## Elevation
 
