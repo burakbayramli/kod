@@ -67,18 +67,20 @@ def index(crawl_dir,index_db,new_index=False):
         content = content.replace("'","").replace("\x00", "")
         c.execute('''INSERT INTO BOOKS(path,content,size) VALUES('%s','%s','%s'); ''' % (rel_file,content,size))
         conn.commit()
+        # now do the delete
+    delete(crawl_dir,index_db)
             
 def delete(crawl_dir,index_db):    
     files = get_legit_files(crawl_dir)
-    files = [x[0] for x in files]
+    files = [x[0].replace(crawl_dir,"") for x in files]
     conn = sqlite3.connect(index_db)
     c = conn.cursor()
     c.execute('''SELECT path,size FROM BOOKS;''')
     rows = c.fetchall()
     for r in rows:
         if r[0] not in files:
+            print (r[0], "deleting..")
             c.execute('''DELETE FROM BOOKS WHERE path = '%s';''' % r[0])
-            print (r[0], "deleted")
                         
     conn.commit()
     conn.close()

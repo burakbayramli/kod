@@ -400,7 +400,6 @@ def get_centroid(poly):
                              (area * centroid[1])) / (area_total + area)
         area_total += area
     return centroid_total
-
     
 if __name__ == "__main__":
     conn = sqlite3.connect(params['elevdb'])
