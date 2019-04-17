@@ -9,11 +9,11 @@ escapes = ''.join([chr(char) for char in range(1, 32)])
 def process(file):
     import textract
     if ".pdf" in file:
-        os.system("/usr/bin/pdftotext '%s' /tmp/out.txt" % file)
+        os.system("pdftotext '%s' /tmp/out.txt" % file)
         res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
         return res
     elif ".djvu" in file: 
-        os.system("/usr/bin/djvutxt '%s' /tmp/out.txt" % file)
+        os.system("djvutxt '%s' /tmp/out.txt" % file)
         res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
         return res
     else:
