@@ -16,6 +16,9 @@ if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/1BC3-0618/archive/classnotes' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/backlog' '/media/burak/1BC3-0618/archive/backlog' --delete 1")
     
+if sys.argv[1] == "usb64_seagate":
+    os.system("python rsync.py '/media/burak/1BC3-0618/archive/kitaplar' '/media/burak/Seagate Backup Plus Drive/archive/kitaplar'  --delete 1")
+    
 if sys.argv[1] == "seagate_usb64":
     os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/archive' '/media/burak/1BC3-0618/archive' --delete 1")
     os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/kitaplar' '/media/burak/1BC3-0618/kitaplar' --delete 1")
