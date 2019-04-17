@@ -1,4 +1,12 @@
 
+```python
+import sqlite3
+conn = sqlite3.connect('/home/burak/Downloads/loogle2.db')
+c = conn.cursor()
+c.execute('''DELETE FROM BOOKS WHERE path like '%Data_Mining_Machine_Learning%';''')
+conn.commit()
+conn.close()	
+```
 
 ```python
 import sqlite3
