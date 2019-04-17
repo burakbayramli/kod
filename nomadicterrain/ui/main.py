@@ -410,7 +410,7 @@ def poi_cache():
     location = "%s,%s" % (lat,lon)
     tmppoi = os.environ['TMPDIR'] + "/poitmp.csv"
     fout = open (tmppoi,"w")
-    for type in ['campground','atm','bus_station','shopping_mall','hospital']:
+    for type in ['campground','atm','bus_station','shopping_mall','hospital','taxi_stand']:
         url = place_query2 % (location, type, params['api'])
         print (url)
         html = urlopen(url)
