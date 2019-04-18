@@ -188,15 +188,7 @@ def profile():
     mon = request.form.get("mon")
     year = request.form.get("year")
     d = "%s%s%s" % (year,mon,day)
-    print (d)
-    res =  mindmeld.calculate(d)
-    res['date'] = d
-    if 'spiller_pdf' in params:
-        pf = params['spiller_pdf']
-        pf = json.loads(open(pf).read())
-        res['spiller_tr'] = pf['tr'][res['spiller'].lower()]
-        res['spiller_en'] = pf['en'][res['spiller'].lower()]
-    return render_template('/profile.html', res=res)
+    return profile_date(d)
 
 @app.route("/profile_date/<date>", )
 def profile_date(date):
