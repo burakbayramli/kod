@@ -198,6 +198,18 @@ def profile():
         res['spiller_en'] = pf['en'][res['spiller'].lower()]
     return render_template('/profile.html', res=res)
 
+@app.route("/profile_date/<date>", )
+def profile_date(date):
+    print (date)
+    res =  mindmeld.calculate(date)
+    res['date'] = date
+    if 'spiller_pdf' in params:
+        pf = params['spiller_pdf']
+        pf = json.loads(open(pf).read())
+        res['spiller_tr'] = pf['tr'][res['spiller'].lower()]
+        res['spiller_en'] = pf['en'][res['spiller'].lower()]
+    return render_template('/profile.html', res=res)
+
 @app.route("/profile_text/<d>")
 def profile_text(d):
     res =  mindmeld.calculate(str(d))
@@ -234,10 +246,6 @@ def guide_lewi(which):
     fin = params['guide_detail_dir'] + "/lewi/" + which + ".html"
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
-
-@app.route('/test')
-def test():    
-    return render_template('/out.html')
 
 def step(request, location, distance):
     if request.form['action'] == '↑':
@@ -1025,7 +1033,9 @@ def celeb_search():
     res = []
     for row in rd:
         if keyword in row[headers['Name']].lower() or keyword in row[headers['Description']].lower():
-            res.append(row)
+            d = datetime.datetime.strptime(row[headers['Birthday']], "%d/%m/%Y")
+            d = d.strftime('%Y%m%d')
+            res.append([ row[headers['Name']], d ])
             
     OnlyOne().celeb_results =res
     print (len(res))
