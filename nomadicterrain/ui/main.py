@@ -84,6 +84,7 @@ class OnlyOne(object):
             self.last_gpx_file = ""
             self.edible_results = []
             self.city_results = []
+            self.celeb_results = []
             self.place_results = []
             self.line_elev_results = []
             self.hay_results = []
@@ -1010,6 +1011,27 @@ def book_search():
     full_res = [str(x[0]) for x in res]
     OnlyOne().book_results = full_res
     return book()
+
+@app.route('/celeb')
+def celeb():
+    return render_template('/celeb.html',data=OnlyOne().celeb_results)
+
+@app.route("/celeb_search", methods=["POST"])
+def celeb_search():
+    keyword = request.form.get("keyword").lower()
+    print (keyword)
+    rd = csv.reader(codecs.open(params['celeb'],encoding="utf-8"),delimiter=':')
+    headers = {k: v for v, k in enumerate(next(rd))}
+    res = []
+    for row in rd:
+        if keyword in row[headers['Name']].lower() or keyword in row[headers['Description']].lower():
+            res.append(row)
+            
+    OnlyOne().celeb_results =res
+    print (len(res))
+    return celeb()
+
+
 
 if __name__ == '__main__':
     app.debug = True
