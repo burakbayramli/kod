@@ -1,19 +1,19 @@
 Bab::5/10/1945
 An::22/2/1948
 Bad:8/1/1982
-Kalyon:Tanidik:9/6/1954
-Irem:Tanidik:27/10/1987
-Sabahattin Dede:Tanidik:1/7/1920
-Jen:Tanidik:21/9/1970
-Prash:Tanidik:16/2/1969
-Yannos:Tanidik:16/9/1974
-Amca:Tanidik:19/1/1949
-Teyze:Tanidik:23/10/1950
-Bengio:Tanidik:19/7/1979
-Anneanne:Tanidik:5/2/1925
-Dayi:Tanidik:31/5/1956
-Volcano:Tanidik:17/5/1987
-Berk:Tanidik:24/11/1991
+Kal::9/6/1954
+Irem::27/10/1987
+Sebayet::1/7/1920
+Jen::21/9/1970
+Prash::16/2/1969
+Yannos::16/9/1974
+Amc::19/1/1949
+Tyz::23/10/1950
+Bengio::19/7/1979
+AnAn::5/2/1925
+Joshkun::31/5/1956
+Volcano::17/5/1987
+Berky::24/11/1991
 Mary Gibbs:American actress:1/1/1996
 Gilbert Brule:Canadian hockey player:1/1/1987
 Meryl Davis:American ice dancer:1/1/1987
