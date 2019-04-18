@@ -49,8 +49,8 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "countries": "/dir/dir/country-bb.csv"
   "quandl": "[QUANDL API KEY]",
   "book_idx": "/dir/dir/loogle.db",
-  "book_base_url": "http://localhost:5000/static/some/symlink/to/your/books/under/static/flask/folder"
-  
+  "book_base_url": "http://localhost:5000/static/some/symlink/to/your/books/under/static/flask/folder",
+  "celeb": "[CELEB BDAY data, see ../guide/data/famousbday.txt]"
 }
 ```
 
