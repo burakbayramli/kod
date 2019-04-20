@@ -218,7 +218,7 @@ def get_elev_goog(latint, lonint):
         html = urlopen(url)
         json_res = json.loads(html.read().decode('utf-8'))
         for i in range(len(json_res['results'])):
-            #print (json_res['results'][i])
+            print (json_res['results'][i])
             sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (json_res['results'][i]['elevation'],chunk[i][0],chunk[i][1])
             c.execute(sql)
         conn.commit()
