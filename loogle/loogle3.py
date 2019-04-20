@@ -6,18 +6,20 @@ exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
 escapes = ''.join([chr(char) for char in range(1, 32)])
 
+if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
+
 def process(file):
     import textract
     if ".pdf" in file:
-        os.system("pdftotext '%s' /tmp/out.txt" % file)
-        res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
+        os.system("pdftotext '%s' %s/out.txt" % (file,os.environ['TMPDIR']))
+        res = codecs.open(os.environ['TMPDIR'] + "/out.txt", encoding="utf-8").read()
         return res
     elif ".djvu" in file: 
-        os.system("djvutxt '%s' /tmp/out.txt" % file)
-        res = codecs.open("/tmp/out.txt", encoding="utf-8").read()
+        os.system("djvutxt '%s' %s/out.txt" % (file,os.environ['TMPDIR']))
+        res = codecs.open(os.environ['TMPDIR'] + "/out.txt", encoding="utf-8").read()
         return res
     else:
-        textract.process(file, encoding='ascii').decode('utf-8')        
+        textract.process(file, encoding='ascii').decode('utf-8')      
 
 def get_legit_files(crawl_dir):
     dirs, files = rsync.ls(crawl_dir)
