@@ -212,7 +212,7 @@ def get_elev_goog(latint, lonint):
     sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     res = list(res)
-    for chunk in chunks(res, 50):
+    for chunk in chunks(res, 10):
         locs = polyline.encode(chunk)
         url = elev_query % (locs, params['api'])
         html = urlopen(url)

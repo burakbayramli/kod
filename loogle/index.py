@@ -2,7 +2,7 @@ import sys; sys.path.append('..')
 import loogle3, rsync
 
 # notebook
-index_db = "/home/burak/Downloads/loogle3.db"
+index_db = "/home/burak/Documents/Dropbox/loogle3.db"
 cdir = "/media/burak/1BC3-0618/archive/kitaplar"
 loogle3.index(cdir, index_db)
 

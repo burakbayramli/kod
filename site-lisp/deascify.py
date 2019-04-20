@@ -36,7 +36,7 @@ def convert():
     # tuple olarak yazilir, ("kelime",) gibi. eger degisim isteniyorsa
     # ("kelime","degisim") olarak bir tuple eklenir. 
     r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
-              ("ise",), ("kontur",), ("hacim","hacim"), ("ODE",),("parcaciga", u"parçacığa"),
+              ("ise",), ("kontur",), ("hacim",), ("ODE",),("parcaciga", u"parçacığa"),
               ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
               ("integral",), ("arastirmaci",u"araştırmacı"),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
@@ -52,7 +52,7 @@ def convert():
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
               (" Yani ",), ("entegrali",), ("sistem",),("invertible",),
               ("sistemi",), ("araci",u"aracı"),("agaci",u"ağacı"),
-              ("robust",),("lineer",),("Tensor",) ]
+              ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",) ]
               
     dict = {}; r_list_coded = []
     for x in r_list:
