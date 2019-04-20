@@ -108,16 +108,17 @@ print (rows)
 
 ```python
 import sqlite3
-index_db = "/home/burak/Downloads/loogle.db"
+index_db = "/home/burak/Downloads/loogle3.db"
 conn = sqlite3.connect(index_db)
 c = conn.cursor()
 c.execute('''SELECT count(*) FROM BOOKS;''')
 rows = c.fetchall()
 print (rows)
+conn.close()
 ```
 
 ```text
-[(1482,)]
+[(1288,)]
 ```
 
 

@@ -2,11 +2,11 @@ import sys; sys.path.append('..')
 import loogle3, rsync
 
 # notebook
-#index_db = "/home/burak/Downloads/loogle2.db"
-#cdir = "/media/burak/1BC3-0618/archive/kitaplar"
-#loogle3.index(cdir, index_db)
+index_db = "/home/burak/Downloads/loogle3.db"
+cdir = "/media/burak/1BC3-0618/archive/kitaplar"
+loogle3.index(cdir, index_db)
 
 # usb60
-index_db = "/data/data/com.termux/files/home/Downloads/Dropbox/loogle2.db"
-cdir = "/storage/1BC3-0618/archive/kitaplar"
-loogle3.index(cdir, index_db)
+#index_db = "/data/data/com.termux/files/home/Downloads/Dropbox/loogle2.db"
+#cdir = "/storage/1BC3-0618/archive/kitaplar"
+#loogle3.index(cdir, index_db)
