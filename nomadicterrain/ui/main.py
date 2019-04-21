@@ -1000,8 +1000,9 @@ def time():
                            times=times,
                            tzone=timezone_str)
 
-@app.route('/book')
-def book():
+@app.route('/book/<init>')
+def book(init):
+    if init=='yes': OnlyOne().book_results = []
     return render_template('/book.html',base=params['book_base_url'],data=OnlyOne().book_results)
 
 @app.route("/book_search", methods=["POST"])
@@ -1010,7 +1011,7 @@ def book_search():
     res = loogle3.search(query, params['book_idx'])
     full_res = [str(x[0]) for x in res]
     OnlyOne().book_results = full_res
-    return book()
+    return book(init='no')
 
 @app.route('/celeb')
 def celeb():
