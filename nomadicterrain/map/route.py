@@ -3,7 +3,7 @@ import numpy.linalg as lin
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle, math
+import os, pickle, math, random
 import numpy as np, pandas as pd
 from scipy.interpolate import Rbf
 from pqdict import pqdict
@@ -212,7 +212,7 @@ def get_elev_goog(latint, lonint):
     sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     res = list(res)
-    for chunk in chunks(res, 10):
+    for chunk in chunks(res, random.choice([2,40,50,60,70])):
         locs = polyline.encode(chunk)
         url = elev_query % (locs, params['api'])
         html = urlopen(url)
