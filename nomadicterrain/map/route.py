@@ -214,6 +214,7 @@ def get_elev_goog(latint, lonint):
     res = list(res)
     k = 0
     N = random.choice([2,40,50,60,70,80])
+    print ('N',N)
     for chunk in chunks(res, N):
         if N==2 and k>10: exit(-1)
         k = k + 1
