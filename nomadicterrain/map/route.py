@@ -212,8 +212,11 @@ def get_elev_goog(latint, lonint):
     sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     res = list(res)
-    i = 0
-    for chunk in chunks(res, random.choice([2,40,50,60,70])):
+    k = 0
+    N = random.choice([2,40,50,60,70,80])
+    for chunk in chunks(res, N):
+        if N==2 and k>10: exit(-1)
+        k = k + 1
         locs = polyline.encode(chunk)
         url = elev_query % (locs, params['api'])
         html = urlopen(url)
@@ -405,6 +408,6 @@ if __name__ == "__main__":
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()    
     #show_ints()
-    #get_elev_data(41,45)
+    #get_elev_data(42,45)
     #do_all_rbf_ints()
     get_all_countries()

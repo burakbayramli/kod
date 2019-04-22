@@ -137,7 +137,13 @@ c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL,
 ```
 
 which will be created in the database (file) defined in parameter
-`elevdb`. 
+`elevdb`.
+
+Indexes will be useful
+
+```
+c.execute('''CREATE INDEX LATLON1 ON ELEVATION (lat,lon); ''')
+```
 
 For the model,
 
@@ -201,4 +207,9 @@ Common European plant names
 
 https://www.first-nature.com/flowers/index.php
 
+```python
+conn = sqlite3.connect(params['elevdb'])
+c = conn.cursor()
+c.execute('''CREATE INDEX LATLON1 ON ELEVATION (lat,lon); ''')
+```
 
