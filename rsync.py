@@ -49,7 +49,7 @@ def ls(d):
             if ".git" not in path: dirs.append(path)
         for filename in filenames: 
             path = os.path.join(root,filename)
-            if ".git" not in path: files.append((path, os.path.getsize(path)))
+            if ".git" not in path and "usb60" not in path: files.append((path, os.path.getsize(path)))
     return dirs, files
 
 def purge(dir, pattern, inclusive=True):
