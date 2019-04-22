@@ -143,6 +143,7 @@ Indexes will be useful
 
 ```
 c.execute('''CREATE INDEX LATLON1 ON ELEVATION (lat,lon); ''')
+c.execute('''CREATE INDEX LATLON2 ON ELEVATION (latint,lonint,elevation); ''')
 ```
 
 For the model,
