@@ -7,6 +7,8 @@ import re, requests, random, os
 import re, time, os
 from bs4 import BeautifulSoup 
 
+if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
+
 def strip_html(input):
     return BeautifulSoup(input, "lxml").text
 
@@ -58,6 +60,7 @@ def getnews(outfile):
                 if len(re.findall(r"Musk", title)) > 0: continue
                 if len(re.findall(r"Tesla", title)) > 0: continue
                 if len(re.findall(r"electric", title)) > 0: continue
+                if len(re.findall(r"electric", summary)) > 0: continue
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
                 fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:
