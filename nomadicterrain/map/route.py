@@ -1,5 +1,5 @@
 from scipy.spatial.distance import cdist
-import numpy.linalg as lin
+import numpy.linalg as lin, datetime
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
@@ -216,7 +216,7 @@ def get_elev_goog(latint, lonint):
     N = random.choice([2,40,50,60,70,80])
     print ('N',N)
     for chunk in chunks(res, N):
-        if N==2 and k>10: exit(-1)
+        if N==2 and k>30: exit(-1)
         k = k + 1
         locs = polyline.encode(chunk)
         url = elev_query % (locs, params['api'])
@@ -229,6 +229,7 @@ def get_elev_goog(latint, lonint):
         conn.commit()
         res1 = c.execute(sql1)
         for x in res1: print (x)
+        print (datetime.datetime.now())
 
 def show_ints():
     conn = sqlite3.connect(params['elevdb'])

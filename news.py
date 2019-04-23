@@ -57,7 +57,7 @@ def getnews(outfile):
                 if len(re.findall(r"Elon", title)) > 0: continue
                 if len(re.findall(r"Musk", title)) > 0: continue
                 if len(re.findall(r"Tesla", title)) > 0: continue
-                if len(re.findall(r"electric c", title)) > 0: continue
+                if len(re.findall(r"electric", title)) > 0: continue
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
                 fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:
