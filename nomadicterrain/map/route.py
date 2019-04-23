@@ -182,6 +182,15 @@ def gen_gps_sample_coords():
     
     np.save(params['coordidx'],sample)
 
+
+def delete_int_rows(latint, lonint):    
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
+    gpsidx = np.load(params['coordidx'])
+    print (len(gpsidx))
+    sql = "DELETE FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
+    c.execute(sql)
+    conn.commit()
     
 def insert_gps_int_rows(latint, lonint):
     
@@ -334,22 +343,25 @@ def do_all_rbf_ints():
     res = c.execute('''select distinct latint, lonint from elevation; ''')
 
     for (latint,lonint) in res:
-        print (latint,lonint)
+        try:
+            print ('int---->', latint,lonint)
+            sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
+            c2 = conn.cursor()
+            res1 = c2.execute(sql1)
+            res1 = list(res1)
 
-        sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
-        c2 = conn.cursor()
-        res1 = c2.execute(sql1)
-        res1 = list(res1)
-        
-        sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
-        c3 = conn.cursor()
-        res2 = c3.execute(sql2)
-        res2 = list(res2)
-        
-        print(res1[0][0], res2[0][0])
-        
-        if res1[0][0]==SROWS and res2[0][0] == 0:
-            insert_rbf1_recs(latint,lonint,conn)
+            sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
+            c3 = conn.cursor()
+            res2 = c3.execute(sql2)
+            res2 = list(res2)
+
+            print(res1[0][0], res2[0][0])
+
+            if res1[0][0]==SROWS and res2[0][0] == 0:
+                insert_rbf1_recs(latint,lonint,conn)
+                
+        except Exception as e:            
+            print (repr(e))
         
 def get_all_countries():
     print (params['countries'])
@@ -408,8 +420,9 @@ def get_centroid(poly):
     
 if __name__ == "__main__":
     conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()    
+    c = conn.cursor()
+    #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
-    #do_all_rbf_ints()
-    get_all_countries()
+    do_all_rbf_ints()
+    #get_all_countries()
