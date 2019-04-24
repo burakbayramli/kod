@@ -130,7 +130,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     x = np.linspace(boxlonlow,boxlonhigh,D)
     y = np.linspace(boxlatlow,boxlathigh,D)
 
-    conn = sqlite3.connect(params['elevdb'])
+    conn = sqlite3.connect(params['elevdbmod'])
     c = conn.cursor()
 
     xi = np.unique([int(xx) for xx in x])

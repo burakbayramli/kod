@@ -436,12 +436,14 @@ def poi_cache():
 def get_elev(lat,lon):
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()    
+    connmod = sqlite3.connect(params['elevdbmod'])
+    cm = connmod.cursor()    
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (int(lat),int(lon))
     print (sql)
     res = c.execute(sql)
     res = list(res)
     if res[0][0]>0:
-        elev = route.get_elev_single(lat,lon,c)
+        elev = route.get_elev_single(lat,lon,cm)
         return np.round(elev,2)
     else:
         return None
@@ -836,7 +838,7 @@ def goestelevline(coords):
     for x in np.linspace(0,far,npts):
         locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
 
-    conn = sqlite3.connect(params['elevdb'])
+    conn = sqlite3.connect(params['elevdbmod'])
     c = conn.cursor()
 
     res = [route.get_elev_single(lat,lon,c) for (lat,lon) in  locs]

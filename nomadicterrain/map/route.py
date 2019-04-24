@@ -243,9 +243,9 @@ def insert_rbf1_recs(latint,lonint,conn,connmod):
             cm.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
             connmod.commit()
     
-def get_elev_single(lat,lon,c):
+def get_elev_single(lat,lon,cm):
     sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
-    r = c.execute(sql,(lat,lat,lon,lon))
+    r = cm.execute(sql,(lat,lat,lon,lon))
     r = list(r)
     if len(r)==0: return -10.0
     latlow,lathigh,lonlow,lonhigh,rbfi = r[0]
