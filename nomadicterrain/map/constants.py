@@ -1,4 +1,3 @@
-
 import json, os
 
 SROWS=40000
@@ -6,6 +5,8 @@ SROWS=40000
 S = 8 # RBF grid division
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+
+elev_cmd = "curl  -d '%s' -XPOST -H 'Content-Type: application/json' https://elevation.racemap.com/api > /tmp/elevout.txt"
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 

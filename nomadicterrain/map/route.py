@@ -14,6 +14,7 @@ from constants import S
 from constants import params
 from constants import elev_query
 from constants import gps_coord_sample_file
+from constants import elev_cmd
 
 def chunks(l, n):
     for i in range(0, len(l), n):
@@ -159,7 +160,17 @@ def get_elev_raw_1():
     p = "Elevation for .*? <span style=\"font-size\:20px\">(\d*)</span> meters"
     rres = re.findall(p,res)
     print (float(rres[0]))    
-        
+
+def get_elev_data_1(chunk):
+    c = [list(x) for x in chunk]
+    #print (c)
+    os.system(elev_cmd % str(c))
+    res = open("/tmp/elevout.txt").read()    
+    res = res.replace("]","").replace("[","")
+    res = res.split(",")
+    res = [float(x) for x in res]
+    return res
+    
 def get_elev_goog(latint, lonint):
     
     conn = sqlite3.connect(params['elevdb'])
@@ -172,19 +183,13 @@ def get_elev_goog(latint, lonint):
     sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
     res = c.execute(sql)
     res = list(res)
-    k = 0
-    N = random.choice([2,40,50,60,70,80])
+    #N = random.choice([2,40,50,60,70,80])
+    N = 40
     print ('N',N)
     for chunk in chunks(res, N):
-        if N==2 and k>30: exit(-1)
-        k = k + 1
-        locs = polyline.encode(chunk)
-        url = elev_query % (locs, params['api'])
-        html = urlopen(url)
-        json_res = json.loads(html.read().decode('utf-8'))
-        for i in range(len(json_res['results'])):
-            print (json_res['results'][i])
-            sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (json_res['results'][i]['elevation'],chunk[i][0],chunk[i][1])
+        elev_results = get_elev_data_1(chunk)
+        for i in range(N):
+            sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (elev_results[i],chunk[i][0],chunk[i][1])
             c.execute(sql)
         conn.commit()
         res1 = c.execute(sql1)
@@ -299,25 +304,22 @@ def do_all_rbf_ints():
     res = c.execute('''select distinct latint, lonint from elevation; ''')
 
     for (latint,lonint) in res:
-        try:
-            print ('int---->', latint,lonint)
-            sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
-            c2 = conn.cursor()
-            res1 = c2.execute(sql1)
-            res1 = list(res1)
+        print ('int---->', latint,lonint)
+        sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
+        c2 = conn.cursor()
+        res1 = c2.execute(sql1)
+        res1 = list(res1)
 
-            sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
-            c3 = connmod.cursor()
-            res2 = c3.execute(sql2)
-            res2 = list(res2)
+        sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
+        c3 = connmod.cursor()
+        res2 = c3.execute(sql2)
+        res2 = list(res2)
 
-            print(res1[0][0], res2[0][0])
+        print(res1[0][0], res2[0][0])
 
-            if res1[0][0]==SROWS and res2[0][0] == 0:
-                insert_rbf1_recs(latint,lonint,conn,connmod)
+        if res1[0][0]==SROWS and res2[0][0] == 0:
+            insert_rbf1_recs(latint,lonint,conn,connmod)
                 
-        except Exception as e:            
-            print (repr(e))
         
 def get_all_countries():
     print (params['countries'])
@@ -373,12 +375,14 @@ def get_centroid(poly):
                              (area * centroid[1])) / (area_total + area)
         area_total += area
     return centroid_total
-    
+
+
+
 if __name__ == "__main__":
     #conn = sqlite3.connect(params['elevdb'])
     #c = conn.cursor()
     #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
-    do_all_rbf_ints()
-    #get_all_countries()
+    #do_all_rbf_ints()
+    get_all_countries()
