@@ -1,4 +1,4 @@
-import json, os
+import json, os, numpy as np
 
 SROWS=40000
 
@@ -11,6 +11,8 @@ elev_cmd = "curl  -d '%s' -XPOST -H 'Content-Type: application/json' https://ele
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
 gps_coord_sample_file = 'gps_coord_sample.npy'
+
+gpsidx = np.load(params['coordidx'])
 
 gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"

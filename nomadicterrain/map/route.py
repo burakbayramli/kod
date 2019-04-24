@@ -15,6 +15,7 @@ from constants import params
 from constants import elev_query
 from constants import gps_coord_sample_file
 from constants import elev_cmd
+from constants import gpsidx
 
 def chunks(l, n):
     for i in range(0, len(l), n):
@@ -147,6 +148,8 @@ def delete_int_rows(latint, lonint):
     
 def insert_gps_int_rows(latint, lonint):
     delete_int_rows(latint, lonint)
+    conn = sqlite3.connect(params['elevdb'])
+    c = conn.cursor()
     for i,g in enumerate(gpsidx):
         sql = "INSERT INTO ELEVATION(latint,lonint,lat,lon) VALUES(%d,%d,%f,%f);" %(latint,lonint,latint+g[0],lonint+g[1])
         res = c.execute(sql)
