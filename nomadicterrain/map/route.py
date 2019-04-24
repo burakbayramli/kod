@@ -151,6 +151,14 @@ def insert_gps_int_rows(latint, lonint):
         res = c.execute(sql)
         if i%100==0: print (i)
         conn.commit()
+
+def get_elev_raw_1():
+    url = "http://veloroutes.org/elevation/?location=41.40000%2C28.15000&units=m"
+    html = urlopen(url)
+    res = html.read().decode('utf-8')
+    p = "Elevation for .*? <span style=\"font-size\:20px\">(\d*)</span> meters"
+    rres = re.findall(p,res)
+    print (float(rres[0]))    
         
 def get_elev_goog(latint, lonint):
     
