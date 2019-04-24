@@ -214,3 +214,25 @@ c = conn.cursor()
 c.execute('''CREATE INDEX LATLON1 ON ELEVATION (lat,lon); ''')
 ```
 
+## Random Numbers after decimal point
+
+They are generated with this code
+
+```python
+def gen_gps_sample_coords():    
+    M=1000
+    res = np.zeros((M*M,2))
+    k=0
+    for i in range(M):
+        for j in range(M):
+            res[k,0] = i*0.001
+            res[k,1] = j*0.001
+            k+=1
+
+    idx = range(M*M)
+    sample_idx = np.random.choice(idx, SROWS, replace=False)
+    print (len(sample_idx))    
+    sample=res[sample_idx,:]    
+    print (len(sample))    
+    np.save(params['coordidx'],sample)
+```

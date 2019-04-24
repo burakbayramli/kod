@@ -159,30 +159,6 @@ def get_grid(lat1,lon1,lat2,lon2,npts):
    print ('yo',yo.shape)
    return xo,yo
 
-def gen_gps_sample_coords():
-    
-    M=1000
-    res = np.zeros((M*M,2))
-    k=0
-    for i in range(M):
-        for j in range(M):
-            res[k,0] = i*0.001
-            res[k,1] = j*0.001
-            k+=1
-
-    idx = range(M*M)
-
-    sample_idx = np.random.choice(idx, SROWS, replace=False)
-
-    print (len(sample_idx))
-    
-    sample=res[sample_idx,:]
-    
-    print (len(sample))
-    
-    np.save(params['coordidx'],sample)
-
-
 def delete_int_rows(latint, lonint):    
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
