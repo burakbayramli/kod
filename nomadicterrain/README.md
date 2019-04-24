@@ -44,6 +44,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
   "hay": "[IRIS HAY data, see ../guide/doc/hay.txt]",
   "coordidx": "[DIR]/gps_coord_sample.npy",
   "elevdb": "/dir/dir/elev.db",
+  "elevdbmod": "/dir/dir/elevmod.db",
   "poi_base": "/dir/dir/poi.csv",
   "poi": "/dir/dir/poi2.csv",
   "countries": "/dir/dir/country-bb.csv"
