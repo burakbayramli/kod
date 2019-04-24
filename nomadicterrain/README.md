@@ -149,7 +149,7 @@ c.execute('''CREATE INDEX LATLON2 ON ELEVATION (latint,lonint,elevation); ''')
 For the model,
 
 ```
-conn = sqlite3.connect(params['elevdb'])
+conn = sqlite3.connect(params['elevdbmod'])
 c = conn.cursor()
 c.execute('''DROP TABLE RBF1; ''')
 c.execute('''CREATE TABLE RBF1 (latint INT, lonint INT, latlow REAL, lathigh REAL, lonlow REAL, lonhigh REAL, gamma REAL, W BLOB); ''')

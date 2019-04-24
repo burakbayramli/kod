@@ -185,10 +185,12 @@ def get_elev_goog(latint, lonint):
 
 def show_ints():
     conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
     c = conn.cursor()
+    cm = conn.cursor()
     res = c.execute('''select distinct latint, lonint from elevation; ''')
     print (list(res))
-    res = c.execute('''select distinct latint, lonint from rbf1; ''')
+    res = cm.execute('''select distinct latint, lonint from rbf1; ''')
     print (list(res))
 
 def gdist(x1,x2):
@@ -199,13 +201,14 @@ def gdist(x1,x2):
     print (dists)
     return np.array(dists)
     
-def insert_rbf1_recs(latint,lonint,conn):
+def insert_rbf1_recs(latint,lonint,conn,connmod):
     df=pd.DataFrame(np.linspace(0,1.0,S))
     df['s'] = df.shift(-1)
     c = conn.cursor()    
+    cm = connmod.cursor()    
     sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
-    c.execute(sql)
-    conn.commit()
+    cm.execute(sql)
+    connmod.commit()
     sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
     res = list(c.execute(sql)) 
     for i,r1 in enumerate(np.array(df)):
@@ -229,8 +232,8 @@ def insert_rbf1_recs(latint,lonint,conn):
             if (len(Z)<10): continue
             rbfi = Rbf(X[:,0], X[:,1], Z)
             wdf = pickle.dumps(rbfi)
-            c.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
-            conn.commit()
+            cm.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
+            connmod.commit()
     
 def get_elev_single(lat,lon,c):
     sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
@@ -268,6 +271,7 @@ def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
 
 def get_elev_data(latint, lonint, rbf=True):
     conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
     c = conn.cursor()
     sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
     res = c.execute(sql)
@@ -277,10 +281,11 @@ def get_elev_data(latint, lonint, rbf=True):
         print ('inserting')
         insert_gps_int_rows(latint,lonint)
     get_elev_goog(latint,lonint)
-    if rbf: insert_rbf1_recs(latint,lonint,conn)
+    if rbf: insert_rbf1_recs(latint,lonint,conn,connmod)
 
 def do_all_rbf_ints():
     conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
     c = conn.cursor()
     #c.execute("delete from RBF1")
     res = c.execute('''select distinct latint, lonint from elevation; ''')
@@ -294,14 +299,14 @@ def do_all_rbf_ints():
             res1 = list(res1)
 
             sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
-            c3 = conn.cursor()
+            c3 = connmod.cursor()
             res2 = c3.execute(sql2)
             res2 = list(res2)
 
             print(res1[0][0], res2[0][0])
 
             if res1[0][0]==SROWS and res2[0][0] == 0:
-                insert_rbf1_recs(latint,lonint,conn)
+                insert_rbf1_recs(latint,lonint,conn,connmod)
                 
         except Exception as e:            
             print (repr(e))
@@ -362,8 +367,8 @@ def get_centroid(poly):
     return centroid_total
     
 if __name__ == "__main__":
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
+    #conn = sqlite3.connect(params['elevdb'])
+    #c = conn.cursor()
     #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
