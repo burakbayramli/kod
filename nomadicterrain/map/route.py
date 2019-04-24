@@ -193,16 +193,7 @@ def delete_int_rows(latint, lonint):
     conn.commit()
     
 def insert_gps_int_rows(latint, lonint):
-    
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-
-    gpsidx = np.load(params['coordidx'])
-    print (len(gpsidx))
-
-    sql = "DELETE FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
-    c.execute(sql)
-    conn.commit()
+    delete_int_rows(latint, lonint)
     for i,g in enumerate(gpsidx):
         sql = "INSERT INTO ELEVATION(latint,lonint,lat,lon) VALUES(%d,%d,%f,%f);" %(latint,lonint,latint+g[0],lonint+g[1])
         res = c.execute(sql)
