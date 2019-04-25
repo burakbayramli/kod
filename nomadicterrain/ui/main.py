@@ -33,8 +33,6 @@ finfile = os.environ['TMPDIR'] + "/finance.csv"
 
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
 
-elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
-
 place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=10000&keyword=&type=%s&key=%s"
 
 def been_walking():
