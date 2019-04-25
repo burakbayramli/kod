@@ -251,6 +251,7 @@ def get_elev_single(lat,lon,cm):
     sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
     r = cm.execute(sql,(lat,lat,lon,lon))
     r = list(r)
+    print ('-',len(r))
     if len(r)==0: return -10.0
     latlow,lathigh,lonlow,lonhigh,rbfi = r[0]
     rbfi = pickle.loads(rbfi)

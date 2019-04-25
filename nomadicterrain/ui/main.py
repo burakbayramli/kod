@@ -426,15 +426,15 @@ def poi_cache():
     destination = open(params['poi'],'wb')
     shutil.copyfileobj(open(params['poi_base'],'rb'), destination)
     shutil.copyfileobj(open(tmppoi,'rb'), destination)
-    destination.close() 
-    
+    destination.close()     
     return render_template('/results.html',data="done")
-
 
 def get_elev(lat,lon):
     connmod = sqlite3.connect(params['elevdbmod'])
     cm = connmod.cursor()    
     elev = route.get_elev_single(lat,lon,cm)
+    print ('elev',elev)
+    return np.round(elev,2)
 
 @app.route('/gogeos/<coords>/<refresh>')
 def gogeos(coords, refresh):
