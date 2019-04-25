@@ -328,6 +328,7 @@ def get_all_countries():
     for row in np.array(df):
         country,longmin,latmin,longmax,latmax =  (row[0],row[2],row[3],row[4],row[5])
         print (country)
+        print ('=================================')
         print (longmin,latmin,longmax,latmax)
         for lon in (range(int(longmin),int(longmax)+1)):
             for lat in (range(int(latmin),int(latmax)+1)):
