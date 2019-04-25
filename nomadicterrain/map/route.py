@@ -158,8 +158,8 @@ def insert_gps_int_rows(latint, lonint):
 def get_elev_data_1(chunk):
     c = [list(x) for x in chunk]
     #print (c)
-    os.system(elev_cmd % str(c))
-    res = open("/tmp/elevout.txt").read()    
+    os.system(elev_cmd % str(c))    
+    res = open(os.environ['TMPDIR'] + "/elevout.txt").read()    
     res = res.replace("]","").replace("[","")
     res = res.split(",")
     res = [float(x) for x in res]

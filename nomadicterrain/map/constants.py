@@ -6,7 +6,9 @@ S = 8 # RBF grid division
 
 params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
-elev_cmd = "curl  -d '%s' -XPOST -H 'Content-Type: application/json' https://elevation.racemap.com/api > /tmp/elevout.txt"
+if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
+
+elev_cmd = "curl  -d '%s' -XPOST -H 'Content-Type: application/json' https://elevation.racemap.com/api > " + os.environ['TMPDIR'] + "/elevout.txt"
 
 elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
 
