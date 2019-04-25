@@ -843,13 +843,7 @@ def gogoogelevline(coords):
     locs = []
     for x in np.linspace(0,far,npts):
         locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-    locs = polyline.encode(locs)
-    url = route.elev_query % (locs, params['api'])
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-    res = []
-    for x in json_res['results']:
-        res.append(x['elevation'])
+    res = route.get_elev_data_1(locs)
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     clean_dir()
