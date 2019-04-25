@@ -155,6 +155,7 @@ def insert_gps_int_rows(latint, lonint):
         conn.commit()
 
 def get_elev_data_1(chunk):
+    chunk = [list(x) for x in chunk]
     data = "["
     for i,x in enumerate(chunk):
         data += str(x)
