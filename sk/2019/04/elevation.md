@@ -61,8 +61,25 @@ servis veriyorlar, Curl kullanıp
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    37  100     9  100    28      8     27  0:00:01  0:00:01 --:--:--    27100    37  100     9  100    28      8     27  0:00:01  0:00:01 --:--:--    27
-[101,100]```
-
+[101,100]
+```
 
 Bu komutu tabii ki sarmalayıp sonucu bir yere yazdırıp Python ile
-güzel liste döndürmesi için ayarlayabiliriz.
+güzel liste döndürmesi için ayarlayabiliriz. Ya da `requests`
+kullanarak aynı çağrıyı yapabiliriz,
+
+```python
+import requests
+
+headers = {  'Content-Type': 'application/json', }
+data = '[[51.3, 13.4], [51.4, 13.3]]'
+response = requests.post('https://elevation.racemap.com/api',
+                         headers=headers, data=data)
+print(response.text)
+```
+
+
+
+
+
+
