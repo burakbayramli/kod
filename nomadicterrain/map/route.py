@@ -161,7 +161,6 @@ def get_elev_data_1(chunk):
         data += str(x)
         if i != len(chunk)-1: data += ","
     data += "]"
-    print (data)
     response = requests.post('https://elevation.racemap.com/api',
                              headers={'Content-Type': 'application/json',},
                              data=data)
