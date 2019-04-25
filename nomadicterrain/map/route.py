@@ -3,7 +3,7 @@ import numpy.linalg as lin, datetime
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
-import os, pickle, math, random
+import os, pickle, math, random, requests
 import numpy as np, pandas as pd
 from scipy.interpolate import Rbf
 from pqdict import pqdict
