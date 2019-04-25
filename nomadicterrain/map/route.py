@@ -12,7 +12,6 @@ from constants import gpxend
 from constants import SROWS
 from constants import S
 from constants import params
-from constants import elev_query
 from constants import gps_coord_sample_file
 from constants import elev_cmd
 from constants import gpsidx
@@ -166,7 +165,7 @@ def get_elev_data_1(chunk):
     res = [float(x) for x in res]
     return res
     
-def get_elev_goog(latint, lonint):
+def get_elev_int(latint, lonint):
     
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
@@ -288,7 +287,7 @@ def get_elev_data(latint, lonint, rbf=True):
     if res[0][0]<SROWS:
         print ('inserting')
         insert_gps_int_rows(latint,lonint)
-    get_elev_goog(latint,lonint)
+    get_elev_int(latint,lonint)
     if rbf: insert_rbf1_recs(latint,lonint,conn,connmod)
 
 def do_all_rbf_ints():
