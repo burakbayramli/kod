@@ -432,19 +432,9 @@ def poi_cache():
 
 
 def get_elev(lat,lon):
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()    
     connmod = sqlite3.connect(params['elevdbmod'])
     cm = connmod.cursor()    
-    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (int(lat),int(lon))
-    print (sql)
-    res = c.execute(sql)
-    res = list(res)
-    if res[0][0]>0:
-        elev = route.get_elev_single(lat,lon,cm)
-        return np.round(elev,2)
-    else:
-        return None
+    elev = route.get_elev_single(lat,lon,cm)
 
 @app.route('/gogeos/<coords>/<refresh>')
 def gogeos(coords, refresh):
