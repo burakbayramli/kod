@@ -13,7 +13,6 @@ from constants import SROWS
 from constants import S
 from constants import params
 from constants import gps_coord_sample_file
-from constants import elev_cmd
 from constants import gpsidx
 
 def chunks(l, n):
@@ -156,10 +155,16 @@ def insert_gps_int_rows(latint, lonint):
         conn.commit()
 
 def get_elev_data_1(chunk):
-    c = [list(x) for x in chunk]
-    #print (c)
-    os.system(elev_cmd % str(c))    
-    res = open(os.environ['TMPDIR'] + "/elevout.txt").read()    
+    data = "["
+    for i,x in enumerate(chunk):
+        data += str(x)
+        if i != len(chunk)-1: data += ","
+    data += "]"
+    print (data)
+    response = requests.post('https://elevation.racemap.com/api',
+                             headers={'Content-Type': 'application/json',},
+                             data=data)
+    res = response.text
     res = res.replace("]","").replace("[","")
     res = res.split(",")
     res = [float(x) for x in res]
