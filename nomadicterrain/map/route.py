@@ -154,6 +154,7 @@ def insert_gps_int_rows(latint, lonint):
 
 def get_elev_data_1(chunk):
     chunk = [list(x) for x in chunk]
+    print (chunk[:5])
     data = "["
     for i,x in enumerate(chunk):
         data += str(x)
@@ -166,6 +167,7 @@ def get_elev_data_1(chunk):
     res = res.replace("]","").replace("[","")
     res = res.split(",")
     res = [float(x) for x in res]
+    print (res[:5])
     return res
     
 def get_elev_int(latint, lonint):
