@@ -8,8 +8,6 @@ params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
 
 if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
-elev_query = "https://maps.googleapis.com/maps/api/elevation/json?locations=enc:%s&key=%s"
-
 gps_coord_sample_file = 'gps_coord_sample.npy'
 
 gpsidx = np.load(params['coordidx'])
