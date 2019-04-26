@@ -13,7 +13,6 @@ from constants import SROWS
 from constants import S
 from constants import params
 from constants import gps_coord_sample_file
-from constants import gpsidx
 
 def chunks(l, n):
     for i in range(0, len(l), n):
