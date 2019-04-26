@@ -10,8 +10,6 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 gps_coord_sample_file = 'gps_coord_sample.npy'
 
-gpsidx = np.load(params['coordidx'])
-
 gpxbegin = '''<?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1"
      xmlns="http://www.topografix.com/GPX/1/1"

@@ -143,6 +143,7 @@ def delete_int_rows(latint, lonint):
     conn.commit()
     
 def insert_gps_int_rows(latint, lonint):
+    gpsidx = np.load(params['coordidx'])
     delete_int_rows(latint, lonint)
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
