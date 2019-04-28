@@ -1,13 +1,12 @@
 # Web Sayfalarindan Gorunen Metni Kazimak (Scraping)
 
+Bir web sayfasindaki Turkce, Ingilizce kelimeleri almak icin Python
+uzerinde Beautiful Soup adinda bir paket var. "Gorunen metin" derken
+bir sayfada okunabilir olan, HTML etiketleri haricindeki kelimeleri
+kastediyoruz, istatistiki analiz icin mesela herhangi bir gunun
+"kelime dagarcigini" cekip cikarmak icin boyle kodlar gerekebilir.
 
-Web Sayfalarindan Gorunen Metni Kazimak (Scraping)
-
-
-
-
-Bir web sayfasindaki Turkce, Ingilizce kelimeleri almak icin Python uzerinde Beautiful Soup adinda bir paket var. "Gorunen metin" derken bir sayfada okunabilir olan, HTML etiketleri haricindeki kelimeleri kastediyoruz, istatistiki analiz icin mesela herhangi bir  gunun "kelime dagarcigini" cekip cikarmak icin boyle kodlar gerekebilir.
-
+```python
 import re
 import urllib
 import BeautifulSoup
@@ -37,20 +36,27 @@ def tokenize_site(url):
 
 if __name__ == "__main__":
    res = tokenize_site('[MEDYA SITE ISMI]')
+   
+```
+
+Python kutuphanelerinden urllib bu is icin kullanilir. Alttaki ornekte
+Google Insights for Search sayfalarindan Google'da son 7 gun icinde en
+cok aranan kelimelerin listesini almak icin kullandigimiz kodlar
+bulunabilir. Ayni sayfalar uzerinde wget ise yaramadi, urllib
+FancyURLopener calisti.
 
 
-
-Python kutuphanelerinden urllib bu is icin kullanilir. Alttaki ornekte Google Insights for Search sayfalarindan Google'da son 7 gun icinde en cok aranan kelimelerin listesini almak icin kullandigimiz kodlar bulunabilir. Ayni sayfalar uzerinde wget ise yaramadi, urllib FancyURLopener calisti.
+```python
 from urllib import FancyURLopener
-
 myopener = FancyURLopener()
 insightsURL = 'http://www.google.com/insights/search/overviewReport'
 page = myopener.open(insightsURL + '?q=&date=today+7-d&cmpt=q')
 print page.read()
+```
 
 FancyURLopener nereden geliyor? Google aramalarina scriptlemek istiyorsak, wget, hatta urllib ile ilk denememiz basarisiz olabilir. Anlasiliyor ki wget ve urllib baglantilari, kullanicilari Google'in izin verdigi robotlardan degil. O zaman baglananin 'kim oldugunu' degistirerek, yani Google'i yaniltarak, izin verilen bir robot ortaya cikartabiliriz. Alttaki 'version' tanimi bunu yapiyor. Sanki bir Windows makinasindan baglanan Firefox tarayicisi gibi gozukuyoruz.
 
-
+```python
 from urllib import FancyURLopener
 
 class MyOpener(FancyURLopener):
@@ -61,20 +67,102 @@ myopener = MyOpener()
 page = myopener.open('http://www.google.com.tr/search?q=tomatoes')
 content = page.read()
 print content
+```
+
+Eger orumcek (spider) usulu tum bir site icerigini almak istersek,
+
+```python
+# -*- coding: utf-8 -*-
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from urllib.request import urlretrieve
+import codecs, os, re
+
+base = 'http://sayilarvekuramlar.blogspot.com'
+urls = ['/2018/11/tensorflowjs-javascript-ile-tensorflow.html',
+        ...]
+
+def get_article(url, local):
+    fname = url[url.rfind('/')+1:]    
+    subdir = local + url[0:url.rfind('/')]
+    if not os.path.isdir(subdir):
+        os.makedirs(subdir)
+    md_file = subdir + "/" + fname.replace(".html",".md")
+    if os.path.isfile(md_file):
+        print ('Already downloaded', url)
+        return
+    fout = codecs.open(md_file, "w", encoding='utf-8')
+    html = urlopen(base + url)
+    bsObj = BeautifulSoup(html.read(),"lxml");
+    title = bsObj.h3.get_text().strip()
+    fout.write("# " + title + "\n")
+    content = bsObj.get_text()
+    
+    imgs = bsObj.find_all("img")
+    imgs = [x.get('src') for x in imgs if "bp.blogspot.com" in x.get('src')]
+    tmp_img = []
+    for img in imgs:
+        print (img)
+        imgname = img[img.rfind('/')+1:]
+        urlretrieve(img, subdir + "/" + imgname)
+        tmp_img.append(imgname)
+    
+    active = False
+    for i,line in enumerate(content.split("\n")):
+        if i==480: active = True
+        if u'Gönderen' in line: active = False
+        if active:
+            fout.write(line)
+            fout.write("\n")
+
+    imgs = bsObj.find_all("img")
+    for img in tmp_img:
+        fout.write("![](%s)\n" % img)
+        
+    fout.close()
+
+def articles():
+    d = {}
+
+    fin = open("/home/burak/Downloads/blog-11-25-2018.xml")
+    content = fin.read()
+    res = re.findall("sayilarvekuramlar.blogspot.com/(.*?.html)",
+                     content,
+                     re.DOTALL)
+
+    count = 0
+    for i,x in enumerate(res):
+        if "feeds" in x: continue
+        if "/html" in x: continue
+        if len(x) < 150:
+            count += 1
+            d[x] = "1"
+            print (x)
+
+    print (len(d))
+    #print (d)
+    
+        
+if __name__ == "__main__":
+    local = "/tmp/sk"
+    res = articles()
+    for x in res:
+        print (x)
+        try:
+            get_article(x, local)
+        except Exception as e:
+            print ("cannot get article", x, repr(e))    
+```
 
 
+Imaj
 
 Eger imaj  toplamak istiyorsak, mesela Bing'den alttaki kod faydali,
-
-
-
-
 
 console.py
 
 
-
-
+```python
 from pip import __main__
 
 import sys, os, argparse, _bing
@@ -130,8 +218,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
-
+```python
 #
 # ping.py
 #
@@ -247,22 +336,11 @@ def bing(url, metadata, query, delta, adult):
     print("\n\n[%] Done. Downloaded {} images.".format(download_image.delta))
     print("\n===============================================\n")
 
+```
 
-
-
-
-
-
-
-
+```python
 python -u console.py bing dog --limit 10 --json
+```
 
 10 tane kopek imaji indirilip dataset dizini altina yazilacak.
-
-
-
-
-
-
-
 
