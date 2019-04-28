@@ -13,7 +13,7 @@ def ls(d):
             try: 
                 files.append((path, os.path.getsize(path)))
             except Exception:
-                print 'error'
+                print ('error')
                 pass
     return files
 
@@ -23,8 +23,8 @@ if __name__ == "__main__":
     tmp = '/tmp'
     if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     df = pd.DataFrame(res,columns=['name','size'])
-    df = df.sort('size',ascending=False)
-    print df[['size','name']].head(30)
+    df = df.sort_values(by='size',ascending=False)
+    print (df[['size','name']].head(30))
     df[['size','name']].head(100).to_csv('%s/du.csv' % tmp,index=None)
-    print "\nMore detailed output is under %s/du.csv" % tmp
+    print ("\nMore detailed output is under %s/du.csv" % tmp)
     
