@@ -1,26 +1,27 @@
 # pdftk
 
-
-pdftk
-
-
-
-
 PDF dosyalari uzerinden pek cok islem pdftk ile yapilabilir. Kurmak icin
 
 sudo apt-get install pdftk
 
 Bazi pdftk numaralari:
 
-Dokumanlari birlestirmek (doc1.pdf,.. istenen kadar dosya bir liste olarak arka arkaya)
+Dokumanlari birlestirmek (doc1.pdf,.. istenen kadar dosya bir liste
+olarak arka arkaya)
 
 pdftk doc1.pdf doc2.pdf output dokuman.pdf
 
-Bir belgenin cift sayfalarini 90 derece saga, tek sayfalarini 90 derece sola dondurmek
+Tum sayfalari 90 deree saat yonu tersine dondurmek
+
+pdftk in.pdf cat 1-endwest output out.pdf 
+
+Bir belgenin cift sayfalarini 90 derece saga, tek sayfalarini 90
+derece sola dondurmek
 
 pdftk A=doc.pdf  shuffle AevenE AoddW output out.pdf
 
-Bir kitabin 100. ve 110. sayfalari arasindaki sayfalari ayri bir dokuman olarak yazmak
+Bir kitabin 100. ve 110. sayfalari arasindaki sayfalari ayri bir
+dokuman olarak yazmak
 
 pdftk doc.pdf cat 100-110 output out.pdf
 
