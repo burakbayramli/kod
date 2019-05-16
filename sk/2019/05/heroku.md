@@ -38,3 +38,19 @@ git checkout v0.18
 
 heroku apps:create flask-microblog-10
 
+Bu noktada hala app sonuc ortamina gonderilmedi. Sayfanizi ziyaret ederseniz,
+
+Heroku | Welcome to your new app!
+
+mesajini gorursunuz.
+
+git push heroku master
+
+ile kod gonderin. Eger problem cikarsa .git/config icinde
+
+url = https://git.heroku.com/flask-microblog-10.git
+
+oldugunu kontrol edin. Ve `git push` tekrarlayin. 
+
+
+
