@@ -1,56 +1,113 @@
-heroku
+Heroku
 ========
 
-https://devcenter.heroku.com/articles/getting-started-with-python
+İdare edilen (managed) bulut ortamlarında Google'ın App Engine
+yaklaşımına benzer bir yaklaşım Heroku. Gerçi esnek bir sistem
+ayarlama şekli var, veri tabanı, Django, onun yerine Flask gibi
+yazılımları ortamımıza ekleyebiliyoruz. 
+
+Heroku sanal ortamının işlemci birimi dyno; bir dyno bir sanal Linux
+uygulama kabıdır (container). Ölçeklerken "dyno zamanından"
+bahsedilir, bir dyno bir saat kullanılmışsa bir dyno saati
+tüketilmiştir. Her uygulamaya Heroku tarafından 750 bedava dyno saati
+verilir. Bu pek çok basit uygulama için yeterlidir.
+
+Not: Dyno'lar 30 dakika kullanılmamışsa uykuya dalar, tekrar uyanırken
+biraz yavaşlık olabilir. Belki 10 dakikada bir uygulamayı dışarıdan
+"dürterek", ping yaparak uyanık tutmak düşünülebilir.
+
+Üye olmak için 
 
 https://signup.heroku.com/signup/dc
 
+Artık konsola girebiliriz. Heroku ile idare edilen uygulamalarımız,
+projelerimiz var, bu projeleri istediğimiz gibi ölçekleyebiliyoruz,
+onlara kaynak yöneltebiliyoruz. Mevcut uygulamaları görmek için 
+
 https://dashboard.heroku.com/apps
 
-Create New App
-isim ozgun olmali.
+Mevcut bir app'i silmek için app ismine tıklanır, Settings kısmında en
+altta "Delete app" düğmesine basılıp app ismi bir daha girilip silme
+yapılır. Yeni app için Create New App seçin. isim global olarak özgün
+olmalı. Yerel bilgisayarda (daha önce kurulmadıysa bir kerelik)
 
-yerel bilgisayarda
+```
 sudo snap install heroku --classic
+```
 
+Simdi,
+
+```
 heroku login
-dedikten sonra soruda enter'e basin, tarayiciya gidiyor, bu gecici, is
-bittikten sonra tarayici kapatilip komut satirina donulebilir.
+```
 
-git clone https://github.com/heroku/python-getting-started.git
+dedikten sonra soruda enter'e basın, tarayıcıya gidiyor, bu geçici, iş
+bittikten sonra tarayıcı kapatılıp komut satırına dönülebilir. Biraz
+garip bir giriş yapma şekli ama işliyor.
 
-https://protected-reef-81845.herokuapp.com/ | https://git.heroku.com/protected-reef-81845.git
+Bir uygulama kuralım, 
 
-heroku ps:scale web=1
+```
+git clone git@github.com:franccesco/flask-heroku-example.git
 
-Scaling dynos... done, now running web at 1:Free
+cd flask-heroku-example
 
-heroku open
-https://protected-reef-81845.herokuapp.com/
+heroku apps:create flask-heroku-example-[bir seyler, ozgun isim olsun diye]
+```
 
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku
+Bu noktada hala app sonuç ortamına gönderilmedi. Sayfanızı ziyaret ederseniz,
 
-git clone https://github.com/miguelgrinberg/microblog
-
-cd microblog
-
-git checkout v0.18
-
-heroku apps:create flask-microblog-10
-
-Bu noktada hala app sonuc ortamina gonderilmedi. Sayfanizi ziyaret ederseniz,
-
+```
 Heroku | Welcome to your new app!
+```
 
-mesajini gorursunuz.
+mesajını görürsünüz.
 
+```
 git push heroku master
+```
 
-ile kod gonderin. Eger problem cikarsa .git/config icinde
+ile kod gönderin. Eğer problem çıkarsa `.git/config` içinde
 
-url = https://git.heroku.com/flask-microblog-10.git
+```
+url = https://git.heroku.com/flask-microblog-[...].git
+```
 
-oldugunu kontrol edin. Ve `git push` tekrarlayin. 
+olduğunu kontrol edin. Ve `git push` tekrarlayın.
 
+```
+heroku open
+```
 
+ile tarayıcıyı direk uygulamanın işlediği URL'i ziyared edecek şekilde
+açabiliyoruz.
 
+Heroku'nun çok Github repo merkezli işlediğini farketmişizdir
+herhalde. Kod gönderirken repo dizini içinde olmak lazım, `open`
+deyince o repo ile alakalı olan ÜRL biliniyor, vs. Sistemleri böyle işliyor.
+
+Ölçekleme
+
+```
+heroku ps:scale web=1
+```
+
+```
+Scaling dynos... done, now running web at 1:Free
+```
+
+`web=2` diyebilirdik.
+
+Ayarlar
+
+Üstte gösterilen örnek Python bazlı projeydi. Bu tür projelerin (ve
+genel Heroku projelerinin) ayarı için `Pipfile` ve `Procfile`
+dosyaları var. Bu dosyalar Heroku proje dizininde en üstte
+görülebiliyor. Dosya `runtime.txt` içinde hangi python versiyonu
+istediğimiz seçilebilir.
+
+Bu yazıya ekler olabilir
+
+[1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku
+
+[2] https://devcenter.heroku.com/articles/getting-started-with-python
