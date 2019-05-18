@@ -7,10 +7,12 @@ ayarlama şekli var, veri tabanı, Django, onun yerine Flask gibi
 yazılımları ortamımıza ekleyebiliyoruz. 
 
 Heroku sanal ortamının işlemci birimi dyno; bir dyno bir sanal Linux
-uygulama kabıdır (container). Ölçeklerken "dyno zamanından"
+uygulama kabidir (container). Ölçeklerken "dyno zamanından"
 bahsedilir, bir dyno bir saat kullanılmışsa bir dyno saati
 tüketilmiştir. Her uygulamaya Heroku tarafından 750 bedava dyno saati
-verilir. Bu pek çok basit uygulama için yeterlidir.
+verilir. Bu pek çok basit uygulama için yeterlidir. İsteyenler ek para
+ödeyerek daha fazla dyno saati satın alabilirler. Heroku bu şekilde
+para kazanmayı umuyor muhakkak. 
 
 Not: Dyno'lar 30 dakika kullanılmamışsa uykuya dalar, tekrar uyanırken
 biraz yavaşlık olabilir. Belki 10 dakikada bir uygulamayı dışarıdan
@@ -45,7 +47,8 @@ dedikten sonra soruda enter'e basın, tarayıcıya gidiyor, bu geçici, iş
 bittikten sonra tarayıcı kapatılıp komut satırına dönülebilir. Biraz
 garip bir giriş yapma şekli ama işliyor.
 
-Bir uygulama kuralım, 
+Bir uygulama kuralım. Alttaki repo'da daha önce yaratılmış çok basit
+bir Heroku uygulaması var. 
 
 ```
 git clone git@github.com:franccesco/flask-heroku-example.git
