@@ -109,6 +109,17 @@ dosyaları var. Bu dosyalar Heroku proje dizininde en üstte
 görülebiliyor. Dosya `runtime.txt` içinde hangi python versiyonu
 istediğimiz seçilebilir.
 
+Dosya Sistemi
+
+Dikkat: idare edilen bir ortam olduğu için Heroku "disk" ve "dosya
+sistemi" erişimini garanti etmiyor. Daha doğrusu bir dosya sistemi var
+ama bu sistem birdenbire değişip bir başka makinanın sistemine
+dönüşebiliyor (herhalde arka planda yük dağıtımı yaparken kod bir o
+bir makinaya kaydırılıyor). Bu yüzden Heroku disk sistemi için "uçucu
+(ephemeral)" deniyor. Diske yazılan bir şeyin orada kalacağına
+güvenmemek lazım. Kalıcı olmasını istediğimiz şeyleri Heroku
+tarafından desteklenen Posgresql tabanına yazmak lazım.
+
 Bu yazıya ekler olabilir
 
 [1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku

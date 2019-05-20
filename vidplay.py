@@ -10,19 +10,19 @@ import select, rndplay
 fout = open("/tmp/vidplay.out","w")
 
 while True:
-    print "Music Dir", sys.argv[1]    
+    print ("Music Dir", sys.argv[1]    )
     dirs,list = ls(sys.argv[1])
-    print "Files", len(list)
+    print ("Files", len(list))
     idx = rndplay.my_random(len(list))
-    print "show idx selected", idx, "song", list[idx][0]
+    print ("show idx selected", idx, "song", list[idx][0])
     fout.write(str(list[idx][0]) + "\n")
     fout.flush()
-    print '\n'
+    print ('\n')
     #cmd = "/usr/bin/ffplay -nodisp '%s'" % list[idx]
     cmd = "mplayer '%s' -fs " % list[idx][0]
-    print cmd
+    print (cmd)
     os.system(cmd)
-    print "Delete? (Press d for delete)..."
+    print ("Delete? (Press d for delete)...")
     k=""
     def input():
         global k
@@ -38,9 +38,9 @@ while True:
     T.setDaemon(1)
     T.start()
     T.join(1) # wait for [arg] seconds
-    print "\n>>>>>>>>>" + k
+    print ("\n>>>>>>>>>" + k)
     if 'd' in k:
-        print "deleting ===================> " +  list[idx]
+        print ("deleting ===================> " +  list[idx])
         cmd = "rm '%s'" % list[idx]
         os.system(cmd)
 
