@@ -120,6 +120,28 @@ bir makinaya kaydırılıyor). Bu yüzden Heroku disk sistemi için "uçucu
 güvenmemek lazım. Kalıcı olmasını istediğimiz şeyleri Heroku
 tarafından desteklenen Posgresql tabanına yazmak lazım.
 
+Log
+
+Gelistirme makinanizda `heroku logs --tail` ile nihai ortamdaki
+`print` ve benzeri komutlarinin ciktisini takip edebilirsiniz.
+
+Python Paket Kullanımı
+
+Eğer servis içinde python'un kullanması gereken ek paketler varsa,
+bunları `Pipfile` içine koyabiliriz, mesela ek iki paket olarak
+
+```
+...
+requests = "*"
+urllib3 = "*"
+```
+
+ekleyebilirdim. Bu arada eğer varsa `Pipfile.lock` dosyasını
+silin. Eğer problem çıkarsa uygulamanızı silip tekrar yaratın. Not:
+İnternet'te `requirements.txt` kullanımı ile ilgili bazı tavsiyeler
+ama bunlar işlemiyor.
+
+
 Bu yazıya ekler olabilir
 
 [1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku

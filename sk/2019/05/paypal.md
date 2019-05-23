@@ -31,12 +31,25 @@ menuden Tools | Business setup secin. Payment setup'tan "on your
 website" secip Continue tiklayin. Sonraki sayfada odemeleri nasil
 islemek istediginiz soruluyor, sol blok secilebilir, oradaki Continue
 secilebilir boylece kredi karti islemi icin dugme / buton
-yaratiyoruz. Bir sonraki ekranda "create payment buttons using HTML".
+yaratiyoruz. Bir sonraki ekranda "create payment buttons using HTML". 
 
 Dugme tipi icin "Buy Now" tipi yeterli, en basiti bu. Step 2 altinda
-"save button at Paypal" isaretini iptal edin. 
+"save button at Paypal" isaretini iptal edin. Bir urun fiyati girin,
+mesela 10 dolar, simdi create button ile dugmeyi uretin. Dugme bir
+HTML kodu olarak size verilecek, bu kodu sitemizin HTML'i icine
+koyunca bir odeme dugmesi gorecegiz. Bu dugmeyi bir HTML'e koyun,
+sayfayi tarayicida ziyaret edin ve satin alma dugmesini gorun. Ona
+tiklayin, paypal'e gideceksiniz, burada taklit alici hesabiyla giris
+yapip odemeyi yapin. Odeme sekillerinde kredi kart, paypal hesabi gibi
+secenekler var, taklit kredi karti da kullanabilirdik. Son birkac
+rakami gosterilen kart gercek degil. Odeme dugmesi bizi sandbox alanina goturmustu, cunku dugmeyi bu taklit
+alanda yaratmistik.
 
-
+Simdi www.sandbox.paypal.com adresine gidersek burada hesabimizdan 10
+dolar eksiltildigini goruruz. Bu tabii ki taklit para. Simdi satici
+hesabina girersek orada 10 dolara yakin bir paranin hesabimiza
+gectigini goruyoruz (10 dolardan biraz eksik olabilir cunku paypal
+komisyonunu kesti).
 
 
 
@@ -52,14 +65,3 @@ Dugme tipi icin "Buy Now" tipi yeterli, en basiti bu. Step 2 altinda
 
 
 [1] https://www.youtube.com/watch?v=NFUdd3gveN8
-
-
-
-
-
-
-
-
-
-
-
