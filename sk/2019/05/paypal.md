@@ -1,54 +1,55 @@
 # Paypal Odemeleri
 
-Eger normal paypal.com hesabiniz varsa, onunla alakali
+Paypal Türkiye'den kullanılmıyor fakat ileride açılabilir, ayrıca
+yabancı ülkelerde banka hesapları üzerinden kullanılabilir. Yazının
+geri kalanı işler bir Paypal hesabı olduğunu farz ediyor.
+
+Eğer normal paypal.com hesabınız varsa, onunla alakalı
 
 https://developer.paypal.com
 
-hesabiniz vardir. Bu adresten bazi gelistirme ve test araclarina
-erisebiliyorsunuz. Ustteki adrese paypal kullanici / sifreniz ile
-giris yapin.
-
-Burada bazi taklit hesaplar yaratacagiz. Accounts'a tiklayin orada kum
-kabi (sandbox) hesaplari yaratmak lazim. Kum kabi icinde kumla oynar
-gibi bu taklit hesaplar ile islem gercek islemlere yakin hareketler
-yapacagiz.
-
-Bir tane is (business) hesabi yaratin ki bu hesaptan odeme kabul
-edebilesiniz, digeri kisisel taklit hesap olsun, ki odeme
-gonderebilesiniz. Create Account ile bu hesaplari yaratiriz.
-
-Hesap yaratirken kullanilan email ve sifre ile simdi
+hesabınız vardır. Bu adresten bazı geliştirme ve test araçlarına
+erisebiliyorsunuz. Üstteki adrese paypal kullanıcı / şifreniz ile
+giriş yapın. Burada bazı taklit hesaplar yaratacağız. Accounts'a
+tıklayın orada kum kabı (sandbox) hesapları yaratmak lazım. Kum kabı
+içinde "kumda oynar gibi" bu taklit hesaplar ile işlem gerçek
+işlemlere yakın hareketler yapacağız. Bir tane iş (business) hesabı
+yaratın ki bu hesaptan ödeme kabul edebilesiniz, diğeri kışisel taklit
+hesap olsun, ki ödeme gönderebilesiniz. Create Account ile bu
+hesapları yaratırız. Hesap yaratırken kullanılan email ve şifre ile
+şimdi
 
 sandbox.paypal.com
 
-adresine giris yapabilirsiniz. Bu adres bizi bu taklit kullanicilarin
-"hesabina" goturuyor. Bu kullanicilara okkali paypal kullanimi
-uzerinden erisebilmek onemli boylece bu hesaplarda oynamalar,
-degisiklikler yaparak farkli test senaryolarini deneyebiliriz. 
+adresine giriş yapabilirsiniz. Bu adres bizi bu taklit kullanıcıların
+"hesabına" götürüyor. Bu kullanıcılara neredeyse tam tekmilli paypal
+sayfaları üzerinden erisebilmek önemli böylece bu hesaplarda
+oynamalar, değişiklikler yaparak farklı test senaryolarını
+deneyebiliriz, ama bu testler gerçek hesabımızı etkilemiyor.
 
-Bir "satin al" butonu yaratali. Simdi saticinin hesabina girin,
-menuden Tools | Business setup secin. Payment setup'tan "on your
-website" secip Continue tiklayin. Sonraki sayfada odemeleri nasil
-islemek istediginiz soruluyor, sol blok secilebilir, oradaki Continue
-secilebilir boylece kredi karti islemi icin dugme / buton
-yaratiyoruz. Bir sonraki ekranda "create payment buttons using HTML". 
+Bir "satın al" butonu yaratalım. Satıcının hesabına girelim, menüden
+Tools | Business setup seçin. Payment setup'tan "on your website"
+seçip Continue tıklayalım. Sonraki sayfada ödemeleri nasıl işlemek
+istediğiniz soruluyor, sol blok seçilebilir, oradaki Continue
+seçilebilir böylece kredi kartı işlemi için düğme / buton
+yaratıyoruz. Bir sonraki ekranda "create payment buttons üsing HTML".
+Düğme tipi için "Buy Now" tipi yeterli, en basiti bu. Step 2 altında
+"save button at Paypal" işaretini iptal edelim. Bir ürün fiyatı
+girelim, mesela 10 dolar, şimdi create button ile düğmeyi
+üretelim. Düğme bir HTML kodu olarak bize verilecek, bu kodu sitemizin
+HTML'i içine koyunca bir ödeme düğmesi göreceğiz. Bu düğmeyi bir
+HTML'e koyalım, sayfayı tarayıcıda ziyaret edelim ve satın alma
+düğmesini görelim. Ona tıklayaylım, paypal'e gideceğiz, burada taklit
+alıcı hesabıyla giriş yapıp ödemeyi yapalım. Ödeme şekillerinde kredi
+kart, paypal hesabı gibi seçenekler var, taklit kredi kartı da
+kullanabilirdik. Son birkaç rakamı gösterilen kart gerçek değil. Ödeme
+düğmesi bizi sandbox alanına götürmüştü, çünkü düğmeyi bu taklit
+alanda yaratmıştık.
 
-Dugme tipi icin "Buy Now" tipi yeterli, en basiti bu. Step 2 altinda
-"save button at Paypal" isaretini iptal edin. Bir urun fiyati girin,
-mesela 10 dolar, simdi create button ile dugmeyi uretin. Dugme bir
-HTML kodu olarak size verilecek, bu kodu sitemizin HTML'i icine
-koyunca bir odeme dugmesi gorecegiz. Bu dugmeyi bir HTML'e koyun,
-sayfayi tarayicida ziyaret edin ve satin alma dugmesini gorun. Ona
-tiklayin, paypal'e gideceksiniz, burada taklit alici hesabiyla giris
-yapip odemeyi yapin. Odeme sekillerinde kredi kart, paypal hesabi gibi
-secenekler var, taklit kredi karti da kullanabilirdik. Son birkac
-rakami gosterilen kart gercek degil. Odeme dugmesi bizi sandbox alanina goturmustu, cunku dugmeyi bu taklit
-alanda yaratmistik.
-
-Simdi www.sandbox.paypal.com adresine gidersek burada hesabimizdan 10
-dolar eksiltildigini goruruz. Bu tabii ki taklit para. Simdi satici
-hesabina girersek orada 10 dolara yakin bir paranin hesabimiza
-gectigini goruyoruz (10 dolardan biraz eksik olabilir cunku paypal
+Şimdi www.sandbox.paypal.com adresine gidersek burada hesabımızdan 10
+dolar eksiltildiğini görürüz. Bu tabii ki taklit para. Şimdi satıcı
+hesabına girersek orada 10 dolara yakın bir paranın hesabımıza
+geçtiğini görüyoruz (10 dolardan biraz eksik olabilir çünkü paypal
 komisyonunu kesti).
 
 
