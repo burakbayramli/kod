@@ -4,6 +4,12 @@ Paypal Türkiye'den kullanılmıyor fakat ileride açılabilir, ayrıca
 yabancı ülkelerde banka hesapları üzerinden kullanılabilir. Yazının
 geri kalanı işler bir Paypal hesabı olduğunu farz ediyor.
 
+Paypal aslında ciddi bir ödeme sistemi, hatta daha ilerisinde bir
+"ödeme işleyici (payment processor)". Bu tür şirketler dünya finans
+sistemının belkemiğine bağlıdır, bu bağlantıyı kurmak kolay değildir,
+mesela Google Pay var, ama GP bir ödeme işleyici değil. Diğer ödeme
+işleyicilere bağlanarak işinin yapıyor, Paypal gibi. 
+
 Eğer normal paypal.com hesabınız varsa, onunla alakalı
 
 https://developer.paypal.com
