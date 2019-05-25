@@ -53,6 +53,7 @@ geçtiğini görüyoruz (10 dolardan biraz eksik olabilir çünkü paypal
 komisyonunu kesti).
 
 
+https://youtu.be/NFUdd3gveN8?t=6660
 
 
 
