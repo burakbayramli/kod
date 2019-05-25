@@ -1,14 +1,15 @@
 # Paypal, Internet'te Ödeme Almak
 
-Paypal Türkiye'den kullanılmıyor fakat ileride açılabilir, ayrıca
-yabancı ülkelerde banka hesapları üzerinden kullanılabilir. Yazının
-geri kalanı işler bir Paypal hesabı olduğunu farz ediyor.
+Paypal Türkiye'deki hizmetine son vermis fakat ileride açılabilir,
+ayrıca yabancı ülkelerde banka hesapları üzerinden hala Paypal
+kullanılabilir. Yazının geri kalanı işler bir Paypal hesabı olduğunu
+farz ediyor.
 
 Paypal aslında ciddi bir ödeme sistemi, hatta daha ilerisinde bir
 "ödeme işleyici (payment processor)". Bu tür şirketler dünya finans
 sistemının belkemiğine bağlıdır, bu bağlantıyı kurmak kolay değildir,
 mesela Google Pay var, ama GP bir ödeme işleyici değil. Diğer ödeme
-işleyicilere bağlanarak işinin yapıyor, Paypal gibi. 
+işleyicilere bağlanarak işini yapıyor, Paypal gibi.
 
 Eğer normal paypal.com hesabınız varsa, onunla alakalı
 
@@ -37,7 +38,7 @@ Bir "satın al" butonu yaratalım. Satıcının hesabına girelim, menüden
 Tools | Business setup seçelim. Payment setup'tan "on your website"
 seçip Continue tıklayalım. Sonraki sayfada ödemeleri nasıl işlemek
 istediğimiz soruluyor, sol blok seçilebilir, oradaki Continue
-seçilebilir böylece kredi kartı işlemi için düğme / buton yaratıyoruz.
+seçilebilir.
 
 Step 1 diyen, bir sonraki ekranda "create payment buttons using HTML".
 Düğme tipi için "Buy Now" tipi yeterli, en basiti bu.
@@ -55,13 +56,13 @@ notify_url=[bizim site ve paypal url]
 
 Simdi create button ile düğmeyi üretelim. Düğme bir HTML kodu olarak
 bize verilecek, bu kodu sitemizin HTML'i içine koyunca bir ödeme
-düğmesi göreceğiz. Bu düğmeyi bir HTML'e koyalım, sayfayı tarayıcıda
-ziyaret edelim ve satın alma düğmesini görelim. Ona tıklayaylım,
-paypal'e gideceğiz, burada taklit alıcı hesabıyla giriş yapıp ödemeyi
-yapalım. Ödeme şekillerinde kredi kart, paypal hesabı gibi seçenekler
-var, taklit kredi kartı da kullanabilirdik. Son birkaç rakamı
-gösterilen kart gerçek değil. Ödeme düğmesi bizi sandbox alanına
-götürmüştü, çünkü düğmeyi bu taklit alanda yaratmıştık.
+düğmesi göreceğiz. Sayfayı tarayıcıda ziyaret edelim ve satın alma
+düğmesine tıklayaylım, paypal'e gideceğiz, burada taklit alıcı
+hesabıyla giriş yapıp ödemeyi yapalım. Ödeme şekillerinde kredi kart,
+paypal hesabı gibi seçenekler var, taklit kredi kartı da
+kullanabilirdik. Son birkaç rakamı gösterilen kart gerçek değil. Ödeme
+düğmesi bizi sandbox alanına götürmüştü, çünkü düğmeyi bu taklit
+alanda yaratmıştık.
 
 Artık www.sandbox.paypal.com adresine gidersek burada hesabımızdan 10
 dolar eksiltildiğini görürüz. Bu tabii ki taklit para. Şimdi satıcı
