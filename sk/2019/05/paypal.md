@@ -1,4 +1,4 @@
-# Paypal Ödemeleri
+# Paypal, Internet'te Ödeme Almak
 
 Paypal Türkiye'den kullanılmıyor fakat ileride açılabilir, ayrıca
 yabancı ülkelerde banka hesapları üzerinden kullanılabilir. Yazının
@@ -12,7 +12,7 @@ işleyicilere bağlanarak işinin yapıyor, Paypal gibi.
 
 Eğer normal paypal.com hesabınız varsa, onunla alakalı
 
-https://developer.paypal.com
+developer.paypal.com
 
 hesabınız da olacaktır. Bu adresten Paypal'ın geliştirme ve test
 araçlarına erisebiliyorsunuz. Üstteki adrese paypal kullanıcı /
@@ -114,5 +114,6 @@ kullanıcı girişi için ileride kullanabiliriz.
 Flask Python projemizde gerekli ek paketler `requests`, ve
 `urllib3`. Onlar `pip` ile kurulmuş olmalı.
 
+Kaynaklar
 
 [1] https://www.youtube.com/watch?v=NFUdd3gveN8
