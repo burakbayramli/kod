@@ -3,8 +3,14 @@
 TR'de cafe, vs. envai yerde bulunan Wispotter servisine bağlanma
 problemi olursa, yani Wifi listesinde Wispotter gözüküyor,
 bağlanılıyor, ve şifre daha önce girilmiş olsa bile bazı yerlerde /
-durumlarda Wispotter'in işlememe durumu olursa, şunlar yapılabilir;
-Tarayıcıda İncognito Mode penceresi açılr, sonra
+durumlarda Wispotter'in işlememe durumu olursa, alttakiler
+yapılabilir. Hata cep telefonlarında Wifi listesinde Wispotter'a
+bağlandıktan sonra "`Sign-in to network`" yerine "`Internet may not be
+available`" şeklinde ortaya çıkabilir, dizüstünde çoğu siteye ziyaretin
+reddedilmesi ve sanki bir proxy hatası havası varmış gibi ortaya
+çıkabilir. Düzeltmek için,
+
+Tarayıcıda İncognito Mode penceresi açılır, sonra
 
 ipbak.com
 
