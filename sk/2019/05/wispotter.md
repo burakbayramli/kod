@@ -15,8 +15,8 @@ Tarayıcıda İncognito Mode penceresi açılır, sonra
 ipbak.com
 
 adresine gidilir. Bu sayfa büyük bir ekranda bir IP adresi verecek. Bu
-adresi alıp arama çubuğuna yapıştırıyoruz, ve bu adrese girince
-Wispotter girişi isliyor.
+adresi alıp sonuna 81 ekleyip (yani IP ADRESI:81) diye arama çubuğuna
+yapıştırıyoruz, ve bu adrese girince Wispotter girişi isliyor.
 
 Hataların bazı adreslerin onbelleklenmesi, ya da ziyaret tarihçesinin
 dolması, vs. gibi durumlarda olduğu söyleniyor, gerçi biz oralarda
