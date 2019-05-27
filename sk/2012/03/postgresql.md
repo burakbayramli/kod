@@ -8,15 +8,27 @@ komutlarına birebir uyumlu yaratıyorlar. Kurmak için
 
 `sudo apt-get install postgresql`
 
-Faydalı bazı komutlar şurada bulunabilir. PG postgres adlı bir Ünix
+Ama aslında versiyon numaralı kurmak daha iyi, bende işleyen versiyon
+
+`sudo apt-get install postgresql-9.5`
+
+Faydalı bazı komutlar şurada bulunabilir. PG postgres adlı bir Unix
 kullanıcısı için kurulacak o yüzden shell bazlı tüm PG komutları
-başında sudo -u postgres gerekli. Paket kurulunca bilgisayarınız
+başında `sudo -u postgres` gerekli. Paket kurulunca bilgisayarınız
 başlayınca otomatik olarak başlamak üzere ayarlı olacak, açıp,
 kapatmak için
 
 `sudo service postgresql [komut]`
 
 ki `[komut]` `stop`, `start`, `restart` olabilir.
+
+Komut satırından `psql` kullanmak için
+
+```
+sudo -u postgres createuser --superuser burak
+
+sudo -u postgres createdb $USER
+```
 
 Bazı tiyolar: Postgres'den veri çekip veri yüklemenin en hızlı
 yollarından biri CSV temelli. Veri almak için
@@ -43,9 +55,9 @@ ta kullanilabilir.  Ama en iyisi herhalde
 psql [taban]  -h [makina] -p [port] -U [kullanici] -c "COPY (`cat komut.sql`) TO stdout with delimiter ',' CSV HEADER "  > /tmp/out
 ```
 
-Bu komut uzaktaki bir taban uzerinde bir SQL dosyasi isletilir ve
-ciktiyi CSV olarak kaydeder. Parametrize edilmis halde biz run_csv.sh
-adli bir dosya icinde
+Bu komut uzaktaki bir taban üzerinde bir SQL dosyası işletilir ve
+çıktıyı CSV olarak kaydeder. Parametrize edilmiş halde biz run_csv.sh
+adlı bir dosya içinde
 
 ```
 psql taban  -h localhost -p 5432 -U postgres  -c "COPY (`cat $1`) TO stdout with delimiter ',' CSV HEADER "
