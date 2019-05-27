@@ -143,9 +143,9 @@ admin.html
 <h2>{%trans%}Admin Page{%endtrans%}</h2>
 <p><a href={{ url_for('user.register') }}>{%trans%}Register{%endtrans%}</a></p>
 <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
-<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
-<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> (login_required: member@example.com / Password1)</p>
-<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> (role_required: admin@example.com / Password1')</p>
+<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> </p>
 <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
 {% endblock %}
 ```
@@ -158,9 +158,9 @@ home.html
 <h2>{%trans%}Home page{%endtrans%}</h2>
 <p><a href={{ url_for('user.register') }}>{%trans%}Register{%endtrans%}</a></p>
 <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
-<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
-<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> (login_required: member@example.com / Password1)</p>
-<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> (role_required: admin@example.com / Password1')</p>
+<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> </p>
 <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
 {% endblock %}
 ```
@@ -172,12 +172,11 @@ member_page.html
 <h2>{%trans%}Members page{%endtrans%}</h2>
 <p><a href={{ url_for('user.register') }}>{%trans%}Register{%endtrans%}</a></p>
 <p><a href={{ url_for('user.login') }}>{%trans%}Sign in{%endtrans%}</a></p>
-<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> (accessible to anyone)</p>
-<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> (login_required: member@example.com / Password1)</p>
-<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> (role_required: admin@example.com / Password1')</p>
+<p><a href={{ url_for('home_page') }}>{%trans%}Home Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('member_page') }}>{%trans%}Member Page{%endtrans%}</a> </p>
+<p><a href={{ url_for('admin_page') }}>{%trans%}Admin Page{%endtrans%}</a> </p>
 <p><a href={{ url_for('user.logout') }}>{%trans%}Sign out{%endtrans%}</a></p>
 {% endblock %}
-
 ```
 
 Bu kod basit bir şekilde `python basic_app.py` diye başlatılır. Email,

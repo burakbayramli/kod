@@ -9,10 +9,10 @@ yazılımları ortamımıza ekleyebiliyoruz.
 Heroku sanal ortamının işlemci birimi dyno; bir dyno bir sanal Linux
 uygulama kabidir (container). Ölçeklerken "dyno zamanından"
 bahsedilir, bir dyno bir saat kullanılmışsa bir dyno saati
-tüketilmiştir. Her uygulamaya Heroku tarafından 750 bedava dyno saati
-verilir. Bu pek çok basit uygulama için yeterlidir. İsteyenler ek para
-ödeyerek daha fazla dyno saati satın alabilirler. Heroku bu şekilde
-para kazanmayı umuyor muhakkak. 
+tüketilmiştir. Her uygulamaya Heroku tarafından ayda 750 bedava dyno
+saati verilir. Bu pek çok basit uygulama için yeterlidir. İsteyenler
+ek para ödeyerek daha fazla dyno saati satın alabilirler. Heroku bu
+şekilde para kazanmayı umuyor muhakkak.
 
 Not: Dyno'lar 30 dakika kullanılmamışsa uykuya dalar, tekrar uyanırken
 biraz yavaşlık olabilir. Belki 10 dakikada bir uygulamayı dışarıdan
@@ -141,8 +141,23 @@ silin. Eğer problem çıkarsa uygulamanızı silip tekrar yaratın. Not:
 İnternet'te `requirements.txt` kullanımı ile ilgili bazı tavsiyeler
 ama bunlar işlemiyor.
 
+Uygulamamızın kaç bedava saati kaldığını görmek için
 
-Bu yazıya ekler olabilir
+```
+heroku ps -a [uygulama ismi]
+```
+
+Ornek sonuc
+
+```
+Free dyno hours quota remaining this month: 546h 5m (99%)
+Free dyno usage for this app: 0h 55m (0%)
+For more information on dyno sleeping and how to upgrade, see:
+https://devcenter.heroku.com/articles/dyno-sleeping
+
+=== web (Free): gunicorn app:app (1)
+web.1: up 2019/05/27 12:19:55 +0300 (~ -172s ago)
+```
 
 [1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku
 
