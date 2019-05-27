@@ -1,12 +1,9 @@
 # Veri Taban İçeriğini Gezmek
 
-
-Veri Taban İçeriğini Gezmek
-
-
-
-
-Eğer veri tabanı, içindeki tabloları, bu tablolardaki bazı verileri görmek istersek, GUİ araçları yerine bir jupyter not defteri üzerinden kod işletmeyi seçebiliriz. Taban erişimi için psycopg2 iş görür. Bağlantı aldıktan sonra (Postgresql olsun),
+Eğer veri tabanı, içindeki tabloları, bu tablolardaki bazı verileri
+görmek istersek, GUİ araçları yerine bir jupyter not defteri üzerinden
+kod işletmeyi seçebiliriz. Taban erişimi için psycopg2 iş
+görür. Bağlantı aldıktan sonra (Postgresql olsun),
 
 import psycopg2
 
@@ -19,14 +16,9 @@ conn = psycopg2.connect(
 )
 
 
-
 şu metotlarla taban içeriği gösterilebilir
 
-
-
-
 import psycopg2
-
 
 sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"
 

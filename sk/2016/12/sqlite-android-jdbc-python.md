@@ -1,11 +1,5 @@
 # SQLite, Android, JDBC, Python
 
-
-SQLite, Android, JDBC, Python
-
-
-
-
 Android cep telefonlarında SQL bazlı erişilebilen bir taban gerekirse SQLite programı bu ihtiyaçı karşılıyor. Bu taban çok hafif, hızlı çalışır, taban olarak tek ihtiyaçı bir .db dosyasından ibarettir. Dizüstü bilgisayarında da SQLite kullanılabiliyor, pek çok dilden erişim var, Python, Ruby, Java, vs.. Diğer bazı özellikler tablo indeksleyebilmek, birleşim (join), alt sorgular (subjoin) - kuvvetli bir program.
 
 Bizim için en çok gereken özellik dışarıdan yaratılan (mobil için) büyükçe bir tabanı, 20 MB civarı, telefona kopyalayarak bu veriye anahtar bazlı hızlı erişim sağlamak. SQLite bunu rahatça sağladı. Niye koca bir JSON'u Android'den okuyup, mesela HashMap üzerinden, o şekilde direk erişim yapmadık? Çünkü o şekilde tek bir obje için 20 MB'in tamamını hafızaya yüklemek gerekir, SQLite, her diğer saygıdeğer ilişkisel tabanın yapacağı gibi, düzgün indekslendiği durumda disk'te sadece gerekli yere gider ve gereken satırı yükler, tabanının tamamını hafızaya yüklemeden.
@@ -16,30 +10,20 @@ sudo apt-get install sqlite3 libsqlite3-dev
 
 Basit kod
 
+```
 import sqlite3
 conn = sqlite3.connect('taban.db')
 
-
-
-
 c.execute('''CREATE TABLE vs (key text primary key not null, ... )''')
 
-
-
 c.execute('INSERT INTO vs values (...)')
-
-
 ...
-
 
 conn.commit()
 
-
-
 conn.close()
 
-
-
+```
 
 Eger taban.db yoksa yaratilir. 
 

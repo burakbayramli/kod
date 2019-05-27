@@ -100,3 +100,11 @@ for row in rows:
 (1, 'Andres', '3366858', 'user@example.com0.5546258413014995', '12345')
 (2, 'XXX', 'YYYYY', 'xxxx@example.com0.09226623997325056', 'xxxx')
 ```
+
+Tabandaki tüm tabloları görmek için 
+
+```python
+c = conn.cursor()
+rows = c.execute('''SELECT * FROM sqlite_master WHERE type='table' ''')
+for row in rows: print (row)
+```
