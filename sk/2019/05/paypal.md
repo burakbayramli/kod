@@ -73,7 +73,7 @@ komisyonunu kesti).
 Paypal'den Bilgi Almak
 
 Üstte `notify_url` ile bir URL verdik. Bu URL bizim sitemizde mesela
-Flask ile servis ettiğimiz / dinlendiğimiz bir adres olacak. Flask'te
+Flask ile servis ettiğimiz / dinlediğimiz bir adres olacak. Flask'te
 şu kodlar kullanılabilir,
 
 ```

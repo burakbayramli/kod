@@ -822,6 +822,7 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
+(add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh ")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
 

@@ -25,13 +25,36 @@ ki `[komut]` `stop`, `start`, `restart` olabilir.
 Komut satırından `psql` kullanmak için
 
 ```
-sudo -u postgres createuser --superuser burak
+sudo -u postgres createuser --superuser $USER
 
 sudo -u postgres createdb $USER
 ```
 
-Bazı tiyolar: Postgres'den veri çekip veri yüklemenin en hızlı
-yollarından biri CSV temelli. Veri almak için
+Bu işlemden sonra üzerinde olduğunüz Ünix kullanıcısı ile `psql` ile
+tabanın komut satırına girebiliriz. Burada ek kullanıcılar yaratmak mümkün, mesela
+
+```
+CREATE USER user1 with PASSWORD 'user1pass';
+```
+
+Taban yaratmak,
+
+```
+create database TABAN111;
+```
+
+Tabana bağlanmak için `\c [taban ismi]`.
+
+Bir tabandaki tüm tabloları görmek için
+
+```
+\dt
+```
+
+CSV
+
+Postgres'den veri çekip veri yüklemenin en hızlı yollarından biri CSV
+temelli. Veri almak için
 
 ```
 psql [taban ismi]  -h [makina] -p [port] -U [kullanici] -c "COPY (SELECT * from [tablo] where [sart]) TO stdout " > [csv dosya ismi]
