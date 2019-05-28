@@ -136,7 +136,14 @@ requests = "*"
 urllib3 = "*"
 ```
 
-ekleyebilirdim. Bu arada eğer varsa `Pipfile.lock` dosyasını
+ekleyebilirdim. Eğer versiyon numarasını da vermek istersem, mesela
+
+```
+bcrypt = ">=1.1"
+cryptography = "==2.3"
+```
+
+kullanımı işliyor. Bu arada eğer varsa `Pipfile.lock` dosyasını
 silin. Eğer problem çıkarsa uygulamanızı silip tekrar yaratın. Not:
 İnternet'te `requirements.txt` kullanımı ile ilgili bazı tavsiyeler
 ama bunlar işlemiyor.
