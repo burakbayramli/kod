@@ -46,6 +46,15 @@ except Exception as e:
 
 ```
 
+Bazen yerelden gönderilen email'ler sonuç (production) ortamında, ya
+da farklı bir makinada işlemeyebiliyor. Bu durumlarda [2] 
+
+https://accounts.google.com/DisplayUnlockCaptcha
+
+adresine gidip Continue'ya tıklıyoruz, ve yeni makinadan gönderimi
+yapıyoruz. Artık takip eden gönderimler işleyecektir.
+
 
 [1] https://stackabuse.com/how-to-send-emails-with-gmail-using-python/
 
+[2] https://stackoverflow.com/questions/27140402/why-does-smtp-via-gmail-work-locally-but-not-on-my-production-server

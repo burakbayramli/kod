@@ -166,6 +166,25 @@ https://devcenter.heroku.com/articles/dyno-sleeping
 web.1: up 2019/05/27 12:19:55 +0300 (~ -172s ago)
 ```
 
+Veri Tabani Eklemek
+
+Uygulamamıza bir servis olarak bir Postgresql tabanı "ekleyebiliriz".
+
+https://data.heroku.com/
+
+gidiyoruz, seçeneklerden Heroku Postgres seçiyoruz, "Create öne"
+tıklıyoruz, sonraki ekranda "Install Heroku Postgres"'e
+tıklıyoruz. Sonraki pencerede PG'nin hangi uygulamaya atanacağı (app
+to provision to) soruluyor, bu kutuya istediğimiz uygulamanın ismini
+yazıyoruz. Seçip "Provision add-on" diyoruz. Belli PG seviyeleri var,
+bedava en az kapsamlı olan "Hobby Dev" seviyesi. Olağan değer bu
+olacaktır zaten.
+
+PG eklendikten sonra tabana tıklarız, çıkan ekranda Settings ve View
+Credentials ile tabana erişmek için gereken makina, taban ismi,
+kullanıcı, vs bilgileri görebiliriz.
+
+
 [1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku
 
 [2] https://devcenter.heroku.com/articles/getting-started-with-python
