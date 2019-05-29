@@ -37,7 +37,19 @@ tabanın komut satırına girebiliriz. Burada ek kullanıcılar yaratmak mümkü
 CREATE USER user1 with PASSWORD 'user1pass';
 ```
 
-Taban yaratmak,
+Şimdi `psql` e üstteki kullanıcı ile giriş yapabiliriz, fakat `psql -U
+user1` ile mesela problem çıkarsa,
+
+```
+psql user1 -h 127.0.0.1 -d [taban ismi]
+```
+
+ile giriş yapabiliriz, üstteki stil ile Postgres'i network üzerinden
+bağlanmaya zorlamış olduk, diğer şekilde `user1` in Ünix üzerinde de
+olması şartı aranabiliyor.
+
+
+PG komut satırı içinde taban yaratmak,
 
 ```
 create database TABAN111;

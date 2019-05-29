@@ -62,11 +62,21 @@ yakınıyor. Çözüm, şurada.
 git filter-branch --force --index-filter 'git rm --cached \
    --ignore-unmatch [BUYUK DOSYA, * VS ISARETLERI KULLANILABILIR]' \
    --prune-empty --tag-name-filter cat -- --all
+```
 
+Ya da en basit kullanim
+
+```
+git filter-branch --tree-filter 'rm -rf [dizin]' HEAD
+```
+
+Bu islemler uzun zaman alabilir bu arada. Değişikliği göndermek için
+
+```
 git push origin --force --all 
 ```
 
-Dal Yapısı (Branch Structüre)
+Dal Yapısı (Branch Structure)
 
 Bizim kullandığımız bir yaklaşım şöyle: master yani ana dal her zaman
 "işleyen kodu" temsil eder. Yani master'da ne var ise, sonuç
