@@ -172,7 +172,7 @@ Uygulamamıza bir servis olarak bir Postgresql tabanı "ekleyebiliriz".
 
 https://data.heroku.com/
 
-gidiyoruz, seçeneklerden Heroku Postgres seçiyoruz, "Create öne"
+gidiyoruz, seçeneklerden Heroku Postgres seçiyoruz, "Create one"
 tıklıyoruz, sonraki ekranda "Install Heroku Postgres"'e
 tıklıyoruz. Sonraki pencerede PG'nin hangi uygulamaya atanacağı (app
 to provision to) soruluyor, bu kutuya istediğimiz uygulamanın ismini

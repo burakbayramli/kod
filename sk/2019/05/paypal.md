@@ -115,6 +115,30 @@ kullanıcı girişi için ileride kullanabiliriz.
 Flask Python projemizde gerekli ek paketler `requests`, ve
 `urllib3`. Onlar `pip` ile kurulmuş olmalı.
 
+Paypal'den gelen üstte `params` içindeki sözlüğe bakarsak,
+
+``` {'mc_gross': '5.00', 'protection_eligibility': 'Eligible',
+'address_status': 'confirmed', 'payer_id': '[ID]', 'address_street':
+'1 Main St', 'payment_date': '00:06:13 May 30, 2019 PDT',
+'payment_status': 'Completed', 'charset': 'windows-1252',
+'address_zip': '95131', 'first_name': 'sdfsdf', 'mc_fee': '0.55',
+'address_country_code': 'US', 'address_name': 'sdfsdf asdfasdf',
+'notify_version': '3.9', 'custom': '', 'payer_status': 'verified',
+'business': '[ALICI EMAIL]', 'address_country': 'United
+States', 'address_city': 'San Jose', 'quantity': '1', 'verify_sign':
+'[UZUN BIR ID]', 'payer_email': '[EMAIL ADRESI]', 'txn_id':
+'[BIR ID]', 'payment_type': 'instant', 'last_name':
+'asdfasdf', 'address_state': 'CA', 'receiver_email': '[SATICI EMAIL]',
+'payment_fee': '', 'shipping_discount': '0.00', 'insurance_amount':
+'0.00', 'receiver_id': 'UBDDHGYZT5F3E', 'txn_type': 'web_accept',
+'item_name': '[URUN KODU]', 'discount': '0.00', 'mc_currency': 'EUR',
+'item_number': '', 'residence_country': 'US', 'test_ipn': '1',
+'shipping_method': 'Default', 'transaction_subject': '',
+'payment_gross': '', 'ipn_track_id': '2226091c8006d', 'cmd':
+'_notify-validate'} ```
+
+gibi bir çıktı göreceğiz. 
+
 Kaynaklar
 
 [1] https://www.youtube.com/watch?v=NFUdd3gveN8
