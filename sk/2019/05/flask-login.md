@@ -206,8 +206,41 @@ for x in res: print (x)
 
 kullanımı olur. `db` referansı `db = SQLAlchemy(app)` ifadesinden geliyor. 
 
+Eğer `İNSERT`, `UPDATE`, `DELETE` gibi sorgular işletmek istersek,
 
+```
+connection = db.engine.connect()
+trans = connection.begin()
+db.engine.execute(" ...
+...
+trans.commit()
+```
+
+Roller
+
+Bazı kullanıcılara bakıcı, "Admin" rolü atamak isteyebiliriz. Bu rolü
+ben spesifik bir email adresine atamak için Flask üzerinden bir metot içinde 
+
+```
+insert into roles (id,name) values (1,'Admin')
+insert into user_roles select 1, id, 1 from users where email = '[BENIM EMAIL]'
+```
+
+sorgularını işlettim. Bende üstteki kodun başında görülen kullanıcı ve
+rolleri tabana ekleyen bölüm yok. Onları direk SQL içinden kendimiz yapıyoruz.
+
+Bir kullanıcı Admin olduktan sonra (ya da herhangi bir başka rol), bu
+rolü metot girişinde kontrol edebiliriz.
+
+```
+@app.route('/onemli_admin_komutu')
+@roles_required('Admin')
+def onemli_admin_komutu():
+   ...
+```
 
 Email, Gmail SMTP ile ilgili problem olursa bir [diğer yazı](/2012/06/python-ile-mail-gondermek-smtp-gmail.html). 
+
+Kaynaklar
 
 [1] https://github.com/lingthio/Flask-User/blob/master/example_apps/basic_app.py
