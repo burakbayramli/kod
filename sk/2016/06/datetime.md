@@ -111,7 +111,8 @@ Sonuc
 1826 days, 0:00:00 
 ```
 
-Bu bir timedelta objesinden geliyor, bu objenin gecen zamani saniye olarak gosterme ozelligi de var
+Bu bir timedelta objesinden geliyor, bu objenin gecen zamani saniye
+olarak gosterme ozelligi de var
 
 ```
 print (d2-d1).total_seconds()
@@ -140,3 +141,12 @@ import pandas as pd
 arrow.get(pd.Timestamp("2017-01-12T14:12:06.000"))
 ```
 
+Maya diye bir paket de islei cok kolaylastiriyor
+
+```
+import maya
+s = "00:06:13 May 30, 2019 PDT"
+print (s)
+t = maya.parse(s).datetime(to_timezone='US/Eastern')
+print (t.strftime('%Y-%m-%d %H:%M'))
+```
