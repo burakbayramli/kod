@@ -141,7 +141,8 @@ import pandas as pd
 arrow.get(pd.Timestamp("2017-01-12T14:12:06.000"))
 ```
 
-Maya diye bir paket de islei cok kolaylastiriyor
+Maya diye bir paket de işleri çok kolaylaştırıyor. Herhangi bir
+format'tan okumak, zaman dilimi değişimi gibi işler çok rahat.
 
 ```
 import maya
