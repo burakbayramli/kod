@@ -193,6 +193,21 @@ kaydedilirler, dosya ismi `SQLALCHEMY_DATABASE_URİ` ile tanımlı.
 Giriş yapmak, oturum kapatmak, şifre ile ilgili envai türden işlem
 üstteki örnek ile yapılabiliyor.
 
+SQL
+
+Flask-User içinde SQLAlchemy kullanılıyor, bu bir tür ORM
+(ilişkisel-obje eşlemesi), Java dünyasındaki Hibernate gibi. Fakat siz
+direk SQL ile iş yapmak isterseniz,
+
+```
+res = db.engine.execute('select * from users')
+for x in res: print (x)
+```
+
+kullanımı olur. `db` referansı `db = SQLAlchemy(app)` ifadesinden geliyor. 
+
+
+
 Email, Gmail SMTP ile ilgili problem olursa bir [diğer yazı](/2012/06/python-ile-mail-gondermek-smtp-gmail.html). 
 
 [1] https://github.com/lingthio/Flask-User/blob/master/example_apps/basic_app.py

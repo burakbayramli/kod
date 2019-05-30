@@ -7,7 +7,7 @@ ayarlama şekli var, veri tabanı, Django, onun yerine Flask gibi
 yazılımları ortamımıza ekleyebiliyoruz. 
 
 Heroku sanal ortamının işlemci birimi dyno; bir dyno bir sanal Linux
-uygulama kabidir (container). Ölçeklerken "dyno zamanından"
+uygulama kabıdır (container). Ölçeklerken "dyno zamanından"
 bahsedilir, bir dyno bir saat kullanılmışsa bir dyno saati
 tüketilmiştir. Her uygulamaya Heroku tarafından ayda 750 bedava dyno
 saati verilir. Bu pek çok basit uygulama için yeterlidir. İsteyenler
@@ -54,11 +54,17 @@ bir Heroku uygulaması var.
 git clone git@github.com:franccesco/flask-heroku-example.git
 
 cd flask-heroku-example
-
-heroku apps:create flask-heroku-example-[bir seyler, ozgun isim olsun diye]
 ```
 
-Bu noktada hala app sonuç ortamına gönderilmedi. Sayfanızı ziyaret ederseniz,
+Ya da sıfırdan bir dizin içinde yeni kodlar koyup onları `git init`,
+ve `git add` ile bir repo'ya dahil edebilirdik. Sonuç aynı. Simdi,
+
+```
+heroku apps:create flask-heroku-example-[bir şeyler, özgün isim olsun diye]
+```
+
+ile Heroku projesi yaratılır. Bu noktada hala app sonuç ortamına
+gönderilmedi. Sayfanızı ziyaret ederseniz,
 
 ```
 Heroku | Welcome to your new app!
@@ -86,8 +92,10 @@ ile tarayıcıyı direk uygulamanın işlediği URL'i ziyared edecek şekilde
 açabiliyoruz.
 
 Heroku'nun çok Github repo merkezli işlediğini farketmişizdir
-herhalde. Kod gönderirken repo dizini içinde olmak lazım, `open`
-deyince o repo ile alakalı olan ÜRL biliniyor, vs. Sistemleri böyle işliyor.
+herhalde. Kod gönderirken repo dizini içinde olmak lazım, `heroku
+open` deyince o repo ile alakalı olan ÜRL biliniyor, vs. Yani Heroku
+uygulaması ile repo birbiri ile alakalı hale geliyor. Sistemleri böyle
+işliyor.
 
 Ölçekleme
 
