@@ -117,16 +117,16 @@ sisteme girmiş (logged in) sonra Paypal ödeme düğmesinden ödeme yapmış
 ve Paypal'den çağrıyı üstteki metota almışız. Bu durumda kullanıcı
 oturumu ile bu çağrı arasında bağlantı yapabilir miyiz?
 
-Bunu yapamayız. Üstteki geri çağrı (callback) asenkron şekilde Flask
+Bunu yapamayız. Üstteki geri çağrı (çallback) asenkron şekilde Flask
 tarafından işletilecektir, fakat bu farklı bir Thread üzerinde
 asenkron şekilde yapılır, çok süreçli ortamlarda çağrıyı işleyen o
 çağrıyı tetikleyen kullanıcının üzerinde olduğu makinadan farklı bile
 olabilir. Bu durumda bu çağrıyı konumsuz (stateless) bir çağrı olarak
 işlemek gerekecektir, yani objesel değil fonksiyonel düşünmek
 lazım. Geri çağrıda bize verilen ne bilgi varsa sadece onları
-kullanabiliriz, daha fazlasını kullanamayız. Yani hernangi bir
-kullanıcı ve o bilgi arasında eşleştirmeyi veri tabanı üzerinden
-yapmamız lazım.
+kullanabiliriz, daha fazlasını, mesela "içinde olduğumüz" objenin iç
+değişkenleri gibi, kullanamayız. Yani hernangi bir kullanıcı ve o
+bilgi arasında eşleştirmeyi veri tabanı üzerinden yapmamız lazım.
 
 Flask Python projemizde gerekli ek paketler `requests`, ve
 `urllib3`. Onlar `pip` ile kurulmuş olmalı.

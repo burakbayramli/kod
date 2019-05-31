@@ -267,7 +267,12 @@ farklı içerik göstermek istersek sayfa içinde
 
 Email, Gmail SMTP ile ilgili problem olursa bir [diğer
 yazı](/2012/06/python-ile-mail-göndermek-smtp-gmail.html). Ya da başka
-bir email servisi için [şurası](/2019/05/sendgrid-smtp-email-servisi.html).
+bir email servisi için
+[şurası](/2019/05/sendgrid-smtp-email-servisi.html).  `MAIL_USE_SSL`
+kullanımı ile `MAIL_USE_TLS` kullanımı arasında ya o ya bu türünden
+bir durum var, SSL ya da TLS seçimi SMTP servisinde hangi port'u
+kullandığımızı etkiler.
+
 
 Kaynaklar
 

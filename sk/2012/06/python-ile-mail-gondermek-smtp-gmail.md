@@ -54,6 +54,13 @@ https://accounts.google.com/DisplayUnlockCaptcha
 adresine gidip Continue'ya tıklıyoruz, ve yeni makinadan gönderimi
 yapıyoruz. Artık takip eden gönderimler işleyecektir.
 
+Fakat ya idare edilen (managed) bulut ortamında isek, ya da çok
+makinalı küme ortamında iş yapıyorsak, o zaman GMail'e bağlanılan IP
+adresi her seferinde farklı olabilir, ve üstteki numarayı tüm bu
+makinalar için ayrı ayrı uygulamak gerekmez mi? Bu doğru. Ve bu tür
+şartlarda GMail SMTP servisi kullanmak uygun olmayabilir, daha servis
+tarafına yönelik bir servise bakmak faydalı olacaktır.
+
 
 [1] https://stackabuse.com/how-to-send-emails-with-gmail-using-python/
 
