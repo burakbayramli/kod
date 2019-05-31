@@ -4,6 +4,9 @@ if len(sys.argv) < 2:
     print ("Usage dsync.py [letter]")
     exit()
 
+if sys.argv[1] == "acer_seagate":
+    os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/Seagate Backup Plus Drive/archive/Dropbox' --delete 1")
+    
 if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
     #os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/1BC3-0618/archive/kod' --delete 1")

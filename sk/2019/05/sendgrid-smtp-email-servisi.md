@@ -13,7 +13,7 @@ servis kullanmak. SendGrid böyle bir uygulama.
 sendgrid.com
 
 Bedava servise kaydoluyoruz, sonra api anahtarı üretiyoruz, bu
-üretilen anahtar şifre, kullanıcı ismi ise `apıkey` oluyor, bu şekilde
+üretilen anahtar şifre, kullanıcı ismi ise `apikey` oluyor, bu şekilde
 SMTP servisine kavuşuyoruz. Örnek kod
 
 ```

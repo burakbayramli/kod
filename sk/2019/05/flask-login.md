@@ -188,7 +188,17 @@ olanlar için kısıtlamak istersek o metotu `@login_required` ile
 işaretleriz.
 
 Kullanıcılar çok basit bir sqlite veri tabanında tek bir dosya içinde
-kaydedilirler, dosya ismi `SQLALCHEMY_DATABASE_URİ` ile tanımlı. 
+kaydedilirler, dosya ismi `SQLALCHEMY_DATABASE_URI` ile tanımlı.
+
+SQLAlchemy aslında pek çok farklı taban ile çalışabilir. Ben
+Postgresql'e geçmek istediğimde bu rahat bir şekilde oldu,
+`SQLALCHEMY_DATABASE_URI` icin `sqlite:///basic_app.sqlite` yerine
+
+```
+postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user="[kullanici]",pw="[sifre]",url="[makina]",db="[taban]")
+```
+
+kullanınca taban yaratma, ona erişme, vs her şey işledi.
 
 Giriş yapmak, oturum kapatmak, şifre ile ilgili envai türden işlem
 üstteki örnek ile yapılabiliyor.
@@ -239,7 +249,25 @@ def onemli_admin_komutu():
    ...
 ```
 
-Email, Gmail SMTP ile ilgili problem olursa bir [diğer yazı](/2012/06/python-ile-mail-gondermek-smtp-gmail.html). 
+Kullanıcı Durumuna Göre Sayfa
+
+Eğer kullanıcı sisteme şifre ile girmiş ise farklı, girmemiş ise
+farklı içerik göstermek istersek sayfa içinde
+`current_user.is_authenticated` kullanabiliriz. Mesela
+
+```
+{% if not current_user.is_authenticated %}
+  <p>Kullanici sisteme giris yapmadi</p>                
+{% endif %}
+...
+{% if current_user.is_authenticated %}
+  <p>Kullanici sisteme giris yapmadi</p>                
+{% endif %}
+```
+
+Email, Gmail SMTP ile ilgili problem olursa bir [diğer
+yazı](/2012/06/python-ile-mail-göndermek-smtp-gmail.html). Ya da başka
+bir email servisi için [şurası](/2019/05/sendgrid-smtp-email-servisi.html).
 
 Kaynaklar
 
