@@ -749,6 +749,12 @@ This command does not push erased text to kill-ring."
 	(untabify (1- (point)) (point-max))))
   nil)
 
+(defun insert-todays-date (arg)
+  (interactive "P")
+  (insert (if arg
+              (format-time-string "%d-%m-%Y %H:%M")
+            (format-time-string "%Y-%m-%d %H:%M"))))
+
 ;;
 ;; define F keys
 ;;
@@ -890,9 +896,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/bilgiler")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/thirdwave")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_hamiltonian")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_lagrange")
-(find-file-other-window "/home/burak/Documents/kod/sk")
+(find-file-other-window "/home/burak/Documents/kod/sk/2019")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/twmoney/flask-tw-paypal")
 (find-file-other-window "/home/burak/Downloads")

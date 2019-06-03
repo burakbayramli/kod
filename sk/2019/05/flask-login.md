@@ -183,6 +183,37 @@ Bu kod basit bir şekilde `python basic_app.py` diye başlatılır. Email,
 sifre girilir, ve konfirmasyon için email gelir, ona tıklanır,
 kullanıcı doğrulanmış olur.
 
+Sayfaları daha kendimize göre tasarlamak istersek, mesela `extends`
+ibaresini çıkartıp daha pür HTML kodları kullanmak istersek, sistem
+mesajlarını görmeyebiliriz, bu mesajlar 'kullanıcıya konfirme için
+email gönderildi', vs. gibi mesajlardır, o mesajları görmek için
+
+```
+{% block flash_messages %}
+    {%- with messages = get_flashed_messages(with_categories=true) -%}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category=='error' %}
+                    {% set category='danger' %}
+                {% endif %}
+                <div class="alert alert-{{category}}">{{ message|safe }}</div>
+            {% endfor %}
+        {% endif %}
+    {%- endwith %}
+  {% endblock %}
+```
+
+kodunu sayfalarımıza ekleyebiliriz. Bu durumda
+
+```
+from flask import flash
+...
+flash('Invitation has been sent.', 'success')
+```
+
+ile gönderilen mesajlar üstteki kodun olduğu sayfalarda bir kereliğine
+gösterilecektir. Aynı sayfaya bir daha gidersek mesaj görülmez.
+
 Eğer bir sayfayı (onun metoduna daha doğrusu) site giriş yapmış
 olanlar için kısıtlamak istersek o metotu `@login_required` ile
 işaretleriz.
@@ -216,7 +247,7 @@ for x in res: print (x)
 
 kullanımı olur. `db` referansı `db = SQLAlchemy(app)` ifadesinden geliyor. 
 
-Eğer `İNSERT`, `UPDATE`, `DELETE` gibi sorgular işletmek istersek,
+Eğer `INSERT`, `UPDATE`, `DELETE` gibi sorgular işletmek istersek,
 
 ```
 connection = db.engine.connect()
@@ -264,6 +295,18 @@ farklı içerik göstermek istersek sayfa içinde
   <p>Kullanici sisteme giris yapmadi</p>                
 {% endif %}
 ```
+
+Temel Sayfaları Değiştirmek
+
+Dikkat edersek sisteme giriş, kayıt sayfaları Flask-User projesinin
+içinden geliyor. Bu sayfalar için kendi istediğimiz sayfaları
+kullanmak istersek, `Flask-User/flask_user/templates/flask_user`
+dizinini olduğu gibi alıp kendi projemizin `templates` dizinine
+kopyalayabiliriz, ve ilgili sayfaları artık kendi yerel projemizde
+değiştirebiliriz. Flask-User artık otomatik olarak kurulan paket
+içindeki değil bu yerel proje altındaki sayfalara gidecektir. 
+
+Email, SMTP
 
 Email, Gmail SMTP ile ilgili problem olursa bir [diğer
 yazı](/2012/06/python-ile-mail-göndermek-smtp-gmail.html). Ya da başka
