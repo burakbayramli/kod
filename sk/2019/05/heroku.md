@@ -84,6 +84,18 @@ url = https://git.heroku.com/flask-microblog-[...].git
 
 olduğunu kontrol edin. Ve `git push` tekrarlayın.
 
+Mimari açıdan bilinmesi gereken önemli bir faktör `push` yaptığımızda
+Heroku'nun servisleri tekrar başlattığı... Bu sırada birkaç işlem
+oluyor, repo'daki kod paketlenir, repo ile bağlı olan uygulama bulunup
+onun dyno'ları indirilip yeni kodla tekrar başlatılır. Bu önemli,
+çünkü mesela diyelim ki `static` altında sadece birkaç ufak sayfa
+değiştirdik, bunları göndersek `push` bunu anlayıp servisleri tekrar
+başlatmayabilirdi belki diye düşünebilirdik. Bu doğru değil. Bu tekrar
+başlatma sırasında kullanıcı sisteme ufak bir süre erisemeyebilir, bu
+sebeple, mesela bir içerik idare sistemi yazıyorsak bunu repo
+üzerinden yapmamak gerekir. 
+
+
 ```
 heroku open
 ```
@@ -93,7 +105,7 @@ açabiliyoruz.
 
 Heroku'nun çok Github repo merkezli işlediğini farketmişizdir
 herhalde. Kod gönderirken repo dizini içinde olmak lazım, `heroku
-open` deyince o repo ile alakalı olan ÜRL biliniyor, vs. Yani Heroku
+open` deyince o repo ile alakalı olan URL biliniyor, vs. Yani Heroku
 uygulaması ile repo birbiri ile alakalı hale geliyor. Sistemleri böyle
 işliyor.
 
@@ -130,8 +142,8 @@ tarafından desteklenen Posgresql tabanına yazmak lazım.
 
 Log
 
-Gelistirme makinanizda `heroku logs --tail` ile nihai ortamdaki
-`print` ve benzeri komutlarinin ciktisini takip edebilirsiniz.
+Geliştirme makinanızda `heroku logs --tail` ile nihai ortamdaki
+`print` ve benzeri komutlarının çıktısını takip edebilirsiniz.
 
 Python Paket Kullanımı
 
@@ -154,7 +166,7 @@ cryptography = "==2.3"
 kullanımı işliyor. Bu arada eğer varsa `Pipfile.lock` dosyasını
 silin. Eğer problem çıkarsa uygulamanızı silip tekrar yaratın. Not:
 İnternet'te `requirements.txt` kullanımı ile ilgili bazı tavsiyeler
-ama bunlar işlemiyor.
+var ama bunlar işlemiyor.
 
 Uygulamamızın kaç bedava saati kaldığını görmek için
 

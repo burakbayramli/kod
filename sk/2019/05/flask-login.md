@@ -288,13 +288,30 @@ farklı içerik göstermek istersek sayfa içinde
 
 ```
 {% if not current_user.is_authenticated %}
-  <p>Kullanici sisteme giris yapmadi</p>                
+  <p>Kullanıcı sisteme giriş yapmadı</p>                
 {% endif %}
 ...
 {% if current_user.is_authenticated %}
-  <p>Kullanici sisteme giris yapmadi</p>                
+  <p>Kullanıcı sisteme giriş yapmadı</p>                
 {% endif %}
 ```
+
+Kullanıcı `user` objesine çağrıldığı anda hesaplanan yeni öğeler
+(property) ekleyebiliriz, `@property` ile bu mümkün. Diyelim ki o
+günün tarihini, kullanıcının tabandaki son erisebileceği tarih ile
+karşılaştırıp doğru ve yanlış cevabı verebilen `is_member` (üye mi)
+adlı bir öğe istiyoruz,
+
+```
+@property
+def is_member(self):
+    nd = ... # gunun tarihi
+    ld = ..  # son kullanim
+    return ld < nd
+```
+
+Artık bu öğeyi aynen üstteki gibi `current_user.iş_member` ile çağırıp
+sayfa mantığı içinde kullanabiliriz.
 
 Temel Sayfaları Değiştirmek
 
