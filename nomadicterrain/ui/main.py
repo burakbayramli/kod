@@ -969,12 +969,15 @@ def time():
     timezone_str = tf.certain_timezone_at(lat=lat, lng=lon)
     now_curr = now_utc.astimezone(timezone(timezone_str))
     times['curr'] = now_curr.strftime(fmt)
+
+    weekday = list(calendar.day_name)[now_utc.weekday()]
     
     return render_template('/time.html',
                            calprev=calprev,
                            calcurr=calcurr,
                            calnext=calnext,
                            times=times,
+                           weekday=weekday,
                            tzone=timezone_str)
 
 @app.route('/book/<init>')

@@ -900,6 +900,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/twmoney/")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
