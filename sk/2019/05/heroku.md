@@ -259,12 +259,13 @@ def create_all():
 
 Burada `db.create_all()` ile taban yaratmak, gerekli bazı başlangıç
 verilerini eklemek için `create_all()` metotunu yazdık. Bazıları bu
-metotu ana script seviyesine koyabilir, `db.create_all()` metotu
-tablolar mevcut ise tablo yaratmayı tekrarlamaz, veri eklemeyi de
-mevcut veriye bakacak şekilde yazabiliriz, Fakat eğer tek bir kez elle
+metotu ana script seviyesine koyabilir, böylece her script
+yüklendiğinde bu çağrı yapılmış olur. Ama `db.create_all()` metotu
+taban mevcut ise tablo yaratmayı tekrarlamaz, veri eklemeyi de mevcut
+veriye bakacak şekilde yazabiliriz, vs. Fakat eğer tek bir kez elle
 kendimiz bu işi tetiklemek istiyorsak (benim tercihim), `heroku run
 python` ile komut satırına girip `import app` ve `app.create_all()`
-ile çağrıyı kendimiz yapabiliriz.
+ile çağrıyı bir kerelik kendimiz yapabiliriz.
 
 Komut satırında SQL sorguları elle yapabiliriz bu arada,
 
