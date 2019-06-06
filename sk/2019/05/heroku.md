@@ -174,7 +174,7 @@ Uygulamamızın kaç bedava saati kaldığını görmek için
 heroku ps -a [uygulama ismi]
 ```
 
-Ornek sonuc
+Örnek sonuç
 
 ```
 Free dyno hours quota remaining this month: 546h 5m (99%)
@@ -185,6 +185,16 @@ https://devcenter.heroku.com/articles/dyno-sleeping
 === web (Free): gunicorn app:app (1)
 web.1: up 2019/05/27 12:19:55 +0300 (~ -172s ago)
 ```
+
+Komut Satırı
+
+Repo içinde `heroku run python` ile bir Python komut satırı,
+yorumlayıcı elde edebiliriz. Tabii aslında normal dizüstünde
+çalıştığımızda `python` ya da `ipython` işletince olanlardan ufak bir
+farkı var, yeni yorumlayıcı başlatmıyoruz, Heroku servisimize bir
+anlamda "bağlanıyoruz". Bu durumda, ve Flask çerçevesinde, mesela
+`app.py` içinde bir Flask uygulamamız varsa, `import app` ile bu
+uygulamanın koduna erisebiliriz. 
 
 Veri Tabani Eklemek
 
@@ -202,9 +212,75 @@ olacaktır zaten.
 
 PG eklendikten sonra tabana tıklarız, çıkan ekranda Settings ve View
 Credentials ile tabana erişmek için gereken makina, taban ismi,
-kullanıcı, vs bilgileri görebiliriz.
+kullanıcı, vs bilgileri görebiliriz. Fakat bu bilgileri alıp bir
+kenara yazmak, sonra uygulamanıza dışarıdan (bir ayar dosyası, ya da
+python kodu içinde) eklemek yerine, taban URL'ini sistem çevre
+değişkeni `os.environ['DATABASE_ÜRL']` ile almak en iyisi. Bu bilgi
+oraya Heroku sistemı tarafından set ediliyor. Bu şekilde okumak bir
+diğer açıdan daha önemli, Heroku bazen güvenlik açısından taban erişim
+bilgilerini rasgele bir şekilde değiştirebiliyor, sonra servisimizi
+tekrar başlatıyor. Bu durumda Heroku yeni taban bilgisini çevre
+değişkenine atar, ama koda, ayar dosyasına yazmışsak, değişimleri
+otomatik olarak uygulayamayız.
+
+Flask, SQLAlchemy Kullanım Kalıbı
+
+SQLAlchemy bir ORM paketi, `class` tanımları ile SQL tabana erişmemizi
+sağlıyor, hatta tabloları sıfırdan yaratmamızı sağlıyor. Bu paket için
+bir kullanım kalıbı şöyle olabilir, Flask `app.py` içinde, ana script seviyesinde
+
+```
+class ConfigClass(object):
+    ...
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ..
+    
+app = Flask(__name__)
+
+app.config.from_object(__name__+'.ConfigClass')
+
+db = SQLAlchemy(app)
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
+    ...
+
+def create_all():
+    db.create_all()
+    if not User.query.filter(...).first():
+        user = User(
+            ...
+        )
+        db.session.commit()
+```
+
+Burada `db.create_all()` ile taban yaratmak, gerekli bazı başlangıç
+verilerini eklemek için `create_all()` metotunu yazdık. Bazıları bu
+metotu ana script seviyesine koyabilir, `db.create_all()` metotu
+tablolar mevcut ise tablo yaratmayı tekrarlamaz, veri eklemeyi de
+mevcut veriye bakacak şekilde yazabiliriz, Fakat eğer tek bir kez elle
+kendimiz bu işi tetiklemek istiyorsak (benim tercihim), `heroku run
+python` ile komut satırına girip `import app` ve `app.create_all()`
+ile çağrıyı kendimiz yapabiliriz.
+
+Komut satırında SQL sorguları elle yapabiliriz bu arada,
+
+```
+>>> res = app.db.engine.execute('select * from users');
+>>> print (list(res))
+```
+
+gibi.. 
+
 
 
 [1] https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xviii-deployment-on-heroku
 
 [2] https://devcenter.heroku.com/articles/getting-started-with-python
+
+[3] https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
+
+[4] http://blog.sahildiwan.com/posts/flask-and-postgresql-app-deployed-on-heroku/
