@@ -310,18 +310,18 @@ def is_member(self):
     return ld < nd
 ```
 
-Artık bu öğeyi aynen üstteki gibi `current_user.iş_member` ile çağırıp
+Artık bu öğeyi aynen üstteki gibi `current_user.is_member` ile çağırıp
 sayfa mantığı içinde kullanabiliriz.
 
 Temel Sayfaları Değiştirmek
 
 Dikkat edersek sisteme giriş, kayıt sayfaları Flask-User projesinin
 içinden geliyor. Bu sayfalar için kendi istediğimiz sayfaları
-kullanmak istersek, `Flask-User/flask_user/templates/flask_user`
+kullanmak istersek, `Flask-User / flask_user / templates / flask_user`
 dizinini olduğu gibi alıp kendi projemizin `templates` dizinine
 kopyalayabiliriz, ve ilgili sayfaları artık kendi yerel projemizde
 değiştirebiliriz. Flask-User artık otomatik olarak kurulan paket
-içindeki değil bu yerel proje altındaki sayfalara gidecektir. 
+içindeki değil bu yerel proje altındaki sayfalara gidecektir.
 
 Email, SMTP
 

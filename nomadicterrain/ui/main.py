@@ -601,9 +601,11 @@ def trail(gpx_file):
     OnlyOne().last_gpx_file = gpx_file
     fout = plot_trail(lat, lon, gpx_file, (lat2,lon2))  
 
+    first_point = None
     for track in gpx.tracks:
         for segment in track.segments:
-            for point in segment.points:
+            for i,point in enumerate(segment.points):
+                if i==0: first_point = point
                 if prev:
                     prev_dist = geopy.distance.vincenty((point.latitude, point.longitude),(prev.latitude,prev.longitude))
                     total_dist +=  prev_dist.km
@@ -642,7 +644,7 @@ def trail(gpx_file):
            disp.append("%f %f" % (front[j], elev_maxs[j]-elev_mins[j]))
            #print (front[j], elev_maxs[j]-elev_mins[j])
     
-    return render_template('/trail.html', location=fout, disp=disp, link=gpx.link)
+    return render_template('/trail.html', location=fout, disp=disp, link=gpx.link, first_point_lat=first_point.latitude, first_point_lon=first_point.longitude)
 
 def plot_trail(lat, lon, gpx_file, my_curr_location):
     pts = []
