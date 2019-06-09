@@ -70,6 +70,18 @@ hesabına girersek orada 10 dolara yakın bir paranın hesabımıza
 geçtiğini görüyoruz (10 dolardan biraz eksik olabilir çünkü paypal
 komisyonunu kesti).
 
+Eğer "save button at Paypal" işaretini iptal etmezsek, düğme Paypal
+sisteminde kaydedilecektir, ve bize verilen düğme HTML'i bir tür
+referans haline gelecektir. Bu referansın ima ettiği düğme (satış
+fiyatı, ürün, vs) bilgilerini istersek sonradan Paypal'de
+değiştirebiliriz, HTML kodunda hiçbir değişim olmaz. Bu sonuç ortamını
+test etmek ve diğer bazı durular için faydalı olabilir, mesela bir
+düğmeyi 5 USD ile test ederiz, sonra 30 USD'ye çıkartabiliriz.
+
+Kaydedilmiş düğmeleri görmek için `Tools | All Tools`'dan Paypal
+Buttons'a tıklayabiliriz, ya da direk https://paypal.com/buttons
+bağlantısına gidebiliriz.
+
 Paypal'den Bilgi Almak
 
 Üstte `notify_url` ile bir URL verdik. Bu URL bizim sitemizde mesela
