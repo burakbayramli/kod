@@ -89,14 +89,44 @@ Veri Tabanı Yaratmak - Statik ve Büyük Çapta Veri
 
 Biraz önceki kullanım, ufak çapta veri tanımlaması, depolaması icin uygun. Fakat çok büyük çapta veriyi, uygulama başlamadan hızlı bir şekilde hazır etmek istiyorsak, o zaman bir Sqlite tabanını olduğu gibi telefona göndermenin yollarını aramamız lazim. Muhakkak helper onCreate() içinde DDL komutlarını uyguladıktan sonra, Internet'teki, ya da res/raw dizinindeki [7] APK içinde paketlenmiş bir düz dosyayı açarak, satır satır okuyup tabana INSERT ile yazabiliriz. Fakat bu tür işlemler kapasitesi sınırlı mobil ortamda çok uzun zaman alacaktır. Tipik kullanıcı uygulamayı ilk başlattığında saniyeler sonra onun hazır olmasını bekler, dakikalar sürecek bir hazırlık evresi uygun olmaz. 
 
-Sqlite için database bir dosyadan ibarettir, ve bu dosyayı gerekli yere (/data/data altındaki dizine yani) kopyalamak o tabanı hazır hale getirmek demektir, bu basit bir dosya kopyalama operasyonu olacaktır. Bu çözümle ilerlersek, iki önemli nokta ortaya çıkar: 1) Res/raw altına koyup telefona gönderebileceğimiz dosya 1.2 MB uzerinde olamıyor 2) sürekli db dosyası kopyalamamak için (işlem her ne kadar hızlı olsa da) üstteki versiyon yöntemine benzer hızlı bir kontrol yöntemi gerekli. 
-O zaman: Sqlite veri tabanını önceden (telefon dısında) pişirmek için geliştirme ortamımızda bir main() içinden tetikleyerek (bunun nasıl olacağını test etme bölümünde göreceğiz -hatta burada pür JDBC bile kullanılabilir-) yaratabildiğimizi farzedelim. Bu dosyayı APK içinde göndermenin tek you onu res/raw altına koymaktır. Eğer dosya çok büyük ise, onu Unix split ile parçalara bölüp, kopyalama işlemi tarafından onu tekrar birleştirmemiz gerekli. Bölme komutu: 
+Sqlite için database bir dosyadan ibarettir, ve bu dosyayı gerekli
+yere (/data/data altındaki dizine yani) kopyalamak o tabanı hazır hale
+getirmek demektir, bu basit bir dosya kopyalama operasyonu
+olacaktır. Bu çözümle ilerlersek, iki önemli nokta ortaya çıkar: 1)
+Res/raw altına koyup telefona gönderebileceğimiz dosya 1.2 MB uzerinde
+olamıyor 2) sürekli db dosyası kopyalamamak için (işlem her ne kadar
+hızlı olsa da) üstteki versiyon yöntemine benzer hızlı bir kontrol
+yöntemi gerekli.  O zaman: Sqlite veri tabanını önceden (telefon
+dısında) pişirmek için geliştirme ortamımızda bir main() içinden
+tetikleyerek (bunun nasıl olacağını test etme bölümünde göreceğiz
+-hatta burada pür JDBC bile kullanılabilir-) yaratabildiğimizi
+farzedelim. Bu dosyayı APK içinde göndermenin tek you onu res/raw
+altına koymaktır. Eğer dosya çok büyük ise, onu Unix split ile
+parçalara bölüp, kopyalama işlemi tarafından onu tekrar birleştirmemiz
+gerekli. Bölme komutu:
 
 split [DOSYA] -b 1M [yenidb-]
 
-Boylece [DOSYA] 1 megabaytlık parçalara bölünecek ve yenidb-a, yenidb-b, .. gibi yeni dosyalar ortaya çıkacak. Bu dosyaları geliştirme dizinimizde res/raw altına koyalım. Java kod bağlamında DB'yi hazırlamak için yapılacak ilk çağrı önce 1) /data/data/[UYGULAMA]/databases altında belli bir isimde ve belli bir büyüklükteki bir dosyanın olup olmadığını kontrol edecek, 2) yoksa, res/raw altındaki parçaları birleştirerek yeni taban dosyasını yaratacak. Bu yöntem, biraz çetrefil gibi kulağa gelse de, hiç şüphesiz INSERT ile taban yaratmaktan kat kat daha hızlı olacaktır. Önemli nokta: InputStream üzerinden parçalı bir dosyayı tek bir dosyaymış gibi okumak icin InputStreamChain [8] yöntemini kullanmak gerekli. 
+Boylece [DOSYA] 1 megabaytlık parçalara bölünecek ve yenidb-a,
+yenidb-b, .. gibi yeni dosyalar ortaya çıkacak. Bu dosyaları
+geliştirme dizinimizde res/raw altına koyalım. Java kod bağlamında
+DB'yi hazırlamak için yapılacak ilk çağrı önce 1)
+/data/data/[UYGULAMA]/databases altında belli bir isimde ve belli bir
+büyüklükteki bir dosyanın olup olmadığını kontrol edecek, 2) yoksa,
+res/raw altındaki parçaları birleştirerek yeni taban dosyasını
+yaratacak. Bu yöntem, biraz çetrefil gibi kulağa gelse de, hiç
+şüphesiz INSERT ile taban yaratmaktan kat kat daha hızlı
+olacaktır. Önemli nokta: InputStream üzerinden parçalı bir dosyayı tek
+bir dosyaymış gibi okumak icin InputStreamChain [8] yöntemini
+kullanmak gerekli.
 
-Tüm bu teknikleri kullanan bizim kodumuz [9] dosyasındaki DatabaseHelper.importDB içinde bulunabilir. Büyük veri transferi için kullanılan DatabaseHelper class'ının ilk örnekte olduğu gibi SQLiteOpenHelper'dan miras almadığına dikkat edelim: Bu yapılmadı çünkü gerekli değildi, statik veri durumunda versiyon kontrolunu taban dosyası büyüklüğü (size) üzerinden biz kendimiz yapıyoruz. DDL zaten gerekli değil, çünkü taban dosyasını olduğu gibi kopyalıyoruz.
+Tüm bu teknikleri kullanan bizim kodumuz [9] dosyasındaki
+DatabaseHelper.importDB içinde bulunabilir. Büyük veri transferi için
+kullanılan DatabaseHelper class'ının ilk örnekte olduğu gibi
+SQLiteOpenHelper'dan miras almadığına dikkat edelim: Bu yapılmadı
+çünkü gerekli değildi, statik veri durumunda versiyon kontrolunu taban
+dosyası büyüklüğü (size) üzerinden biz kendimiz yapıyoruz. DDL zaten
+gerekli değil, çünkü taban dosyasını olduğu gibi kopyalıyoruz.
 
 Birim Testleri
 

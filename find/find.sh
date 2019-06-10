@@ -1,1 +1,1 @@
-find . -type f -name "$1" -exec grep -nH "$2" {} \;
+find . -type f -name "$1" -exec grep -inH "$2" {} \;
