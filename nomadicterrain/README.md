@@ -132,6 +132,7 @@ point in a region modeled by RBF.
 First create the main table
 
 ```
+import sqlite3
 conn = sqlite3.connect(params['elevdb'])
 c = conn.cursor()
 c.execute('''CREATE TABLE ELEVATION (latint INT, lonint INT, lat REAL, lon REAL, elevation REAL); ''')

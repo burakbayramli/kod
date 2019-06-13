@@ -186,6 +186,18 @@ https://devcenter.heroku.com/articles/dyno-sleeping
 web.1: up 2019/05/27 12:19:55 +0300 (~ -172s ago)
 ```
 
+Her hesaba her ay 550 bedava dyno zamanı veriliyor. Eğer kredi kartı
+verilirse (bir ücret kesileceğinden değil, kayıtlarda bulunması
+amacıyla) 450 saat aylık daha ekleniyor. Sadece 550'yi baz alalım, bu
+günlük 550 / 30 = 18 kusur saat demektir, bir dyno bir saat işliyorsa
+(nasıl işlerse işlesin, çok iş, az iş yapsın aynı) zaman buradan
+düşülecektir. Dyno 30 dakika kullanılmadığında uykuya daldığını
+düşünürsek, günlük 24 saatinin 18'inde hazır olabilecek bir servis
+fena sayılmaz. Eğer iki dyno başlatırsak 550 saat ikisine eşit
+bölüştürülür herhalde.
+
+https://devcenter.heroku.com/articles/free-dyno-hours
+
 Komut Satırı
 
 Repo içinde `heroku run python` ile bir Python komut satırı,
