@@ -1,23 +1,46 @@
 # OpenAI Gym, Pong, Derin Takviyeli Ogrenme (Deep Reinforcement Learning)
 
+Otomatik oyun oynamak ve alakalı diğer problemler için son zamanlarda
+yapay zeka'nın alt dallarından takviyeli öğrenme (reinforcement
+learning) revaçta. Gö şampiyonunu yenen Google Deepmind algoritmasi
+bir TO yaklaşımı kullandı. TO ile algoritma bir oyundan gelen sadece
+ham pikselleri kullanarak oyunu kendi başına oynamayı
+öğrenebiliyor. En son oturumda kazanıp kaybedildiği bir ceza ya da
+mükafat skoru ile algoritmaya bildirilir tabii, ve yüzlerce otomatik
+oyun sonrası program oynamayı öğrenir.
 
+Takviyeli öğrenim iş dünyası için faydalı olabilir, YZ etrafında
+danışmanlık servisi veren şirketler eskiden endüstriyel mühendisliğin
+şemsiyesi altına düşen ve simplex, lineer programlama ile çözülen
+problemleri TO ile çözmeye başladılar. TO ile bir ilke gradyanı
+(policy gradient) hazırlanır, ilkeler her adımda atılabilecek adımları
+tanımlarlar; bir fabrikada bir aletin üzerindeki ayarlar, ya da hangi
+kaynaklara öncelik verilmesi gerektiği (hangi gün, kaç işçi, vs), bir
+anlamda bu ilkelerden gelebilecek aksiyonlar olarak görülebilir, ve TO
+en "başarılı" olacak ayarları öğrenebilir.
 
+Oyunlara dönelim, simülasyon ortamlarından OpenAI Gym üzerinden
 
-OpenAI Gym, Pong, Derin Takviyeli Ogrenme (Deep Reinforcement Learning)
-
-
-
-
-Otomatik oyun oynamak ve alakali diger problemler icin son zamanlarda yapay zeka'nin alt dallarindan takviyeli ogrenme (reinforcement learning) revacta. Go sampiyonunu yenen Google Deepmind algoritmasi bir TO yaklasimi kullandi. TO ile algoritma bir oyundan gelen sadece ham pikselleri kullanarak oyunu kendi basina oynamayi ogrenebiliyor. En son oturumda kazanip kaybedildigi bir ceza ya da mukafat skoru ile algoritmaya bildirilir tabii, ve yuzlerce otomatik oyun sonrasi program oynamayi ogrenir.
-
-Takviyeli ogrenim is dunyasi icin faydali olabilir, YZ etrafinda danismanlik servisi veren sirketler eskiden endustriyel muhendisligin semsiyesi altina dusen ve simplex, lineer programlama ile cozulen problemleri TO ile cozmeye basladilar. TO ile bir ilke gradyani (policy gradient) hazirlanir, ilkeler her adimda atilabilecek adimlari tanimlarlar; bir fabrikada bir aletin uzerindeki ayarlar, ya da hangi kaynaklara oncelik verilmesi gerektigi (hangi gun, kac isci, vs), bir anlamda bu ilkelerden gelebilecek aksiyonlar olarak gorulebilir, ve TO en "basarili" olacak ayarlari ogrenebilir.
-
-Oyunlara donelim, simulasyon ortamlarindan OpenAI Gym uzerinden
-
+```
 sudo pip install  gym[atari]
+```
 
-ile unlu oyun Pong ortami kurulur. Oyundan gelen pikseller matris olarak arayuzden alinabiliyor. Alttaki ornekte Pong baslatiyoruz, alinan her kareyi bir imaj png dosyasina yaziyoruz, bu arada rasgele hareketle yapiyoruz, kayip ya da basari var ise donguden cikiyoruz. Her step cagrisi bizim attigimiz bir adimi oyuna bildiriyor, bilgisayar karsilik veriyor, ve oyunun son hali bize step donus parametreleri ile bildiriliyor. Bizim step ile kontrol ettigimiz sagdaki raket, bilgisayar soldakini kontrol ediyor. Pong'u fazla anlatmaya gerek yok herhalde, basit bir oyun, raketler yukari ya da asagi gidiyor, step ile verdigimiz hareket parametresi 0,1 etkisiz, 2,4 yukari, 3,5 asagi demek. Bilgisayar oynarken tabii ki bilgiyi "iceriden" aliyor, diger tahtanin, topun nerede oldugunu ic arayuz ile anliyor. Disaridan piksellere bakarak oynamaya ugrasmak cok daha zor bir is.
+ile ünlü oyun Pong ortamı kurulur. Oyundan gelen pikseller matris
+olarak arayüzden alınabiliyor. Alttaki örnekte Pong başlatıyoruz,
+alınan her kareyi bir imaj png dosyasına yazıyoruz, bu arada rasgele
+hareketle yapıyoruz, kayıp ya da başarı var ise döngüden
+çıkıyoruz. Her step çağrısı bizim attığımız bir adımı oyuna
+bildiriyor, bilgisayar karşılık veriyor, ve oyunun son hali bize step
+dönüş parametreleri ile bildiriliyor. Bizim step ile kontrol ettiğimiz
+sağdaki raket, bilgisayar soldakini kontrol ediyor. Pong'u fazla
+anlatmaya gerek yok herhalde, basit bir oyun, raketler yukarı ya da
+aşağı gidiyor, step ile verdiğimiz hareket parametresi 0,1 etkisiz,
+2,4 yukarı, 3,5 aşağı demek. Bilgisayar oynarken tabii ki bilgiyi
+"içeriden" alıyor, diğer tahtanın, topun nerede olduğunu iç arayüz ile
+anlıyor. Dışarıdan piksellere bakarak oynamaya uğraşmak çok daha zor
+bir iş.
 
+```
 import gym, random, time
 import pandas as pd
 import numpy as np
@@ -37,66 +60,38 @@ while True:
     im = Image.fromarray(obs)
     im.save('out.png')
     time.sleep(0.4) # zaman arasi
+```
 
-Imaj kaydi yerine direk ekranda gostermek icin env.render() cagrisi da yapilabilir.
+Imaj kaydi yerine direk ekranda gostermek icin env.render() cagrisi da
+yapilabilir.
 
+TO bağlamında öğrenim rutini üstteki döngüyü yüzlerce, binlerce kez
+işletebilir, her oturum sonundaki başarı / kayıp ilke gradyanı ile
+güncelleme için kullanılır.
 
+Detaylar için şu blog güzel.
 
+Alınan imaj üzerinde bazı önişlemler mümkün, mesela en üstteki skor
+bölümü oyun için gerekli mi? Bunlar kırpılabilir. Ayrıca renk gerekli
+olmayabilir, 3 renk kanalı 1 kanala iner. Küçültme yapılarak
+210x160 boyutu mesela 80x80'e indirilebilir. Bir diğer önişlem şu:
+Karpathy (üstteki bağlantı) ardı ardına gelen iki oyun karesinin
+farkını alıyor, böylece hareket bilgisini yakalamak istemiş
+herhalde. Alternatif bir yaklaşım Stanford Üniversite'sindeki RL
+dersinin yaklaşımı, bu arkadaşlar ardı ardına 4 karenin üzerinden bir
+maxpool hesabı yapıyorlar, yani 4 karede birbirine tekabül eden
+piksellerden en yüksek değeri olan nihai sonuca alınıyor. Böylece 4
+kare 1 kareye indirgeniyor, bu hem hareketi verir, hem de eğitim
+algoritmasinin 4 kat daha hızlı işlemesini sağlar (kod yazının
+altında)
 
-TO baglaminda ogrenim rutini ustteki donguyu yuzlerce, binlerce kez isletebilir, her oturum sonundaki basari / kayip ilke gradyani ile guncelleme icin kullanilir.
-
-Detaylar icin su blog guzel.
-
-Alinan imaj uzerinde bazi onislemler mumkun, mesela en ustteki skor bolumu oyun icin gerekli mi? Bunlar kirpilabilir. Ayrica renk gerekli olmayabilir, 3 renk kanali 1 kanala iner. Kucultme yapilarak 210x160 boyutu mesela 80x80'e indirilebilir. Bir diger onislem su: Karpathy (ustteki baglanti) ardi ardina gelen iki oyun karesinin farkini aliyor, boylece hareket bilgisini yakalamak istemis herhalde. Alternatif bir yaklasim Stanford Universite'sindeki RL dersinin yaklasimi, bu arkadaslar ardi ardina 4 karenin uzerinden bir maxpool hesabi yapiyorlar, yani 4 karede birbirine tekabul eden piksellerden en yuksek degeri olan nihai sonuca aliniyor. Boylece 4 kare 1 kareye indirgeniyor, bu hem hareketi verir, hem de egitim algoritmasinin 4 kat daha hizli islemesini saglar (kod yazinin altinda)
-
-
-
-
-Kontrol Problemleri
-
-Gym sadece gorsel ciktiyla sinirli degil, mesela sadece alttan tutarak dik tutmaya ugrastigimiz bir cubugu dusunelim, bunu belki cocukken yapmisizdir, agir olan dik bir cismi parmak uzerinde tutmaya ugrasmak. Tabii saga sola giderek dengelemeye ugrasilir, oldukca zor bir istir, vs. Gym icinde bu ortam da var,
-
-import gym, time
-import numpy as np
-
-env = gym.make("CartPole-v0")
-env.reset()
-obs, reward, done, info = env.step(0)
-print obs
-print obs.shape
-env.render()
-
-
-
-deyince alttaki resim cikar,
-
-
-
-
-Fakat aslinda step cagrilari bize Pong'da oldugu gibi resim degil, cubuk hakkinda 4 tane parametre donduruyor, render cagrisi bu parametreleri kullanarak bir temsili resim ortaya cikartmis. Ustteki durum icin parametreler
-
-
-
-
-[ 0.02585672 -0.17299761  0.030009    0.29081285]
-
-
-
-
-Parametrelerin ne oldugunun detayi surada. Soldan 3. cubugun durus acisi, -45 ile +45 arasinda, arti acilar saga dogru yatik demek, eksiler sola dogru. 
-
-
-
-Eger cubugu dengede tutmayi ogrenmek istersek step ile alt kismi saga ya da sola kaydirabiliriz, cubuk sola dusecek gibi olsa mesela sola gidip dengeyi tekrar bulmaya ugrasiriz, vs. Sistem bize hangi durumda oldugunu ustteki 4 sayiyla soyler. Bu yeterli, Pong ile oldugu gibi tum ekrani gormemize gerek yok. Mukafat (ya da ceza) basarili gecen her adim icin verilir, oyun eger cubuk belli bir acidan fazla yatiksa biter, o zaman cubuk "dusmus" demektir. Ekran disina cikmak ayni sekilde oyunu bitirir.
-
-
-
-CartPole kontrol problemlerini anlamak acisindan faydali bir ornek.  Kontrol Muhendisligi'nde bu tur durumlar yogun sekilde gorulur. 
+Ayrica bkz [OpenAI, Çubuklu Araba, CartPole](/2017/09/openai-cubuklu-araba-cartpole.html)
 
 Ekler
 
-Pong icin tarif edilen her 4 karede bir imaj veren max pool kodu
+Pong için tarif edilen her 4 karede bir imaj veren max pool kodu
 
+```
 import gym
 
 from collections import deque
@@ -134,9 +129,11 @@ class MaxAndSkipEnv(gym.Wrapper):
         obs = self.env.reset()
         self._obs_buffer.append(obs)
         return obs
+```
 
-Kullanmak icin tek bir imaj basalim
+Kullanmak için tek bir imaj basalım
 
+```
 from PIL import Image
 
 env = gym.make("Pong-v0")
@@ -146,12 +143,11 @@ for i in range(20): obs, reward, done, info = env.step(0)
 max_frame, total_reward, done, info = m._step(0)
 im = Image.fromarray(max_frame[:,:,0], 'L')
 im.save('out.png')
+```
 
 Daha fazla bilgi icin
 
 http://sayilarvekuramlar.blogspot.com/2015/12/bilgisayar-bilim-yapay-zeka.html
-
-
 
 
 ![](out.png)
