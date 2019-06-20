@@ -48,7 +48,7 @@ CartPole kontrol problemlerini anlamak açısından faydalı bir
 örnek.  Kontrol Mühendisliği'nde bu tür durumlar yoğun şekilde
 görülür.
 
-Her gozlenen parametrenin kabul edilir deger araliklarini ekrana basalim,
+Her gözlenen parametrenin kabul edilir değer aralıklarını ekrana basalım,
 
 ```
 print(env.observation_space.high)
