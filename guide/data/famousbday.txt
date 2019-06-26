@@ -1,7 +1,7 @@
 Name:Description:Birthday
 Bab::5/10/1945
 An::22/2/1948
-Bad:8/1/1982
+Bad::8/1/1982
 Kal::9/6/1954
 Irem::27/10/1987
 Sebayet::1/7/1920
@@ -39758,3 +39758,4 @@ Joseph S. Cullinan:American oil industrialist:31/12/1860
 Isma'il Pasha:Governor of Egypt:31/12/1830
 George G. Meade:American Civil War general:31/12/1815
 Pierre-Charles Villeneuve:French admiral:31/12/1763
+Bob Lazar:Scientist, UFO:26/1/1959

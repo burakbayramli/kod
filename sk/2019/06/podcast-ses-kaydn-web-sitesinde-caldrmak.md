@@ -21,15 +21,15 @@ Bu bağlantıdaki `/view` metnini `/preview` haline getiririz, ve HTML'e
 </iframe>
 ```
 
-kodunu koyarız. Bu sayfayı ziyaret edince bir çalıçı (player)
+kodunu koyarız. Bu sayfayı ziyaret edince bir çalıcı (player)
 göreceğiz, basit bir program, üzerinde Google logosu vs yok, ise
 yarıyor, ileri sarma, ara verme gibi özellikleri var.
 
-Peki çalıçının HTML kodu nereden geliyor diye merak edilebilir, sonuca
+Peki çalıcının HTML kodu nereden geliyor diye merak edilebilir, sonuca
 Javascript dahil etmedik, üstteki kod parçası oldukca basit. Kod
 URL'in kendisinden geliyor, `/preview` gerekli HTML'i yaratıyor.
 
-Bu kadar. Dosya Google Drive'da ona referans eden çalıçı herhangi bir
+Bu kadar. Dosya Google Drive'da ona referans eden çalıcı herhangi bir
 sayfada.
 
 Kaynaklar

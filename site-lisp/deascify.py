@@ -40,7 +40,7 @@ def convert():
               ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
               ("integral",), ("arastirmaci",u"araştırmacı"),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
-              ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),
+              ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),("amacimiz",u"amacımız"),
               ("ihtiyaci",u'ihtiyacı'), ("acilim",u'açılım'),("inip",),
               ("acisini",u'açısını'), ("acisi",u'açısı'),("meyilli",), 
               ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),

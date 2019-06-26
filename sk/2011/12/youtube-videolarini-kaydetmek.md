@@ -18,12 +18,15 @@ script'i başlattığınızda `-c` seçeneğini kullanabilirsiniz.
 
 Dikkat: kaynaklardan kurunca `setup.py` ile kurulan programın
 gerçekten kullanıldığına emin olun. Bu program `youtube-dl/bin`
-altında olacak.
+altında olacak, ve bu programı o dizine gidip `.youtube-dl` ile
+işletmeniz gerekebilir (nokta bildiğimiz gibi içine olduğumüz dizine
+işaret eder böylece global kurulmuş bir işler programa gidilmesini
+engellemiş oluruz)
 
 Daha Ufak Dosyalar
 
-Bazen sadece ÜRL ile video indirince çok büyük dosya rakamları
-görülebiliyor, mesela basit bir video için 1 Gıgabayt! Daha ufak
+Bazen sadece URL ile video indirince çok büyük dosya rakamları
+görülebiliyor, mesela basit bir video için 1 Gigabayt! Daha ufak
 şekilde indirmek olmaz mıydı? Bunun için
 
 ```

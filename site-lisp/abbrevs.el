@@ -14,6 +14,6 @@
     ("9U" "Ustteki" nil 1)
     ("9o" "o zaman" nil 1)
     ("9O" "O zaman" nil 1)
-    ("9p" "\\frac{\\partial }{\\partial x}" nil 1)
+    ("9par" "\\frac{\\partial }{\\partial x}" nil 1)
     ("9ep" "\\frac{1}{4\\pi\\epsilon_0}" nil 1)
     ))
