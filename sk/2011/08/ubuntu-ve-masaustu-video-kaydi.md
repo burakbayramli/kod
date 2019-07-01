@@ -23,7 +23,8 @@ olarak kayit islemini baslatin. Istediginiz kadar kaydedince Ctrl-C ile cikin, k
 sudo apt-get install recordmydesktop zenity
 
 
-Eger ogv dosyasini animasyonlu gif formatina cevirmek istiyorsak, su komut yeterli
+Eger ogv dosyasini animasyonlu gif formatina cevirmek istiyorsak, su
+komut yeterli
 
 
 ffmpeg -i out.ogv -loop_output 0 -pix_fmt rgb24 -r 5 -s 250x250 output.gif

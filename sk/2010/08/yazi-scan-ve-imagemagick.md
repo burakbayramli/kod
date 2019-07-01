@@ -1,55 +1,85 @@
 # Imagemagick, Imaj Dosyalarini Islemek, Format Degisimi, Convert Komutu
 
-
-Imagemagick, Imaj Dosyalarini Islemek, Format Degisimi, Convert Komutu
-
-
-
-
-Ubuntu Linux uzerinden formatlararasi gecis cok basit, ImageMagick kurulur,
+Ubuntu Linux üzerinden formatlararası geçiş çok basit, İmageMagick kurulur,
 
 sudo apt-get install imagemagick
 
-Bu bize convert adli bir program veriyor. Mesela dosya.jpg dosyasini dosya.png yapmak icin
+Bu bize convert adlı bir program veriyor. Mesela dosya.jpg dosyasını
+dosya.png yapmak için
 
+```
 convert dosya.jpg dosya.png
+```
 
-Eger animasyon gif dosyasi uzerinde ayni komutu isletirsek, animasyondaki her kare ayri bir png dosyasi olarak verilirdi. Sonek png dosyalarinin numaralandirmasi kontrol edilebilir, Dikkat: tum imajin animasyondan cikartilmasi icin -coalesce secenegi gerekebilir.
+Eğer animasyon gif dosyası üzerinde aynı komutu işletirsek,
+animasyondaki her kare ayrı bir png dosyası olarak verilirdi. Sonek
+png dosyalarının numaralandırması kontrol edilebilir, Dikkat: tüm
+imajın animasyondan çıkartılması için -coalesçe seçeneği gerekebilir.
 
+```
 convert -coalesce dosya.gif dosya-%3d.png 
+```
 
+Birkaç png dosyasını animasyona çevirmek
 
-Bu komutun pek cok ozelligi var.
+```
+convert -loop 0 -delay 100 *.png out.gif
+```
 
-Bir dosya icinden belli bir bolgeyi cikartmak icin, mesela ust sol kose referansli olmak uzere 100,100 noktasindan baslayarak sadece1000 genisliginde 600 yukseliginde bolgeyi almak icin
+Bu komutun pek çok özelliği var.
 
+Bir dosya içinden belli bir bölgeyi çıkartmak için, mesela üst sol
+köse referanslı olmak üzere 100,100 noktasından başlayarak sadece1000
+genişliğinde 600 yükseliğinde bölgeyi almak için
+
+```
 convert -extract 1000x600+100+000 dosya.jpg sonuc.jpg
+```
 
-Pek cok goruntu dosyasini ust uste birlestirmek icin (arada 20 pikselllik bosluk ile)
+Pek çok görüntü dosyasını üst üste birleştirmek için (arada 20
+pikselllik boşluk ile)
 
+```
 convert -bordercolor White -border 2x20 dosya_*.jpg -append out.jpg
+```
 
-Diyelim ki iki sayfasi tek bir kagitta yatay basilmis bir dokumani scan etmek istiyoruz. Scanimage ile tiff ciktilari aldiktan sonra, imaji cevirmek icin
+Diyelim ki iki sayfası tek bir kağıtta yatay basılmış bir dokümanı
+scan etmek istiyoruz. Scanımage ile tiff çıktıları aldıktan sonra,
+imajı çevirmek için
 
+```
 convert -rotate 270 [dosya1.tiff] [dosya2.tiff]
+```
 
-270 yerine 90 da olabilir tabii, scan etme pozisyonuna gore dogrusunu secin. Eger imaj yeterince net degilse, netlestirmek (sharpening) icin su komut
+270 yerine 90 da olabilir tabii, scan etme pozisyonuna göre doğrusunu
+seçin. Eğer imaj yeterince net değilse, netleştirmek (sharpening) için
+şu komut
 
+```
 convert ... -unsharp 1.5x1.2+1.0+0.10  [dosya1.tiff] [dosya2.tiff]
+```
 
-Rotate ve unsharp isleri tek bir satirda ayni anda yapilabilir.
+Rotate ve unsharp işleri tek bir satırda aynı anda yapılabilir.
 
-Scan Edilmis Imajlari Ortadan Bolmek
+Scan Edilmiş İmajları Ortadan Bölmek
 
-Eger elinizde iki sayfasi tek bir kagida basilmis sekilde bir scan imaji varsa (bu sekilde basilmis bir kitaptan elde edilmis olabilir), bu imaji ortadan yatay olarak ikiye bolerek iki imaj elde etmenin caresi ImageMagick ile soyle:
+Eğer elinizde iki sayfası tek bir kağıda basılmış şekilde bir scan
+imajı varsa (bu şekilde basılmış bir kitaptan elde edilmiş olabilir),
+bu imajı ortadan yatay olarak ikiye bölerek iki imaj elde etmenin
+çaresi İmageMagick ile şöyle:
 
+```
 convert dosya.tiff -crop 100%x50% +repage dosya_%d.tiff
+```
 
-Bu cagridan sonuc olarak dosya_00.tiff, dosya_01.tiff adinda iki imaj ortaya cikacak.
+Bu çağrıdan sonuç olarak dosya_00.tiff, dosya_01.tiff adında iki imaj
+ortaya çıkacak.
 
-Bir video dosyasini numaralanmis goruntu dosyalarina cevirmek icin,
+Bir video dosyasını numaralanmış görüntü dosyalarına çevirmek için,
 
+```
 convert video.avi chessb-right/video%03d.png
+```
 
 
 
