@@ -65,6 +65,12 @@ while True:
 Imaj kaydi yerine direk ekranda gostermek icin env.render() cagrisi da
 yapilabilir.
 
+![](out.png)
+![](https://1.bp.blogspot.com/-U8IFNfWagsU/XSMCTfoQMRI/AAAAAAAAB0k/XRcHcm7LTkkkUQsPikgYnOuWqj_Amsd_wCLcBGAs/s1600/out.png)
+
+![](Screenshot%2Bfrom%2B2017-09-13%2B11-13-32.png)
+![](https://1.bp.blogspot.com/-xWEGTxlBYkk/XSMCWrs50NI/AAAAAAAAB0o/MA5ZbBsJ640VIwqKT_MHF9SpTsDWjtJhACLcBGAs/s1600/Screenshot%25252Bfrom%25252B2017-09-13%25252B11-13-32.png)
+
 TO bağlamında öğrenim rutini üstteki döngüyü yüzlerce, binlerce kez
 işletebilir, her oturum sonundaki başarı / kayıp ilke gradyanı ile
 güncelleme için kullanılır.
@@ -145,11 +151,37 @@ im = Image.fromarray(max_frame[:,:,0], 'L')
 im.save('out.png')
 ```
 
-Daha fazla bilgi icin
+Aya İniş (LunarLander)
 
-http://sayilarvekuramlar.blogspot.com/2015/12/bilgisayar-bilim-yapay-zeka.html
+Test ortamlarindan biri aya inis yapacak bir uzay modulunu kontrol
+etmek. Yanliz bu ortami kullanmak icin bazi ek kuruluslar lazim,
+
+```
+pip3 install gym[box2d]
+pip3 install box2d
+pip3 uninstall box2d-kengz
+```
+
+Simdi
+
+```
+import gym
+env = gym.make('LunarLander-v2')
+env.reset()
+for _ in range(500):
+  env.render()
+  env.step(env.action_space.sample())
+```
+
+ortami gorebiliriz. 
 
 
-![](out.png)
-![](Screenshot%2Bfrom%2B2017-09-13%2B11-13-32.png)
-![](Screenshot%2Bfrom%2B2017-09-14%2B13-50-00.png)
+
+
+
+
+
+
+
+
+
