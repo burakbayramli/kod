@@ -1,18 +1,25 @@
 # LD_PRELOAD ile Fonksiyon Yakalamak
 
-
-LD_PRELOAD ile Fonksiyon Yakalamak
-
-
-
-
-Linux'ta isleyen herhangi bir kodun ic fonksiyonlarinin yerine bir baskasini gecirmek icin kullanilan bir teknik fonksiyon bindirme (function interposition). Kullanim soyle:
+Linux'ta isleyen herhangi bir kodun ic fonksiyonlarinin yerine bir
+baskasini gecirmek icin kullanilan bir teknik fonksiyon bindirme
+(function interposition). Kullanim soyle:
 
 LD_PRELOAD=`pwd`/bizim-kodlar.so ./demo.exe
 
-Dinamik kutuphane bizim-kodlar.so icinde derlenmis C/++ kodlari var. LD_PRELOAD degiskeni bir cevre degiskeni, ve orada tanimlanan kutuphaneler, diger tum kutuphanelere gore oncelik kazanir, yani once LD_PRELOAD'da tanimli kodlar isletiliyor. Cengel takmak icin o yuzden bicilmis kaftan.
+Dinamik kutuphane bizim-kodlar.so icinde derlenmis C/++ kodlari
+var. LD_PRELOAD degiskeni bir cevre degiskeni, ve orada tanimlanan
+kutuphaneler, diger tum kutuphanelere gore oncelik kazanir, yani once
+LD_PRELOAD'da tanimli kodlar isletiliyor. Cengel takmak icin o yuzden
+bicilmis kaftan.
 
-Ornek: OpenGL kutuphanesinin ekrana bastigi goruntuyu yakalamak mesela, ekrana cizilen goruntuler glXSwapBuffers cagrisi yaparlar, bu cagri  yerine kendi yazdigimiz bir fonksiyonu gecirip, esas fonksiyona aktarma yapmadan once arada goruntuyu alip bir dosyaya yazabiliriz. Alttaki kod demo.cpp basit bir OpenGL ornegi, bir objeyi alip surekli donduruyor. Bu cizimi, bindirilmis yeni fonksiyon uzerinden isletince, goruntunun kare kare ciktisi bir imaj dosyasi olarak /tmp altinda yazilacak.
+Ornek: OpenGL kutuphanesinin ekrana bastigi goruntuyu yakalamak
+mesela, ekrana cizilen goruntuler glXSwapBuffers cagrisi yaparlar, bu
+cagri yerine kendi yazdigimiz bir fonksiyonu gecirip, esas fonksiyona
+aktarma yapmadan once arada goruntuyu alip bir dosyaya
+yazabiliriz. Alttaki kod demo.cpp basit bir OpenGL ornegi, bir objeyi
+alip surekli donduruyor. Bu cizimi, bindirilmis yeni fonksiyon
+uzerinden isletince, goruntunun kare kare ciktisi bir imaj dosyasi
+olarak /tmp altinda yazilacak.
 
 make.sh
 
@@ -20,12 +27,7 @@ make.sh
 g++ -o demo.exe demo.cpp -lglut -lGL -lGLU -lGLEW
 gcc -shared -fPIC -o glcapture.so glcapture.c -ldl
 
-
-
 load.sh
-
-
-
 
 rm /tmp/*.tga
 

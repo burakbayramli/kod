@@ -1,54 +1,72 @@
 # Ubuntu ve Masaustu Goruntu, Video Kaydi
 
+Ekranda olanları, özellikle belli bir pencerede olanları, video olarak
+kaydetmek için bir yöntem
 
-Ubuntu ve Masaustu Goruntu, Video Kaydi
+```
+ffmpeg -video_size 1024x768 -framerate 25 -f x11grab -i :0.0+0,0 -f \
+ pulse -ac 2 -i default output.mkv
+```
 
+Bir başkası `vokoscreen`, `apt-get` ile kurulur.
 
+Bir diğeri (bu eski)  xwininfo programını başlatın. Bu program ok
+işaretini bir artı haline dönüştürecek, ve bu artı işareti hangi diğer
+pencere üzerine getirilirse o pencerenin bilgileri dökülecek. Bizim
+ihtiyacımız olan "Window id" satırının ne söylediği. Burada mesela
+0x4200003 gibi bir sayı var. Bu sayıyı alın ve
 
-
-Ekranda olanlari, ozellikle belli bir pencerede olanlari, video olarak kaydetmek icin bir yontem
-
-ffmpeg -video_size 1024x768 -framerate 25 -f x11grab -i :0.0+0,0 -f pulse -ac 2 -i default output.mkv
-
-Bir baskasi vokoscreen, apt-get ile kurulur.
-
-Bir digeri (bu eski)  xwininfo programini baslatin. Bu program ok isaretini bir arti haline donusturecek, ve bu arti isareti hangi diger pencere uzerine getirilirse o pencerenin bilgileri dokulecek. Bizim ihtiyacimiz olan "Window id" satirinin ne soyledigi. Burada mesela 0x4200003 gibi bir sayi var. Bu sayiyi alin ve
-
+```
 recordmydesktop --windowid=0x4200003
+```
 
+olarak kayıt işlemini başlatın. İstediğiniz kadar kaydedince Ctrl-C
+ile çıkın, kaydedilen her şey `out.ogv` adlı bir video dosyasına
+yazılacak. Eğer recordmydesktop kurulu değilse, şu şekilde
+kurulabilir.
 
-olarak kayit islemini baslatin. Istediginiz kadar kaydedince Ctrl-C ile cikin, kaydedilen her sey out.ogv adli bir video dosyasina yazilacak. Eger recordmydesktop kurulu degilse, su sekilde kurulabilir.
-
-
+```
 sudo apt-get install recordmydesktop zenity
+```
 
-
-Eger ogv dosyasini animasyonlu gif formatina cevirmek istiyorsak, su
+Eğer ogv dosyasını animasyonlu gif formatına çevirmek istiyorsak, şu
 komut yeterli
 
-
+```
 ffmpeg -i out.ogv -loop_output 0 -pix_fmt rgb24 -r 5 -s 250x250 output.gif
+```
+
+`-loop_output` gif'in ne kadar tekrar edilecegini kontrol eder, 0
+degeri sonsuza kadar demektir. `-r` secenegi bir saniye icinde kac kare
+(frame) gosterilecegi.
 
 
--loop_output gif'in ne kadar tekrar edilecegini kontrol eder, 0 degeri sonsuza kadar demektir. -r secenegi bir saniye icinde kac kare (frame) gosterilecegi.
+Tek Görüntü (screenshot)
 
-
-Tek Goruntu
-
-
-Eger masaustundeki goruntuyu tek imaj olarak (screenshot) almak istiyorsak, secenekler sunlar. PRTSC, yani print screen dugmesi kullanilabilir. Bu ise yaramazsa, ImageMagick kurulur (apt-get install imagemagick), ve komut satirinda su girilir:
-
+Eğer masaüstündeki görüntüyü tek imaj olarak (screenshot) almak
+istiyorsak, seçenekler şunlar. PRTSC, yani print screen düğmesi
+kullanılabilir. Bu ise yaramazsa, İmageMagick kurulur (apt-get ınstall
+imagemagick), ve komut satırında şu girilir:
 
 import [dosya.png]
 
+Bu komutun hemen arkasından ekrandaki işaret (cursor) artı işaretine
+dönüşecek. Bu işaret ile hangi pencereye tıklanırsa onun görüntüsü
+dosya.png içine yazılır.
 
-Bu komutun hemen arkasindan ekrandaki isaret (cursor) arti isaretine donusecek. Bu isaret ile hangi pencereye tiklanirsa onun goruntusu dosya.png icine yazilir.
+Ya da Applications | Accessories | Take Screenshot programi
+baslatilir.
 
+Python İçinden
 
-Ya da Applications | Accessories | Take Screenshot programi baslatilir.
+Eğer bir Python programı içinde görüntü yaratıyorsak bu yaratılan
+görüntüleri `pyglet` ile yakalayabiliriz. Kurmak için `pip
+install`. Kod içinde
 
-
-
-
+```
+buffer = pyglet.image.get_buffer_manager().get_color_buffer()            
+image_data = buffer.get_image_data()
+image_data.save(filename='out.png')
+```
 
 
