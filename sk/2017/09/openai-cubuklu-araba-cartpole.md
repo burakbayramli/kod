@@ -93,5 +93,19 @@ print(env.observation_space.low)
 env.close()
 ```
 
+Alternatif bir yöntem (üstte yerine koyun)
+
+```
+import pyglet
+...
+...
+    env.render()
+    buffer = pyglet.image.get_buffer_manager().get_color_buffer()            
+    image_data = buffer.get_image_data()
+    if t % 10 == 0:
+        image_data.save(filename='/tmp/car-%04d.png' % t)
+```
+
+
 ![](Screenshot%2Bfrom%2B2017-09-14%2B13-50-00.png)
 ![](https://1.bp.blogspot.com/-CqgBg7345gc/XSMCYQgmbBI/AAAAAAAAB0s/e5qqzGvucLcZ9MseCOg-K2SDVI83I9ApwCLcBGAs/s1600/Screenshot%25252Bfrom%25252B2017-09-14%25252B13-50-00.png)
