@@ -3,10 +3,10 @@
 OpenAİ Gym altyapısı altında paylaşılan simülatörlerden biri aya iniş
 (lunar lander), bir diğeri, yine Gym altyapısı üzerinde yazılmış ama
 ayrı bir proje, rocket-lander. Her iki proje her ne kadar takviyeli
-ogrenim / yapay zeka için yazılmış olsa da, (matematiksel modelleme
+öğrenim / yapay zeka için yazılmış olsa da, (matematiksel modelleme
 içeren) kontrol teorisi amaçlı kullanılabilir. İniş problemi kolay
-değil; rüzgar, yerçekim etkileriyle boğuşurken en az yakıt harcayacak
-şekilde iniş yapmak ciddi bir optimizasyon problemi.
+değil; rüzgar, yerçekim etkileriyle boğuşurken en az yakıt harcayip ve
+yumuşak şekilde iniş yapmak ciddi bir optimizasyon problemi.
 
 <img width="400" src="https://1.bp.blogspot.com/-OIxLXQe2s7U/XSwvOIA8XQI/AAAAAAAAB1M/WNK70QseuswPtK7E7Zn1ogVhzqSGrE44ACLcBGAs/s1600/rocket-0100.png"/>
 
