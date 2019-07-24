@@ -11,7 +11,7 @@ sudo apt-get install mupdf-tools
 mutool poster -y 2 in.pdf out.pdf
 ```
 
-Önce pdfjam adlı program lazım, apt-get bunu kurar. Ardından
+Önce pdfjam adlı program lazım, `apt-get` bunu kurar. Ardından
 
 ```
 pdfjam -o cift.pdf --trim '14cm 0cm 0cm 0cm' --clip true --scale 1.0 dokuman.pdf
