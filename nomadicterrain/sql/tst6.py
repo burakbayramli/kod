@@ -32,4 +32,4 @@ for lonint in (range(int(longmin),int(longmax)+1)):
             print ('skipping...')
             continue
         
-print (count, total, count / total)
+print (count, total, count / total * 100.0, 'percent of data retrieved')
