@@ -2,8 +2,8 @@
 
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
+
 (load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
 
 (setq initial-scratch-message nil) ;; empty scratch buffer
 (setq max-specpdl-size 50000)
@@ -125,10 +125,6 @@ This command does not push erased text to kill-ring."
   ;; Your init file should contain only one such instance.
  '(archive-zip-extract (quote ("unzip" "-qq" "-c")))
  '(case-fold-search t)
- '(preview-scale-function 1.3)
- '(preview-image-type (quote dvipng)) 
- '(preview-LaTeX-command (quote ("%`%l -shell-escape \"\\nonstopmode\\nofiles\\PassOptionsToPackage{" ("," . preview-required-option-list) "}{preview}\\AtBeginDocument{\\ifx\\ifPreview\\undefined" preview-default-preamble "\\fi}\"%' %t")))
- '(preview-auto-cache-preamble nil)
  '(blink-cursor-mode nil)
  '(compilation-scroll-output t)
  '(current-language-environment "Turkish")
@@ -693,7 +689,7 @@ This command does not push erased text to kill-ring."
 (global-set-key "\C-x\q" 'query-replace)
 (global-set-key "\C-c\C-g" 'grep-find)
 (global-set-key "\C-x\g" 'goto-line)
-(global-set-key "\M-4" 'preview-at-point)
+(global-set-key "\M-4" 'org-preview-latex-fragment)
 (global-set-key [?\M-m] 'scroll-up)
 (global-set-key [?\C-,] 'scroll-up)
 (global-set-key [?\M-q] 'scroll-down)
