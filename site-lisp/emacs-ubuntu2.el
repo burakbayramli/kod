@@ -338,6 +338,7 @@ This command does not push erased text to kill-ring."
   (local-set-key [?\M-g] 'keyboard-quit)
   )
 (add-hook 'buffer-menu-mode-hook 'my-buffer-mode-hook)
+
 (defun my-c-mode-common-hook11 () 
   (local-unset-key "\C-d")
   (local-set-key "\C-d" 'forward-word)
@@ -349,6 +350,11 @@ This command does not push erased text to kill-ring."
   (local-set-key [?\M-g] 'keyboard-quit)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook11)
+
+(defun my-org-mode-hook () 
+  (local-set-key [?\M-e] 'move-end-of-line)
+  )
+(add-hook 'org-mode-hook 'my-org-mode-hook)
 
 ;; compilation mode buffer should wrap lines
 (defun my-compilation-mode-hook ()
