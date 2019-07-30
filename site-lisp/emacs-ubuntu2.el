@@ -340,7 +340,7 @@ This command does not push erased text to kill-ring."
 (add-hook 'buffer-menu-mode-hook 'my-buffer-mode-hook)
 
 (defun my-c-mode-common-hook11 () 
-  (local-unset-key "\C-d")
+  (local-unset-key "\C-c\C-c")
   (local-set-key "\C-d" 'forward-word)
   (local-set-key "\M-q" 'scroll-down)
   (local-set-key [?\M-j] 'backward-char)
@@ -493,8 +493,7 @@ This command does not push erased text to kill-ring."
                 ("\\.inc$" . nxml-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.pyx$" . python-mode)
-                ("\\.tld$" . nxml-mode)
-                ("\\.tld$" . nxml-mode)
+                ("\\.md$" . org-mode)
 		("\\.djvu\\'" . fundamental-mode)
 		)
 	      auto-mode-alist))
