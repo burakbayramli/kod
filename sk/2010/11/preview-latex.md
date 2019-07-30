@@ -2,10 +2,14 @@
 
 Emacs'de içinde LaTeX formlatlı matematik formülü olan herhangi bir
 dosyayı değiştirirken formüllerin görüntüsel, nihai halini görmek
-istersek, iki yöntem var. Birincisi `org-mode` içinde (herhangi bir
-dosyada iken `M-x org-mode` ile bu mod'a geçilir), ve sayfada
-`org-preview-latex-fragment` isletilir. Bu formulleri ayni buffer
-icinde resmeder. Benim `.emacs` icinde kullandigim ayarlar
+istersek, iki yöntem var.
+
+Org Mode
+
+Birincisi `org-mode` içinde (herhangi bir dosyada iken `M-x org-mode`
+ile bu mod'a geçilir), ve sayfada `org-preview-latex-fragment`
+işletilir. Bu formülleri aynı buffer içinde resmeder. Benim `.emacs`
+ıcinde kullandığım ayarlar
 
 ```
 (require 'org)
@@ -18,17 +22,28 @@ icinde resmeder. Benim `.emacs` icinde kullandigim ayarlar
 Böylece `M-4` ile anında gösterim oluyor. Eğer metin haline geri
 dönmek istersek `C-c C-c` ile bunu yapabiliriz.
 
+Eger bazi ek LaTeX komutlarini dahil etmek istersek, bunu dosyanin en
+basinda `#+LaTeX_HEADER: ` ibaresinden sonra koyarak
+yapabiliriz. Mesela yeni bir komut tanimlamak istedik, ve font seklini
+degistirmek istedik,
 
-Eger .tex dosyalarıni edit ederken, matematik formüllü bölgelerinin
+```
+#+LaTeX_HEADER: \newcommand{\ud}{\,\mathrm{d}}
+#+LaTeX_HEADER: \usepackage{palatino,eulervm}
+```
+
+TeX İçinde
+
+Eger .tex dosyalarını edit ederken, matematik formüllü bölgelerinin
 formülü grafik olarak göstermesini istiyorsak, `preview-latex` modu
-kullanılabilir. Kurmak için Ubuntu üzerinde sudo apt-get ınstall
-preview-latex ; Bu çağrı Emacs ayarlarını otomatik olarak
-yapar.Emacs'ı başlatınca .tex dosyası içindeyken menüde Preview
+kullanılabilir. Kurmak için Ubuntu üzerinde `sudo apt-get install
+preview-latex` ; Bu çağrı Emacs ayarlarını otomatik olarak
+yapar. Emacs'ı başlatınca .tex dosyası içindeyken menüde Preview
 seçeneği görülecektir. Üstünde olduğunüz noktayı, ya da tüm dosyayı
 grafiklettirmek yani preview yapmak mümkün. Bir tuş kombinasyonu
 grafik bölgeyi tekrar düz tex haline döndürebiliyor, arada hızla gidip
 gelinebiliyor.Eğer formüller ekran içinde ufak gözüküyorsa, imajları
-büyütmenin yolu basit. Ayar dosyası .emacs ıcinde
+büyütmenin yolu basit. Ayar dosyası .emacs icinde
 
 ```
 (custom-set-variables
