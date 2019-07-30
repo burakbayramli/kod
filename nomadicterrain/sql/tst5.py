@@ -5,10 +5,9 @@ import pandas as pd
 SROWS = 40000
 
 connmain = sqlite3.connect('/media/burak/Seagate Backup Plus Drive/archive/data/campdata/elev.db')
-conn1 = sqlite3.connect('/home/burak/Downloads/elev2.db')
-#conn1 = sqlite3.connect('/media/burak/Seagate Backup Plus Drive/archive/data/campdata/elev.db')
+conn1 = sqlite3.connect('/home/burak/Downloads/campdata/elev4.db')
 
-longmin,latmin,longmax,latmax =  2.553,56.15,31.833,71.5
+longmin,latmin,longmax,latmax =  16.967,45.5,26.5,49.85
 print (longmin,latmin,longmax,latmax)
 #norway
 for lonint in (range(int(longmin),int(longmax)+1)):
@@ -30,7 +29,9 @@ for lonint in (range(int(longmin),int(longmax)+1)):
 
         sql = "SELECT avg(elevation) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
         res = connmain.execute(sql)
+        if res==None: continue
         res = list(res)
+        if res[0][0]==None: continue
         print(res[0][0])
         if (res[0][0] < 0.0):
             print ('skipping sea...')

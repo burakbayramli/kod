@@ -4,11 +4,10 @@ import pandas as pd
 
 SROWS = 40000
 
-#connmain = sqlite3.connect('/media/burak/Seagate Backup Plus Drive/archive/data/campdata/elev.db')
-connmain = sqlite3.connect('/home/burak/Downloads/elev4.db')
+connmain = sqlite3.connect('/media/burak/Seagate Backup Plus Drive/archive/data/campdata/elev.db')
+#connmain = sqlite3.connect('/home/burak/Downloads/elev4.db')
 
-#longmin,latmin,longmax,latmax =  2.553,56.15,31.833,71.5
-longmin,latmin,longmax,latmax =  18.0,60.203,33.74,70.083
+longmin,latmin,longmax,latmax =  26.672,45.482,30.096,48.467
 print (longmin,latmin,longmax,latmax)
 count = 0
 total = 0

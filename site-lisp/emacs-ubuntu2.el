@@ -352,6 +352,7 @@ This command does not push erased text to kill-ring."
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook11)
 
 (defun my-org-mode-hook () 
+  (local-set-key [?\M-a] 'move-beginning-of-line)
   (local-set-key [?\M-e] 'move-end-of-line)
   )
 (add-hook 'org-mode-hook 'my-org-mode-hook)
@@ -875,6 +876,9 @@ This command does not push erased text to kill-ring."
 (fset 'tex-font-lock-suscript 'ignore)
 
 (setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
+
+(require 'org)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.3))
 
 (defun remove-newlines-in-region ()
   "Removes all newlines in the region."

@@ -1,18 +1,18 @@
 
 ```python
 import sqlite3
-conn = sqlite3.connect('/home/burak/Downloads/loogle2.db')
+conn = sqlite3.connect('/media/burak/1BC3-0618/archive/data/loogle3.db')
 c = conn.cursor()
-c.execute('''DELETE FROM BOOKS WHERE path like '%Data_Mining_Machine_Learning%';''')
+c.execute('''DELETE FROM BOOKS WHERE path like '%Roel Snieder%';''')
 conn.commit()
 conn.close()	
 ```
 
 ```python
 import sqlite3
-conn = sqlite3.connect('/home/burak/Downloads/loogle.db')
+conn = sqlite3.connect('/media/burak/1BC3-0618/archive/data/loogle3.db')
 c = conn.cursor()
-c.execute('''SELECT path FROM BOOKS;''')
+c.execute('''SELECT path FROM BOOKS WHERE path like '%Roel Snieder%';''')
 rows = c.fetchall()
 for i,r in enumerate(rows):
    path = r[0]
@@ -21,17 +21,8 @@ for i,r in enumerate(rows):
 ```
 
 ```text
-/Fundamentals of Numerical Weather Prediction Coiffier.pdf
-/Celestrak_Kelso.pdf
-/Numerical Weather and Climate Prediction Warner.pdf
-/Weather prediction by numerical process Lynch.pdf
-/Numerical_Meteorology.pdf
-/Understanding_GPS.pdf
-/Problem_Solving_Techniques_for_Applied_Computer_Science_Jia.pdf
-/Astronomical_Algorithms-Meeus.pdf
-/Mathematical_Theory_of_Communication_Shannon.pdf
-/An_Invitation_Biomathematics.pdf
-/GNSS Technology and Applications.pdf
+/Mostly Math Books/A Guided Tour of Mathematical Physics - Samizdat Press - 1998 - 267 pages (By Roel Snieder, Department Of Geophysics, Utrecht University, The Netherlands).pdf
+/Calculus_PDE_Differential_Geometry/A Guided Tour of Mathematical Physics - Samizdat Press - 1998 - 267 pages (By Roel Snieder, Department Of Geophysics, Utrecht University, The Netherlands).pdf
 ```
 
 
