@@ -351,6 +351,22 @@ This command does not push erased text to kill-ring."
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook11)
 
+(setq my-preview nil)
+(defun my-org-mode-latex-preview()
+  (interactive)
+  (if (equal my-preview nil)
+      (progn
+	(org-preview-latex-fragment)
+	(setq my-preview t)
+	)
+    (progn
+      (org-ctrl-c-ctrl-c)
+      (setq my-preview nil)
+      )
+    )
+  (message "%s" my-preview)
+  )
+  
 (defun my-org-mode-hook () 
   (local-set-key [?\M-a] 'move-beginning-of-line)
   (local-set-key [?\M-e] 'move-end-of-line)
@@ -695,7 +711,7 @@ This command does not push erased text to kill-ring."
 (global-set-key "\C-x\q" 'query-replace)
 (global-set-key "\C-c\C-g" 'grep-find)
 (global-set-key "\C-x\g" 'goto-line)
-(global-set-key "\M-4" 'org-preview-latex-fragment)
+(global-set-key "\M-4" 'my-org-mode-latex-preview)
 (global-set-key [?\M-m] 'scroll-up)
 (global-set-key [?\C-,] 'scroll-up)
 (global-set-key [?\M-q] 'scroll-down)
