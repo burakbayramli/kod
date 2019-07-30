@@ -33,7 +33,7 @@ if __name__ == "__main__":
     while True:
         print "Music Dir", sys.argv[1]
         os.chdir(sys.argv[1])
-        list = glob.glob("*.mp3")
+        list = glob.glob("*.m*")
         print '\n'
         idx = my_random(len(list))
         print "# of songs", len(list), 
