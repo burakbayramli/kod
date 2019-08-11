@@ -4,7 +4,7 @@ SROWS=40000
 
 S = 8 # RBF grid division
 
-params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+params = json.loads(open(os.environ['HOME'] + "Downloads/campdata/nomterr.conf").read())
 
 if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
