@@ -10,7 +10,7 @@ from PIL import Image
 import geopy.distance, route
 import pandas as pd, io
 
-params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
+params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/.nomadicterrain").read())
 
 def plot2(points,outfile,zfile,scale,map_retrieval_on,my_curr_location,pixel=False,bp=True):
     plt.figure()
