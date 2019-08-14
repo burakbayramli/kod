@@ -1139,7 +1139,7 @@ Bernard Thévenet:French cyclist:10/1/1948
 Afeni Shakur:mother of Tupac "2Pac" Shakur, member of the Black Panther Party:10/1/1947
 Rod Stewart:English singer:10/1/1945
 Edward Wiskoski:American professional wrestler:10/1/1945
-Frank Sinatra, Jr., American singer::10/1/1944
+Frank Sinatra, Jr., Son of Frank Sinatra::10/1/1944
 Rory Byrne:South African racing car designer:10/1/1944
 Bernard Derome:French Canadian news presenter (Le Téléjournal):10/1/1944
 Jim Croce:American singer:10/1/1943
