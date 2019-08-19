@@ -40,6 +40,12 @@
   (backward-delete-char)
   )
 
+(defun move-back-nine-chars ()  
+  (interactive)                  
+  (backward-char 9)              
+  (backward-delete-char)
+  )
+
 ;; set name of abbrev file with .el extension
 (setq abbrev-file-name "/home/burak/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
@@ -924,7 +930,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads/wind")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
-(find-file-other-window "/home/burak/Documents/classnotes/calc_multi/calc_multi_80")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_path")
 
 (switch-to-buffer "*scratch*")
