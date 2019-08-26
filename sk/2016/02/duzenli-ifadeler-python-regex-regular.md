@@ -191,6 +191,24 @@ içi doldurulur. Bu komut
 sonucunu verir, baştaki boş kelime kısmini filter ile çıkartabiliriz,
 mesela filter(None, res) gibi.
 
+Metin Değiştirmek
+
+`re.sub` ile duzenli ifadeler kullanip degistirme islemi de
+yapabiliriz. Mesela
+
+```
+line = '{\\em Bir kelime}'
+print (line)
+s = re.sub(r'{\\em (.*?)}', r'*\1*', line)
+print (s) 
+```
+
+Yani Dİ ile bir cümle içindeki bir kalıbı yakaladık, sonra uyan kalıba
+`\1` ile referans yaptık (Dİ'da kaç parantez varsa onlar numaralanır,
+ikinci, üçüncü parantezler `\2`,`\3` diye giderdi), ve uyan bölümü
+daha genel başka bir çıktı içinde kullandık.
+
+
 Tek Karakter Uyumu
 
 `\d` Tek haneli bir sayı
