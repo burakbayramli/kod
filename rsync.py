@@ -49,7 +49,6 @@ def ls(d,ignore_list=[]):
             path = os.path.join(root, directory)
             do_add = True
             for ignore in ignore_list:
-                print ('ig loop',ignore, path)
                 if ignore in path:
                     print ('ignoring', path); do_add = False
             if do_add: dirs.append(path)
@@ -57,8 +56,6 @@ def ls(d,ignore_list=[]):
             path = os.path.join(root,filename)
             do_add = True
             for ignore in ignore_list:
-                print ('----',ignore)
-                print (path)
                 if ignore in path: do_add = False
             if do_add: files.append((path, os.path.getsize(path)))
     return dirs, files
