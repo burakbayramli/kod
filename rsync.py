@@ -41,15 +41,26 @@ def getstatusoutput(cmd):
     if text[-1:] == '\n': text = text[:-1]
     return sts, text
         
-def ls(d):
+def ls(d,ignore_list=[]):
+    print ('ls ignore lst', ignore_list)
     dirs = []; files = []
     for root, directories, filenames in os.walk(d):
         for directory in directories:
             path = os.path.join(root, directory)
-            if ".git" not in path: dirs.append(path)
+            do_add = True
+            for ignore in ignore_list:
+                print ('ig loop',ignore, path)
+                if ignore in path:
+                    print ('ignoring', path); do_add = False
+            if do_add: dirs.append(path)
         for filename in filenames: 
             path = os.path.join(root,filename)
-            if ".git" not in path and "usb60" not in path: files.append((path, os.path.getsize(path)))
+            do_add = True
+            for ignore in ignore_list:
+                print ('----',ignore)
+                print (path)
+                if ignore in path: do_add = False
+            if do_add: files.append((path, os.path.getsize(path)))
     return dirs, files
 
 def purge(dir, pattern, inclusive=True):
@@ -60,8 +71,12 @@ def purge(dir, pattern, inclusive=True):
             if bool(regexObj.search(path)) == bool(inclusive):
                 os.remove(path)
                 
-def copy_files_and_dirs(fr,to):    
-    frdirs,frfiles =  ls(fr)
+def copy_files_and_dirs(fr,to,ignore_list):
+    if ignore_list == None:
+        ignore_list = []
+    else:
+        ignore_list = ignore_list.split(',')
+    frdirs,frfiles =  ls(fr,ignore_list)
     todirs,tofiles = ls(to)
 
     tofilesdict = dict(tofiles)
@@ -85,12 +100,11 @@ def copy_files_and_dirs(fr,to):
             
     return frdirs, todirs
 
-def del_not_in_from(fr, to, frdirs, todirs, skip):
+def del_not_in_from(fr, to, frdirs, todirs):
     print ('b files not in a')
     frdirs_tmp = dict([(x.replace(to,fr),0) for x in frdirs])
     diff = [x for x in todirs if x.replace(to,fr) not in frdirs_tmp]    
     for x in diff:
-        if x and skip and x in skip: continue
         print ('deleting directory %s' % x)
         if os.path.isdir(x): deleteDir("'%s'" % x)
 
@@ -111,7 +125,7 @@ if __name__ == "__main__":
     parser.add_argument('fr', type=str, help='xx.')
     parser.add_argument('to', type=str, help='xx.')
     parser.add_argument('--delete', type=bool, nargs="?", help='delete the target subdir if it does not exist in source.')
-    parser.add_argument('--skip', type=bool, nargs="?", help='skip this subdir.')
+    parser.add_argument('--ignore-list', type=str, nargs="?", help='do not copy this pattern, comma seperated list')
 
     args = parser.parse_args()
     print (args.fr)
@@ -119,6 +133,6 @@ if __name__ == "__main__":
     
     is_delete = args.delete
 
-    frdirs, todirs = copy_files_and_dirs(args.fr, args.to)
-    if is_delete: del_not_in_from(args.fr, args.to, frdirs, todirs, args.skip)
+    frdirs, todirs = copy_files_and_dirs(args.fr, args.to, args.ignore_list)
+    if is_delete: del_not_in_from(args.fr, args.to, frdirs, todirs)
     
