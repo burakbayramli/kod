@@ -51,7 +51,7 @@ def convert():
               ("amaci",u"amacı"),("sarsim",u"sarsım"),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
               (" Yani ",), ("entegrali",), ("sistem",),("invertible",),
-              ("sistemi",), ("araci",u"aracı"),("agaci",u"ağacı"),
+              ("sistemi",), ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
               ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",) ]
               
     dict = {}; r_list_coded = []

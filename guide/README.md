@@ -93,3 +93,6 @@ In sum, `mindmeld` calculates the following:
 * Chinese Astrology
 
 * Myers-Briggs Test
+
+
+
