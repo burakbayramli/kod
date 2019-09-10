@@ -25,9 +25,11 @@ print mindmeld.describe(res)
 
 The result will look like:
 
-``` {'millman': [28, 10, 2, 8, 1, 0], 'chinese': 'Monkey', 'lewi':
+```
+{'millman': [28, 10, 2, 8, 1, 0], 'chinese': 'Monkey', 'lewi':
 [136, 161, 163, 183, 196, 199, 211, 214, 216, 235, 243, 246, 272,
-276], 'spiller': 'Aries', 'cycle': 2} ```
+276], 'spiller': 'Aries', 'cycle': 2}
+```
 
 The details of the reading results can be found under the `doc/details` folder. 
 For Millman it is at `millman/2810.txt` for example, or for Chinese
