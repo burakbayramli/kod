@@ -37,21 +37,7 @@ For Millman it is at `millman/2810.txt` for example, or for Chinese
 
 ## MBTI Test
 
-You can also take the MBTI test under
-`../nomadicterrain/static/mbti_en.html` and once you answer all
-questions, you can hit the evaluate button and the radiobutton input
-(represented as -1,0,+1 values) will be displayed in a
-messagebox. Copy these results to clipboard, and from there paste it
-in Python code like this,
-
-```
-ans = ":1:-1:-1:1:0:0:0:1:0:-1:0:0:-1:-1:1:-1:0:0:1:1:-1:1:1:1:0:0:0:-1:1:0:1:1:0:0:0:0:0:1:-1:-1:1:1:1:1:1:1:-1:1:1:1:0:-1:-1:-1:-1:1:0:0:0:0:-1:0:0:-1:0:-1:-1:-1:0:0"
-ans = ans.split(":")[1:]
-print mindmeld.calculate_mb(ans)
-```
-
-Run this code and you will get the MBTI result of the questionaire.
-
+You can also take the MBTI test under `../nomadicterrain/ui/static/mbti_en.html`.
 
 # Blood Type Diet
 

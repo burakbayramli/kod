@@ -2,33 +2,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://muratk3n.github.io/thirdwave/en/2019/08/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
-    function test_settings() {
-        // check arbitrary radio buttons automatically for testing
-        var input = [1, -1, -1, 1, 0, 0, 0,
-         1, 0, -1, 0, 0, -1, -1,
-         1, -1, 0, 0, 1, 1, -1,
-         1, 1, 1, 0, 0, 0, -1,
-         1, 0, 1, 1, 0, 0,0,
-         0, 0, 1, -1, -1, 1,1,
-         1, 1, 1, 1, -1, 1,1,
-         1, 0, -1, -1, -1, -1,1,
-         0, 0, 0, 0, -1, 0,0,
-         -1, 0, -1, -1, -1, 0, 0];
-
-
-        for (var i=0;i<70;i++){
-          var j = i+1;
-          if (input[i] == -1)
-            $('input[name=group'+j+']:eq(0)').attr('checked', 'checked');    
-          if (input[i] == 0)
-            $('input[name=group'+j+']:eq(1)').attr('checked', 'checked');    
-          if (input[i] == 1)
-            $('input[name=group'+j+']:eq(2)').attr('checked', 'checked');    
-        }
-     }
-
      function calculate_mbti(input) { 
          var mbti = "";
          var res = [];
@@ -65,7 +40,7 @@
          var j = i+1;
          res = $("input[name='group"+j+"']:checked").val();
          if (res == undefined) {
-           	$('#mbtierror').html("Soru " + j + " cevaplanmamis");
+           	$('#mbtierror').html("Question " + j + " not answered");
            	return;
            }
        }    
@@ -766,7 +741,7 @@
         <br/>
         
         <div id="mbtiresult">
-          Myers-Briggs Psikolojik Tipiniz <a href=""></a>
+          Your Myers-Briggs Type <a href=""></a>
         </div>
 
         <br/>        
@@ -774,7 +749,7 @@
           <div id="mbtires"></div>
         </font>        
         <br/>
-        <a href="https://github.com/burakbayramli/kod/blob/master/guide/doc/details/mbti">All Types</a>
+        <a href="https://www.personalityperfect.com/16-personality-types/">All Types</a>
         <br/>
                         
         </form>
@@ -783,9 +758,7 @@
     </div>
 
     <input onclick="evaluate_mbti()" type="button" value="Evaluate" id="mbtibutton"/>
-    
-    <input onclick="test_settings()" type="button" value="Test" id="mbtibutton"/>
-    
+        
   </body>  
   
 </html>
