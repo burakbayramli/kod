@@ -51,7 +51,7 @@ Ama tüm bu kodlara gerek yok, simülatör için iki dosya yeterli
 (`rocketlander.py` ve `constants.py`), bu dosyaları biz aldık, ve
 alttaki dizinde bulunabilir ,
 
-[https://github.com/burakbayramli/classnotes/tree/master/phy/phy_lander](https://github.com/burakbayramli/classnotes/tree/master/phy/phy_lander)
+[https://github.com/burakbayramli/kod/tree/master/sk/2019/07](https://github.com/burakbayramli/kod/tree/master/sk/2019/07)
 
 Kontrol için taslak bir kod (sabit kontrol veriliyor). Kodda mesela
 rüzgar etkisi nasıl eklenir görüyoruz,
