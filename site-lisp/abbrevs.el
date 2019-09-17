@@ -10,6 +10,7 @@
     ("9v" "\\vec{}" move-back-one-char 0)
     ("9b" "\\left(\\right)" move-back-seven-chars 0)
     ("9L" "\\mathcal{L}\\bigg( \\bigg)" move-back-seven-chars 0)
+    ("9H" "\\mathcal{H}\\bigg( \\bigg)" move-back-seven-chars 0)
     ("9u" "ustteki" nil 1)
     ("9U" "Ustteki" nil 1)
     ("9o" "o zaman" nil 1)

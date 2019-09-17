@@ -39,7 +39,8 @@ En basit örnek için gereken dosyalar `css/reveal.css`,
 
 Bu kod iki sayfalık bir prezentasyon yaratır, büyük ekranda slaytlar
 gösterilir, birincisinde alt içerik ana başlıktan sonra gösterilir,
-kayış, geçiş gayet güzel. 
+kayış, geçiş gayet güzel. MathJax desteğini de HTML içine rahatça
+ekleyebiliriz böylece matematik içerikli prezentasyonlar yaratmış oluruz. 
 
 Fikri [şuradaki arkadaştan](https://mec560sbu.github.io/Prersentations/Pres_SystemDynamics.html#/1) aldık. 
 
