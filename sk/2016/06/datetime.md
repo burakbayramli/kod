@@ -40,6 +40,19 @@ Sonuc
 2017-04-14
 ```
 
+Yilin haftasini bulmak
+
+```
+import datetime
+print (datetime.date(2019, 1, 4).isocalendar()[1])
+now = datetime.datetime.now()
+print (datetime.date(now.year, now.month, now.day).isocalendar()[1])
+````
+
+İlk sonuç 1 olacaktır, çünkü Ocak 4'ün yılın kaçınci haftası olduğuna
+baktık, ve sonuç tabii ki 1. İkinci işlem içinde olduğumu güne göre
+hafta hesabı yapar.
+
 String verisi ile tarih yaratmak,
 
 ```
