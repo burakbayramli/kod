@@ -42,7 +42,6 @@ plt.savefig('/tmp/linear_app88rbf_03.png')
 ```
 
 
-
 ```python
 import autograd.numpy as anp
 def dist_matrix(X, Y):
@@ -56,10 +55,16 @@ def dist_matrix(X, Y):
 test_1 = anp.array([[36.0,32.0]])
 
 test_1_dist = dist_matrix(test_1, rbfi.xi.T)
-def gaussian(r,eps): return anp.exp(-(r/eps)**2)
-gs = gaussian(test_1_dist, rbfi.epsilon)
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
-print (anp.dot(gs, nodes.T))
+def gaussian(r,eps): return anp.exp(-(r/eps)**2)
+
+def f_interp(newp, rbfi):
+    nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
+    newp_dist = dist_matrix(newp, rbfi.xi.T)
+    return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
+
+
+print (f_interp(test_1,rbfi))
 ```
 
 ```text
