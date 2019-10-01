@@ -53,6 +53,7 @@ def dist_matrix(X, Y):
     return D
     
 test_1 = anp.array([[36.0,32.0]])
+test_2 = anp.array([[36.0,32.0],[36.1,31.9]])
 
 test_1_dist = dist_matrix(test_1, rbfi.xi.T)
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
@@ -63,19 +64,32 @@ def f_interp(newp, rbfi):
     newp_dist = dist_matrix(newp, rbfi.xi.T)
     return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
 
+print (f_interp(test_2,rbfi))
 
-print (f_interp(test_1,rbfi))
+test_3 = np.column_stack((xx.ravel(), yy.ravel()))
+znewnew = f_interp(test_3,rbfi).reshape(xx.shape)
+print (znewnew.shape)
+print (znew.shape)
 ```
 
 ```text
-[[0.00358205]]
+[[0.00358205]
+ [0.00067651]]
+(10, 10)
+(10, 10)
 ```
 
+```python
 
+xx = xx.reshape(D,D)
+yy = yy.reshape(D,D)
 
-
-
-
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.view_init(elev=29, azim=29)
+surf = ax.plot_surface(xx, yy, znewnew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
+plt.savefig('/tmp/linear_app88rbf_04.png')
+```
 
 
 
