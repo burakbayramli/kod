@@ -1,4 +1,6 @@
 
+https://stackoverflow.com/questions/12600989/get-the-formula-of-a-interpolation-function-created-by-scipy
+
 ```python
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
@@ -40,10 +42,46 @@ plt.savefig('/tmp/linear_app88rbf_03.png')
 ```
 
 
+
+```python
+import autograd.numpy as anp
+def dist_matrix(X, Y):
+    sx = anp.sum(X**2, 1)
+    sy = anp.sum(Y**2, 1)
+    D2 =  sx[:, np.newaxis] - 2.0*X.dot(Y.T) + sy[np.newaxis, :] 
+    D2[D2 < 0] = 0
+    D = anp.sqrt(D2)
+    return D
+    
+test_1 = anp.array([[36.0,32.0]])
+
+test_1_dist = dist_matrix(test_1, rbfi.xi.T)
+def gaussian(r,eps): return anp.exp(-(r/eps)**2)
+gs = gaussian(test_1_dist, rbfi.epsilon)
+nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
+print (anp.dot(gs, nodes.T))
+```
+
+```text
+[[0.00358205]]
+```
+
+
+
+
+
+
+
+
+
+
+
+
 ```python
 print (rbfi.epsilon)
 print (rbfi.smooth)
 print (rbfi.xi.shape)
+print (rbfi.di.shape)
 print (rbfi.A.shape)
 print (rbfi.norm)
 print (rbfi.xi)
@@ -54,8 +92,9 @@ print (rbfi.A)
 0.1
 0.0
 (2, 100)
+(100,)
 (100, 100)
-<bound method Rbf._euclidean_norm of <scipy.interpolate.rbf.Rbf object at 0x7ff5f5042518>>
+<bound method Rbf._euclidean_norm of <scipy.interpolate.rbf.Rbf object at 0x7f9f7ff31278>>
 [[36.         36.11111111 36.22222222 36.33333333 36.44444444 36.55555556
   36.66666667 36.77777778 36.88888889 37.         36.         36.11111111
   36.22222222 36.33333333 36.44444444 36.55555556 36.66666667 36.77777778
