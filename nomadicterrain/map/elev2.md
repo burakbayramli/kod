@@ -50,7 +50,9 @@ edict = {}
 
 edict[(36,32)] = create_rbfi_hills(36,32)
 edict[(36,33)] = create_rbfi_hills(36,33)
+```
 
+```python
 def dist_matrix(X, Y):
     sx = np.sum(X**2, 1)
     sy = np.sum(Y**2, 1)
@@ -87,11 +89,31 @@ ax = fig.gca(projection='3d')
 ax.view_init(elev=60, azim=120)
 surf = ax.plot_surface(xx, yy, zz, cmap=cm.coolwarm)
 
-
-
 plt.savefig('/tmp/linear_app88rbf_07.png')
 ```
 
+```python
+a0,b0=(36.0,32.0)
+ex,ey=(36.4,34.0)
+a1,a2,a3 = 0.5, 0.1, 1.0
+b1,b2,b3 = 0.3, 0.4, 5.3
+a4 = ex - a0 - (a1+a2+a3)
+b4 = ey - b0 - (b1+b2+b3)
+
+t = np.linspace(0,1.0,300)
+xl = 36.0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+yl = 32.0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+zl = [rbfi_combo(xxx,yyy)  for xxx,yyy in zip(xl,yl)]
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.view_init(elev=60, azim=30)
+strides = 10
+surf = ax.plot_wireframe(xx, yy, zz,rstride=strides, cstride=strides)
+ax.plot3D(xl, yl, zl,'r.')	
+
+plt.savefig('/tmp/linear_app88rbf_08.png')
+```
 
 
 
