@@ -1,6 +1,5 @@
 
 ```python
-
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -86,7 +85,7 @@ zz = np.array(zz).reshape(D,D)
 
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.view_init(elev=60, azim=120)
+ax.view_init(elev=60, azim=30)
 surf = ax.plot_surface(xx, yy, zz, cmap=cm.coolwarm)
 
 plt.savefig('/tmp/linear_app88rbf_07.png')
@@ -95,7 +94,9 @@ plt.savefig('/tmp/linear_app88rbf_07.png')
 ```python
 a0,b0=(36.0,32.0)
 ex,ey=(36.4,34.0)
-a1,a2,a3 = 0.5, 0.1, 1.0
+#a1,a2,a3 = 0.5, 0.1, 1.0
+#b1,b2,b3 = 0.3, 0.4, 5.3
+a1,a2,a3 = 0.5, 3.1, 1.0
 b1,b2,b3 = 0.3, 0.4, 5.3
 a4 = ex - a0 - (a1+a2+a3)
 b4 = ey - b0 - (b1+b2+b3)
@@ -116,7 +117,30 @@ plt.savefig('/tmp/linear_app88rbf_08.png')
 ```
 
 
+```python
+def trapz(y, dx):
+    vals = np.nan_to_num(y[1:-1],0)
+    tmp = np.sum(vals*2.0)    
+    return (y[0]+tmp+y[-1])*(dx/2.0)
 
+def intval(t,a0,a1,a2,a3,a4,b0,b1,b2,b3,b4):
+   sq = np.sqrt(b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2)
+   x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+   y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+   x = np.array(x)
+   y = np.array(y)   
+   z = [rbfi_combo(xxx,yyy)  for xxx,yyy in zip(x,y)]
+   res = z * sq
+   T = trapz(res, 1.0/len(t))
+   return T
+
+T1 = intval(t,a0,a1,a2,a3,a4,b0,b1,b2,b3,b4)
+print (T1)
+```
+
+```text
+0.33958108536124143
+```
 
 
 
