@@ -1,0 +1,184 @@
+
+https://stackoverflow.com/questions/12600989/get-the-formula-of-a-interpolation-function-created-by-scipy
+
+```python
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+from matplotlib import cm
+
+np.random.seed(0)
+
+def func(x, y):
+    s1 = 0.2; x1 = 36.5; y1 = 32.5
+    s2 = 0.4; x2 = 36.1; y2 = 32.8
+    g1 = np.exp( -4 *np.log(2) * ((x-x1)**2+(y-y1)**2) / s1**2)
+    g2 = np.exp( -2 *np.log(2) * ((x-x2)**2+(y-y2)**2) / s2**2)    
+    return g1 + g2 
+
+D = 100
+gamma = 2.0
+
+x = np.linspace(36,37,D)
+y = np.linspace(32,33,D)
+
+xx,yy = np.meshgrid(x,y)
+zz = func(xx,yy)
+print (zz.shape)
+```
+
+```text
+(100, 100)
+```
+
+```python
+from scipy.interpolate import Rbf
+
+S = 100
+idx = np.random.choice(range(D*D),S)
+xxx = xx.reshape(D*D)
+yyy = yy.reshape(D*D)
+zzz = zz.reshape(D*D)
+xr = xxx[idx].reshape(S,1)
+yr = yyy[idx].reshape(S,1)
+zr = zzz[idx].reshape(S,1)
+print (xr.shape)
+
+
+rbfi = Rbf(xr,yr,zr,function='gaussian')
+xx1,yy1 = np.meshgrid(xr,yr)
+znew = rbfi(xx1,yy1)
+print (znew.shape)
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.view_init(elev=29, azim=29)
+surf = ax.plot_surface(xx1, yy1, znew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
+plt.savefig('/tmp/linear_app88rbf_03.png')
+```
+
+```text
+(100, 1)
+(100, 100)
+```
+
+```python
+import autograd.numpy as anp
+def dist_matrix(X, Y):
+    sx = anp.sum(X**2, 1)
+    sy = anp.sum(Y**2, 1)
+    D2 =  sx[:, np.newaxis] - 2.0*X.dot(Y.T) + sy[np.newaxis, :] 
+    D2[D2 < 0] = 0
+    D = anp.sqrt(D2)
+    return D
+    
+test_1 = anp.array([[36.0,32.0]])
+test_2 = anp.array([[36.0,32.0],[36.1,31.9]])
+test_1_dist = dist_matrix(test_1, rbfi.xi.T)
+print (test_1_dist)
+
+nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
+def gaussian(r,eps): return anp.exp(-(r/eps)**2)
+
+def f_interp(newp, rbfi):
+    nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
+    newp_dist = dist_matrix(newp, rbfi.xi.T)
+    return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
+
+print (f_interp(test_2,rbfi))
+
+test_3 = np.column_stack((xx.ravel(), yy.ravel()))
+znewnew = f_interp(test_3,rbfi).reshape(xx.shape)
+print (znewnew.shape)
+print (znew.shape)
+```
+
+```text
+[[0.00358205]
+ [0.00067651]]
+(10, 10)
+(10, 10)
+```
+
+```python
+
+xx = xx.reshape(D,D)
+yy = yy.reshape(D,D)
+
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.view_init(elev=29, azim=29)
+surf = ax.plot_surface(xx, yy, znewnew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
+plt.savefig('/tmp/linear_app88rbf_04.png')
+```
+
+
+
+
+
+
+```python
+print (rbfi.epsilon)
+print (rbfi.smooth)
+print (rbfi.xi.shape)
+print (rbfi.di.shape)
+print (rbfi.A.shape)
+print (rbfi.norm)
+print (rbfi.xi)
+print (rbfi.A)
+```
+
+```text
+0.1
+0.0
+(2, 100)
+(100,)
+(100, 100)
+<bound method Rbf._euclidean_norm of <scipy.interpolate.rbf.Rbf object at 0x7f9f7ff31278>>
+[[36.         36.11111111 36.22222222 36.33333333 36.44444444 36.55555556
+  36.66666667 36.77777778 36.88888889 37.         36.         36.11111111
+  36.22222222 36.33333333 36.44444444 36.55555556 36.66666667 36.77777778
+  36.88888889 37.         36.         36.11111111 36.22222222 36.33333333
+  36.44444444 36.55555556 36.66666667 36.77777778 36.88888889 37.
+  36.         36.11111111 36.22222222 36.33333333 36.44444444 36.55555556
+  36.66666667 36.77777778 36.88888889 37.         36.         36.11111111
+  36.22222222 36.33333333 36.44444444 36.55555556 36.66666667 36.77777778
+  36.88888889 37.         36.         36.11111111 36.22222222 36.33333333
+  36.44444444 36.55555556 36.66666667 36.77777778 36.88888889 37.
+  36.         36.11111111 36.22222222 36.33333333 36.44444444 36.55555556
+  36.66666667 36.77777778 36.88888889 37.         36.         36.11111111
+  36.22222222 36.33333333 36.44444444 36.55555556 36.66666667 36.77777778
+  36.88888889 37.         36.         36.11111111 36.22222222 36.33333333
+  36.44444444 36.55555556 36.66666667 36.77777778 36.88888889 37.
+  36.         36.11111111 36.22222222 36.33333333 36.44444444 36.55555556
+  36.66666667 36.77777778 36.88888889 37.        ]
+ [32.         32.         32.         32.         32.         32.
+  32.         32.         32.         32.         32.11111111 32.11111111
+  32.11111111 32.11111111 32.11111111 32.11111111 32.11111111 32.11111111
+  32.11111111 32.11111111 32.22222222 32.22222222 32.22222222 32.22222222
+  32.22222222 32.22222222 32.22222222 32.22222222 32.22222222 32.22222222
+  32.33333333 32.33333333 32.33333333 32.33333333 32.33333333 32.33333333
+  32.33333333 32.33333333 32.33333333 32.33333333 32.44444444 32.44444444
+  32.44444444 32.44444444 32.44444444 32.44444444 32.44444444 32.44444444
+  32.44444444 32.44444444 32.55555556 32.55555556 32.55555556 32.55555556
+  32.55555556 32.55555556 32.55555556 32.55555556 32.55555556 32.55555556
+  32.66666667 32.66666667 32.66666667 32.66666667 32.66666667 32.66666667
+  32.66666667 32.66666667 32.66666667 32.66666667 32.77777778 32.77777778
+  32.77777778 32.77777778 32.77777778 32.77777778 32.77777778 32.77777778
+  32.77777778 32.77777778 32.88888889 32.88888889 32.88888889 32.88888889
+  32.88888889 32.88888889 32.88888889 32.88888889 32.88888889 32.88888889
+  33.         33.         33.         33.         33.         33.
+  33.         33.         33.         33.        ]]
+[[1.00000000e+00 2.90960459e-01 7.16697504e-03 ... 1.98800048e-70
+  1.80271088e-78 1.38389653e-87]
+ [2.90960459e-01 1.00000000e+00 2.90960459e-01 ... 1.85598660e-63
+  1.98800048e-70 1.80271088e-78]
+ [7.16697504e-03 2.90960459e-01 1.00000000e+00 ... 1.46690211e-57
+  1.85598660e-63 1.98800048e-70]
+ ...
+ [1.98800048e-70 1.85598660e-63 1.46690211e-57 ... 1.00000000e+00
+  2.90960459e-01 7.16697504e-03]
+ [1.80271088e-78 1.98800048e-70 1.85598660e-63 ... 2.90960459e-01
+  1.00000000e+00 2.90960459e-01]
+ [1.38389653e-87 1.80271088e-78 1.98800048e-70 ... 7.16697504e-03
+  2.90960459e-01 1.00000000e+00]]
+```
