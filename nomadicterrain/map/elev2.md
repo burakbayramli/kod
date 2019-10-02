@@ -71,7 +71,7 @@ zz = np.array(zz).reshape(D,D)
 ```python
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.view_init(elev=60, azim=120)
+ax.view_init(elev=6	0, azim=120)
 surf = ax.plot_surface(xx, yy, zz, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 plt.savefig('/tmp/linear_app88rbf_07.png')
 ```
