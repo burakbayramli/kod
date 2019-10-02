@@ -1,6 +1,4 @@
-import pandas as pd
-import numpy as np
-import autograd
+import numpy as np, autograd
 from autograd import numpy as anp
 from scipy import optimize
 from mpl_toolkits.mplot3d import Axes3D
@@ -113,7 +111,7 @@ def find_path(ex,ey,a0,b0):
 	  {'type': 'ineq','fun': lambda x: x[5]},
     )
 
-
+    # baslangic degerleri
     a1,a2,a3 = 0.5,1.0,2.0
     b1,b2,b3 = 0.5,1.0,2.0
     x0 = a1,a2,a3,b1,b2,b3
@@ -122,7 +120,7 @@ def find_path(ex,ey,a0,b0):
         a1,a2,a3,b1,b2,b3 = p
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)   
-        t = np.linspace(0,1,100)
+        t = anp.linspace(0,1,100)
         tmp = b1 + 2.0*b2*t + 3.0*b3*t**2.0 - 112.0*t**3.0 + (a1 + 2.0*a2*t + 3.0*a3*t**2.0 - 65.2*t**3.0)**2.0
         sq = [anp.sqrt(_) if _ != anp.nan else 0.0 for _ in tmp]
         x = a0 + a1*t + a2*t**2.0 + a3*t**3.0 + a4*t**4.0
