@@ -71,7 +71,6 @@ def f_interp(x,y, rbfi):
     return res+OFFSET
 
 def rbfi_combo(x,y):
-    if np.isnan(x): return 0.0
     xint = int(x)
     yint = int(y)
     rbfi = edict.get((xint,yint))
