@@ -1,7 +1,6 @@
 
-
-
 ```python
+
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -51,30 +50,57 @@ edict = {}
 
 edict[(36,32)] = create_rbfi_hills(36,32)
 edict[(36,33)] = create_rbfi_hills(36,33)
-```
 
-```python
+def dist_matrix(X, Y):
+    sx = np.sum(X**2, 1)
+    sy = np.sum(Y**2, 1)
+    D2 =  sx[:, np.newaxis] - 2.0*X.dot(Y.T) + sy[np.newaxis, :] 
+    D2[D2 < 0] = 0
+    D = np.sqrt(D2)
+    return D
+
+def gaussian(r,eps): return np.exp(-(r/eps)**2)
+
+def f_interp(x,y, rbfi):
+    newp = np.array([[x,y]])
+    nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
+    newp_dist = dist_matrix(newp, rbfi.xi.T)
+    res = np.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
+    res = np.float(res[[0]])
+    return res
+
 def rbfi_combo(x,y):
     xint = int(x)
     yint = int(y)
     rbfi = edict.get((xint,yint))
     if not rbfi: return 0.0
-    return rbfi(x,y)
+    return f_interp(x,y, rbfi)
 
 x = np.linspace(36,37,D)
 y = np.linspace(32,34,D)
 xx,yy = np.meshgrid(x,y)
 zz = [rbfi_combo(xxx,yyy)  for xxx,yyy in zip(xx.flatten(),yy.flatten())]
 zz = np.array(zz).reshape(D,D)
-```
 
-```python
 fig = plt.figure()
 ax = fig.gca(projection='3d')
-ax.view_init(elev=6	0, azim=120)
-surf = ax.plot_surface(xx, yy, zz, cmap=cm.coolwarm,linewidth=0, antialiased=False)
+ax.view_init(elev=60, azim=120)
+surf = ax.plot_surface(xx, yy, zz, cmap=cm.coolwarm)
+
+
+
 plt.savefig('/tmp/linear_app88rbf_07.png')
 ```
+
+
+
+
+
+
+
+
+
+
 
 
 
