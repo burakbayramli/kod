@@ -70,8 +70,10 @@ def f_interp(x,y,rbfi,offset=0):
     return res+offset
 
 def rbfi_combo(x,y,offset=0):
-    xint = int(x)
-    yint = int(y)
+    xint,yint=None,None
+    if '36.' in str(type(x)): xint = 36 
+    if '32.' in str(type(y)): yint = 32 
+    if '33.' in str(type(y)): yint = 33 
     rbfi = edict.get((xint,yint))
     if not rbfi: return 0.0
     return f_interp(x,y,rbfi,offset)
@@ -115,8 +117,8 @@ def find_path(ex,ey,a0,b0):
     )
 
     # baslangic degerleri
-    a1,a2,a3 = 0,0,0
-    b1,b2,b3 = 0,0,0
+    a1,a2,a3 = 3.0,2.0,1.0
+    b1,b2,b3 = 1.0,2.0,3.0
     x0 = a1,a2,a3,b1,b2,b3
 
     def pintval(p):
@@ -137,13 +139,16 @@ def find_path(ex,ey,a0,b0):
         return T
 
     pintval_grad = autograd.grad(pintval)
+    pintval_hess = autograd.hessian(pintval)
     
     sol = optimize.minimize(pintval,
 			    x0,
 			    jac = pintval_grad,
-			    method = 'COBYLA',
-			    callback=print,
-			    tol=0.000001,
+			    hess = pintval_hess,
+			    #method = 'COBYLA',
+			    method = 'Newton-CG',
+			    #method = 'SLSQP',
+			    tol=0.001,
 			    constraints=cons)
 
     return sol.x
