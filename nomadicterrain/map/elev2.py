@@ -1,12 +1,15 @@
-import numpy as np, autograd
+import matplotlib.pyplot as plt
+import numpy as np
 from autograd import numpy as anp
 from scipy import optimize
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 from matplotlib import cm
+import autograd
 
 np.random.seed(0)
 OFFSET = 10.0
+S = 50
+D = 100
 
 def func1(x, y):
     s1 = 0.2; x1 = 36.5; y1 = 32.5
@@ -21,9 +24,6 @@ def func2(x, y):
     g1 = np.exp( -4 *np.log(2) * ((x-x1)**2+(y-y1)**2) / s1**2)
     g2 = np.exp( -2 *np.log(2) * ((x-x2)**2+(y-y2)**2) / s2**2)	   
     return g1 + g2 
-
-S = 50
-D = 100
 
 def create_rbfi_hills(latint,lonint):
     x = np.linspace(latint,latint+1,D)
@@ -146,7 +146,6 @@ def find_path(ex,ey,a0,b0):
 
 a0,b0=(36.0,32.0)
 ex,ey=(36.4,34.0)
-
 res = find_path(ex,ey,a0,b0)
 print (res)
 
