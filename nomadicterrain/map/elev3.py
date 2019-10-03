@@ -100,12 +100,12 @@ def intval(t,a0,a1,a2,a3,a4,b0,b1,b2,b3,b4):
 
 def find_path(ex,ey,a0,b0):
     
-    cons=({'type': 'ineq','fun': lambda x: 30.0-x[0]}, # y<30
-	  {'type': 'ineq','fun': lambda x: 30.0-x[1]},
-	  {'type': 'ineq','fun': lambda x: 30.0-x[2]},
-	  {'type': 'ineq','fun': lambda x: 30.0-x[3]},
-	  {'type': 'ineq','fun': lambda x: 30.0-x[4]},
-	  {'type': 'ineq','fun': lambda x: 30.0-x[5]},
+    cons=({'type': 'ineq','fun': lambda x: 3.0-x[0]}, # y<30
+	  {'type': 'ineq','fun': lambda x: 3.0-x[1]},
+	  {'type': 'ineq','fun': lambda x: 3.0-x[2]},
+	  {'type': 'ineq','fun': lambda x: 3.0-x[3]},
+	  {'type': 'ineq','fun': lambda x: 3.0-x[4]},
+	  {'type': 'ineq','fun': lambda x: 3.0-x[5]},
 	  {'type': 'ineq','fun': lambda x: x[0]}, # y>0
 	  {'type': 'ineq','fun': lambda x: x[1]},
 	  {'type': 'ineq','fun': lambda x: x[2]},
@@ -115,8 +115,8 @@ def find_path(ex,ey,a0,b0):
     )
 
     # baslangic degerleri
-    a1,a2,a3 = 1,2,3
-    b1,b2,b3 = 3,2,1
+    a1,a2,a3 = 0,0,0
+    b1,b2,b3 = 0,0,0
     x0 = a1,a2,a3,b1,b2,b3
 
     def pintval(p):
@@ -143,7 +143,7 @@ def find_path(ex,ey,a0,b0):
 			    jac = pintval_grad,
 			    method = 'COBYLA',
 			    callback=print,
-			    tol=0.01,
+			    tol=0.000001,
 			    constraints=cons)
 
     return sol.x
@@ -158,9 +158,9 @@ a1,a2,a3,b1,b2,b3 = res
 a4 = ex - a0 - (a1+a2+a3)
 b4 = ey - b0 - (b1+b2+b3)
 
-t = np.linspace(0,1.0,300)
-xl = 36.0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
-yl = 32.0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+t = np.linspace(0,1.0,100)
+xl = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+yl = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
 zl = [rbfi_combo(xxx,yyy)  for xxx,yyy in zip(xl,yl)]
 
 fig = plt.figure()
@@ -169,6 +169,4 @@ ax.view_init(elev=60, azim=30)
 strides = 10
 surf = ax.plot_wireframe(xx, yy, zz,rstride=strides, cstride=strides)
 ax.plot3D(xl, yl, zl,'r.')	
-
 plt.show()
-
