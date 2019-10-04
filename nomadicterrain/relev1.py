@@ -4,6 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
+OFFSET = 0.1
 np.random.seed(0)
 
 def func(x, y):
@@ -20,6 +21,8 @@ y = np.linspace(32,33,D)
 
 xx,yy = np.meshgrid(x,y)
 zz = func(xx,yy)
+
+zz[zz<0.05] = OFFSET
 
 from scipy.interpolate import Rbf
 
@@ -45,10 +48,12 @@ def dist_matrix(X, Y):
 
 def gaussian(r,eps): return anp.exp(-anp.power((r/eps),2))
 
+
 def f_interp(newp):
     nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
     newp_dist = dist_matrix(newp, rbfi.xi.T)
-    return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
+    elev = anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)    
+    return elev
 
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
 test_3 = anp.column_stack((xx.ravel(), yy.ravel()))
@@ -62,7 +67,7 @@ plt.savefig('/tmp/linear_app88rbf_06.png')
 
 def trapz(y, dx):
     #vals = anp.nan_to_num(y[1:-1],1000.0)
-    vals = anp.array([_ if anp.isnan(_)==False else 1000.0 for _ in y[1:-1]])
+    vals = anp.array([_ if anp.isnan(_)==False else 0.0 for _ in y[1:-1]])
     tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
@@ -79,6 +84,8 @@ def intval(a1,a2,a3,b1,b2,b3):
    z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
    res = z * sq
    T = trapz(res, 1.0/len(t))
+   P = anp.power(a1,a1) + anp.power(a2,a2)  + anp.power(a3,a3) + anp.power(b1,b1) + anp.power(b2,b2)  + anp.power(b3,b3)
+   T = T + P/10.0
    if 'ArrayBox' in str(type(T)): return T._value
    else: return anp.float(T)
 
@@ -89,15 +96,15 @@ intval_grad_b1 = autograd.grad(intval,3)
 intval_grad_b2 = autograd.grad(intval,4)
 intval_grad_b3 = autograd.grad(intval,5)
    
-a1,a2,a3 = 1.1,1.2,1.3
-b1,b2,b3 = 1.3,1.2,1.1
+#a1,a2,a3 = anp.random.randn(),anp.random.randn(),anp.random.randn()
+#b1,b2,b3 = anp.random.randn(),anp.random.randn(),anp.random.randn()
+a1,a2,a3 = np.random.randn(),np.random.randn(),np.random.randn()
+b1,b2,b3 = np.random.randn(),np.random.randn(),np.random.randn()
 
-alpha = 10.0
+alpha = 0.1
 newx = anp.array([a1,a2,a3,b1,b2,b3])
+CELLMAX = 5.0
 for i in range(100):
-    if i % 10==0:
-        print ('halving alpha')
-        alpha = alpha / 2.0
     oldx = newx
     a1,a2,a3,b1,b2,b3 = newx
     grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
@@ -106,8 +113,8 @@ for i in range(100):
               intval_grad_b1(a1,a2,a3,b1,b2,b3),\
               intval_grad_b2(a1,a2,a3,b1,b2,b3),\
               intval_grad_b3(a1,a2,a3,b1,b2,b3)]
-    grad_1 = anp.array(grad_1)
-    newx = newx - alpha * grad_1    
+    grad_1 = anp.array(grad_1)    
+    newx = newx - alpha * grad_1
     print (newx, anp.abs(anp.sum(oldx-newx)))
     
 
