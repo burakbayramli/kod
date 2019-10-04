@@ -74,7 +74,7 @@ def trapz(y, dx):
 
 t = np.linspace(0,1,100)
 a0,b0=(36.0,32.0)
-ex,ey=(36.4,34.0)
+ex,ey=(36.4,33.0)
 
 def intval(a1,a2,a3,b1,b2,b3):
    a4 = ex - a0 - (a1+a2+a3)
@@ -90,67 +90,71 @@ def intval(a1,a2,a3,b1,b2,b3):
 
 a1,a2,a3 = 1.5, 1.1, 1.0
 b1,b2,b3 = 3.9, 1.4, 0.3
-test_1 = a1,a2,a3,b1,b2,b3
 T = intval(a1,a2,a3,b1,b2,b3)
 print ('T',T)
 
 intval_grad_a1 = autograd.grad(intval,0)
 intval_grad_a2 = autograd.grad(intval,1)
 intval_grad_a3 = autograd.grad(intval,2)
+intval_grad_b1 = autograd.grad(intval,3)
+intval_grad_b2 = autograd.grad(intval,4)
+intval_grad_b3 = autograd.grad(intval,5)
 grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
           intval_grad_a2(a1,a2,a3,b1,b2,b3),\
-          intval_grad_a3(a1,a2,a3,b1,b2,b3)
+          intval_grad_a3(a1,a2,a3,b1,b2,b3),\
+          intval_grad_b1(a1,a2,a3,b1,b2,b3),\
+          intval_grad_b2(a1,a2,a3,b1,b2,b3),\
+          intval_grad_b3(a1,a2,a3,b1,b2,b3)
 	 ]
 print (grad_1)
 ```
 
 ```text
 T 50.18249851187272
-[-0.11264959569395828, -0.02125323327018775, -0.003483732268591036]
+[-0.11264959569395828, -0.02125323327018775, -0.003483732268591036, 0.023228530294234245, -0.0009775326550836311, -0.0008336455754565775]
 ```
 
+```python
+alpha = 1.0
+newx = anp.array([a1,a2,a3,b1,b2,b3])
+for i in range(30):
+    a1,a2,a3,b1,b2,b3 = newx
+    grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
+              intval_grad_a2(a1,a2,a3,b1,b2,b3),\
+              intval_grad_a3(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b1(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b2(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b3(a1,a2,a3,b1,b2,b3)]
+    grad_1 = anp.array(grad_1)
+    newx = newx + alpha * grad_1
+    print (newx)
+    
+```
 
+```text
+[1.37594505 1.07660607 0.99616841 3.92520916 1.3988234  0.29906077]
+[1.2641541  1.05549311 0.99272206 3.94366025 1.39660449 0.29797149]
+```
 
+```python
+a0,b0=(36.8,32.0)
+ex,ey=(36.0,32.8)
+a1,a2,a3,b1,b2,b3 = 2.74258943, 2.40169172, 1.82262251, 4.41121311, 3.15040721, 1.98645347
+a4 = ex - a0 - (a1+a2+a3)
+b4 = ey - b0 - (b1+b2+b3)
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+ax.view_init(elev=29, azim=29)
+surf = ax.plot_surface(xx, yy, znewnew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
 
+t = np.linspace(0,1,100)
+x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
+ax.plot3D(x, y, z,'r.')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+plt.savefig('/tmp/linear_app88rbf_07.png')
+```
 
 
 
