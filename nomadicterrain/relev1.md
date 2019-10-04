@@ -107,7 +107,10 @@ dT = intval_grad(a1,a2,a3,b1,b2,b3)
 50.18249851187272
 <class 'float'>
 50.18249851187272
+<class 'autograd.numpy.numpy_boxes.ArrayBox'>
+Autograd ArrayBox with value Autograd ArrayBox with value 50.18249851187272
 ```
+
 
 
 
