@@ -41,8 +41,8 @@ import autograd
 def dist_matrix(X, Y):
     sx = anp.sum(anp.power(X,2), 1)
     sy = anp.sum(anp.power(Y,2), 1)
-    D2 =  sx[:, anp.newaxis] - 2.0*X.dot(Y.T) + sy[anp.newaxis, :] 
-    D2[D2 < 0] = 0
+    D2 =  sx[:, anp.newaxis] - 2.0*anp.dot(X,Y.T) + sy[anp.newaxis, :] 
+    #D2[D2 < 0] = 0
     D = anp.sqrt(D2)
     return D
 
@@ -68,34 +68,41 @@ plt.savefig('/tmp/linear_app88rbf_06.png')
 ```python
 def trapz(y, dx):
     vals = anp.nan_to_num(y[1:-1],1000.0)
-    tmp = np.sum(vals*2.0)    
+    tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
-def intval(t,a0,a1,a2,a3,a4,b0,b1,b2,b3,b4):
-   sq = np.sqrt(b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2)
-   x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
-   y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
-   z = [anp.float(f_interp(anp.array([[xx,yy]]))) for xx,yy in zip(x,y)]
-   res = z * sq
-   T = trapz(res, 1.0/len(t))
-   return T
-
 t = np.linspace(0,1,100)
-
-a1,a2,a3 = 2.5, 1.1, 1.0
-b1,b2,b3 = 1.3, 1.4, 1.3
 a0,b0=(36.0,32.0)
 ex,ey=(36.4,34.0)
-a4 = ex - a0 - (a1+a2+a3)
-b4 = ey - b0 - (b1+b2+b3)
-T = intval(t,a0,a1,a2,a3,a4,b0,b1,b2,b3,b4)
+
+def intval(p):
+   a1,a2,a3,b1,b2,b3 = p
+   a4 = ex - a0 - (a1+a2+a3)
+   b4 = ey - b0 - (b1+b2+b3)
+   sq = anp.sqrt(b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2)
+   x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+   y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+   z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
+   res = z * sq
+   T = trapz(res, 1.0/len(t))
+   return anp.float(T)
+
+a1,a2,a3 = 1.5, 1.1, 1.0
+b1,b2,b3 = 3.9, 1.4, 0.3
+test_1 = a1,a2,a3,b1,b2,b3
+T = intval(test_1)
+print (type(T))
 print (T)
+
+intval_grad = autograd.grad(intval,test_1)
+#dT = intval_grad(test_1)
+#print (dT)
 ```
 
 ```text
-0.03545626454940093
+<class 'float'>
+0.18249851187271593
 ```
-
 
 
 
