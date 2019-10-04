@@ -67,7 +67,8 @@ plt.savefig('/tmp/linear_app88rbf_06.png')
 
 ```python
 def trapz(y, dx):
-    vals = anp.nan_to_num(y[1:-1],1000.0)
+    #vals = anp.nan_to_num(y[1:-1],1000.0)
+    vals = anp.array([_ if anp.isnan(_)==False else 1000.0 for _ in y[1:-1]])
     tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
@@ -75,8 +76,7 @@ t = np.linspace(0,1,100)
 a0,b0=(36.0,32.0)
 ex,ey=(36.4,34.0)
 
-def intval(p):
-   a1,a2,a3,b1,b2,b3 = p
+def intval(a1,a2,a3,b1,b2,b3):
    a4 = ex - a0 - (a1+a2+a3)
    b4 = ey - b0 - (b1+b2+b3)
    sq = anp.sqrt(b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2)
@@ -85,23 +85,28 @@ def intval(p):
    z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
    res = z * sq
    T = trapz(res, 1.0/len(t))
-   return anp.float(T)
+   print (type(T))
+   print (T)
+   if 'ArrayBox' in str(type(T)): return T._value
+   else: return anp.float(T)
 
 a1,a2,a3 = 1.5, 1.1, 1.0
 b1,b2,b3 = 3.9, 1.4, 0.3
 test_1 = a1,a2,a3,b1,b2,b3
-T = intval(test_1)
+T = intval(a1,a2,a3,b1,b2,b3)
 print (type(T))
 print (T)
 
-intval_grad = autograd.grad(intval,test_1)
-#dT = intval_grad(test_1)
+intval_grad = autograd.grad(intval)
+dT = intval_grad(a1,a2,a3,b1,b2,b3)
 #print (dT)
 ```
 
 ```text
+<class 'numpy.float64'>
+50.18249851187272
 <class 'float'>
-0.18249851187271593
+50.18249851187272
 ```
 
 
