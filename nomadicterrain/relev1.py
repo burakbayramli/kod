@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-OFFSET = 0.1
+OFFSET = 1.0
 np.random.seed(0)
 
 def func(x, y):
@@ -21,8 +21,6 @@ y = np.linspace(32,33,D)
 
 xx,yy = np.meshgrid(x,y)
 zz = func(xx,yy)
-
-zz[zz<0.05] = OFFSET
 
 from scipy.interpolate import Rbf
 
@@ -42,38 +40,32 @@ def dist_matrix(X, Y):
     sx = anp.sum(anp.power(X,2), 1)
     sy = anp.sum(anp.power(Y,2), 1)
     D2 =  sx[:, anp.newaxis] - 2.0*anp.dot(X,Y.T) + sy[anp.newaxis, :] 
-    #D2[D2 < 0] = 0
     D = anp.sqrt(D2)
     return D
 
 def gaussian(r,eps): return anp.exp(-anp.power((r/eps),2))
 
-
-def f_interp(newp):
+def f_interp(newp):    
     nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
     newp_dist = dist_matrix(newp, rbfi.xi.T)
-    elev = anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)    
+    elev = anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
+#    for i in range(len(newp)):
+#        if newp[i][1] < 32.0: elev[i]._value[0] = OFFSET
+#        if newp[i][1] > 33.0: elev[i]._value[0] = OFFSET
+#        if newp[i][0] > 37.0: elev[i]._value[0] = OFFSET
+#        if newp[i][0] < 36.0: elev[i]._value[0] = OFFSET
     return elev
 
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
-test_3 = anp.column_stack((xx.ravel(), yy.ravel()))
-znewnew = f_interp(test_3).reshape(xx.shape)
-
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-ax.view_init(elev=29, azim=29)
-surf = ax.plot_surface(xx, yy, znewnew, cmap=cm.coolwarm,linewidth=0, antialiased=False)
-plt.savefig('/tmp/linear_app88rbf_06.png')
 
 def trapz(y, dx):
-    #vals = anp.nan_to_num(y[1:-1],1000.0)
-    vals = anp.array([_ if anp.isnan(_)==False else 0.0 for _ in y[1:-1]])
+    vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
     tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
 t = np.linspace(0,1,100)
-a0,b0=(36.8,32.0)
-ex,ey=(36.0,32.8)
+a0,b0=(36.0,32.0)
+ex,ey=(36.4,32.8)
 
 def intval(a1,a2,a3,b1,b2,b3):
    a4 = ex - a0 - (a1+a2+a3)
@@ -85,9 +77,9 @@ def intval(a1,a2,a3,b1,b2,b3):
    res = z * sq
    T = trapz(res, 1.0/len(t))
    P = anp.power(a1,a1) + anp.power(a2,a2)  + anp.power(a3,a3) + anp.power(b1,b1) + anp.power(b2,b2)  + anp.power(b3,b3)
-   T = T + P/10.0
-   if 'ArrayBox' in str(type(T)): return T._value
-   else: return anp.float(T)
+   T = T + P
+   return T._value
+
 
 intval_grad_a1 = autograd.grad(intval,0)
 intval_grad_a2 = autograd.grad(intval,1)
@@ -95,15 +87,16 @@ intval_grad_a3 = autograd.grad(intval,2)
 intval_grad_b1 = autograd.grad(intval,3)
 intval_grad_b2 = autograd.grad(intval,4)
 intval_grad_b3 = autograd.grad(intval,5)
-   
-#a1,a2,a3 = anp.random.randn(),anp.random.randn(),anp.random.randn()
-#b1,b2,b3 = anp.random.randn(),anp.random.randn(),anp.random.randn()
-a1,a2,a3 = np.random.randn(),np.random.randn(),np.random.randn()
-b1,b2,b3 = np.random.randn(),np.random.randn(),np.random.randn()
+
+DIV = 2.0
+#a1,a2,a3 = anp.random.rand(),anp.random.rand(),anp.random.rand()
+#b1,b2,b3 = anp.random.rand(),anp.random.rand(),anp.random.rand()
+a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
 
 alpha = 0.1
 newx = anp.array([a1,a2,a3,b1,b2,b3])
-CELLMAX = 5.0
+
 for i in range(100):
     oldx = newx
     a1,a2,a3,b1,b2,b3 = newx
@@ -115,14 +108,24 @@ for i in range(100):
               intval_grad_b3(a1,a2,a3,b1,b2,b3)]
     grad_1 = anp.array(grad_1)    
     newx = newx - alpha * grad_1
-    print (newx, anp.abs(anp.sum(oldx-newx)))
+    print ('after update', newx, anp.abs(anp.sum(oldx-newx)))
+
+    a4 = ex - a0 - (a1+a2+a3)
+    b4 = ey - b0 - (b1+b2+b3)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.view_init(elev=29, azim=29)
+    ax.set_xlim(36,37)
+    ax.set_ylim(32,33)
+    test_3 = anp.column_stack((xx.ravel(), yy.ravel()))
+    znewnew = f_interp(test_3).reshape(xx.shape)
+    surf = ax.plot_wireframe(xx, yy, znewnew, rstride=10, cstride=10)
     
-
-
-
-
-
-
-
-
-
+    t = np.linspace(0,1,100)
+    x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+    y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+    z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
+    ax.plot3D(x, y, z,'r.')
+    plt.title(",".join((str(a1),str(a2),str(a3))))
+    plt.savefig('/tmp/linear_app88rbf_07.png')

@@ -137,14 +137,16 @@ for i in range(30):
 ```
 
 ```python
-a0,b0=(36.8,32.0)
-ex,ey=(36.0,32.8)
-a1,a2,a3,b1,b2,b3 = -0.61885097, -0.8231165,  -1.58734855,  3.50903673,  3.04166851,  0.02105481
+a0,b0=(36.0,32.0)
+ex,ey=(36.4,32.8)
+a1,a2,a3,b1,b2,b3 = 1.08078499,  0.57215245, -0.3075737,   0.03701854,  0.53796364, -0.43266829
 a4 = ex - a0 - (a1+a2+a3)
 b4 = ey - b0 - (b1+b2+b3)
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 ax.view_init(elev=29, azim=29)
+ax.set_xlim(36,37)
+ax.set_ylim(32,33)
 surf = ax.plot_wireframe(xx, yy, znewnew, rstride=10, cstride=10)
 
 t = np.linspace(0,1,100)
@@ -155,9 +157,3 @@ ax.plot3D(x, y, z,'r.')
 
 plt.savefig('/tmp/linear_app88rbf_07.png')
 ```
-
-
-
-
-
-
