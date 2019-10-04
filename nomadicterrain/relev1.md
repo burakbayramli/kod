@@ -85,8 +85,6 @@ def intval(a1,a2,a3,b1,b2,b3):
    z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
    res = z * sq
    T = trapz(res, 1.0/len(t))
-   print (type(T))
-   print (T)
    if 'ArrayBox' in str(type(T)): return T._value
    else: return anp.float(T)
 
@@ -94,21 +92,21 @@ a1,a2,a3 = 1.5, 1.1, 1.0
 b1,b2,b3 = 3.9, 1.4, 0.3
 test_1 = a1,a2,a3,b1,b2,b3
 T = intval(a1,a2,a3,b1,b2,b3)
-print (type(T))
-print (T)
+print ('T',T)
 
-intval_grad = autograd.grad(intval)
-dT = intval_grad(a1,a2,a3,b1,b2,b3)
-#print (dT)
+intval_grad_a1 = autograd.grad(intval,0)
+intval_grad_a2 = autograd.grad(intval,1)
+intval_grad_a3 = autograd.grad(intval,2)
+grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
+          intval_grad_a2(a1,a2,a3,b1,b2,b3),\
+          intval_grad_a3(a1,a2,a3,b1,b2,b3)
+	 ]
+print (grad_1)
 ```
 
 ```text
-<class 'numpy.float64'>
-50.18249851187272
-<class 'float'>
-50.18249851187272
-<class 'autograd.numpy.numpy_boxes.ArrayBox'>
-Autograd ArrayBox with value Autograd ArrayBox with value 50.18249851187272
+T 50.18249851187272
+[-0.11264959569395828, -0.02125323327018775, -0.003483732268591036]
 ```
 
 
