@@ -49,11 +49,6 @@ def f_interp(newp):
     nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
     newp_dist = dist_matrix(newp, rbfi.xi.T)
     elev = anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
-#    for i in range(len(newp)):
-#        if newp[i][1] < 32.0: elev[i]._value[0] = OFFSET
-#        if newp[i][1] > 33.0: elev[i]._value[0] = OFFSET
-#        if newp[i][0] > 37.0: elev[i]._value[0] = OFFSET
-#        if newp[i][0] < 36.0: elev[i]._value[0] = OFFSET
     return elev
 
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
@@ -89,27 +84,18 @@ intval_grad_b2 = autograd.grad(intval,4)
 intval_grad_b3 = autograd.grad(intval,5)
 
 DIV = 2.0
-#a1,a2,a3 = anp.random.rand(),anp.random.rand(),anp.random.rand()
-#b1,b2,b3 = anp.random.rand(),anp.random.rand(),anp.random.rand()
 a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
 b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
 
 alpha = 0.1
 newx = anp.array([a1,a2,a3,b1,b2,b3])
 
-for i in range(100):
+for i in range(3):
     oldx = newx
     a1,a2,a3,b1,b2,b3 = newx
-    grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
-              intval_grad_a2(a1,a2,a3,b1,b2,b3),\
-              intval_grad_a3(a1,a2,a3,b1,b2,b3),\
-              intval_grad_b1(a1,a2,a3,b1,b2,b3),\
-              intval_grad_b2(a1,a2,a3,b1,b2,b3),\
-              intval_grad_b3(a1,a2,a3,b1,b2,b3)]
-    grad_1 = anp.array(grad_1)    
-    newx = newx - alpha * grad_1
-    print ('after update', newx, anp.abs(anp.sum(oldx-newx)))
 
+    print (a1,a2,a3)
+    
     a4 = ex - a0 - (a1+a2+a3)
     b4 = ey - b0 - (b1+b2+b3)
 
@@ -127,5 +113,15 @@ for i in range(100):
     y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
     z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
     ax.plot3D(x, y, z,'r.')
-    plt.title(",".join((str(a1),str(a2),str(a3))))
-    plt.savefig('/tmp/linear_app88rbf_07.png')
+    plt.title(", ".join([str(np.round(xcurr,2)) for xcurr in newx]))
+    plt.savefig('/tmp/linear_app88rbf_07-%d.png' % i)
+
+    grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
+              intval_grad_a2(a1,a2,a3,b1,b2,b3),\
+              intval_grad_a3(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b1(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b2(a1,a2,a3,b1,b2,b3),\
+              intval_grad_b3(a1,a2,a3,b1,b2,b3)]
+    grad_1 = anp.array(grad_1)    
+    newx = newx - alpha * grad_1
+    print ('after update', newx, anp.abs(anp.sum(oldx-newx)))    
