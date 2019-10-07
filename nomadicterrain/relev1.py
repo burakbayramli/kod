@@ -4,7 +4,6 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-OFFSET = 1.0
 np.random.seed(0)
 
 def func(x, y):
@@ -54,7 +53,7 @@ def f_interp(newp):
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
 
 def trapz(y, dx):
-    vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
+    vals = anp.array([_ if anp.isnan(_)==False else 0.0 for _ in y[1:-1]])
     tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
@@ -113,7 +112,7 @@ for i in range(3):
     z = [f_interp(anp.array([[xx,yy]]))[0][0] for xx,yy in zip(x,y)]
     ax.plot3D(x, y, z,'r.')
     plt.title("T=%f"%np.round(T,2) +", ".join([str(np.round(xcurr,2)) for xcurr in newx]))
-    plt.savefig('/tmp/linear_app88rbf_07-%d.png' % i)
+    plt.savefig('/tmp/linear_app88rbf_08-%d.png' % i)
 
     grad_1 = [intval_grad_a1(a1,a2,a3,b1,b2,b3),\
               intval_grad_a2(a1,a2,a3,b1,b2,b3),\
