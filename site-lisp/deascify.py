@@ -48,7 +48,7 @@ def convert():
               ("sigma",), ("volatility",), ("matris",),
               ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
               ("sonusur",u"sonuşur"), ("amaciyla",u"amacıyla"), 
-              ("amaci",u"amacı"),("sarsim",u"sarsım"),
+              ("amaci",u"amacı"),("sarsim",u"sarsım"),("autograd",),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
               (" Yani ",), ("entegrali",), ("sistem",),("invertible",),
               ("sistemi",), ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
