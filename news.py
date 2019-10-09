@@ -54,6 +54,7 @@ def getnews(outfile):
                 if len(re.findall(r"Turkey", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Turkish", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"T.rkei", title, re.IGNORECASE)) > 0: continue
+                if len(re.findall(r"battery", title, re.IGNORECASE)) > 0: continue
                 if len(re.findall(r"Erdo.an", title)) > 0: continue
                 if len(re.findall(r"Ocasio", title)) > 0: continue
                 if len(re.findall(r"Elon", title)) > 0: continue
@@ -61,7 +62,6 @@ def getnews(outfile):
                 if len(re.findall(r"Tesla", title)) > 0: continue                
                 if len(re.findall(r"electric", title)) > 0: continue
                 if len(re.findall(r"electric", title)) > 0: continue
-                if len(re.findall(r"battery", title)) > 0: continue
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
                 fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:
