@@ -1,12 +1,11 @@
 # Pandas
 
-
-Pandas
-
-
-
-
-Pandas'ı ilk kez bir CSV dosyasını okumak ve işlemek için kullanmıştım; numpy bu amacla yazılmamış -rivayete göre ticari ürün Matlab hala CSV dosyalarını basit bir şekilde okuyamıyor-, ve bazı belgelere göre Pandas bu işi R'ye benzer şekilde yapabiliyordu. Pandas kurduktan sonra, alttaki gibi bir kod Pandas noktalı virgül ile ayrılmış dosyayı söylendiği gibi güzelce okudu,
+Pandas'ı ilk kez bir CSV dosyasını okumak ve işlemek için
+kullanmıştım; numpy bu amacla yazılmamış -rivayete göre ticari ürün
+Matlab hala CSV dosyalarını basit bir şekilde okuyamıyor-, ve bazı
+belgelere göre Pandas bu işi R'ye benzer şekilde yapabiliyordu. Pandas
+kurduktan sonra, alttaki gibi bir kod Pandas noktalı virgül ile
+ayrılmış dosyayı söylendiği gibi güzelce okudu,
 
 import pandas as pd, StringIO
 
@@ -32,13 +31,24 @@ print df1
 5  two  2  5  2
 6  two  3  6  1
 
-Not: CSV'yi yazıda gösterebilmek için StringIO uzerinden okuduk, fakat aslında read_csv ile direk dosyadan da okuyabilirdik.
+Not: CSV'yi yazıda gösterebilmek için StringIO uzerinden okuduk, fakat
+aslında read_csv ile direk dosyadan da okuyabilirdik.
 
-Güzel... Ama sol tarafta bir takım sayılar var, 0,1,..,6 diye gidiyor, bunlar nedir? CSV okuyup direk numpy matrisi elde etsek olmaz mıydı? Bu "ekstra" "gereksiz" şeyleri ne yapacağız? Baştaki amacımız Pandas'i numpy için bir önyüz gibi kullanmaktı (gerçi np.array(df1)) ile hemen çevrim yapılabilirdi ama, şimdi, bu ek aşamaya ne gerek var?), fakat Pandas belgelerini takip ettikçe, ve örnekleri gördükçe bu rakamların, yanı indisin gerekliği anlaşılmaya başladı.
+Güzel... Ama sol tarafta bir takım sayılar var, 0,1,..,6 diye gidiyor,
+bunlar nedir? CSV okuyup direk numpy matrisi elde etsek olmaz mıydı?
+Bu "ekstra" "gereksiz" şeyleri ne yapacağız? Baştaki amacımız Pandas'i
+numpy için bir önyüz gibi kullanmaktı (gerçi np.array(df1)) ile hemen
+çevrim yapılabilirdi ama, şimdi, bu ek aşamaya ne gerek var?), fakat
+Pandas belgelerini takip ettikçe, ve örnekleri gördükçe bu rakamların,
+yanı indisin gerekliği anlaşılmaya başladı.
 
 İndis
 
-Pandas'in en temel iki objesi Series ve DataFrame'in muhakkak bir indisi vardır. Öyle ki herhangi bir Series, DataFrame için indis tanımlanmamissa, Pandas otomatik olarak bir indis kendisi yaratır. Bu indis cok temel, birer birer artan düz sayılar olacaktır (üstteki gibi) ama muhakkak bir indis olur.
+Pandas'in en temel iki objesi Series ve DataFrame'in muhakkak bir
+indisi vardır. Öyle ki herhangi bir Series, DataFrame için indis
+tanımlanmamissa, Pandas otomatik olarak bir indis kendisi yaratır. Bu
+indis cok temel, birer birer artan düz sayılar olacaktır (üstteki
+gibi) ama muhakkak bir indis olur.
 
 Pandas ile bir kolona erismek istersem bu cok basittir; mesela
 
@@ -53,11 +63,12 @@ print df1['b']
 6    1
 Name: b, dtype: int64
 
-Dikkat, kolona erişince indis de onunla "beraber geldi". Üstte elde ettiğimiz bir Series objesi, DataFrame'in kolonları Series objeleridir. Series tek bir kolonu temsil eden bir objedir.
+Dikkat, kolona erişince indis de onunla "beraber geldi". Üstte elde
+ettiğimiz bir Series objesi, DataFrame'in kolonları Series
+objeleridir. Series tek bir kolonu temsil eden bir objedir.
 
-İndis pek çok türlü tipte olabilir. Bir tarih, bir string bile olabilir. Onu mevcut bir kolon üzerinden kendimiz tanımlayabiliriz,
-
-
+İndis pek çok türlü tipte olabilir. Bir tarih, bir string bile
+olabilir. Onu mevcut bir kolon üzerinden kendimiz tanımlayabiliriz,
 
 s2 = """
 c;d;a;b
@@ -116,13 +127,7 @@ b                      
 
 1 2016-01-08  two  3  6
 
-
-
-
-
 Dikkat reset_index() ile mevcut indisi iptal ettik, o indis normal bir kolon haline geldi. Tabii bir isme sahip olmasi gerekiyordu, Pandas da ona "index" diye bir isim verdi. Bu isim degistirilebilir muhakkak.
-
-
 
 İndisin esas değeri DataFrame'de yeni bir kolon yaratmak istediğimiz zaman ortaya çıkar. Diyelim ki bir şekilde elimizde şöyle bir Series var,
 
@@ -163,9 +168,15 @@ print df1
 5  two  2  5  2  NaN   9
 6  two  3  6  1  NaN  10
 
-Bu ifadenin çok rahat bir şekilde işleyebilmesinin arkasında yatan sır kolon erişiminin, toplama işlemlerinin sonucunun hepsinin içinde indis olan sonuçlar üretmeleri - bu sayede Pandas bu sonucu alıp pat diye geri DataFrame içine yazabiliyor.
+Bu ifadenin çok rahat bir şekilde işleyebilmesinin arkasında yatan sır
+kolon erişiminin, toplama işlemlerinin sonucunun hepsinin içinde indis
+olan sonuçlar üretmeleri - bu sayede Pandas bu sonucu alıp pat diye
+geri DataFrame içine yazabiliyor.
 
-İndis uyumu üzerinden akla gelebilecek her türlü operasyon mümkün; mesela bir dizin içinde Series objeleri var, onları yanyana yapıştırıp bir DataFrame oluşturabilirim, Pandas indisleri uyan hücreleri aynı satıra koyar.
+İndis uyumu üzerinden akla gelebilecek her türlü operasyon mümkün;
+mesela bir dizin içinde Series objeleri var, onları yanyana yapıştırıp
+bir DataFrame oluşturabilirim, Pandas indisleri uyan hücreleri aynı
+satıra koyar.
 
 s1 = pd.Series(['x','y','z'], index=[1,2,3])
 s2 = pd.Series(['a','b','c'], index=[1,2,3])
@@ -173,9 +184,6 @@ s3 = pd.Series(['aa','bb','cc'], index=[1,2,3])
 df3 = pd.concat([s1,s2,s3],axis=1)
 df3.columns = ['bir','iki','uc']
 print df3
-
-
-
 
   bir iki  uc
 
@@ -186,18 +194,17 @@ print df3
 3   z   c  cc
 
 
-
-
-
 Aynı şekilde DataFrame'ler de yanyana yapıştırılabilir. 
 
+Bu arada Pandas aynen SQL tabanları gibi birleştirme operasyonu
+yapabiliyor, yani iki DataFrame'i alıyorum, indis uyumu üzerinden, ya
+da sadece bazı kolonların ismini verip kolon uyumu üzerinden iki
+DataFrame birleştirilebilir. İşlem oldukça hızlı; bir projede her biri
+1 gigabaytlık iki DataFrame' birleştirip üçüncü bir devasa DataFrame
+yaratmıştım bir kez, tamamen hafızada!
 
-
-Bu arada Pandas aynen SQL tabanları gibi birleştirme operasyonu yapabiliyor, yani iki DataFrame'i alıyorum, indis uyumu üzerinden, ya da sadece bazı kolonların ismini verip kolon uyumu üzerinden iki DataFrame birleştirilebilir. İşlem oldukça hızlı; bir projede her biri 1 gigabaytlık iki DataFrame' birleştirip üçüncü bir devasa DataFrame yaratmıştım bir kez, tamamen hafızada!
-
-
-
-Kordinat bazlı (kordinat derken indeks ve kolon, ki indeks hangi tipte ise o) kalıcı değişimler için
+Kordinat bazlı (kordinat derken indeks ve kolon, ki indeks hangi tipte
+ise o) kalıcı değişimler için
 
 df2.loc['2016-01-05','d'] = 1000
 print df2
@@ -220,14 +227,9 @@ Fonksiyonlar
 Diyelim ki bir kolondaki her ögeyi string haline getirip yanına "XX" ekliyoruz,
 
 
-
-
 def f(x): return str(x)+"XX"
 
 print df1.d.map(f)
-
-
-
 
 
 0    0XX
@@ -246,30 +248,16 @@ print df1.d.map(f)
 
 Name: d, dtype: object
 
-
 Çok basit fonksiyonlar için Python'un lambda kullanımı var,
-
-
 
 
 print df1.d.map(lambda x: str(x)+"XX")
 
-
-
-
-
 Aynı sonucu verir. Elde edilen sonucun bir Series olduğuna dikkat, bir indisi var, ve alıp bu Series'i bir DataFrame içine yazabilirdik.
-
-
 
 Eğer fonksiyon içinde tüm DataFrame satırına  erişim gerekiyorsa, apply kullanımı var, apply ona geçilen fonksiyona satır geçer; yani apply satırları teker teker gezer ve satırlar sırasıyla bizim verdiğimiz fonksiyonun ilk parametresine "düşer".
 
-
-
 print df1.apply(lambda x: str(x.c) + ":" + str(x.d), axis=1)
-
-
-
 
 0    one:0
 
@@ -284,7 +272,6 @@ print df1.apply(lambda x: str(x.c) + ":" + str(x.d), axis=1)
 5    two:2
 
 6    two:3
-
 
 
 Pivot

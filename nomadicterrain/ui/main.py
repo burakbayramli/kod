@@ -717,28 +717,10 @@ def flattestroute(coords):
     lat1 = float(lat1)
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-    elev_mat, start_idx, end_idx, xo, yo = route.get_elev_data_grid_rbf(lat1,lon1,
-                                                                        lat2,lon2,
-                                                                        c,
-                                                                        npts=50)
-      
-    p = route.dijkstra(elev_mat, start_idx, end_idx)
+
+
+
     
-    pts = [(xo[c],yo[c]) for c in p]
-    elevs = [elev_mat[c] for c in p]
-    lines = ""
-    lines += route.gpxbegin   
-    templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
-    for c in p:
-        lines += templ % (xo[c],yo[c],elev_mat[c])
-    lines += route.gpxend
-    gpxfile = "01_calc_path.gpx"
-    fout = open(params['trails'] + "/" + gpxfile,"w")
-    fout.write(lines)
-    fout.close()
-    return trail(gpxfile)
 
 @app.route('/gotopo/<coords>/<how_far>')
 def gotopo(coords,how_far):

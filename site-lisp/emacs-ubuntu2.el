@@ -923,11 +923,11 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/bilgiler")
 (find-file-other-window "/home/burak/Documents/thirdwave")
 (find-file-other-window "/home/burak/Documents/kod/sk")
+(find-file-other-window "/home/burak/Documents/kod/loogle")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/twmoney/")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
-(find-file-other-window "/home/burak/Documents/classnotes/func_analysis")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 
 

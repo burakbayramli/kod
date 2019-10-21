@@ -80,34 +80,6 @@ def get_neighbor_idx(x,y,dims):
             if x+i<(dims[0]) and x+i>-1 and y+j<(dims[1]) and y+j>-1:
                 res.append((x+i,y+j))
     return res
-
-def dijkstra(C,s,e):    
-    D = {}
-    P = {}
-    Q = pqdict()
-    Q[s] = 0
-
-    while len(Q)>0:
-        (v,vv) = Q.popitem()
-        D[v] = vv
-        neighs = get_neighbor_idx(v[0],v[1],C.shape)
-        for w in neighs:
-            if C[w[0],w[1]] < 0.0: continue # skip negative candidates
-            vwLength = D[v] + np.abs(C[v[0],v[1]] - C[w[0],w[1]])
-            if w in D:
-                if vwLength < D[v]:
-                    raise ValueError("error")
-            elif w not in Q or vwLength < Q[w]:
-                Q[w] = vwLength
-                P[w] = v
-            
-    path = []
-    while 1:
-       path.append(e)
-       if e == s: break
-       e = P[e]
-    path.reverse()
-    return path
         
 def get_grid(lat1,lon1,lat2,lon2,npts):
    def pointiterator(fra,til,steps):    
@@ -254,30 +226,6 @@ def get_elev_single(lat,lon,cm):
     rbfi = pickle.loads(rbfi)
     xnew = np.array([[lon,lat]])
     return rbfi(lon, lat)
-
-def get_elev_data_grid_rbf(lat1,lon1,lat2,lon2,c,npts):
-    xo,yo = get_grid(lat1,lon1,lat2,lon2,npts=npts)
-    start_idx = None
-    end_idx = None
-
-    for eps in [0.003, 0.01, 0.1, 1.0]:
-        for i in range(xo.shape[0]):
-            for j in range(xo.shape[1]):
-                if np.abs(xo[i,j]-lat1)<eps and np.abs(yo[i,j]-lon1)<eps:
-                    start_idx = (i,j)
-                if np.abs(xo[i,j]-lat2)<eps and np.abs(yo[i,j]-lon2)<eps:
-                    end_idx = (i,j)
-        if start_idx!=None and end_idx != None: break
-         
-    print ('s',start_idx)
-    print ('e',end_idx)
-
-    elev_mat = np.zeros(xo.shape)   
-    for i in range(xo.shape[0]):
-        for j in range(xo.shape[1]):
-            elev_mat[i,j]=get_elev_single(xo[i,j],yo[i,j],c)
-    
-    return elev_mat, start_idx, end_idx, xo, yo 
 
 def get_elev_data(latint, lonint, rbf=True):
     conn = sqlite3.connect(params['elevdb'])
