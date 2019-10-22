@@ -94,6 +94,14 @@ def get_rbf_for_keys(keyList, connmod):
             nodes = anp.array([x for x in rbfi.nodes])
             d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
     return d
+
+def dist_matrix(X, Y):
+    sx = anp.sum(X**2, 1)
+    sy = anp.sum(Y**2, 1)
+    D2 =  sx[:, anp.newaxis] - 2.0*X.dot(Y.T) + sy[anp.newaxis, :] 
+    D2[D2 < 0] = 0
+    D = anp.sqrt(D2)
+    return D
     
 def f_elev(pts, rbf_dict):
     print (rbf_dict.keys())
@@ -107,7 +115,11 @@ def f_elev(pts, rbf_dict):
         kk = (int(latm),lati,int(lonm),lonj)
         pts_rbfs[kk].append([lat,lon])
 
-    print (pts_rbfs)
+    for k in pts_rbfs.keys():
+        arr = anp.array(pts_rbfs[k])
+        (xi, nodes, epsilon)  = rbf_dict[k]
+        print (epsilon)
+        break
         
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
@@ -138,7 +150,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     res = get_rbf_for_keys(d.keys(), connmod)
 
     pts = [(lon,lat) for lat,lon in zip(xx.flatten(),yy.flatten())]
-    f_elev(pts, d)
+    f_elev(pts, res)
     
     rbfs = []
     
