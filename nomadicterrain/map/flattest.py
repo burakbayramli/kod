@@ -103,6 +103,8 @@ def dist_matrix(X, Y):
     D = anp.sqrt(D2)
     return D
     
+def gaussian(r,eps): return np.exp(-(r/eps)**2)
+
 def f_elev(pts, rbf_dict):
     print (rbf_dict.keys())
     pts_rbfs = {}
@@ -116,10 +118,11 @@ def f_elev(pts, rbf_dict):
         pts_rbfs[kk].append([lat,lon])
 
     for k in pts_rbfs.keys():
-        arr = anp.array(pts_rbfs[k])
+        pts = anp.array(pts_rbfs[k])
         (xi, nodes, epsilon)  = rbf_dict[k]
-        print (epsilon)
-        break
+        newp_dist = dist_matrix(pts, xi.T)
+        elev = np.dot(gaussian(newp_dist, epsilon), nodes)
+        print (elev)
         
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
