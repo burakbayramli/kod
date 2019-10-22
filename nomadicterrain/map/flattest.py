@@ -76,6 +76,20 @@ def get_elev_single(lat,lon,connmod):
     rbfi = pickle.loads(rbfi[0])
     return rbfi(lon, lat)
 
+def get_elev(pts,connmod):
+    d = {}
+    for pt in pts:
+        lat,lon=pt[0],pt[1]
+        latint,lonint = int(lat),int(lon)
+        lati = re.findall("\.(\d)",str(lat))[0]
+        lonj = re.findall("\.(\d)",str(lon))[0]
+        d[lonint,lonj,latint,lati] = "-"
+                
+    res = get_rbf_for_keys(d.keys(), connmod)
+
+    pts = [(lat,lon) for lon,lat in zip(xx.flatten(),yy.flatten())]
+    f_elev(pts, res)
+    
 def get_rbf_for_keys(keyList, connmod):
     cm = connmod.cursor()
     d = {}
@@ -119,14 +133,16 @@ def f_elev(pts, rbf_dict):
     for k in pts_rbfs.keys():
         pts = anp.array(pts_rbfs[k])
         (xi, nodes, epsilon)  = rbf_dict[k]
+        print ('xi',xi.shape)
+        print ('nodes',nodes.shape)
         pts_dist = dist_matrix(pts, xi.T)
-        print (pts_dist)
+        #print (pts_dist)
         elev = np.dot(gaussian(pts_dist, epsilon), nodes)
-        print (elev)
+        print ('elev',elev)
         
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
-    D = 30
+    D = 20
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -156,13 +172,6 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     
     rbfs = []
     
-        
-def test_single_rbf_block():
-    conn = sqlite3.connect(params['elevdb'])
-    connmod = sqlite3.connect(params['elevdbmod'])
-    #do_all_rbf_ints()    
-    insert_rbf_recs(40,31,conn,connmod)
-
     
 def main_test():    
     lat1,lon1 = 41.084967,31.126588
@@ -178,7 +187,21 @@ def main_test():
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
     plot_topo(lat2,lon2,fout1,fout2,fout3,10.0)
+        
+def test_single_rbf_block():
+    conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
+    #do_all_rbf_ints()    
+    insert_rbf_recs(40,31,conn,connmod)
+
+def pts_elev_test():    
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+    pts = [[40.749752,31.610694],[40.749752,31.710694]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    get_elev(pts,connmod)
     
 #test_single_rbf_block()    
-main_test()
+#main_test()
+pts_elev_test()
 
