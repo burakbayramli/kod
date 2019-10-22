@@ -77,6 +77,25 @@ def get_elev_single(lat,lon,connmod):
     rbfi = pickle.loads(rbfi[0])
     return rbfi(lon, lat)
 
+def get_rbf_for_keys(keyList, connmod):
+    cm = connmod.cursor()
+    d = {}
+    for (lat,lati,lon,lonj) in keyList:
+        print (lat,lati,lon,lonj)
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
+        r = list(r)
+        if len(r)!=0: 
+            rbfi = r[0]
+            rbfi = pickle.loads(rbfi[0])
+            print (rbfi.xi.shape)
+            print (rbfi.nodes.shape)
+            xi = anp.array([x for x in rbfi.xi])
+            nodes = anp.array([x for x in rbfi.nodes])
+            d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
+    return d
+    
+
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 30
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
@@ -103,22 +122,9 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
         d[lonint,lonj,latint,lati] = "-"
 
     print (d)
-        
-    cm = connmod.cursor()
-        
-    for (lat,lati,lon,lonj) in d.keys():
-        print (lat,lati,lon,lonj)
-        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
-        r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
-        r = list(r)
-        if len(r)!=0: 
-            rbfi = r[0]
-            rbfi = pickle.loads(rbfi[0])
-            print (rbfi.xi.shape)
-            print (rbfi.nodes.shape)
-            xi = anp.array([x for x in rbfi.xi])
-            nodes = anp.array([x for x in rbfi.nodes])
-            d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
+                
+    res = get_rbf_for_keys(d.keys(), connmod)
+    print (res)
             
     rbfs = []
     
