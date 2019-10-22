@@ -44,11 +44,6 @@ def dist_matrix(X, Y):
 test_1 = np.array([[36.0,32.0]])
 test_1_dist = dist_matrix(test_1, rbfi.xi.T)
 
-print (rbfi.epsilon)
-print (rbfi.smooth)
-print (rbfi.xi.shape)
-print (rbfi.nodes.shape)
-
 nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
 def gaussian(r,eps): return np.exp(-(r/eps)**2)
 
@@ -58,6 +53,11 @@ def f_interp(newp, rbfi):
     return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
 
 test_2 = anp.array([[36.0,32.0],[36.1,31.9]])
+
+print (rbfi.epsilon)
+print (rbfi.smooth)
+print (rbfi.xi.shape)
+print (rbfi.nodes.shape)
 print (f_interp(test_2,rbfi))
 ```
 

@@ -8,6 +8,7 @@ import autograd.numpy as anp
 SROWS = 40000
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
+
 def do_all_rbf_ints():
 
     conn = sqlite3.connect(params['elevdb'])
@@ -45,7 +46,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
             for (lat,lon,elevation) in res:
                 if (".%d"%lati in str(lat)) and \
                    (".%d"%lonj in str(lon)): 
-                    X.append([lon,lat])
+                    X.append([lat,lon])
                     Z.append([elevation])
     
             X = np.array(X)
@@ -59,7 +60,6 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
 
-
 def get_elev_single(lat,lon,connmod):
     cm = connmod.cursor()
     latint,lonint = int(lat),int(lon)
@@ -68,45 +68,15 @@ def get_elev_single(lat,lon,connmod):
     lati = int(lati)
     lonj = int(lonj)
     sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
-
     r = cm.execute(sql,(latint,lonint,lati,lonj))
     r = list(r)
     if len(r)==0: return None
     rbfi = r[0]
     rbfi = pickle.loads(rbfi[0])
-    return rbfi(lon, lat)
-
-def get_elev(pts,connmod):
-    d = {}
-    for pt in pts:
-        lat,lon=pt[0],pt[1]
-        latint,lonint = int(lat),int(lon)
-        lati = re.findall("\.(\d)",str(lat))[0]
-        lonj = re.findall("\.(\d)",str(lon))[0]
-        d[lonint,lonj,latint,lati] = "-"
-                
-    res = get_rbf_for_keys(d.keys(), connmod)
-
-    pts = [(lat,lon) for lon,lat in zip(xx.flatten(),yy.flatten())]
-    f_elev(pts, res)
-    
-def get_rbf_for_keys(keyList, connmod):
-    cm = connmod.cursor()
-    d = {}
-    for (lat,lati,lon,lonj) in keyList:
-        print (lat,lati,lon,lonj)
-        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
-        r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
-        r = list(r)
-        if len(r)!=0: 
-            rbfi = r[0]
-            rbfi = pickle.loads(rbfi[0])
-            print (rbfi.xi.shape)
-            print (rbfi.nodes.shape)
-            xi = anp.array([x for x in rbfi.xi])
-            nodes = anp.array([x for x in rbfi.nodes])
-            d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
-    return d
+    #elev = rbfi(lat, lon)
+    pts_dist = dist_matrix(anp.array([[lat,lon]]), rbfi.xi.T)
+    elev = np.dot(gaussian(pts_dist, rbfi.epsilon), rbfi.nodes.T)
+    return elev
 
 def dist_matrix(X, Y):
     sx = anp.sum(X**2, 1)
@@ -116,30 +86,33 @@ def dist_matrix(X, Y):
     D = anp.sqrt(D2)
     return D
     
-def gaussian(r,eps): return anp.exp(-(r/eps)**2.0)
+def gaussian(r,eps):
+    x = anp.exp(-(r/eps)**2.0)
+    return x
 
-def f_elev(pts, rbf_dict):
-    print (rbf_dict.keys())
-    pts_rbfs = {}
-    for k in rbf_dict.keys(): pts_rbfs[k] = []
-    for (lat,lon) in pts:
-        latm = re.findall("(\d*?)\.",str(lat))[0]
-        lonm = re.findall("(\d*?)\.",str(lon))[0]
+def get_elev(pts,connmod):
+    cm = connmod.cursor()
+    keyList = {}
+    for pt in pts:
+        lat,lon=pt[0],pt[1]
+        latint,lonint = int(lat),int(lon)
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
-        kk = (int(latm),lati,int(lonm),lonj)
-        pts_rbfs[kk].append([lat,lon])
+        keyList[latint,lati,lonint,lonj] = "-"
 
-    for k in pts_rbfs.keys():
-        pts = anp.array(pts_rbfs[k])
-        (xi, nodes, epsilon)  = rbf_dict[k]
-        print ('xi',xi.shape)
-        print ('nodes',nodes.shape)
-        pts_dist = dist_matrix(pts, xi.T)
-        #print (pts_dist)
-        elev = np.dot(gaussian(pts_dist, epsilon), nodes)
-        print ('elev',elev)
-        
+    res = {}
+    for (lat,lati,lon,lonj) in keyList:
+        print (lat,lati,lon,lonj)
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
+        r = list(r)
+        rbfi = r[0]
+        rbfi = pickle.loads(rbfi[0])
+        xi = anp.array([x for x in rbfi.xi])
+        nodes = anp.array([x for x in rbfi.nodes])
+        res[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
+                        
+    f_elev(pts, res)
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 20
@@ -158,19 +131,26 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     
     connmod = sqlite3.connect(params['elevdbmod'])
 
-    d = {}
-    for lat,lon in zip(xx.flatten(),yy.flatten()):
-        latint,lonint = int(lat),int(lon)
+
+    
+def f_elev(pts, rbf_dict):
+    pts_rbfs = {}
+    for k in rbf_dict.keys(): pts_rbfs[k] = []
+    for (lat,lon) in pts:
+        latm = re.findall("(\d*?)\.",str(lat))[0]
+        lonm = re.findall("(\d*?)\.",str(lon))[0]
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
-        d[lonint,lonj,latint,lati] = "-"
-                
-    res = get_rbf_for_keys(d.keys(), connmod)
-
-    pts = [(lat,lon) for lon,lat in zip(xx.flatten(),yy.flatten())]
-    f_elev(pts, res)
-    
-    rbfs = []
+        kk = (int(latm),lati,int(lonm),lonj)
+        pts_rbfs[kk].append([lat,lon])
+        
+    for k in pts_rbfs.keys():
+        pts = anp.array(pts_rbfs[k])
+        (xi, nodes, epsilon)  = rbf_dict[k]
+        pts_dist = dist_matrix(pts, xi.T)
+        elev = np.dot(gaussian(pts_dist, epsilon), nodes.T)
+        print ('elev',elev)
+        
     
     
 def main_test():    
@@ -180,13 +160,8 @@ def main_test():
     lat2,lon2 = 40.749752,31.610694
     lat3,lon3 = 40.776241, 31.579548
     connmod = sqlite3.connect(params['elevdbmod'])
-    #print (get_elev_single(lat2,lon2,connmod))
+    print (get_elev_single(lat2,lon2,connmod))
     #print (get_elev_single(lat3,lon3,connmod))
-
-    fout1 = '/tmp/out1.png'
-    fout2 = '/tmp/out2.png'
-    fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0)
         
 def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
@@ -194,9 +169,13 @@ def test_single_rbf_block():
     #do_all_rbf_ints()    
     insert_rbf_recs(40,31,conn,connmod)
 
+def test_topo():
+    fout1 = '/tmp/out1.png'
+    fout2 = '/tmp/out2.png'
+    fout3 = '/tmp/out3.png'
+    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0)    
+
 def pts_elev_test():    
-    lat1,lon1 = 41.084967,31.126588
-    lat2,lon2 = 40.749752,31.610694
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
     connmod = sqlite3.connect(params['elevdbmod'])
     get_elev(pts,connmod)
