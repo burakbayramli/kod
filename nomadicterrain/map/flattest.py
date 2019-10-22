@@ -3,6 +3,7 @@ import numpy as np, plot_map, json, os
 import geopy.distance, math, route
 from datetime import timedelta
 import datetime, sqlite3, pickle, re
+import autograd.numpy as anp
 
 SROWS = 40000
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
@@ -91,8 +92,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     xx,yy = np.meshgrid(x,y)
     
-    conn = sqlite3.connect(params['elevdbmod'])
-    c = conn.cursor()
+    connmod = sqlite3.connect(params['elevdbmod'])
 
     d = {}
     for lat,lon in zip(xx.flatten(),yy.flatten()):
@@ -100,12 +100,29 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
         lonint = int(lon)
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
-        d[latint,lati,lonint,lonj] = "-"
+        d[lonint,lonj,latint,lati] = "-"
 
     print (d)
-
         
-
+    cm = connmod.cursor()
+        
+    for (lat,lati,lon,lonj) in d.keys():
+        print (lat,lati,lon,lonj)
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
+        r = list(r)
+        if len(r)!=0: 
+            rbfi = r[0]
+            rbfi = pickle.loads(rbfi[0])
+            print (rbfi.xi.shape)
+            print (rbfi.nodes.shape)
+            xi = anp.array([x for x in rbfi.xi])
+            nodes = anp.array([x for x in rbfi.nodes])
+            d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
+            
+    rbfs = []
+    
+        
 def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -126,7 +143,7 @@ def main_test():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat1,lon1,fout1,fout2,fout3,10.0)
+    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0)
     
 #test_single_rbf_block()    
 main_test()
