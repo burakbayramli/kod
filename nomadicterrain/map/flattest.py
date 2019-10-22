@@ -14,7 +14,6 @@ def do_all_rbf_ints():
     connmod = sqlite3.connect(params['elevdbmod'])
 
     c = conn.cursor()
-    #c.execute("delete from RBF1")
     res = c.execute('''select distinct latint, lonint from elevation; ''')
 
     for (latint,lonint) in res:
@@ -145,8 +144,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     d = {}
     for lat,lon in zip(xx.flatten(),yy.flatten()):
-        latint = int(lat)
-        lonint = int(lon)
+        latint,lonint = int(lat),int(lon)
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
         d[lonint,lonj,latint,lati] = "-"
