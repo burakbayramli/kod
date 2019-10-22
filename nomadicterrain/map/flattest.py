@@ -151,7 +151,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
                 
     res = get_rbf_for_keys(d.keys(), connmod)
 
-    pts = [(lon,lat) for lat,lon in zip(xx.flatten(),yy.flatten())]
+    pts = [(lat,lon) for lon,lat in zip(xx.flatten(),yy.flatten())]
     f_elev(pts, res)
     
     rbfs = []
