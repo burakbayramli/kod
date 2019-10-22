@@ -103,7 +103,7 @@ def dist_matrix(X, Y):
     D = anp.sqrt(D2)
     return D
     
-def gaussian(r,eps): return np.exp(-(r/eps)**2)
+def gaussian(r,eps): return anp.exp(-(r/eps)**2.0)
 
 def f_elev(pts, rbf_dict):
     print (rbf_dict.keys())
@@ -120,8 +120,9 @@ def f_elev(pts, rbf_dict):
     for k in pts_rbfs.keys():
         pts = anp.array(pts_rbfs[k])
         (xi, nodes, epsilon)  = rbf_dict[k]
-        newp_dist = dist_matrix(pts, xi.T)
-        elev = np.dot(gaussian(newp_dist, epsilon), nodes)
+        pts_dist = dist_matrix(pts, xi.T)
+        print (pts_dist)
+        elev = np.dot(gaussian(pts_dist, epsilon), nodes)
         print (elev)
         
 
