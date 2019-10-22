@@ -37,14 +37,14 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
     sql = "DELETE FROM ELEVRBF where latint=%d and lonint=%d" % (latint, lonint)
     cm.execute(sql)
     connmod.commit()
-    for lati in [0,2,4,6,8]:
-        for lonj in [0,2,4,6,8]:
+    for lati in range(10):
+        for lonj in range(10):
             sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
             res = c.execute(sql)
             X = []; Z=[]
             for (lat,lon,elevation) in res:
-                if (".%d"%lati in str(lat) or ".%d"%(lati+1) in str(lat)) and \
-                   (".%d"%lonj in str(lon) or ".%d"%(lonj+1) in str(lon)): 
+                if (".%d"%lati in str(lat)) and \
+                   (".%d"%lonj in str(lon)): 
                     X.append([lon,lat])
                     Z.append([elevation])
     
@@ -54,7 +54,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
             Z = Z[Z[:,0]>0.0]
             print (X.shape)
             if X.shape[0]!=0: 
-                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',smooth=0.2)
+                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian')
                 wdf = pickle.dumps(rbfi)
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
@@ -67,10 +67,9 @@ def get_elev_single(lat,lon,connmod):
     lonj = re.findall("\.(\d)",str(lon))[0]
     lati = int(lati)
     lonj = int(lonj)
-    sql = "SELECT W from ELEVRBF where latint=? and lonint=? and (lati=? or lati=?) "+\
-           "and (lonj=? or lonj=?)" 
+    sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
 
-    r = cm.execute(sql,(latint,lonint,lati,lati+1,lonj,lonj+1))
+    r = cm.execute(sql,(latint,lonint,lati,lonj))
     r = list(r)
     if len(r)==0: return None
     rbfi = r[0]
