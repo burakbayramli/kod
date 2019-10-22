@@ -90,7 +90,7 @@ def gaussian(r,eps):
     x = anp.exp(-(r/eps)**2.0)
     return x
 
-def get_elev(pts,connmod):
+def get_pts_rbf(pts,connmod):
     cm = connmod.cursor()
     keyList = {}
     for pt in pts:
@@ -111,7 +111,10 @@ def get_elev(pts,connmod):
         xi = anp.array([x for x in rbfi.xi])
         nodes = anp.array([x for x in rbfi.nodes])
         res[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
-                        
+    return res
+
+def get_elev(pts,connmod):
+    res = get_pts_rbf(pts, connmod)
     f_elev(pts, res)
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
@@ -128,9 +131,11 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     y = np.linspace(boxlatlow,boxlathigh,D)
 
     xx,yy = np.meshgrid(x,y)
+    pts = np.vstack((yy.flatten(),xx.flatten()))
+    print (pts.shape)
     
     connmod = sqlite3.connect(params['elevdbmod'])
-
+    res = get_pts_rbf(pts.T, connmod)    
 
     
 def f_elev(pts, rbf_dict):
@@ -170,6 +175,7 @@ def test_single_rbf_block():
     insert_rbf_recs(40,31,conn,connmod)
 
 def test_topo():
+    lat2,lon2 = 40.749752,31.610694
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
@@ -182,5 +188,5 @@ def pts_elev_test():
     
 #test_single_rbf_block()    
 #main_test()
-pts_elev_test()
-
+#pts_elev_test()
+test_topo()
