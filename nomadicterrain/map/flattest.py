@@ -13,21 +13,23 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
     sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
     cm.execute(sql)
     connmod.commit()
-    sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
-    res = c.execute(sql)
-    X = []; Z=[]
-    for (lat,lon,elevation) in res:
-        if ".1" in str(lat) and ".2" in str(lon): 
-            #print (lat,lon,elevation)
-            X.append([lon,lat])
-            Z.append([elevation])
+    for lati in range(10):
+        for lonj in range(10):
+            sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
+            res = c.execute(sql)
+            X = []; Z=[]
+            for (lat,lon,elevation) in res:
+                if ".%d"%lati in str(lat) and ".%d"%lonj in str(lon): 
+                    #print (lat,lon,elevation)
+                    X.append([lon,lat])
+                    Z.append([elevation])
     
-    X = np.array(X)
-    Z = np.array(Z)
-    X = X[Z[:,0]>0.0]
-    Z = Z[Z[:,0]>0.0]
-    print (X.shape)
-    rbfi = Rbf(X[:,0], X[:,1], Z)
+            X = np.array(X)
+            Z = np.array(Z)
+            X = X[Z[:,0]>0.0]
+            Z = Z[Z[:,0]>0.0]
+            print (X.shape)
+            rbfi = Rbf(X[:,0], X[:,1], Z)
 
 def do_all_rbf_ints():
 
