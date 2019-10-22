@@ -95,6 +95,20 @@ def get_rbf_for_keys(keyList, connmod):
             d[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
     return d
     
+def f_elev(pts, rbf_dict):
+    print (rbf_dict.keys())
+    pts_rbfs = {}
+    for k in rbf_dict.keys(): pts_rbfs[k] = []
+    for (lat,lon) in pts:
+        latm = re.findall("(\d*?)\.",str(lat))[0]
+        lonm = re.findall("(\d*?)\.",str(lon))[0]
+        lati = re.findall("\.(\d)",str(lat))[0]
+        lonj = re.findall("\.(\d)",str(lon))[0]
+        kk = (int(latm),lati,int(lonm),lonj)
+        pts_rbfs[kk].append([lat,lon])
+
+    print (pts_rbfs)
+        
 
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 30
@@ -120,12 +134,12 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
         d[lonint,lonj,latint,lati] = "-"
-
-    print (d)
                 
     res = get_rbf_for_keys(d.keys(), connmod)
-    print (res)
-            
+
+    pts = [(lon,lat) for lat,lon in zip(xx.flatten(),yy.flatten())]
+    f_elev(pts, d)
+    
     rbfs = []
     
         
