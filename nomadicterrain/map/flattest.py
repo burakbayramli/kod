@@ -76,6 +76,36 @@ def get_elev_single(lat,lon,connmod):
     rbfi = pickle.loads(rbfi[0])
     return rbfi(lon, lat)
 
+def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
+    D = 30
+    boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
+    boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
+
+    boxlatlow = np.min([boxlat1,boxlat2])
+    boxlonlow = np.min([boxlon1,boxlon2])
+    boxlathigh = np.max([boxlat1,boxlat2])
+    boxlonhigh = np.max([boxlon1,boxlon2])
+
+    x = np.linspace(boxlonlow,boxlonhigh,D)
+    y = np.linspace(boxlatlow,boxlathigh,D)
+
+    xx,yy = np.meshgrid(x,y)
+    
+    conn = sqlite3.connect(params['elevdbmod'])
+    c = conn.cursor()
+
+    d = {}
+    for lat,lon in zip(xx.flatten(),yy.flatten()):
+        latint = int(lat)
+        lonint = int(lon)
+        lati = re.findall("\.(\d)",str(lat))[0]
+        lonj = re.findall("\.(\d)",str(lon))[0]
+        d[latint,lati,lonint,lonj] = "-"
+
+    print (d)
+
+        
+
 def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -91,8 +121,13 @@ def main_test():
     lat3,lon3 = 40.776241, 31.579548
     connmod = sqlite3.connect(params['elevdbmod'])
     #print (get_elev_single(lat2,lon2,connmod))
-    print (get_elev_single(lat3,lon3,connmod))
+    #print (get_elev_single(lat3,lon3,connmod))
 
+    fout1 = '/tmp/out1.png'
+    fout2 = '/tmp/out2.png'
+    fout3 = '/tmp/out3.png'
+    plot_topo(lat1,lon1,fout1,fout2,fout3,10.0)
+    
 #test_single_rbf_block()    
 main_test()
 
