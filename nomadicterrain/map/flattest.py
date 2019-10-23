@@ -13,7 +13,6 @@ import autograd.numpy as anp
 SROWS = 40000
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-
 def do_all_rbf_ints():
 
     conn = sqlite3.connect(params['elevdb'])
@@ -102,7 +101,6 @@ def get_pts_rbf(pts,connmod):
         lati = re.findall("\.(\d)",str(lat))[0]
         lonj = re.findall("\.(\d)",str(lon))[0]
         keyList[latint,lati,lonint,lonj] = "-"
-
     res = {}
     for (lat,lati,lon,lonj) in keyList:
         sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
@@ -174,7 +172,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
     from scipy.ndimage.filters import gaussian_filter
-    sigma = 2.0
+    sigma = 0.5
     zz = gaussian_filter(zz, sigma)
     
     plt.figure()
@@ -216,7 +214,10 @@ def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
-    insert_rbf_recs(40,31,conn,connmod)
+    insert_rbf_recs(41,30,conn,connmod)
+    #insert_rbf_recs(41,31,conn,connmod)
+    #insert_rbf_recs(40,31,conn,connmod)
+    #insert_rbf_recs(40,30,conn,connmod)
 
 def pts_elev_test():    
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
@@ -224,12 +225,13 @@ def pts_elev_test():
     get_elev(pts,connmod)
 
 def test_topo():
+    lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,50.0) 
-    #plot_topo(lat2,lon2,fout1,fout2,fout3,30.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,40.0) 
+    #plot_topo(lat1,lon1,fout1,fout2,fout3,20.0) 
     
     
 #test_single_rbf_block()    
