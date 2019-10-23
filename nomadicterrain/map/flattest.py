@@ -208,8 +208,8 @@ def trapz(y, dx):
 
 def path_integral(a0,b0,ex,ey):
     connmod = sqlite3.connect(params['elevdbmod'])
+    t = anp.linspace(0,1.0,100)
     def obj(xarg):
-        t = anp.linspace(0,1,100)
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
@@ -233,18 +233,17 @@ def path_integral(a0,b0,ex,ey):
         if ('ArrayBox' not in str(type(T))):
             return float(T)
         return T._value
-        
-    a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+
+    anp.random.seed(0)
+    a1,a2,a3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
+    b1,b2,b3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     #a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
     print ('obj',obj(newx))
 
-    for i in range(10):
-        j = autograd.jacobian(obj)
-        J = j(newx)
-        print (J)
-        newx = newx + alpha*J
+    j = autograd.jacobian(obj)
+    J = j(newx)
+    print (J)
 
 
 def main_test():    
