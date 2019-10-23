@@ -146,7 +146,7 @@ def f_elev(pts, rbf_dict):
     return pts_elevs
         
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
-    D = 20
+    D = 10
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -178,7 +178,24 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
-    
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.view_init(elev=30,azim=250)
+    ax.plot([plon],[plat],[1000],'r.')
+    ls = LightSource(270, 45)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, )
+    plt.savefig(fout2)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.view_init(elev=30,azim=40)
+    ax.plot([plon],[plat],[1000],'r.')
+    ls = LightSource(270, 45)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    plt.savefig(fout3)
         
            
 def main_test():    
