@@ -146,7 +146,7 @@ def f_elev(pts, rbf_dict):
     return pts_elevs
         
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
-    D = 20
+    D = 30
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -174,7 +174,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
     from scipy.ndimage.filters import gaussian_filter
-    sigma = 0.7
+    sigma = 2.0
     zz = gaussian_filter(zz, sigma)
     
     plt.figure()
@@ -228,8 +228,8 @@ def test_topo():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    #plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
-    plot_topo(lat2,lon2,fout1,fout2,fout3,30.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,50.0) 
+    #plot_topo(lat2,lon2,fout1,fout2,fout3,30.0) 
     
     
 #test_single_rbf_block()    
