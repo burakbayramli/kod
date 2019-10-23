@@ -1,3 +1,8 @@
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.spatial.distance import cdist
+from matplotlib.colors import LightSource
+from matplotlib import cm
+import matplotlib.pyplot as plt
 from scipy.interpolate import Rbf
 import numpy as np, plot_map, json, os
 import geopy.distance, math, route
@@ -73,7 +78,6 @@ def get_elev_single(lat,lon,connmod):
     if len(r)==0: return None
     rbfi = r[0]
     rbfi = pickle.loads(rbfi[0])
-    #elev = rbfi(lat, lon)
     pts_dist = dist_matrix(anp.array([[lat,lon]]), rbfi.xi.T)
     elev = np.dot(gaussian(pts_dist, rbfi.epsilon), rbfi.nodes.T)
     return elev
@@ -87,8 +91,7 @@ def dist_matrix(X, Y):
     return D
     
 def gaussian(r,eps):
-    x = anp.exp(-(r/eps)**2.0)
-    return x
+    return anp.exp(-(r/eps)**2.0)
 
 def get_pts_rbf(pts,connmod):
     cm = connmod.cursor()
@@ -102,21 +105,46 @@ def get_pts_rbf(pts,connmod):
 
     res = {}
     for (lat,lati,lon,lonj) in keyList:
-        print (lat,lati,lon,lonj)
         sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
         r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
         r = list(r)
-        rbfi = r[0]
-        rbfi = pickle.loads(rbfi[0])
-        xi = anp.array([x for x in rbfi.xi])
-        nodes = anp.array([x for x in rbfi.nodes])
-        res[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
+        if len(r)==1:
+            rbfi = r[0]
+            rbfi = pickle.loads(rbfi[0])
+            xi = anp.array([x for x in rbfi.xi])
+            nodes = anp.array([x for x in rbfi.nodes])
+            res[(lat,lati,lon,lonj)] = (xi, nodes, rbfi.epsilon)
     return res
 
 def get_elev(pts,connmod):
     res = get_pts_rbf(pts, connmod)
-    f_elev(pts, res)
+    elevs = f_elev(pts, res)
+    return elevs
+    
+def f_elev(pts, rbf_dict):
+    pts_elevs = {}
+    pts_rbfs = {}
+    for k in rbf_dict.keys(): pts_rbfs[k] = []
+    for (lat,lon) in pts:
+        latm = re.findall("(\d*?)\.",str(lat))[0]
+        lonm = re.findall("(\d*?)\.",str(lon))[0]
+        lati = re.findall("\.(\d)",str(lat))[0]
+        lonj = re.findall("\.(\d)",str(lon))[0]
+        kk = (int(latm),lati,int(lonm),lonj)
+        pts_rbfs[kk].append([lat,lon])
+        
+    for k in pts_rbfs.keys():
+        pts = anp.array(pts_rbfs[k])
+        (xi, nodes, epsilon)  = rbf_dict[k]
+        pts_dist = dist_matrix(pts, xi.T)
+        elev = anp.dot(gaussian(pts_dist, epsilon), nodes.T)
+        elev = anp.reshape(elev,(len(elev),1))
+        rec = anp.hstack((pts, elev))
+        for pt,z in zip(pts,elev):
+            pts_elevs[str(pt)] = z
 
+    return pts_elevs
+        
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     D = 20
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
@@ -132,32 +160,27 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     xx,yy = np.meshgrid(x,y)
     pts = np.vstack((yy.flatten(),xx.flatten()))
-    print (pts.shape)
     
     connmod = sqlite3.connect(params['elevdbmod'])
-    res = get_pts_rbf(pts.T, connmod)    
+    res = get_pts_rbf(pts.T, connmod)
+    elevs = get_elev(pts.T, connmod)
 
+    zz = []
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        zz.append( elevs[str(anp.array([y,x]))] )
+
+    zz = anp.array(zz).reshape(xx.shape)
+
+    plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
+
+    plt.figure()
+    plt.plot(plon,plat,'rd')
+    cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
+    plt.clabel(cs,inline=1,fontsize=9)
+    plt.savefig(fout1)
     
-def f_elev(pts, rbf_dict):
-    pts_rbfs = {}
-    for k in rbf_dict.keys(): pts_rbfs[k] = []
-    for (lat,lon) in pts:
-        latm = re.findall("(\d*?)\.",str(lat))[0]
-        lonm = re.findall("(\d*?)\.",str(lon))[0]
-        lati = re.findall("\.(\d)",str(lat))[0]
-        lonj = re.findall("\.(\d)",str(lon))[0]
-        kk = (int(latm),lati,int(lonm),lonj)
-        pts_rbfs[kk].append([lat,lon])
         
-    for k in pts_rbfs.keys():
-        pts = anp.array(pts_rbfs[k])
-        (xi, nodes, epsilon)  = rbf_dict[k]
-        pts_dist = dist_matrix(pts, xi.T)
-        elev = np.dot(gaussian(pts_dist, epsilon), nodes.T)
-        print ('elev',elev)
-        
-    
-    
+           
 def main_test():    
     lat1,lon1 = 41.084967,31.126588
     lat1 = float(lat1)
@@ -174,17 +197,18 @@ def test_single_rbf_block():
     #do_all_rbf_ints()    
     insert_rbf_recs(40,31,conn,connmod)
 
+def pts_elev_test():    
+    pts = [[40.749752,31.610694],[40.749752,31.710694]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    get_elev(pts,connmod)
+
 def test_topo():
     lat2,lon2 = 40.749752,31.610694
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0)    
-
-def pts_elev_test():    
-    pts = [[40.749752,31.610694],[40.749752,31.710694]]
-    connmod = sqlite3.connect(params['elevdbmod'])
-    get_elev(pts,connmod)
+    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
+    
     
 #test_single_rbf_block()    
 #main_test()
