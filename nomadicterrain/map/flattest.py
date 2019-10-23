@@ -11,7 +11,7 @@ import datetime, sqlite3, pickle, re
 import autograd.numpy as anp
 
 DIV = 2.0
-OFFSET = 0.0
+OFFSET = 1000.0
 SROWS = 40000
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
@@ -56,8 +56,6 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
     
             X = np.array(X)
             Z = np.array(Z)
-            X = X[Z[:,0]>0.0]
-            Z = Z[Z[:,0]>0.0]
             print (X.shape)
             if X.shape[0]!=0: 
                 rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
@@ -193,8 +191,8 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plt.savefig(fout3)
 
 def trapz(y, dx):
-    #vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
-    vals = anp.array([_ for _ in y[1:-1]])
+    vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
+    #vals = anp.array([_ for _ in y[1:-1]])
     tmp = anp.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
 
@@ -211,11 +209,16 @@ def path_integral(a0,b0,ex,ey):
         pts = anp.vstack((y,x))
         print (pts.shape)
         res = get_pts_rbf(pts.T, connmod)
-        z = [f_elev(pts.T,res)]
+        z = f_elev(pts.T,res)
+        z = anp.array([xx[0] for xx in z.values()])
+        res = z * sq
+        print (res)
+        T = trapz(res, 1.0/len(t))        
+        print (T)
         
-
-    a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
-    b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    #a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    #b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
     print (obj(newx))
     
@@ -234,12 +237,12 @@ def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
-    insert_rbf_recs(40,31,conn,connmod)
-    #insert_rbf_recs(41,30,conn,connmod)
-    #insert_rbf_recs(41,31,conn,connmod)
-    #insert_rbf_recs(40,30,conn,connmod)
-    #insert_rbf_recs(40,32,conn,connmod)
-    #insert_rbf_recs(41,32,conn,connmod)
+    #insert_rbf_recs(40,31,conn,connmod)
+    insert_rbf_recs(41,30,conn,connmod)
+    insert_rbf_recs(41,31,conn,connmod)
+    insert_rbf_recs(40,30,conn,connmod)
+    insert_rbf_recs(40,32,conn,connmod)
+    insert_rbf_recs(41,32,conn,connmod)
 
 def pts_elev_test():    
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
