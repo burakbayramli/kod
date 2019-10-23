@@ -203,12 +203,12 @@ def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
-    #insert_rbf_recs(41,30,conn,connmod)
-    #insert_rbf_recs(41,31,conn,connmod)
-    #insert_rbf_recs(40,31,conn,connmod)
+    insert_rbf_recs(40,31,conn,connmod)
+    insert_rbf_recs(41,30,conn,connmod)
+    insert_rbf_recs(41,31,conn,connmod)
     #insert_rbf_recs(40,30,conn,connmod)
     #insert_rbf_recs(40,32,conn,connmod)
-    insert_rbf_recs(41,32,conn,connmod)
+    #insert_rbf_recs(41,32,conn,connmod)
 
 def pts_elev_test():    
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
@@ -221,11 +221,11 @@ def test_topo():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,55.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
     #plot_topo(lat1,lon1,fout1,fout2,fout3,20.0) 
     
     
 #test_single_rbf_block()    
-main_test()
+#main_test()
 #pts_elev_test()
-#test_topo()
+test_topo()
