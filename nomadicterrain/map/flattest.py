@@ -5,7 +5,7 @@ from matplotlib import cm
 import matplotlib.pyplot as plt
 from scipy.interpolate import Rbf
 import numpy as np, plot_map, json, os
-import geopy.distance, math, route
+import geopy.distance, math, route, autograd
 from datetime import timedelta
 import datetime, sqlite3, pickle, re
 import autograd.numpy as anp
@@ -15,6 +15,7 @@ OFFSET = 1000.0
 SROWS = 40000
 mu = 2.0
 LIM = 2.0
+alpha = 0.05
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
@@ -84,9 +85,12 @@ def dist_matrix(X, Y):
 def gaussian(r,eps):
     return anp.exp(-(r/eps)**2.0)
 
-def get_pts_rbf(pts,connmod):
+def get_pts_rbf(pts, connmod):
     cm = connmod.cursor()
     keyList = {}
+    if 'ArrayBox' in str(type(pts)):
+        pts = pts._value
+    #print ('pts',pts)
     for pt in pts:
         lat,lon=pt[0],pt[1]
         latint,lonint = int(lat),int(lon)
@@ -116,6 +120,9 @@ def f_elev(pts, rbf_dict):
     pts_elevs = {}
     pts_rbfs = {}
     for k in rbf_dict.keys(): pts_rbfs[k] = []
+    if 'ArrayBox' in str(type(pts)):
+        pts = pts._value
+    #print ('pts',pts)
     for (lat,lon) in pts:
         latm = str(int(lat))
         lonm = str(int(lon))
@@ -227,13 +234,19 @@ def path_integral(a0,b0,ex,ey):
             return float(T)
         return T._value
         
-    a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
-    b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
     #a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
-    print (obj(newx))
-    
-               
+    print ('obj',obj(newx))
+
+    for i in range(10):
+        j = autograd.jacobian(obj)
+        J = j(newx)
+        print (J)
+        newx = newx + alpha*J
+
+
 def main_test():    
     lat1,lon1 = 41.084967,31.126588
     lat1 = float(lat1)
@@ -272,7 +285,6 @@ def test_topo():
 def test_obj():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
-
     path_integral(lon2,lat2,lon1,lat1)
     
 #test_single_rbf_block()    
