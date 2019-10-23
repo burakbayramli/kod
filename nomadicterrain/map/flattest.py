@@ -13,6 +13,9 @@ import autograd.numpy as anp
 DIV = 2.0
 OFFSET = 1000.0
 SROWS = 40000
+mu = 2.0
+LIM = 2.0
+
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
 def do_all_rbf_ints():
@@ -212,13 +215,21 @@ def path_integral(a0,b0,ex,ey):
         z = f_elev(pts.T,res)
         z = anp.array([xx[0] for xx in z.values()])
         res = z * sq
-        print (res)
         T = trapz(res, 1.0/len(t))        
-        print (T)
+        cons = mu * (anp.log(LIM+a1) + anp.log(LIM-a1) + \
+                     anp.log(LIM+a2) + anp.log(LIM-a2) + \
+                     anp.log(LIM+a3) + anp.log(LIM-a3) + \
+                     anp.log(LIM+b1) + anp.log(LIM-b1) + \
+                     anp.log(LIM+b2) + anp.log(LIM-b2) + \
+                     anp.log(LIM+b3) + anp.log(LIM-b3))
+        T = T - cons
+        if ('ArrayBox' not in str(type(T))):
+            return float(T)
+        return T._value
         
-    #a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
-    #b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
-    a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
+    a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    #a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
     print (obj(newx))
     
