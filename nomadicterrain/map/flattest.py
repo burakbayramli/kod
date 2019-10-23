@@ -23,12 +23,10 @@ def do_all_rbf_ints():
 
     for (latint,lonint) in res:
         print ('int---->', latint,lonint)
-
         sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
         c2 = conn.cursor()
         res1 = c2.execute(sql1)
         res1 = list(res1)
-
         insert_rbf_recs(latint,lonint,conn,connmod)        
         break
 
@@ -59,7 +57,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
             Z = Z[Z[:,0]>0.0]
             print (X.shape)
             if X.shape[0]!=0: 
-                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian')
+                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
                 wdf = pickle.dumps(rbfi)
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
@@ -172,12 +170,13 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
     from scipy.ndimage.filters import gaussian_filter
-    sigma = 0.5
+    sigma = 0.7
     zz = gaussian_filter(zz, sigma)
     
     plt.figure()
     plt.plot(plon,plat,'rd')
-    cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
+    #cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
+    cs=plt.contour(xx,yy,zz,[200,300,400,500,700,900])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
 
@@ -214,10 +213,12 @@ def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
-    insert_rbf_recs(41,30,conn,connmod)
+    #insert_rbf_recs(41,30,conn,connmod)
     #insert_rbf_recs(41,31,conn,connmod)
     #insert_rbf_recs(40,31,conn,connmod)
     #insert_rbf_recs(40,30,conn,connmod)
+    #insert_rbf_recs(40,32,conn,connmod)
+    insert_rbf_recs(41,32,conn,connmod)
 
 def pts_elev_test():    
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
@@ -230,7 +231,7 @@ def test_topo():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,40.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,55.0) 
     #plot_topo(lat1,lon1,fout1,fout2,fout3,20.0) 
     
     
