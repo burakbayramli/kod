@@ -86,8 +86,8 @@ def get_pts_rbf(pts,connmod):
     for pt in pts:
         lat,lon=pt[0],pt[1]
         latint,lonint = int(lat),int(lon)
-        lati = re.findall("\.(\d)",str(lat))[0]
-        lonj = re.findall("\.(\d)",str(lon))[0]
+        lati = str(lat).split(".")[1][0]
+        lonj = str(lon).split(".")[1][0]
         keyList[latint,lati,lonint,lonj] = "-"
     res = {}
     for (lat,lati,lon,lonj) in keyList:
