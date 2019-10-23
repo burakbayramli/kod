@@ -112,10 +112,10 @@ def f_elev(pts, rbf_dict):
     pts_rbfs = {}
     for k in rbf_dict.keys(): pts_rbfs[k] = []
     for (lat,lon) in pts:
-        latm = re.findall("(\d*?)\.",str(lat))[0]
-        lonm = re.findall("(\d*?)\.",str(lon))[0]
-        lati = re.findall("\.(\d)",str(lat))[0]
-        lonj = re.findall("\.(\d)",str(lon))[0]
+        latm = str(int(lat))
+        lonm = str(int(lon))
+        lati = str(lat).split(".")[1][0]
+        lonj = str(lon).split(".")[1][0]
         kk = (int(latm),lati,int(lonm),lonj)
         pts_rbfs[kk].append([lat,lon])
         
