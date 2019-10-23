@@ -146,7 +146,7 @@ def f_elev(pts, rbf_dict):
     return pts_elevs
         
 def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
-    D = 10
+    D = 20
     boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -182,7 +182,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     ax.view_init(elev=30,azim=250)
-    ax.plot([plon],[plat],[1000],'r.')
+    ax.plot([plon],[plat],[anp.max(zz)],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, )
@@ -191,7 +191,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     fig = plt.figure()
     ax = fig.gca(projection='3d')
     ax.view_init(elev=30,azim=40)
-    ax.plot([plon],[plat],[1000],'r.')
+    ax.plot([plon],[plat],[anp.max(zz)],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
@@ -224,7 +224,8 @@ def test_topo():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
+    #plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,30.0) 
     
     
 #test_single_rbf_block()    
