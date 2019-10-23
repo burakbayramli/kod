@@ -63,21 +63,11 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
                 connmod.commit()
 
 def get_elev_single(lat,lon,connmod):
-    cm = connmod.cursor()
-    latint,lonint = int(lat),int(lon)
-    lati = re.findall("\.(\d)",str(lat))[0]
-    lonj = re.findall("\.(\d)",str(lon))[0]
-    lati = int(lati)
-    lonj = int(lonj)
-    sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
-    r = cm.execute(sql,(latint,lonint,lati,lonj))
-    r = list(r)
-    if len(r)==0: return None
-    rbfi = r[0]
-    rbfi = pickle.loads(rbfi[0])
-    pts_dist = dist_matrix(anp.array([[lat,lon]]), rbfi.xi.T)
-    elev = np.dot(gaussian(pts_dist, rbfi.epsilon), rbfi.nodes.T)
-    return elev
+    pts = [[lat,lon]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    elev = get_elev(pts,connmod)
+    for k in elev.keys(): 
+        return elev[k][0]
 
 def dist_matrix(X, Y):
     sx = anp.sum(X**2, 1)
@@ -236,6 +226,6 @@ def test_topo():
     
     
 #test_single_rbf_block()    
-#main_test()
+main_test()
 #pts_elev_test()
-test_topo()
+#test_topo()
