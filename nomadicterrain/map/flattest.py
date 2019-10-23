@@ -10,6 +10,8 @@ from datetime import timedelta
 import datetime, sqlite3, pickle, re
 import autograd.numpy as anp
 
+DIV = 2.0
+OFFSET = 0.0
 SROWS = 40000
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
@@ -42,6 +44,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
     connmod.commit()
     for lati in range(10):
         for lonj in range(10):
+            print (latint,lati,lonint,lonj)
             sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
             res = c.execute(sql)
             X = []; Z=[]
@@ -91,7 +94,8 @@ def get_pts_rbf(pts,connmod):
         keyList[latint,lati,lonint,lonj] = "-"
     res = {}
     for (lat,lati,lon,lonj) in keyList:
-        sql = "SELECT W from ELEVRBF where latint=? and lonint=? and lati=? and lonj=? " 
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
+              "and lati=? and lonj=? " 
         r = cm.execute(sql,(int(lat),int(lon),int(lati),int(lonj)))
         r = list(r)
         if len(r)==1:
@@ -176,7 +180,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     ax.plot([plon],[plat],[anp.max(zz)],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
-    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, )
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout2)
 
     fig = plt.figure()
@@ -187,8 +191,35 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
+
+def trapz(y, dx):
+    #vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
+    vals = anp.array([_ for _ in y[1:-1]])
+    tmp = anp.sum(vals*2.0)    
+    return (y[0]+tmp+y[-1])*(dx/2.0)
+
+def path_integral(a0,b0,ex,ey):
+    connmod = sqlite3.connect(params['elevdbmod'])
+    def obj(xarg):
+        t = anp.linspace(0,1,100)
+        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
+        a4 = ex - a0 - (a1+a2+a3)
+        b4 = ey - b0 - (b1+b2+b3)
+        sq = anp.sqrt(b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2)
+        x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+        y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+        pts = anp.vstack((y,x))
+        print (pts.shape)
+        res = get_pts_rbf(pts.T, connmod)
+        z = [f_elev(pts.T,res)]
         
-           
+
+    a1,a2,a3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    b1,b2,b3 = np.random.randn()/DIV,np.random.randn()/DIV,np.random.randn()/DIV
+    newx = anp.array([a1,a2,a3,b1,b2,b3])
+    print (obj(newx))
+    
+               
 def main_test():    
     lat1,lon1 = 41.084967,31.126588
     lat1 = float(lat1)
@@ -204,8 +235,8 @@ def test_single_rbf_block():
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
     insert_rbf_recs(40,31,conn,connmod)
-    insert_rbf_recs(41,30,conn,connmod)
-    insert_rbf_recs(41,31,conn,connmod)
+    #insert_rbf_recs(41,30,conn,connmod)
+    #insert_rbf_recs(41,31,conn,connmod)
     #insert_rbf_recs(40,30,conn,connmod)
     #insert_rbf_recs(40,32,conn,connmod)
     #insert_rbf_recs(41,32,conn,connmod)
@@ -224,8 +255,14 @@ def test_topo():
     plot_topo(lat2,lon2,fout1,fout2,fout3,10.0) 
     #plot_topo(lat1,lon1,fout1,fout2,fout3,20.0) 
     
+def test_obj():
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+
+    path_integral(lon2,lat2,lon1,lat1)
     
 #test_single_rbf_block()    
 #main_test()
 #pts_elev_test()
-test_topo()
+#test_topo()
+test_obj()
