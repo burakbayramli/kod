@@ -10,7 +10,6 @@ from datetime import timedelta
 import datetime, sqlite3, pickle, re
 import autograd.numpy as anp
 
-DIV = 2.0
 OFFSET = 1000.0
 SROWS = 40000
 mu = 2.0
@@ -234,11 +233,13 @@ def path_integral(a0,b0,ex,ey):
             return float(T)
         return T._value
 
-    anp.random.seed(0)
+    anp.random.seed(20)
+    DIV = 2.0
     a1,a2,a3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     b1,b2,b3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     #a1,a2,a3,b1,b2,b3=0.2,0.4,0.6,0.6,0.4,0.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
+    print ('newx',newx)
     print ('obj',obj(newx))
 
     j = autograd.jacobian(obj)
@@ -284,7 +285,7 @@ def test_topo():
 def test_obj():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
-    path_integral(lon2,lat2,lon1,lat1)
+    path_integral(lon1,lat1,lon2,lat2)
     
 #test_single_rbf_block()    
 #main_test()

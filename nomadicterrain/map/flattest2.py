@@ -10,11 +10,8 @@ from datetime import timedelta
 import datetime, sqlite3, pickle, re
 import autograd.numpy as anp
 
-OFFSET = 1000.0
-SROWS = 40000
+OFFSET = 1.0
 DIV = 2.0
-mu = 2.0
-LIM = 2.0
 alpha = 0.05
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
@@ -49,7 +46,6 @@ def get_elev_single(lat,lon,connmod):
     pts = [[lat,lon]]
     connmod = sqlite3.connect(params['elevdbmod'])
     elev = get_elev(pts,connmod)
-    #print (list(elev.values())[0])
     return list(elev.values())[0]
     
 def dist_matrix(X, Y):
@@ -59,7 +55,7 @@ def dist_matrix(X, Y):
     tmp = []
     for x in D2[0]:
         if x>0.0: tmp.append(x)
-    D2 = anp.array([tmp])
+    D2 = anp.array([tmp])    
     D = anp.sqrt(D2)
     return D
     
@@ -183,42 +179,42 @@ def trapz(y, dx):
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
-    t = anp.linspace(0,1.0,100)
-    
+    t = anp.linspace(0,1.0,100)    
     def obj(xarg):
+        mu = 2.0
+        LIM = 2.0
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
-        tmp = b1 + 2*b2*t + 3*b3*anp.power(t,2) - 112.0*anp.power(t,3) + anp.power((a1 + 2*a2*t + 3*a3*anp.power(t,2) - 65.2*anp.power(t,3)),2)
+        tmp = b1 + 2*b2*t + 3*b3*anp.power(t,2.0) - 112.0*anp.power(t,3.0) + anp.power((a1 + 2.0*a2*t + 3*a3*anp.power(t,2.0) - 65.2*anp.power(t,3)),2.0)
         #print (tmp)
         sq = anp.sqrt(tmp)
-        x = a0 + a1*t + a2*anp.power(t,2) + a3*anp.power(t,3) + a4*anp.power(t,4)
-        y = b0 + b1*t + b2*anp.power(t,2) + b3*anp.power(t,3) + b4*anp.power(t,4)
+        x = a0 + a1*t + a2*anp.power(t,2.0) + a3*anp.power(t,3.0) + a4*anp.power(t,4.0)
+        y = b0 + b1*t + b2*anp.power(t,2.0) + b3*anp.power(t,3.0) + b4*anp.power(t,4.0)
         pts = anp.vstack((y,x))
         #print (pts.shape)        
         res = f_elev(pts.T, xis, nodes, epsilons)        
         z = anp.array(list(res.values())) 
         res = z * sq
-        T = trapz(res, 1.0/len(t))        
+        T = trapz(res, 1.0/100.0)
         cons = mu * (anp.log(LIM+a1) + anp.log(LIM-a1) + \
                      anp.log(LIM+a2) + anp.log(LIM-a2) + \
                      anp.log(LIM+a3) + anp.log(LIM-a3) + \
                      anp.log(LIM+b1) + anp.log(LIM-b1) + \
                      anp.log(LIM+b2) + anp.log(LIM-b2) + \
                      anp.log(LIM+b3) + anp.log(LIM-b3))
-        T = T - cons
-        print ('T',T)
-        return T
-#        if ('ArrayBox' not in str(type(T))):
-#            return float(T)
-#        return T._value
+#        T = T - cons
+        if ('ArrayBox' not in str(type(T))):
+            return float(T)
+        return T._value
 
 
-    anp.random.seed(0)
+    anp.random.seed(200)
     a1,a2,a3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     b1,b2,b3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     #a1,a2,a3,b1,b2,b3=-0.2,2.4,2.6,0.6,0.4,2.2
     newx = anp.array([a1,a2,a3,b1,b2,b3])
+    print (newx)
     print ('obj',obj(newx))
 
     j = autograd.jacobian(obj)
