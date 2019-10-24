@@ -31,7 +31,7 @@ def get_elev(pts,connmod):
         lati = str(lat).split(".")[1][0]
         lonj = str(lon).split(".")[1][0]
         d[(int(latint),int(lonint),int(lati),int(lonj))] = 1
-    print (d)
+    #print (d)
     for (latint,lonint,lati,lonj) in d.keys():
         sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
               "and lati=? and lonj=? " 
@@ -49,14 +49,18 @@ def get_elev_single(lat,lon,connmod):
     pts = [[lat,lon]]
     connmod = sqlite3.connect(params['elevdbmod'])
     elev = get_elev(pts,connmod)
-    print (list(elev.values())[0])
+    #print (list(elev.values())[0])
+    return list(elev.values())[0]
     
 def dist_matrix(X, Y):
-    sx = anp.sum(X**2, 1)
-    sy = anp.sum(Y**2, 1)
+    sx = anp.sum(anp.power(X,2), 1)
+    sy = anp.sum(anp.power(Y,2), 1)
     D2 =  sx[:, anp.newaxis] - anp.dot(2.0*X,Y.T) + sy[anp.newaxis, :]
     #print ('D2',D2)
     #D2[D2 < 0] = 0
+    #print (D2)
+    D2 = anp.array([[0.0 if _<0.0 else _ for _ in D2[0]]])
+    #print (D2)
     D = anp.sqrt(D2)
     return D
     
@@ -83,6 +87,7 @@ def f_elev(pts, xis, nodes, epsilons):
         epsilon = epsilons[(latm,lonm,lati,lonj)]
         pts_dist = dist_matrix(anp.array([[lat,lon]]), xi.T)        
         elev = anp.dot(gaussian(pts_dist, epsilon), node.T)
+        #print (elev)
         elev = anp.reshape(elev,(len(elev),1))
         pts_elevs[(lat,lon)] = elev[0][0]
     return pts_elevs
@@ -186,12 +191,12 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
         tmp = b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2
-        print (tmp)
+        #print (tmp)
         sq = anp.sqrt(tmp)
         x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
         y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
         pts = anp.vstack((y,x))
-        print (pts.shape)        
+        #print (pts.shape)        
         res = f_elev(pts.T, xis, nodes, epsilons)        
         z = anp.array(list(res.values())) 
         res = z * sq
