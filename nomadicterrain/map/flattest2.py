@@ -54,8 +54,9 @@ def get_elev_single(lat,lon,connmod):
 def dist_matrix(X, Y):
     sx = anp.sum(X**2, 1)
     sy = anp.sum(Y**2, 1)
-    D2 =  sx[:, anp.newaxis] - 2.0*X.dot(Y.T) + sy[anp.newaxis, :] 
-    D2[D2 < 0] = 0
+    D2 =  sx[:, anp.newaxis] - anp.dot(2.0*X,Y.T) + sy[anp.newaxis, :]
+    #print ('D2',D2)
+    #D2[D2 < 0] = 0
     D = anp.sqrt(D2)
     return D
     
@@ -65,8 +66,16 @@ def gaussian(r,eps):
 def f_elev(pts, xis, nodes, epsilons):    
     pts_elevs = {}
     for (lat,lon) in pts:
-        latm = int(lat)
-        lonm = int(lon)
+        latm,lonm = None,None
+        if 'ArrayBox' in str(type(lat)):
+            latm = int(lat._value)
+        else:
+            latm = int(lat)
+        if 'ArrayBox' in str(type(lon)):
+            lonm = int(lon._value)
+        else:
+            lonm = int(lon)
+            
         lati = int(str(lat).split(".")[1][0])
         lonj = int(str(lon).split(".")[1][0])
         node = nodes[(latm,lonm,lati,lonj)]
@@ -121,7 +130,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     k = list(unique_latlon_ints.keys())
     xis, nodes, epsilons = get_rbf_for_latlon_ints(k,connmod)
     
-    pts = np.vstack((yy.flatten(),xx.flatten()))
+    pts = anp.vstack((yy.flatten(),xx.flatten()))
     
     elevs = f_elev(pts.T, xis, nodes, epsilons)
 
@@ -163,6 +172,54 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
 
+def trapz(y, dx):
+    vals = anp.array([_ if anp.isnan(_)==False else OFFSET for _ in y[1:-1]])
+    #vals = anp.array([_ for _ in y[1:-1]])
+    tmp = anp.sum(vals*2.0)    
+    return (y[0]+tmp+y[-1])*(dx/2.0)
+    
+def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
+    t = anp.linspace(0,1.0,100)
+    
+    def obj(xarg):
+        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
+        a4 = ex - a0 - (a1+a2+a3)
+        b4 = ey - b0 - (b1+b2+b3)
+        tmp = b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2
+        print (tmp)
+        sq = anp.sqrt(tmp)
+        x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+        y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+        pts = anp.vstack((y,x))
+        print (pts.shape)        
+        res = f_elev(pts.T, xis, nodes, epsilons)        
+        z = anp.array(list(res.values())) 
+        res = z * sq
+        T = trapz(res, 1.0/len(t))        
+        cons = mu * (anp.log(LIM+a1) + anp.log(LIM-a1) + \
+                     anp.log(LIM+a2) + anp.log(LIM-a2) + \
+                     anp.log(LIM+a3) + anp.log(LIM-a3) + \
+                     anp.log(LIM+b1) + anp.log(LIM-b1) + \
+                     anp.log(LIM+b2) + anp.log(LIM-b2) + \
+                     anp.log(LIM+b3) + anp.log(LIM-b3))
+        T = T - cons
+        print ('T',T)
+        return T
+#        if ('ArrayBox' not in str(type(T))):
+#            return float(T)
+#        return T._value
+
+
+    anp.random.seed(0)
+    a1,a2,a3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
+    b1,b2,b3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
+    #a1,a2,a3,b1,b2,b3=-0.2,2.4,2.6,0.6,0.4,2.2
+    newx = anp.array([a1,a2,a3,b1,b2,b3])
+    print ('obj',obj(newx))
+
+    j = autograd.jacobian(obj)
+    J = j(newx)
+    print (J)
 
 def test_rbf_get():
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -189,9 +246,19 @@ def pts_elev_test():
     connmod = sqlite3.connect(params['elevdbmod'])
     print (get_elev_single(40.749752,31.610694,connmod))
     print (get_elev(pts,connmod))
+
+def test_obj():
+    connmod = sqlite3.connect(params['elevdbmod'])
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+    ls = [[41,32],[40,31],[41,30],[41,31]]
+    xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)    
+    find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
+    
     
 #test_dist()
 #test_obj()
 #test_rbf_get()
 #test_topo()
-pts_elev_test()
+#pts_elev_test()
+test_obj()
