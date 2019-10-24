@@ -1,13 +1,10 @@
-from scipy.spatial.distance import cdist
-from scipy.interpolate import Rbf
-import numpy as np, json, os
+import numpy as np, os
 import math, autograd
 import datetime, pickle, re
 import autograd.numpy as anp
 
 OFFSET = 1.0
-DIV = 2.0
-alpha = 0.05
+anp.random.seed(0)
 
 def dist_matrix(X, Y):
     sx = anp.sum(anp.power(X,2), 1)
@@ -50,7 +47,7 @@ def trapz(y, dx):
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     t = anp.linspace(0,1.0,100)    
-    def obj(xarg):
+    def fobj(xarg):
         mu = 2.0
         LIM = 2.0
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
@@ -78,7 +75,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     print (newx)
     #print ('obj',obj(newx))
     
-    j = autograd.jacobian(obj)
+    j = autograd.jacobian(fobj)
     J = j(newx)
     print (J)
 
