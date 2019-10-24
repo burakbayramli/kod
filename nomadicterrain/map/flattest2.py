@@ -19,6 +19,33 @@ alpha = 0.05
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
+def get_elev(pts,connmod):
+    cm = connmod.cursor()
+    d = {}
+    xis = {}
+    nodes = {}
+    epsilons = {}
+    for (lat,lon) in pts:
+        latint = str(int(lat))
+        lonint = str(int(lon))
+        lati = str(lat).split(".")[1][0]
+        lonj = str(lon).split(".")[1][0]
+        d[(int(latint),int(lonint),int(lati),int(lonj))] = 1
+    print (d)
+    for (latint,lonint,lati,lonj) in d.keys():
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
+              "and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
+        r = list(r)
+        rbfi = r[0]
+        rbfi = pickle.loads(rbfi[0])
+        xis[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.xi])
+        nodes[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.nodes])
+        epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
+    elevs = f_elev2(pts, xis, nodes, epsilons)
+    return elevs
+    
+    
 def dist_matrix(X, Y):
     sx = anp.sum(X**2, 1)
     sy = anp.sum(Y**2, 1)
@@ -31,7 +58,6 @@ def gaussian(r,eps):
     return anp.exp(-(r/eps)**2.0)
 
 def f_elev2(pts, xis, nodes, epsilons):    
-    print (pts.shape)
     pts_elevs = {}
     for (lat,lon) in pts:
         latm = int(lat)
@@ -152,10 +178,15 @@ def test_topo():
     fout1 = '/tmp/out1.png'
     fout2 = '/tmp/out2.png'
     fout3 = '/tmp/out3.png'
-    plot_topo(lat2,lon2,fout1,fout2,fout3,50.0) 
+    plot_topo(lat2,lon2,fout1,fout2,fout3,50.0)
+    
+def pts_elev_test():    
+    pts = anp.array([[40.749752,31.610694],[40.749752,31.710694]])
+    connmod = sqlite3.connect(params['elevdbmod'])
+    print(get_elev(pts,connmod))
     
 #test_dist()
 #test_obj()
 #test_rbf_get()
-test_topo()
-
+#test_topo()
+pts_elev_test()
