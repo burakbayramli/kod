@@ -94,15 +94,13 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     
     elevs = f_elev2(pts.T, xis, nodes, epsilons)
 
-    print (elevs)
-
-    exit()
-
     zz = []
     for (x,y) in zip(xx.flatten(),yy.flatten()):
-        zz.append( elevs[str(anp.array([y,x]))] )
-
-    zz = anp.array(zz).reshape(xx.shape)
+        zz.append( elevs[(y,x)] )
+    
+    zz = anp.array(zz)
+    print (zz.shape)
+    zz = zz.reshape(xx.shape)
 
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
