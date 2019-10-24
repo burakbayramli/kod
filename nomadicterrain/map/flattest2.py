@@ -45,6 +45,11 @@ def get_elev(pts,connmod):
     elevs = f_elev2(pts, xis, nodes, epsilons)
     return elevs
     
+def get_elev_single(lat,lon,connmod):
+    pts = [[lat,lon]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    elev = get_elev(pts,connmod)
+    print (list(elev.values())[0])
     
 def dist_matrix(X, Y):
     sx = anp.sum(X**2, 1)
@@ -183,7 +188,8 @@ def test_topo():
 def pts_elev_test():    
     pts = anp.array([[40.749752,31.610694],[40.749752,31.710694]])
     connmod = sqlite3.connect(params['elevdbmod'])
-    print(get_elev(pts,connmod))
+    print (get_elev_single(40.749752,31.610694,connmod))
+    print (get_elev(pts,connmod))
     
 #test_dist()
 #test_obj()
