@@ -65,7 +65,7 @@ def dist_matrix(X, Y):
     return D
     
 def gaussian(r,eps):
-    return anp.exp(-(r/eps)**2.0)
+    return anp.exp(-anp.power((r/eps),2.0))
 
 def f_elev(pts, xis, nodes, epsilons):    
     pts_elevs = {}
@@ -190,11 +190,11 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
-        tmp = b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2
+        tmp = b1 + 2*b2*t + 3*b3*anp.power(t,2) - 112.0*anp.power(t,3) + anp.power((a1 + 2*a2*t + 3*a3*anp.power(t,2) - 65.2*anp.power(t,3)),2)
         #print (tmp)
         sq = anp.sqrt(tmp)
-        x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
-        y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+        x = a0 + a1*t + a2*anp.power(t,2) + a3*anp.power(t,3) + a4*anp.power(t,4)
+        y = b0 + b1*t + b2*anp.power(t,2) + b3*anp.power(t,3) + b4*anp.power(t,4)
         pts = anp.vstack((y,x))
         #print (pts.shape)        
         res = f_elev(pts.T, xis, nodes, epsilons)        
