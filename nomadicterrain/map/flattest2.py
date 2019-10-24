@@ -56,11 +56,10 @@ def dist_matrix(X, Y):
     sx = anp.sum(anp.power(X,2), 1)
     sy = anp.sum(anp.power(Y,2), 1)
     D2 =  sx[:, anp.newaxis] - anp.dot(2.0*X,Y.T) + sy[anp.newaxis, :]
-    #print ('D2',D2)
-    #D2[D2 < 0] = 0
-    #print (D2)
-    D2 = anp.array([[0.0 if _<0.0 else _ for _ in D2[0]]])
-    #print (D2)
+    tmp = []
+    for x in D2[0]:
+        if x>0.0: tmp.append(x)
+    D2 = anp.array([tmp])
     D = anp.sqrt(D2)
     return D
     
