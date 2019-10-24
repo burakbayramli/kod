@@ -42,7 +42,7 @@ def get_elev(pts,connmod):
         xis[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.xi])
         nodes[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.nodes])
         epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
-    elevs = f_elev2(pts, xis, nodes, epsilons)
+    elevs = f_elev(pts, xis, nodes, epsilons)
     return elevs
     
 def get_elev_single(lat,lon,connmod):
@@ -62,7 +62,7 @@ def dist_matrix(X, Y):
 def gaussian(r,eps):
     return anp.exp(-(r/eps)**2.0)
 
-def f_elev2(pts, xis, nodes, epsilons):    
+def f_elev(pts, xis, nodes, epsilons):    
     pts_elevs = {}
     for (lat,lon) in pts:
         latm = int(lat)
@@ -123,7 +123,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     
     pts = np.vstack((yy.flatten(),xx.flatten()))
     
-    elevs = f_elev2(pts.T, xis, nodes, epsilons)
+    elevs = f_elev(pts.T, xis, nodes, epsilons)
 
     zz = []
     for (x,y) in zip(xx.flatten(),yy.flatten()):
@@ -141,7 +141,6 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     
     plt.figure()
     plt.plot(plon,plat,'rd')
-    #cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
     cs=plt.contour(xx,yy,zz,[200,300,400,500,700,900])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
@@ -174,7 +173,7 @@ def test_dist():
     connmod = sqlite3.connect(params['elevdbmod'])
     xis, nodes, epsilons = get_rbf_for_latlon_ints([[41,31]],connmod)
     lat1,lon1 = 41.084967,31.126588
-    res = f_elev2(anp.array([[lat1,lon1]]), xis, nodes, epsilons)
+    res = f_elev(anp.array([[lat1,lon1]]), xis, nodes, epsilons)
     print (res)
 
 def test_topo():
