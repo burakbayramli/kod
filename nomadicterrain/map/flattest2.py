@@ -38,6 +38,19 @@ def get_elev(pts,connmod):
 def f_elev2(pts, xis, nodes, epsilons):    
     print (pts.shape)
     pts_elevs = {}
+    for (lat,lon) in pts:
+        latm = int(lat)
+        lonm = int(lon)
+        lati = int(str(lat).split(".")[1][0])
+        lonj = int(str(lon).split(".")[1][0])
+        node = nodes[(latm,lonm,lati,lonj)]
+        xi = xis[(latm,lonm,lati,lonj)]
+        epsilon = epsilons[(latm,lonm,lati,lonj)]
+        pts_dist = dist_matrix(anp.array([[lat,lon]]), xi.T)        
+        elev = anp.dot(gaussian(pts_dist, epsilon), node.T)
+        elev = anp.reshape(elev,(len(elev),1))
+        pts_elevs[(lat,lon)] = elev[0][0]
+    return pts_elevs
    
 def get_rbf_for_latlon_ints(latlons, connmod):
     cm = connmod.cursor()
@@ -69,7 +82,8 @@ def test_dist():
     connmod = sqlite3.connect(params['elevdbmod'])
     xis, nodes, epsilons = get_rbf_for_latlon_ints([[41,31]],connmod)
     lat1,lon1 = 41.084967,31.126588
-    f_elev2(anp.array([[lat1,lon1]]), xis, nodes, epsilons)
+    res = f_elev2(anp.array([[lat1,lon1]]), xis, nodes, epsilons)
+    print (res)
     
 test_dist()
 #test_obj()
