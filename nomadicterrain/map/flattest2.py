@@ -104,7 +104,7 @@ def get_rbf_for_latlon_ints(latlons, connmod):
                 rbfi = pickle.loads(rbfi[0])
                 xis[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.xi])
                 nodes[(latint,lonint,lati,lonj)] = anp.array([x for x in rbfi.nodes])
-                epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
+                epsilons[(latint,lonint,lati,lonj)] = anp.float(rbfi.epsilon)
                       
     return xis, nodes, epsilons
 
@@ -212,11 +212,11 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     anp.random.seed(200)
     a1,a2,a3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
     b1,b2,b3 = anp.random.randn()/DIV, anp.random.randn()/DIV, anp.random.randn()/DIV
-    #a1,a2,a3,b1,b2,b3=-0.2,2.4,2.6,0.6,0.4,2.2
+    a1,a2,a3,b1,b2,b3=-0.72547412,  0.95547657,  1.35593958, -0.12386914,  0.18073312, -0.01647484
     newx = anp.array([a1,a2,a3,b1,b2,b3])
     print (newx)
     print ('obj',obj(newx))
-
+    
     j = autograd.jacobian(obj)
     J = j(newx)
     print (J)
