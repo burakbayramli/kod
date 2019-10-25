@@ -3,7 +3,6 @@ import numpy as np, plot_map, json, os
 import geopy.distance, math, route, autograd
 from datetime import timedelta
 import datetime, sqlite3, pickle, re
-#import autograd.numpy as anp
 
 OFFSET = 1.0
 DIV = 2.0
@@ -15,9 +14,7 @@ def dist_matrix(X, Y):
     sx = np.sum(np.power(X,2), 1)
     sy = np.sum(np.power(Y,2), 1)
     D2 =  sx[:, np.newaxis] - np.dot(2.0*X,Y.T) + sy[np.newaxis, :]
-    tmp = []
-    for x in D2[0]:
-        if x>0.0: tmp.append(x)
+    tmp = [x for x in D2[0] if x>0.0 ]
     D2 = np.array([tmp])    
     D = np.sqrt(D2)
     return D
