@@ -130,63 +130,43 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     x = np.linspace(boxlonlow,boxlonhigh,D)
     y = np.linspace(boxlatlow,boxlathigh,D)
 
-    conn = sqlite3.connect(params['elevdbmod'])
-    c = conn.cursor()
-
-    xi = np.unique([int(xx) for xx in x])
-    yi = np.unique([int(yy) for yy in y])
-    print (xi)
-    print (yi)
-    windows = []
-    Ws = []
-    for latint in yi:
-        for lonint in xi:
-            print (latint,lonint)
-            sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where latint=? and lonint=?"
-            res = c.execute(sql,(int(latint),int(lonint)))
-            for latlow,lathigh,lonlow,lonhigh,W in res:
-                windows.append([latlow,lathigh,lonlow,lonhigh])
-                Ws.append(W)
-
-    windows = pd.DataFrame(windows)
-    windows.columns = ['latlow','lathigh','lonlow','lonhigh']
-    Ws = np.array(Ws)
-    def nullfunc(d1,d2): return 0.0
-    def isin(lat,lon):
-        res = windows.apply(lambda x: \
-                            lat>x.latlow  and \
-                            lon>x.lonlow  and \
-                            lat<x.lathigh and \
-                            lon<x.lonhigh, \
-                            axis=1)
-        if np.any(res) == False: return nullfunc
-        W = Ws[res]       
-        rbfi = pickle.loads(W[0])
-        return rbfi
-
-    W = isin(lat1,lon1)
     xx,yy = np.meshgrid(x,y)
-    zz = np.zeros(xx.shape)
-    for i in range(xx.shape[0]):
-        for j in range(xx.shape[1]):
-            rbfi = isin(yy[i,j],xx[i,j])        
-            znew = rbfi(xx[i,j],yy[i,j])
-            if znew > 0.0: zz[i,j] = znew
+    unique_latlon_ints = {}
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        unique_latlon_ints[int(y),int(x)] = 1
 
+    connmod = sqlite3.connect(params['elevdbmod'])
+    k = list(unique_latlon_ints.keys())
+    xis, nodes, epsilons = route.get_rbf_for_latlon_ints(k,connmod)
+    
+    pts = np.vstack((yy.flatten(),xx.flatten()))
+    
+    elevs = route.f_elev(pts.T, xis, nodes, epsilons)
+
+    zz = []
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        zz.append( elevs[(y,x)] )
+    
+    zz = np.array(zz)
+    print (zz.shape)
+    zz = zz.reshape(xx.shape)
 
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
+    from scipy.ndimage.filters import gaussian_filter
+    sigma = 0.7
+    zz = gaussian_filter(zz, sigma)
+    
     plt.figure()
     plt.plot(plon,plat,'rd')
-    cs=plt.contour(xx,yy,zz,[100,300,400,500,700,1000,2000])
+    cs=plt.contour(xx,yy,zz,[200,300,400,500,700,900])
     plt.clabel(cs,inline=1,fontsize=9)
     plt.savefig(fout1)
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    #ax.set_zlim3d(0, 2000)
     ax.view_init(elev=30,azim=250)
-    ax.plot([plon],[plat],[1000],'r.')
+    ax.plot([plon],[plat],[np.max(zz)],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
@@ -194,11 +174,10 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    #ax.set_zlim3d(0, 2000)
     ax.view_init(elev=30,azim=40)
-    ax.plot([plon],[plat],[1000],'r.')
+    ax.plot([plon],[plat],[np.max(zz)],'r.')
     ls = LightSource(270, 45)
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
-
+    

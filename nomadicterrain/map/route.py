@@ -191,7 +191,27 @@ def dist_matrix(X, Y):
     D2 = np.array([tmp])    
     D = np.sqrt(D2)
     return D
-        
+
+def get_rbf_for_latlon_ints(latlons, connmod):
+    cm = connmod.cursor()
+    xis = {}
+    nodes = {}
+    epsilons = {}
+    for (latint, lonint) in latlons:
+        for lati in range(10):
+            for lonj in range(10):
+                sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
+                      "and lati=? and lonj=? " 
+                r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
+                r = list(r)
+                rbfi = r[0]
+                rbfi = pickle.loads(rbfi[0])
+                xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
+                nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
+                epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                      
+    return xis, nodes, epsilons
+
 def insert_rbf_recs(latint,lonint,conn,connmod):
     c = conn.cursor()    
     cm = connmod.cursor()    
