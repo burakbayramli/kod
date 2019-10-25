@@ -55,7 +55,6 @@ def get_rbf_for_latlon_ints(latlons, connmod):
     nodes = {}
     epsilons = {}
     for (latint, lonint) in latlons:
-        print (latint, lonint)
         for lati in range(10):
             for lonj in range(10):
                 sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
@@ -78,18 +77,18 @@ def trapz(y, dx):
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     t = np.linspace(0,1.0,100)
 
-    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<30
+    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
           {'type': 'ineq','fun': lambda x: LIM-x[1]},
           {'type': 'ineq','fun': lambda x: LIM-x[2]},
           {'type': 'ineq','fun': lambda x: LIM-x[3]},
           {'type': 'ineq','fun': lambda x: LIM-x[4]},
           {'type': 'ineq','fun': lambda x: LIM-x[5]},
-          {'type': 'ineq','fun': lambda x: x[0]-LIM}, # y>0
-          {'type': 'ineq','fun': lambda x: x[1]-LIM},
-          {'type': 'ineq','fun': lambda x: x[2]-LIM},
-          {'type': 'ineq','fun': lambda x: x[3]-LIM},
-          {'type': 'ineq','fun': lambda x: x[4]-LIM},
-          {'type': 'ineq','fun': lambda x: x[5]-LIM},
+          {'type': 'ineq','fun': lambda x: x[0]+LIM}, # y>-LIM
+          {'type': 'ineq','fun': lambda x: x[1]+LIM},
+          {'type': 'ineq','fun': lambda x: x[2]+LIM},
+          {'type': 'ineq','fun': lambda x: x[3]+LIM},
+          {'type': 'ineq','fun': lambda x: x[4]+LIM},
+          {'type': 'ineq','fun': lambda x: x[5]+LIM},
     )
     
     def obj(xarg):
@@ -104,6 +103,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
         pts = np.vstack((y,x))
         res = f_elev(pts.T, xis, nodes, epsilons)
+        if (len(res)==0): return 100000.
         z = np.array(list(res.values()))
         z = np.abs(z)
         res = z * sq
@@ -111,9 +111,10 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         return T
 
 
-    np.random.seed(0)
-    a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    #np.random.seed(0)
+    #a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    #b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
     x0 = np.array([a1,a2,a3,b1,b2,b3])
     print (x0)
     
@@ -187,7 +188,8 @@ def test_plot():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
-    a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
+    #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
+    a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673,0.59926283
     a4 = ex - a0 - (a1+a2+a3)
     b4 = ey - b0 - (b1+b2+b3)
     t = np.linspace(0,1.0,100.0)
