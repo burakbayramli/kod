@@ -11,7 +11,7 @@ import geopy.distance, math, route, autograd
 from datetime import timedelta
 import datetime, sqlite3, pickle, re
 
-OFFSET = 100.0
+OFFSET = 1000.0
 LIM = 2.0
 alpha = 0.05
 MAX = 10000.
@@ -178,31 +178,39 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         if (len(res)==0): return 100000.
         z = np.array(list(res.values()))
         z[z<0.0] = MAX
-        z = z + OFFSET
+        #z = z + OFFSET
         #z = np.abs(z)
         res = z * sq
         T = trapz(res, 1.0/100.0)
         return T
 
 
-    np.random.seed(100)
+    #np.random.seed(100)
     #np.random.seed(10)
-    DIV = 2.0
-    a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
-    x0 = np.array([a1,a2,a3,b1,b2,b3])
-    print (x0)
-    
-    sol = optimize.minimize(obj,
-                            x0,
-                            method = 'COBYLA',
-                            tol=0.001,
-                            constraints=cons,
-                            options={'disp':True})
 
-    print (sol.x)
-    return sol.x
+    obj_res = []
+    obj_paths = []
+    
+    for s in [0, 42, 100, 120]:
+        np.random.seed(s)
+        DIV = 2.0
+        a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
+        x0 = np.array([a1,a2,a3,b1,b2,b3])
+        print (x0)    
+        sol = optimize.minimize(obj,
+                                x0,
+                                method = 'COBYLA',
+                                tol=0.001,
+                                constraints=cons,
+                                options={'disp':True})
+        print (obj(sol.x))
+        print (sol.x)
+        obj_res.append(obj(sol.x))
+        obj_paths.append(sol.x)
+            
+    return obj_paths[np.argmin(obj_res)]
 
 def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
     D = 30
@@ -317,7 +325,7 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
     
-def test_obj():
+def test_path():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
@@ -374,7 +382,7 @@ def pts_elev_test():
     print (get_elev_single(40.749752,31.610694,connmod))
            
 #test_single_rbf_block()    
-#test_obj()
+test_path()
 #test_topo()
-pts_elev_test()
+#pts_elev_test()
 
