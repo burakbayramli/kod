@@ -4,7 +4,7 @@ from matplotlib.colors import LightSource
 from matplotlib import cm
 import matplotlib.pyplot as plt
 
-
+from scipy.interpolate import Rbf
 from scipy import optimize
 import numpy as np, plot_map, json, os
 import geopy.distance, math, route, autograd
@@ -12,18 +12,64 @@ from datetime import timedelta
 import datetime, sqlite3, pickle, re
 
 OFFSET = 100.0
-DIV = 2.0
 LIM = 2.0
 alpha = 0.05
-MAX = 10000
+MAX = 10000.
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
-        
+
+def do_all_rbf_ints():
+
+    conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
+
+    c = conn.cursor()
+    res = c.execute('''select distinct latint, lonint from elevation; ''')
+
+    for (latint,lonint) in res:
+        print ('int---->', latint,lonint)
+        sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d; " % (latint,lonint)
+        c2 = conn.cursor()
+        res1 = c2.execute(sql1)
+        res1 = list(res1)
+        insert_rbf_recs(latint,lonint,conn,connmod)        
+        break
+
+    c.close()
+    conn.close()
+    connmod.close()
+
+def insert_rbf_recs(latint,lonint,conn,connmod):
+    c = conn.cursor()    
+    cm = connmod.cursor()    
+    sql = "DELETE FROM ELEVRBF where latint=%d and lonint=%d" % (latint, lonint)
+    cm.execute(sql)
+    connmod.commit()
+    for lati in range(10):
+        for lonj in range(10):
+            print (latint,lati,lonint,lonj)
+            sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
+            res = c.execute(sql)
+            X = []; Z=[]
+            for (lat,lon,elevation) in res:
+                if (".%d"%lati in str(lat)) and \
+                   (".%d"%lonj in str(lon)): 
+                    X.append([lat,lon])
+                    Z.append([elevation])
+    
+            X = np.array(X)
+            Z = np.array(Z)
+            print (X.shape)
+            if X.shape[0]!=0: 
+                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
+                wdf = pickle.dumps(rbfi)
+                cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
+                connmod.commit()
+
 def dist_matrix(X, Y):
     sx = np.sum(np.power(X,2), 1)
     sy = np.sum(np.power(Y,2), 1)
     D2 =  sx[:, np.newaxis] - np.dot(2.0*X,Y.T) + sy[np.newaxis, :]
-    #tmp = [10000. if x<0.0 else x for x in D2[0]]
     tmp = [x for x in D2[0] if x>0.0 ]
     D2 = np.array([tmp])    
     D = np.sqrt(D2)
@@ -36,7 +82,6 @@ def f_elev(pts, xis, nodes, epsilons):
     pts_elevs = {}
     for (lat,lon) in pts:
         if np.isnan(lat) or np.isnan(lon): continue
-        #print (lat,lon)
         latm = int(lat)
         lonm = int(lon)            
         lati = int(str(lat).split(".")[1][0])
@@ -114,7 +159,9 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         return T
 
 
-    np.random.seed(42)
+    np.random.seed(100)
+    #np.random.seed(10)
+    DIV = 2.0
     a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
     b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
     #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
@@ -180,6 +227,70 @@ def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
     
     plt.savefig(fout1)
 
+def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
+    D = 30
+    boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
+    boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
+
+    boxlatlow = np.min([boxlat1,boxlat2])
+    boxlonlow = np.min([boxlon1,boxlon2])
+    boxlathigh = np.max([boxlat1,boxlat2])
+    boxlonhigh = np.max([boxlon1,boxlon2])
+
+    x = np.linspace(boxlonlow,boxlonhigh,D)
+    y = np.linspace(boxlatlow,boxlathigh,D)
+
+    xx,yy = np.meshgrid(x,y)
+    unique_latlon_ints = {}
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        unique_latlon_ints[int(y),int(x)] = 1
+
+    connmod = sqlite3.connect(params['elevdbmod'])
+    k = list(unique_latlon_ints.keys())
+    xis, nodes, epsilons = get_rbf_for_latlon_ints(k,connmod)
+    
+    pts = np.vstack((yy.flatten(),xx.flatten()))
+    
+    elevs = f_elev(pts.T, xis, nodes, epsilons)
+
+    zz = []
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        zz.append( elevs[(y,x)] )
+    
+    zz = np.array(zz)
+    print (zz.shape)
+    zz = zz.reshape(xx.shape)
+
+    plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
+
+    from scipy.ndimage.filters import gaussian_filter
+    sigma = 0.7
+    zz = gaussian_filter(zz, sigma)
+    
+    plt.figure()
+    plt.plot(plon,plat,'rd')
+    cs=plt.contour(xx,yy,zz,[200,300,400,500,700,900])
+    plt.clabel(cs,inline=1,fontsize=9)
+    plt.savefig(fout1)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.view_init(elev=30,azim=250)
+    ax.plot([plon],[plat],[np.max(zz)],'r.')
+    ls = LightSource(270, 45)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    plt.savefig(fout2)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.view_init(elev=30,azim=40)
+    ax.plot([plon],[plat],[np.max(zz)],'r.')
+    ls = LightSource(270, 45)
+    rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
+    surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
+    plt.savefig(fout3)
+    
 def test_obj():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
@@ -202,6 +313,29 @@ def test_obj():
     y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
     plot_topo_and_pts(lat2,lon2,'/tmp/out1.png',90.0,x,y)
     
-    
-test_obj()
-#test_plot()
+def test_topo():
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+    fout1 = '/tmp/out1.png'
+    fout2 = '/tmp/out2.png'
+    fout3 = '/tmp/out3.png'
+    plot_topo(lat2,lon2,fout1,fout2,fout3,50.0)
+
+def test_single_rbf_block():
+    conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
+    #do_all_rbf_ints()    
+    #insert_rbf_recs(40,31,conn,connmod)
+    #insert_rbf_recs(41,30,conn,connmod)
+    #insert_rbf_recs(41,31,conn,connmod)
+    #insert_rbf_recs(40,30,conn,connmod)
+    #insert_rbf_recs(40,32,conn,connmod)
+    #insert_rbf_recs(41,32,conn,connmod)
+    #insert_rbf_recs(42,32,conn,connmod)
+    insert_rbf_recs(42,31,conn,connmod)
+
+           
+test_single_rbf_block()    
+#test_obj()
+#test_topo()
+
