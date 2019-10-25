@@ -255,26 +255,6 @@ def test_obj():
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)    
     find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
 
-def get_fake_rbfs(latlons):
-    xis = {}
-    nodes = {}
-    epsilons = {}
-    for (latint, lonint) in latlons:
-        print (latint, lonint)
-        for lati in range(10):
-            for lonj in range(10):
-                xis[(latint,lonint,lati,lonj)] = anp.random.randn(2,373)
-                nodes[(latint,lonint,lati,lonj)] = anp.random.randn(373)
-                epsilons[(latint,lonint,lati,lonj)] = 0.01
-    return xis, nodes, epsilons
-    
-def test_obj_fake():
-    connmod = sqlite3.connect(params['elevdbmod'])
-    lat1,lon1 = 41.084967,31.126588
-    lat2,lon2 = 40.749752,31.610694
-    ls = [[41,32],[40,31],[41,30],[41,31]]
-    xis, nodes, epsilons = get_fake_rbfs(ls)
-    find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
     
 #(2, 373)
 #(373,)
@@ -285,5 +265,3 @@ def test_obj_fake():
 #test_rbf_get()
 #test_topo()
 #pts_elev_test()
-#test_obj()
-test_obj_fake()

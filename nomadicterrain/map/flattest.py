@@ -262,11 +262,13 @@ def test_single_rbf_block():
     connmod = sqlite3.connect(params['elevdbmod'])
     #do_all_rbf_ints()    
     #insert_rbf_recs(40,31,conn,connmod)
-    insert_rbf_recs(41,30,conn,connmod)
-    insert_rbf_recs(41,31,conn,connmod)
-    insert_rbf_recs(40,30,conn,connmod)
-    insert_rbf_recs(40,32,conn,connmod)
-    insert_rbf_recs(41,32,conn,connmod)
+    #insert_rbf_recs(41,30,conn,connmod)
+    #insert_rbf_recs(41,31,conn,connmod)
+    #insert_rbf_recs(40,30,conn,connmod)
+    #insert_rbf_recs(40,32,conn,connmod)
+    #insert_rbf_recs(41,32,conn,connmod)
+    #insert_rbf_recs(42,32,conn,connmod)
+    insert_rbf_recs(42,31,conn,connmod)
 
 def pts_elev_test():    
     pts = [[40.749752,31.610694],[40.749752,31.710694]]
@@ -287,8 +289,8 @@ def test_obj():
     lat2,lon2 = 40.749752,31.610694
     path_integral(lon1,lat1,lon2,lat2)
     
-#test_single_rbf_block()    
+test_single_rbf_block()    
 #main_test()
 #pts_elev_test()
 #test_topo()
-test_obj()
+#test_obj()

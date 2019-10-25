@@ -69,8 +69,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         T = trapz(res, 1.0/len(t))
         return T._value
 
-    a1,a2,a3,b1,b2,b3=-0.72547412,  0.95547657,  1.35593958, \
-        -0.12386914,  0.18073312, -0.01647484
+    a1,a2,a3,b1,b2,b3=-0.12547412,  0.95547657,  1.35593958, \
+        0.12386914,  0.08073312, 1.11647484
     newx = anp.array([a1,a2,a3,b1,b2,b3])
     print (newx)
     #print ('obj',obj(newx))
@@ -87,8 +87,8 @@ def get_fake_rbfs(latlons):
         print (latint, lonint)
         for lati in range(10):
             for lonj in range(10):
-                xis[(latint,lonint,lati,lonj)] = anp.random.randn(2,373)
-                nodes[(latint,lonint,lati,lonj)] = anp.random.randn(373)
+                xis[(latint,lonint,lati,lonj)] = anp.random.randn(2,20) + anp.arange(20)/20.
+                nodes[(latint,lonint,lati,lonj)] = anp.random.randn(20) + anp.arange(20)/20.
                 epsilons[(latint,lonint,lati,lonj)] = 0.01
     return xis, nodes, epsilons
     
