@@ -1,3 +1,10 @@
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.spatial.distance import cdist
+from matplotlib.colors import LightSource
+from matplotlib import cm
+import matplotlib.pyplot as plt
+
+
 from scipy import optimize
 import numpy as np, plot_map, json, os
 import geopy.distance, math, route, autograd
@@ -6,6 +13,7 @@ import datetime, sqlite3, pickle, re
 
 OFFSET = 1.0
 DIV = 2.0
+LIM = 2.0
 alpha = 0.05
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
@@ -64,25 +72,24 @@ def get_rbf_for_latlon_ints(latlons, connmod):
 
 def trapz(y, dx):
     vals = np.array([_ if np.isnan(_)==False else OFFSET for _ in y[1:-1]])
-    #vals = np.array([_ for _ in y[1:-1]])
     tmp = np.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     t = np.linspace(0,1.0,100)
 
-    cons=({'type': 'ineq','fun': lambda x: 2.0-x[0]}, # y<30
-          {'type': 'ineq','fun': lambda x: 2.0-x[1]},
-          {'type': 'ineq','fun': lambda x: 2.0-x[2]},
-          {'type': 'ineq','fun': lambda x: 2.0-x[3]},
-          {'type': 'ineq','fun': lambda x: 2.0-x[4]},
-          {'type': 'ineq','fun': lambda x: 2.0-x[5]},
-          {'type': 'ineq','fun': lambda x: x[0]}, # y>0
-          {'type': 'ineq','fun': lambda x: x[1]},
-          {'type': 'ineq','fun': lambda x: x[2]},
-          {'type': 'ineq','fun': lambda x: x[3]},
-          {'type': 'ineq','fun': lambda x: x[4]},
-          {'type': 'ineq','fun': lambda x: x[5]},
+    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<30
+          {'type': 'ineq','fun': lambda x: LIM-x[1]},
+          {'type': 'ineq','fun': lambda x: LIM-x[2]},
+          {'type': 'ineq','fun': lambda x: LIM-x[3]},
+          {'type': 'ineq','fun': lambda x: LIM-x[4]},
+          {'type': 'ineq','fun': lambda x: LIM-x[5]},
+          {'type': 'ineq','fun': lambda x: x[0]-LIM}, # y>0
+          {'type': 'ineq','fun': lambda x: x[1]-LIM},
+          {'type': 'ineq','fun': lambda x: x[2]-LIM},
+          {'type': 'ineq','fun': lambda x: x[3]-LIM},
+          {'type': 'ineq','fun': lambda x: x[4]-LIM},
+          {'type': 'ineq','fun': lambda x: x[5]-LIM},
     )
     
     def obj(xarg):
@@ -99,15 +106,9 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         res = f_elev(pts.T, xis, nodes, epsilons)
         z = np.array(list(res.values()))
         z = np.abs(z)
-        #print ('z',z)
-        #print ('res',res)
         res = z * sq
         T = trapz(res, 1.0/100.0)
-
-#        T = T - cons
-        if ('ArrayBox' not in str(type(T))):
-            return float(T)
-        return T._value
+        return T
 
 
     np.random.seed(0)
@@ -119,14 +120,60 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     sol = optimize.minimize(obj,
                             x0,
                             method = 'COBYLA',
-                            tol=0.01,
+                            tol=0.001,
                             constraints=cons,
                             options={'disp':True})
 
     print (sol)
 
-    #0.75757352, 0.27699442, 1.79726859, 1.00155816, 0.92677697,0.33161038
+def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
+    D = 30
+    boxlat1,boxlon1 = route.goto_from_coord((lat1,lon1), how_far, 45)
+    boxlat2,boxlon2 = route.goto_from_coord((lat1,lon1), how_far, 215)
+
+    boxlatlow = np.min([boxlat1,boxlat2])
+    boxlonlow = np.min([boxlon1,boxlon2])
+    boxlathigh = np.max([boxlat1,boxlat2])
+    boxlonhigh = np.max([boxlon1,boxlon2])
+
+    x = np.linspace(boxlonlow,boxlonhigh,D)
+    y = np.linspace(boxlatlow,boxlathigh,D)
+
+    xx,yy = np.meshgrid(x,y)
+    unique_latlon_ints = {}
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        unique_latlon_ints[int(y),int(x)] = 1
+
+    connmod = sqlite3.connect(params['elevdbmod'])
+    k = list(unique_latlon_ints.keys())
+    xis, nodes, epsilons = get_rbf_for_latlon_ints(k,connmod)
     
+    pts = np.vstack((yy.flatten(),xx.flatten()))
+    
+    elevs = f_elev(pts.T, xis, nodes, epsilons)
+
+    zz = []
+    for (x,y) in zip(xx.flatten(),yy.flatten()):
+        zz.append( elevs[(y,x)] )
+    
+    zz = np.array(zz)
+    print (zz.shape)
+    zz = zz.reshape(xx.shape)
+
+    plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
+
+    from scipy.ndimage.filters import gaussian_filter
+    sigma = 0.7
+    zz = gaussian_filter(zz, sigma)
+    
+    plt.figure()
+    plt.plot(plon,plat,'rd')
+    cs=plt.contour(xx,yy,zz,[200,300,400,500,700,900])
+    plt.clabel(cs,inline=1,fontsize=9)
+
+    plt.plot(tx,ty,'.')
+    
+    plt.savefig(fout1)
 
 def test_obj():
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -136,9 +183,18 @@ def test_obj():
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)    
     find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
 
+def test_plot():
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+    a0,b0,ex,ey=lon2,lat2,lon1,lat1
+    a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
+    a4 = ex - a0 - (a1+a2+a3)
+    b4 = ey - b0 - (b1+b2+b3)
+    t = np.linspace(0,1.0,100.0)
+    x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
+    y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
+    plot_topo_and_pts(lat2,lon2,'/tmp/out1.png',80.0,x,y)
     
-#(2, 373)
-#(373,)
-#0.01
     
-test_obj()
+#test_obj()
+test_plot()
