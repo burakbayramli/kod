@@ -178,10 +178,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         if (len(res)==0): return 100000.
         z = np.array(list(res.values()))
         z[z<0.0] = MAX
-        #z = z + OFFSET
-        #z = np.abs(z)
         res = z * sq
-        T = trapz(res, 1.0/100.0)
+        T = trapz(res, 1.0/len(t))
         return T
 
 
