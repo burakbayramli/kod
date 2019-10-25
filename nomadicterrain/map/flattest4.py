@@ -182,10 +182,6 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         T = trapz(res, 1.0/len(t))
         return T
 
-
-    #np.random.seed(100)
-    #np.random.seed(10)
-
     obj_res = []
     obj_paths = []
     
@@ -194,7 +190,6 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         DIV = 2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-        #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
         x0 = np.array([a1,a2,a3,b1,b2,b3])
         print (x0)    
         sol = optimize.minimize(obj,

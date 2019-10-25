@@ -182,64 +182,94 @@ def gdist(x1,x2):
     dists = [geopy.distance.vincenty((a2[0],a1[0]),(a2[1],a1[1])).km for a1,a2 in zip(x1,x2)]
     print (dists)
     return np.array(dists)
-    
-def insert_rbf1_recs(latint,lonint,conn,connmod):
-    df=pd.DataFrame(np.linspace(0,1.0,S))
-    df['s'] = df.shift(-1)
+
+def dist_matrix(X, Y):
+    sx = np.sum(np.power(X,2), 1)
+    sy = np.sum(np.power(Y,2), 1)
+    D2 =  sx[:, np.newaxis] - np.dot(2.0*X,Y.T) + sy[np.newaxis, :]
+    tmp = [x for x in D2[0] if x>0.0 ]
+    D2 = np.array([tmp])    
+    D = np.sqrt(D2)
+    return D
+        
+def insert_rbf_recs(latint,lonint,conn,connmod):
     c = conn.cursor()    
     cm = connmod.cursor()    
-    sql = "DELETE FROM RBF1 where latint=%d and lonint=%d" % (latint, lonint)
+    sql = "DELETE FROM ELEVRBF where latint=%d and lonint=%d" % (latint, lonint)
     cm.execute(sql)
     connmod.commit()
-    sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
-    res = list(c.execute(sql)) 
-    for i,r1 in enumerate(np.array(df)):
-        for j,r2 in enumerate(np.array(df)):
-            if j==S-1 or i==S-1: continue
+    for lati in range(10):
+        for lonj in range(10):
+            print (latint,lati,lonint,lonj)
+            sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
+            res = c.execute(sql)
             X = []; Z=[]
-            latlow = float(latint)+r1[0]
-            lathigh = float(latint)+r1[1]
-            lonlow = float(lonint)+r2[0]
-            lonhigh = float(lonint)+r2[1]
-            print (latlow,lathigh,lonlow,lonhigh)
-            for (rlat,rlon,relev) in res:
-                if rlat>=latlow and rlat<lathigh and rlon>=lonlow and rlon<lonhigh:
-                    X.append([rlon,rlat])
-                    Z.append([relev])
-            print ('len',len(X))
+            for (lat,lon,elevation) in res:
+                if (".%d"%lati in str(lat)) and \
+                   (".%d"%lonj in str(lon)): 
+                    X.append([lat,lon])
+                    Z.append([elevation])
+    
             X = np.array(X)
             Z = np.array(Z)
-            X = X[Z[:,0]>0.0]
-            Z = Z[Z[:,0]>0.0]
-            if (len(Z)<10): continue
-            rbfi = Rbf(X[:,0], X[:,1], Z)
-            wdf = pickle.dumps(rbfi)
-            cm.execute("INSERT INTO RBF1(latint,lonint,latlow,lathigh,lonlow,lonhigh,W) VALUES(?,?,?,?,?,?,?);",(latint, lonint, latlow, lathigh, lonlow, lonhigh, wdf))
-            connmod.commit()
+            print (X.shape)
+            if X.shape[0]!=0: 
+                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
+                wdf = pickle.dumps(rbfi)
+                cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
+                connmod.commit()
     
-def get_elev_single(lat,lon,cm):
-    sql = "SELECT latlow,lathigh,lonlow,lonhigh,W from RBF1 where ?>=latlow and ?<lathigh and ?>=lonlow and ?<lonhigh "
-    r = cm.execute(sql,(lat,lat,lon,lon))
-    r = list(r)
-    if len(r)==0: return -10.0
-    latlow,lathigh,lonlow,lonhigh,rbfi = r[0]
-    rbfi = pickle.loads(rbfi)
-    xnew = np.array([[lon,lat]])
-    return rbfi(lon, lat)
-
-def get_elev_data(latint, lonint, rbf=True):
-    conn = sqlite3.connect(params['elevdb'])
+def get_elev_single(lat,lon,connmod):
+    pts = [[lat,lon]]
     connmod = sqlite3.connect(params['elevdbmod'])
-    c = conn.cursor()
-    sql = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d" % (latint,lonint)
-    res = c.execute(sql)
-    res = list(res)
-    print(res)
-    if res[0][0]<SROWS:
-        print ('inserting')
-        insert_gps_int_rows(latint,lonint)
-    get_elev_int(latint,lonint)
-    if rbf: insert_rbf1_recs(latint,lonint,conn,connmod)
+    elev = get_elev(pts,connmod)
+    return list(elev.values())[0]
+
+def get_elev(pts,connmod):
+    cm = connmod.cursor()
+    d = {}
+    xis = {}
+    nodes = {}
+    epsilons = {}
+    for (lat,lon) in pts:
+        latint = str(int(lat))
+        lonint = str(int(lon))
+        lati = str(lat).split(".")[1][0]
+        lonj = str(lon).split(".")[1][0]
+        d[(int(latint),int(lonint),int(lati),int(lonj))] = 1
+    #print (d)
+    for (latint,lonint,lati,lonj) in d.keys():
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
+              "and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
+        r = list(r)
+        rbfi = r[0]
+        rbfi = pickle.loads(rbfi[0])
+        xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
+        nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
+        epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
+    elevs = f_elev(pts, xis, nodes, epsilons)
+    return elevs
+
+def gaussian(r,eps):
+    return np.exp(-np.power((r/eps),2.0))
+
+def f_elev(pts, xis, nodes, epsilons):    
+    pts_elevs = {}
+    for (lat,lon) in pts:
+        if np.isnan(lat) or np.isnan(lon): continue
+        latm = int(lat)
+        lonm = int(lon)            
+        lati = int(str(lat).split(".")[1][0])
+        lonj = int(str(lon).split(".")[1][0])
+        node = nodes[(latm,lonm,lati,lonj)]
+        xi = xis[(latm,lonm,lati,lonj)]
+        epsilon = epsilons[(latm,lonm,lati,lonj)]
+        pts_dist = dist_matrix(np.array([[lat,lon]]), xi.T)        
+        elev = np.dot(gaussian(pts_dist, epsilon), node.T)
+        elev = np.reshape(elev,(len(elev),1))        
+        pts_elevs[(lat,lon)] = elev[0][0]
+    return pts_elevs
 
 def do_all_rbf_ints():
     conn = sqlite3.connect(params['elevdb'])
