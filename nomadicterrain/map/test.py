@@ -37,25 +37,7 @@ def test_dist_bearing():
     
     print (dist)
 
-def test_dijks():
-    m = np.array([[999.9, 999.9, 999.9,   0. ],
-                  [999.9, 999.9, 999.9,   0. ],
-                  [999.9, 999.9, 999.9,   0. ],
-                  [  0.,    0.,    0.,    0. ]])
-    
-    res = route.dijkstra(m,(3,0),(0,3))
-    exp = [(3, 0), (3, 1), (3, 2), (2, 3), (1, 3), (0, 3)]
-    if exp != res: raise Exception("dijks")
-    print (res)
-    m = np.array([[999.9, 999.9, 999.9,   0. ],
-                  [999.9, 999.9, 999.9,   0. ],
-                  [999.9, 0,     999.9,   0. ],
-                  [  0.,  -10.,    0.,    0. ]])
-    
-    res = route.dijkstra(m,(3,0),(0,3))
-    exp = [(3, 0), (2, 1), (3, 2), (2, 3), (1, 3), (0, 3)]
-    if exp != res: raise Exception("dijks")
-    print (res)
+
     
 def test_dist_to_segment():
     x1,y1=2,2

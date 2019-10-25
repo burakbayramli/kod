@@ -124,7 +124,7 @@ def insert_gps_int_rows(latint, lonint):
         if i%100==0: print (i)
         conn.commit()
 
-def get_elev_data_1(chunk):
+def get_elev_data_ex_chunk(chunk):
     chunk = [list(x) for x in chunk]
     print (chunk[:5])
     data = "["
@@ -142,7 +142,7 @@ def get_elev_data_1(chunk):
     print (res[:5])
     return res
     
-def get_elev_int(latint, lonint):
+def get_elev_int_ex(latint, lonint):
     
     conn = sqlite3.connect(params['elevdb'])
     c = conn.cursor()
@@ -156,7 +156,7 @@ def get_elev_int(latint, lonint):
     res = list(res)
     N = 40
     for chunk in chunks(res, N):
-        elev_results = get_elev_data_1(chunk)
+        elev_results = get_elev_data_ex_chunk(chunk)
         for i in range(N):
             sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (elev_results[i],chunk[i][0],chunk[i][1])
             c.execute(sql)

@@ -779,7 +779,7 @@ def line_elev_calc():
     for x in np.linspace(0,far,npts):
         locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
     
-    res = route.get_elev_data_1(locs)
+    res = route.get_elev_data_ex_chunk(locs)
 
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
@@ -827,7 +827,7 @@ def gogoogelevline(coords):
     locs = []
     for x in np.linspace(0,far,npts):
         locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-    res = route.get_elev_data_1(locs)
+    res = route.get_elev_data_ex_chunk(locs)
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     clean_dir()
