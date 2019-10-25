@@ -718,9 +718,48 @@ def flattestroute(coords):
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
 
-
-
+    a0,b0,ex,ey=lon2,lat2,lon1,lat1
+    connmod = sqlite3.connect(params['elevdbmod'])
+    ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]    
+    xis, nodes, epsilons = route.get_rbf_for_latlon_ints(ls,connmod)    
+    path = route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
     
+    a1,a2,a3,b1,b2,b3=path
+    a4 = ex - a0 - (a1+a2+a3)
+    b4 = ey - b0 - (b1+b2+b3)
+    t = np.linspace(0,1.0,100.0)
+    x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
+    y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
+
+    lines = ""
+    lines += route.gpxbegin   
+    templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
+    for lat,lon in zip(x,y):
+        lines += templ % (lon,lat,10)
+    lines += route.gpxend
+    gpxfile = "01_calc_path.gpx"
+    fout = open(params['trails'] + "/" + gpxfile,"w")
+    fout.write(lines)
+    fout.close()
+    return trail(gpxfile)
+    
+    print (path)
+    
+'''
+    pts = [(xo[c],yo[c]) for c in p]
+    elevs = [elev_mat[c] for c in p]
+    lines = ""
+    lines += route.gpxbegin   
+    templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
+    for c in p:
+        lines += templ % (xo[c],yo[c],elev_mat[c])
+    lines += route.gpxend
+    gpxfile = "01_calc_path.gpx"
+    fout = open(params['trails'] + "/" + gpxfile,"w")
+    fout.write(lines)
+    fout.close()
+    return trail(gpxfile)
+'''    
 
 @app.route('/gotopo/<coords>/<how_far>')
 def gotopo(coords,how_far):

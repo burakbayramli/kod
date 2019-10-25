@@ -45,7 +45,8 @@ def show_version(num):
     print ("suitable_file_for_git_show %s", suitable_file_for_git_show)
     suitable_file_for_git_show = suitable_file_for_git_show.replace(dot_git_dir,"")
     print ("suitable_file_for_git_show %s", suitable_file_for_git_show)
-    tmp = '/data/data/com.termux/files/home/Downloads'
+    #tmp = '/data/data/com.termux/files/home/Downloads'
+    tmp = '/tmp'
     if 'TEMP' in os.environ: tmp = os.environ['TEMP']
     os.chdir(dot_git_dir)
     

@@ -1,4 +1,4 @@
-from scipy.spatial.distance import cdist
+from scipy import optimize
 import numpy.linalg as lin, datetime
 import geopy.distance, sqlite3
 from urllib.request import urlopen
@@ -13,6 +13,10 @@ from constants import SROWS
 from constants import S
 from constants import params
 from constants import gps_coord_sample_file
+
+LIM = 2.0
+MAX = 10000.
+OFFSET = 1000.0
 
 def chunks(l, n):
     for i in range(0, len(l), n):
@@ -354,6 +358,69 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
+def trapz(y, dx):
+    vals = np.array([_ if np.isnan(_)==False else OFFSET for _ in y[1:-1]])
+    tmp = np.sum(vals*2.0)    
+    return (y[0]+tmp+y[-1])*(dx/2.0)
+    
+def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
+    t = np.linspace(0,1.0,100)
+
+    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
+          {'type': 'ineq','fun': lambda x: LIM-x[1]},
+          {'type': 'ineq','fun': lambda x: LIM-x[2]},
+          {'type': 'ineq','fun': lambda x: LIM-x[3]},
+          {'type': 'ineq','fun': lambda x: LIM-x[4]},
+          {'type': 'ineq','fun': lambda x: LIM-x[5]},
+          {'type': 'ineq','fun': lambda x: x[0]+LIM}, # y>-LIM
+          {'type': 'ineq','fun': lambda x: x[1]+LIM},
+          {'type': 'ineq','fun': lambda x: x[2]+LIM},
+          {'type': 'ineq','fun': lambda x: x[3]+LIM},
+          {'type': 'ineq','fun': lambda x: x[4]+LIM},
+          {'type': 'ineq','fun': lambda x: x[5]+LIM},
+    )
+    
+    def obj(xarg):
+        mu = 2.0
+        LIM = 2.0
+        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
+        a4 = ex - a0 - (a1+a2+a3)
+        b4 = ey - b0 - (b1+b2+b3)
+        tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
+        sq = np.sqrt(tmp)
+        x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
+        y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
+        pts = np.vstack((y,x))
+        res = f_elev(pts.T, xis, nodes, epsilons)
+        if (len(res)==0): return 100000.
+        z = np.array(list(res.values()))
+        z[z<0.0] = MAX
+        res = z * sq
+        T = trapz(res, 1.0/len(t))
+        return T
+
+    obj_res = []
+    obj_paths = []
+    
+    for s in [0, 42, 100, 120]:
+        np.random.seed(s)
+        DIV = 2.0
+        a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        x0 = np.array([a1,a2,a3,b1,b2,b3])
+        print (x0)    
+        sol = optimize.minimize(obj,
+                                x0,
+                                method = 'COBYLA',
+                                tol=0.001,
+                                constraints=cons,
+                                options={'disp':True})
+        print (obj(sol.x))
+        print (sol.x)
+        obj_res.append(obj(sol.x))
+        obj_paths.append(sol.x)
+            
+    return obj_paths[np.argmin(obj_res)]
 
 
 if __name__ == "__main__":
