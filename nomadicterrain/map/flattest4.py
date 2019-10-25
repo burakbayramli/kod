@@ -11,10 +11,11 @@ import geopy.distance, math, route, autograd
 from datetime import timedelta
 import datetime, sqlite3, pickle, re
 
-OFFSET = 1.0
+OFFSET = 100.0
 DIV = 2.0
 LIM = 2.0
 alpha = 0.05
+MAX = 10000
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
         
@@ -22,6 +23,7 @@ def dist_matrix(X, Y):
     sx = np.sum(np.power(X,2), 1)
     sy = np.sum(np.power(Y,2), 1)
     D2 =  sx[:, np.newaxis] - np.dot(2.0*X,Y.T) + sy[np.newaxis, :]
+    #tmp = [10000. if x<0.0 else x for x in D2[0]]
     tmp = [x for x in D2[0] if x>0.0 ]
     D2 = np.array([tmp])    
     D = np.sqrt(D2)
@@ -44,8 +46,7 @@ def f_elev(pts, xis, nodes, epsilons):
         epsilon = epsilons[(latm,lonm,lati,lonj)]
         pts_dist = dist_matrix(np.array([[lat,lon]]), xi.T)        
         elev = np.dot(gaussian(pts_dist, epsilon), node.T)
-        #print (elev)
-        elev = np.reshape(elev,(len(elev),1))
+        elev = np.reshape(elev,(len(elev),1))        
         pts_elevs[(lat,lon)] = elev[0][0]
     return pts_elevs
    
@@ -105,16 +106,18 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         res = f_elev(pts.T, xis, nodes, epsilons)
         if (len(res)==0): return 100000.
         z = np.array(list(res.values()))
-        z = np.abs(z)
+        z[z<0.0] = MAX
+        z = z + OFFSET
+        #z = np.abs(z)
         res = z * sq
         T = trapz(res, 1.0/100.0)
         return T
 
 
-    #np.random.seed(0)
-    #a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    #b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-    a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
+    np.random.seed(42)
+    a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+    #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
     x0 = np.array([a1,a2,a3,b1,b2,b3])
     print (x0)
     
@@ -125,7 +128,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
                             constraints=cons,
                             options={'disp':True})
 
-    print (sol)
+    print (sol.x)
+    return sol.x
 
 def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
     D = 30
@@ -177,26 +181,27 @@ def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
     plt.savefig(fout1)
 
 def test_obj():
-    connmod = sqlite3.connect(params['elevdbmod'])
-    lat1,lon1 = 41.084967,31.126588
-    lat2,lon2 = 40.749752,31.610694
-    ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]
-    xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)    
-    find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
-
-def test_plot():
     lat1,lon1 = 41.084967,31.126588
     lat2,lon2 = 40.749752,31.610694
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
+    connmod = sqlite3.connect(params['elevdbmod'])
+    ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]
+    
+    xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
+    
+    path = find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
+
     #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
-    a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673,0.59926283
+    #a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673,0.59926283
+    #a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673, 0.59926283
+    a1,a2,a3,b1,b2,b3=path
     a4 = ex - a0 - (a1+a2+a3)
     b4 = ey - b0 - (b1+b2+b3)
     t = np.linspace(0,1.0,100.0)
     x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
     y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
-    plot_topo_and_pts(lat2,lon2,'/tmp/out1.png',80.0,x,y)
+    plot_topo_and_pts(lat2,lon2,'/tmp/out1.png',90.0,x,y)
     
     
-#test_obj()
-test_plot()
+test_obj()
+#test_plot()
