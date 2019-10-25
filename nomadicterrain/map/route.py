@@ -313,11 +313,13 @@ def do_all_rbf_ints():
         print(res1[0][0], res2[0][0])
 
         if res1[0][0]==SROWS and res2[0][0] == 0:
-            insert_rbf1_recs(latint,lonint,conn,connmod)
+            insert_rbf_recs(latint,lonint,conn,connmod)
                 
         
 def get_all_countries():
     print (params['countries'])
+    conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
     df = pd.read_csv(params['countries'])
     #print (df)
     for row in np.array(df):
@@ -328,7 +330,7 @@ def get_all_countries():
         for lon in (range(int(longmin),int(longmax)+1)):
             for lat in (range(int(latmin),int(latmax)+1)):
                 print (lat,lon)
-                get_elev_data(lat,lon,rbf=False)
+                insert_rbf_recs(lat,lon,conn,connmod)
 
 def get_centroid(poly):
     if len(poly) < 3:

@@ -33,11 +33,8 @@ def test_dist_bearing():
     pt2 = (35.334978, 33.327677)
     res = route.get_bearing(pt1,pt2)
     print (res)
-    assert (res > 85.0 and res < 95.0)
-    
+    assert (res > 85.0 and res < 95.0)    
     print (dist)
-
-
     
 def test_dist_to_segment():
     x1,y1=2,2
