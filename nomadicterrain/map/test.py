@@ -5,8 +5,7 @@ from datetime import timedelta
 import datetime
 import pandas_datareader.data as web
 
-params = json.loads(open(os.environ['HOME'] + "/.nomadicterrain").read())
-#print (params)
+params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
 def test_map0():
     pts = [[36.54,32.0]]
@@ -54,8 +53,17 @@ def test_findata():
     print (len(df))
     print (df)
 
-test_findata()
+def test_elev_ex():  
+    import requests
+    headers = {  'Content-Type': 'application/json', }
+    data = '[[51.3, 13.4], [51.4, 13.3]]'
+    response = requests.post('https://elevation.racemap.com/api',
+                             headers=headers, data=data)
+    print(response.text)    
+
+test_elev_ex()
 exit()
+test_findata()
 test_map0()
 test_map3()
 test_dist_bearing()

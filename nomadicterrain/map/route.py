@@ -314,8 +314,7 @@ def do_all_rbf_ints():
 
         if res1[0][0]==SROWS and res2[0][0] == 0:
             insert_rbf_recs(latint,lonint,conn,connmod)
-                
-        
+                        
 def get_all_countries():
     print (params['countries'])
     conn = sqlite3.connect(params['elevdb'])
