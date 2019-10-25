@@ -347,6 +347,12 @@ def test_topo():
     fout3 = '/tmp/out3.png'
     plot_topo(lat2,lon2,fout1,fout2,fout3,50.0)
 
+def get_elev_single(lat,lon,connmod):
+    pts = [[lat,lon]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    elev = get_elev(pts,connmod)
+    return list(elev.values())[0]
+    
 def test_single_rbf_block():
     conn = sqlite3.connect(params['elevdb'])
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -365,6 +371,7 @@ def pts_elev_test():
     connmod = sqlite3.connect(params['elevdbmod'])
     res = get_elev(pts,connmod)
     print (res)
+    print (get_elev_single(40.749752,31.610694,connmod))
            
 #test_single_rbf_block()    
 #test_obj()
