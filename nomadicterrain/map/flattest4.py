@@ -66,6 +66,32 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
 
+def get_elev(pts,connmod):
+    cm = connmod.cursor()
+    d = {}
+    xis = {}
+    nodes = {}
+    epsilons = {}
+    for (lat,lon) in pts:
+        latint = str(int(lat))
+        lonint = str(int(lon))
+        lati = str(lat).split(".")[1][0]
+        lonj = str(lon).split(".")[1][0]
+        d[(int(latint),int(lonint),int(lati),int(lonj))] = 1
+    #print (d)
+    for (latint,lonint,lati,lonj) in d.keys():
+        sql = "SELECT W from ELEVRBF where latint=? and lonint=? " + \
+              "and lati=? and lonj=? " 
+        r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
+        r = list(r)
+        rbfi = r[0]
+        rbfi = pickle.loads(rbfi[0])
+        xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
+        nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
+        epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
+    elevs = f_elev(pts, xis, nodes, epsilons)
+    return elevs
+                
 def dist_matrix(X, Y):
     sx = np.sum(np.power(X,2), 1)
     sy = np.sum(np.power(Y,2), 1)
@@ -333,9 +359,15 @@ def test_single_rbf_block():
     #insert_rbf_recs(41,32,conn,connmod)
     #insert_rbf_recs(42,32,conn,connmod)
     insert_rbf_recs(42,31,conn,connmod)
-
+    
+def pts_elev_test():    
+    pts = [[40.749752,31.610694],[40.749752,31.710694]]
+    connmod = sqlite3.connect(params['elevdbmod'])
+    res = get_elev(pts,connmod)
+    print (res)
            
-test_single_rbf_block()    
+#test_single_rbf_block()    
 #test_obj()
 #test_topo()
+pts_elev_test()
 
