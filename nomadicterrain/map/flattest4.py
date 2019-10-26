@@ -373,9 +373,33 @@ def pts_elev_test():
     res = get_elev(pts,connmod)
     print (res)
     print (get_elev_single(40.749752,31.610694,connmod))
-           
+
+def test_x():
+    connmod = sqlite3.connect(params['elevdbmod'])
+    cm = connmod.cursor()    
+    sql = "SELECT count(*) FROM ELEVRBF WHERE latint=%d and lonint=%d " % (40,29)
+    res = cm.execute(sql)
+    print (len(list(res)))
+
+def from_to_ints():
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+
+    latlow = int(np.min([lat1,lat2]))-2
+    lonlow = int(np.min([lon1,lon2]))-2
+    lathi = int(np.max([lat1,lat2]))+2
+    lonhi = int(np.max([lon1,lon2]))+2
+    
+    int_list = []
+    for i in range(latlow,lathi):
+        for j in range(lonlow,lonhi):
+            int_list.append((i,j))
+
+    print (int_list)
+            
 #test_single_rbf_block()    
-test_path()
+#test_path()
 #test_topo()
 #pts_elev_test()
-
+#test_x()
+from_to_ints()
