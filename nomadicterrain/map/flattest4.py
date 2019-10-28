@@ -134,11 +134,17 @@ def get_rbf_for_latlon_ints(latlons, connmod):
                       "and lati=? and lonj=? " 
                 r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
                 r = list(r)
-                rbfi = r[0]
-                rbfi = pickle.loads(rbfi[0])
-                xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
-                nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
-                epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                if len(r)>0:
+                    rbfi = r[0]
+                    rbfi = pickle.loads(rbfi[0])
+                    xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
+                    nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
+                    epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                else:
+                    xis[(latint,lonint,lati,lonj)] = np.ones((2,10))*MAX
+                    nodes[(latint,lonint,lati,lonj)] = np.ones((1,10))*MAX
+                    epsilons[(latint,lonint,lati,lonj)] = MAX
+                    
                       
     return xis, nodes, epsilons
 
@@ -320,8 +326,11 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plt.savefig(fout3)
     
 def test_path():
-    lat1,lon1 = 41.084967,31.126588
-    lat2,lon2 = 40.749752,31.610694
+    #lat1,lon1 = 41.084967,31.126588
+    #lat2,lon2 = 40.749752,31.610694
+    lat1,lon1 =  40.0960,29.0818    
+    lat2,lon2 =  41.03511,29.1739
+    
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
 
@@ -383,7 +392,11 @@ def pts_elev_test():
     res = get_elev(pts,connmod)
     print (res)
     print (get_elev_single(40.749752,31.610694,connmod))
-           
+
+# missing 40,29,9,0 missing
+# 40.0960,29.0818    
+# 41.03511,29.1739
+    
 #test_single_rbf_block()    
 test_path()
 #test_topo()

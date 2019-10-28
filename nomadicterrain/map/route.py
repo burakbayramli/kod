@@ -208,11 +208,16 @@ def get_rbf_for_latlon_ints(latlons, connmod):
                       "and lati=? and lonj=? " 
                 r = cm.execute(sql,(int(latint),int(lonint),int(lati),int(lonj)))
                 r = list(r)
-                rbfi = r[0]
-                rbfi = pickle.loads(rbfi[0])
-                xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
-                nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
-                epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                if len(r)>0:
+                    rbfi = r[0]
+                    rbfi = pickle.loads(rbfi[0])
+                    xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
+                    nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
+                    epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                else:
+                    xis[(latint,lonint,lati,lonj)] = np.ones((2,10))*MAX
+                    nodes[(latint,lonint,lati,lonj)] = np.ones((1,10))*MAX
+                    epsilons[(latint,lonint,lati,lonj)] = MAX
                       
     return xis, nodes, epsilons
 
