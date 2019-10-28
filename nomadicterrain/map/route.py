@@ -407,23 +407,43 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     obj_res = []
     obj_paths = []
     
-    for s in [98798, 0, 42, 100, 120]:
+    
+    for s in [0, 42, 100, 120]:
         np.random.seed(s)
-        DIV = 2.0
+        DIV =2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         x0 = np.array([a1,a2,a3,b1,b2,b3])
-        print (x0)    
+        print (x0)
         sol = optimize.minimize(obj,
                                 x0,
                                 method = 'COBYLA',
-                                tol=0.001,
+                                tol=0.0001,
                                 constraints=cons,
                                 options={'disp':True})
         print (obj(sol.x))
         print (sol.x)
         obj_res.append(obj(sol.x))
         obj_paths.append(sol.x)
+
+    for s in [0, 42, 100, 120]:
+        np.random.seed(s)
+        DIV =2.0
+        a1,a2,a3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
+        b1,b2,b3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
+        x0 = np.array([a1,a2,a3,b1,b2,b3])
+        print (x0)
+        sol = optimize.minimize(obj,
+                                x0,
+                                method = 'COBYLA',
+                                tol=0.0001,
+                                constraints=cons,
+                                options={'disp':True})
+        print (obj(sol.x))
+        print (sol.x)
+        obj_res.append(obj(sol.x))
+        obj_paths.append(sol.x)
+        
             
     return obj_paths[np.argmin(obj_res)]
 

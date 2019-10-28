@@ -12,7 +12,7 @@ import geopy.distance, math, route, autograd
 from datetime import timedelta
 import datetime, sqlite3
 
-OFFSET = 1000.0
+OFFSET = 0.0
 LIM = 2.0
 alpha = 0.05
 MAX = 10000.
@@ -119,8 +119,8 @@ def f_elev(pts, xis, nodes, epsilons):
         pts_dist = dist_matrix(np.array([[lat,lon]]), xi.T)        
         elev = np.dot(gaussian(pts_dist, epsilon), node.T)
         elev = np.reshape(elev,(len(elev),1))        
-        pts_elevs[(lat,lon)] = elev[0][0]
-    return pts_elevs
+        pts_elevs[(lat,lon)] = elev[0][0] 
+    return pts_elevs 
    
 def get_rbf_for_latlon_ints(latlons, connmod):
     cm = connmod.cursor()
@@ -192,9 +192,9 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     obj_res = []
     obj_paths = []
     
-    for s in [98798, 0, 42, 100, 120]:
+    for s in [0, 42, 100, 120]:
         np.random.seed(s)
-        DIV = 2.0
+        DIV =2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         x0 = np.array([a1,a2,a3,b1,b2,b3])
@@ -202,14 +202,32 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         sol = optimize.minimize(obj,
                                 x0,
                                 method = 'COBYLA',
-                                tol=0.001,
+                                tol=0.0001,
                                 constraints=cons,
                                 options={'disp':True})
         print (obj(sol.x))
         print (sol.x)
         obj_res.append(obj(sol.x))
         obj_paths.append(sol.x)
-        break
+
+    for s in [0, 42, 100, 120]:
+        np.random.seed(s)
+        DIV =2.0
+        a1,a2,a3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
+        b1,b2,b3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
+        x0 = np.array([a1,a2,a3,b1,b2,b3])
+        print (x0)
+        sol = optimize.minimize(obj,
+                                x0,
+                                method = 'COBYLA',
+                                tol=0.0001,
+                                constraints=cons,
+                                options={'disp':True})
+        print (obj(sol.x))
+        print (sol.x)
+        obj_res.append(obj(sol.x))
+        obj_paths.append(sol.x)
+        
             
     return obj_paths[np.argmin(obj_res)]
 
@@ -329,8 +347,8 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 def test_path():
     #lat1,lon1 = 41.084967,31.126588
     #lat2,lon2 = 40.749752,31.610694
-    lat1,lon1 =  40.0960,29.0818    
-    lat2,lon2 =  41.03511,29.1739
+    lat1,lon1 =  40.960056,29.0818    
+    lat2,lon2 =  41.035114,29.173926
     
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
@@ -391,9 +409,6 @@ def pts_elev_test():
     print (res)
     print (get_elev_single(40.749752,31.610694,connmod))
 
-# missing 40,29,9,0 missing
-# 40.0960,29.0818    
-# 41.03511,29.1739
     
 #test_single_rbf_block()    
 test_path()
