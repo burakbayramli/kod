@@ -282,7 +282,6 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     )
     
     def obj(xarg):
-        LIM = 2.0
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
@@ -308,7 +307,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     
     DIV =3.0
     #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
-    for s in range(60):
+    for s in range(80):
         np.random.seed(s)
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
@@ -319,7 +318,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
                                 method = 'COBYLA',
                                 tol=0.001,
                                 constraints=cons,
-                                options={'maxiter': 3, 'disp':True})
+                                options={'maxiter': 4, 'disp':True})
         print (obj(sol.x))
         print (sol.x)
         obj_res.append(obj(sol.x))
@@ -386,8 +385,8 @@ def test_path():
 
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
     
-    #path = find_path(lon1,lat1,lon2,lat2,xis, nodes, epsilons)
-    path = ( 0.4587563,  -0.03392798, -0.6032637,   0.08755128,  0.08665089, -0.12702879)
+    path = find_path(lon1,lat1,lon2,lat2,xis, nodes, epsilons)
+    #path = ( 0.4587563,  -0.03392798, -0.6032637,   0.08755128,  0.08665089, -0.12702879)
     print ('best path',path)
 
     a1,a2,a3,b1,b2,b3=path
