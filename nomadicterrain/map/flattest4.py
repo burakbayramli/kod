@@ -329,10 +329,10 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plt.savefig(fout3)
     
 def test_path():
-    #lat1,lon1 = 41.084967,31.126588
-    #lat2,lon2 = 40.749752,31.610694
-    lat1,lon1 =  40.960056,29.0818    
-    lat2,lon2 =  41.035114,29.173926
+    lat1,lon1 = 41.084967,31.126588
+    lat2,lon2 = 40.749752,31.610694
+    #lat1,lon1 =  40.960056,29.0818    
+    #lat2,lon2 =  41.035114,29.173926
     
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
