@@ -667,7 +667,7 @@ def plot_trail(lat, lon, gpx_file, my_curr_location):
 def trails_nav_action():
     res = step(request, OnlyOne().last_location, float(request.form['distance']))    
     OnlyOne().last_location = res
-    fout = plot_trail(res[0], res[1], OnlyOne().last_gpx_file)
+    fout = plot_trail(res[0], res[1], OnlyOne().last_gpx_file, res)
     print (fout)
     return render_template('/trail.html', location=fout)
 
