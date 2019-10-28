@@ -729,7 +729,7 @@ def flattestroute(coords):
     lats = list(range(latmin,latmax))
     lons = list(range(lonmin,lonmax))
 
-    ls = itertools.product(lats,lons)    
+    ls = list(itertools.product(lats,lons))
     
     xis, nodes, epsilons = route.get_rbf_for_latlon_ints(ls,connmod)    
     path = route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
