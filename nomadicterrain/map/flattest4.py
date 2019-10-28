@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 
 from scipy.interpolate import Rbf
 from scipy import optimize
+import itertools, pickle, re
 import numpy as np, plot_map, json, os
 import geopy.distance, math, route, autograd
 from datetime import timedelta
-import datetime, sqlite3, pickle, re
+import datetime, sqlite3
 
 OFFSET = 1000.0
 LIM = 2.0
@@ -323,7 +324,21 @@ def test_path():
     lat2,lon2 = 40.749752,31.610694
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
-    ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]
+
+    latmin = int(np.min([lat1,lat2]))-2
+    latmax = int(np.max([lat1,lat2]))+2
+    lonmin = int(np.min([lon1,lon2]))-2
+    lonmax = int(np.max([lon2,lon2]))+2
+
+    lats = list(range(latmin,latmax))
+    lons = list(range(lonmin,lonmax))
+    print (lats)
+    print (lons)
+
+    #for (x,y) in itertools.product(lats,lons):
+    #    print (x,y)
+    ls = itertools.product(lats,lons)    
+    #ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]
     
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
     
