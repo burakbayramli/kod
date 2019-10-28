@@ -407,7 +407,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     obj_res = []
     obj_paths = []
     
-    for s in [0, 42, 100, 120]:
+    for s in [98798, 0, 42, 100, 120]:
         np.random.seed(s)
         DIV = 2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV

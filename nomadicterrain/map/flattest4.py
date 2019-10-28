@@ -192,13 +192,13 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     obj_res = []
     obj_paths = []
     
-    for s in [0, 42, 100, 120]:
+    for s in [98798, 0, 42, 100, 120]:
         np.random.seed(s)
         DIV = 2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         x0 = np.array([a1,a2,a3,b1,b2,b3])
-        print (x0)    
+        print (x0)
         sol = optimize.minimize(obj,
                                 x0,
                                 method = 'COBYLA',
@@ -209,6 +209,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         print (sol.x)
         obj_res.append(obj(sol.x))
         obj_paths.append(sol.x)
+        break
             
     return obj_paths[np.argmin(obj_res)]
 
@@ -348,9 +349,6 @@ def test_path():
     
     path = find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
 
-    #a1,a2,a3,b1,b2,b3=0.1, 0.1, 1.0, -1.3, 0.0,-0.4
-    #a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673,0.59926283
-    #a1,a2,a3,b1,b2,b3=0.60057507,  0.72469955,  1.50004582, -0.30007563,  1.00016673, 0.59926283
     a1,a2,a3,b1,b2,b3=path
     a4 = ex - a0 - (a1+a2+a3)
     b4 = ey - b0 - (b1+b2+b3)
