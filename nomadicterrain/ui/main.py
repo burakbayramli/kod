@@ -720,7 +720,17 @@ def flattestroute(coords):
 
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
-    ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]    
+
+    latmin = int(np.min([lat1,lat2]))-2
+    latmax = int(np.max([lat1,lat2]))+2
+    lonmin = int(np.min([lon1,lon2]))-2
+    lonmax = int(np.max([lon2,lon2]))+2
+
+    lats = list(range(latmin,latmax))
+    lons = list(range(lonmin,lonmax))
+
+    ls = itertools.product(lats,lons)    
+    
     xis, nodes, epsilons = route.get_rbf_for_latlon_ints(ls,connmod)    
     path = route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
     

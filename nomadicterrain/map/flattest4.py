@@ -332,13 +332,8 @@ def test_path():
 
     lats = list(range(latmin,latmax))
     lons = list(range(lonmin,lonmax))
-    print (lats)
-    print (lons)
 
-    #for (x,y) in itertools.product(lats,lons):
-    #    print (x,y)
     ls = itertools.product(lats,lons)    
-    #ls = [[42,32],[41,32],[42,31],[40,31],[41,30],[41,31],[40,32]]
     
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
     
