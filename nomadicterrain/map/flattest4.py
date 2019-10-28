@@ -14,7 +14,6 @@ import datetime, sqlite3
 
 OFFSET = 0.0
 LIM = 2.0
-alpha = 0.05
 MAX = 10000.
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())

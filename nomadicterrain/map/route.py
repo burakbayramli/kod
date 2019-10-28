@@ -14,9 +14,9 @@ from constants import S
 from constants import params
 from constants import gps_coord_sample_file
 
+OFFSET = 0.0
 LIM = 2.0
 MAX = 10000.
-OFFSET = 1000.0
 
 def chunks(l, n):
     for i in range(0, len(l), n):
