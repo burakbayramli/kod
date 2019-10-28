@@ -659,7 +659,8 @@ def plot_trail(lat, lon, gpx_file, my_curr_location):
     fout = "static/out-%s.png" % uuid.uuid4()
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), my_curr_location=my_curr_location, pixel=True)
+    #plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), my_curr_location=my_curr_location, pixel=True)
+    plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), my_curr_location=my_curr_location)
     return fout
 
 @app.route('/trails_nav_action', methods=['GET', 'POST'])
@@ -718,6 +719,9 @@ def flattestroute(coords):
     lon1 = float(lon1)
     lat2,lon2 = my_curr_location()
 
+    #lat1,lon1 = 41.035114,29.173926
+    #lat2,lon2 =  40.960056,29.0818    
+    
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
 
