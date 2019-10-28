@@ -364,11 +364,10 @@ def pts_elev_test():
 
 def test_path():
     #route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
-    #29.173926 41.035114 29.0818 40.960056
-    #lat1,lon1 = 40.749752,31.610694
-    #lat2,lon2 = 41.084967,31.126588
-    lat1,lon1 =  40.960056,29.0818
-    lat2,lon2 =  41.035114,29.173926
+    lat1,lon1 = 40.749752,31.610694
+    lat2,lon2 = 41.084967,31.126588
+    #lat1,lon1 =  40.960056,29.0818
+    #lat2,lon2 =  41.035114,29.173926
     
     a0,b0,ex,ey=lon1,lat1,lon2,lat2
     connmod = sqlite3.connect(params['elevdbmod'])
