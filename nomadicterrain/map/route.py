@@ -386,22 +386,22 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     )
     
     def obj(xarg):
-        mu = 2.0
         LIM = 2.0
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
         tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
+        tmp[tmp<0.0] = 0.0
         sq = np.sqrt(tmp)
         x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
         y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
         pts = np.vstack((y,x))
         res = f_elev(pts.T, xis, nodes, epsilons)
-        if (len(res)==0): return 100000.
+        if (len(res)==0): return MAX
         z = np.array(list(res.values()))
         z[z<0.0] = MAX
         res = z * sq
-        T = trapz(res, 1.0/len(t))
+        T = trapz(res, 1.0/len(t))            
         return T
 
     obj_res = []
