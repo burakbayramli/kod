@@ -8,7 +8,7 @@ import sys; sys.path.append("../../loogle")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
-import news, csv, io, zipfile, math
+import news, csv, io, zipfile, math, itertools
 from urllib.request import urlopen
 import urllib, requests, json, re
 import gpxpy, gpxpy.gpx, polyline, codecs
