@@ -174,6 +174,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
         tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
+        tmp[tmp<0.0] = 0.0
         sq = np.sqrt(tmp)
         x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
         y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
@@ -184,8 +185,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         z[z<0.0] = MAX
         res = z * sq
         T = trapz(res, 1.0/len(t))
-        COEF = 2000.0
-        T = T + np.dot(xarg,xarg)*COEF
+        COEF = 30000.0
+        #T = T + np.dot(xarg,xarg)*COEF
             
         return T
 
@@ -193,7 +194,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     obj_paths = []
     
     DIV =2.0
-    for s in [0, 42, 100, 120, 300]:
+    #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
+    for s in range(100):
         np.random.seed(s)
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
@@ -202,26 +204,9 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         sol = optimize.minimize(obj,
                                 x0,
                                 method = 'COBYLA',
-                                tol=0.0001,
+                                tol=0.00001,
                                 constraints=cons,
-                                options={'disp':True})
-        print (obj(sol.x))
-        print (sol.x)
-        obj_res.append(obj(sol.x))
-        obj_paths.append(sol.x)
-
-    for s in [0, 42, 100, 120, 300]:
-        np.random.seed(s)
-        a1,a2,a3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
-        b1,b2,b3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
-        x0 = np.array([a1,a2,a3,b1,b2,b3])
-        print (x0)
-        sol = optimize.minimize(obj,
-                                x0,
-                                method = 'COBYLA',
-                                tol=0.0001,
-                                constraints=cons,
-                                options={'disp':True})
+                                options={'maxiter': 3, 'disp':True})
         print (obj(sol.x))
         print (sol.x)
         obj_res.append(obj(sol.x))
@@ -344,10 +329,10 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     plt.savefig(fout3)
     
 def test_path():
-    lat1,lon1 = 41.084967,31.126588
-    lat2,lon2 = 40.749752,31.610694
-    #lat1,lon1 =  40.960056,29.0818    
-    #lat2,lon2 =  41.035114,29.173926
+    #lat1,lon1 = 41.084967,31.126588
+    #lat2,lon2 = 40.749752,31.610694
+    lat1,lon1 =  40.960056,29.0818    
+    lat2,lon2 =  41.035114,29.173926
     
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
