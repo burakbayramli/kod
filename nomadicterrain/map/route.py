@@ -400,7 +400,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         z = np.array(list(res.values()))
         z[z<0.0] = MAX
         res = z * sq
-        T = trapz(res, 1.0/len(t))            
+        T = trapz(res, 1.0/len(t))
+        COEF = 30000.0
         return T
 
     obj_res = []
