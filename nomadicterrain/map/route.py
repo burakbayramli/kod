@@ -1,6 +1,6 @@
 from scipy import optimize
 import numpy.linalg as lin, datetime
-import geopy.distance, sqlite3
+import geopy.distance, sqlite3, itertools
 from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math, random, requests
