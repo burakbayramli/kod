@@ -728,7 +728,7 @@ def flattestroute(coords):
     latmin = int(np.min([lat1,lat2]))-3
     latmax = int(np.max([lat1,lat2]))+3
     lonmin = int(np.min([lon1,lon2]))-3
-    lonmax = int(np.max([lon2,lon2]))+3
+    lonmax = int(np.max([lon1,lon2]))+3
 
     lats = list(range(latmin,latmax))
     lons = list(range(lonmin,lonmax))

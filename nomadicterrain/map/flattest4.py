@@ -339,7 +339,7 @@ def test_path():
     latmin = int(np.min([lat1,lat2]))-3
     latmax = int(np.max([lat1,lat2]))+3
     lonmin = int(np.min([lon1,lon2]))-3
-    lonmax = int(np.max([lon2,lon2]))+3
+    lonmax = int(np.max([lon1,lon2]))+3
 
     lats = list(range(latmin,latmax))
     lons = list(range(lonmin,lonmax))
@@ -349,7 +349,7 @@ def test_path():
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
     
     path = find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
-    print ('best bath',path)
+    print ('best path',path)
 
     a1,a2,a3,b1,b2,b3=path
     a4 = ex - a0 - (a1+a2+a3)
