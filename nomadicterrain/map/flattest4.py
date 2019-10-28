@@ -48,7 +48,6 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
     connmod.commit()
     for lati in range(10):
         for lonj in range(10):
-            print (latint,lati,lonint,lonj)
             sql = "SELECT lat,lon,elevation FROM ELEVATION WHERE latint=%d and lonint=%d " % (latint,lonint)
             res = c.execute(sql)
             X = []; Z=[]
@@ -107,7 +106,6 @@ def gaussian(r,eps):
 
 def f_elev(pts, xis, nodes, epsilons):    
     pts_elevs = {}
-    print (nodes.keys())
     for (lat,lon) in pts:
         if np.isnan(lat) or np.isnan(lon): continue
         latm = int(lat)
@@ -145,8 +143,7 @@ def get_rbf_for_latlon_ints(latlons, connmod):
                     xis[(latint,lonint,lati,lonj)] = np.ones((2,10))*MAX
                     nodes[(latint,lonint,lati,lonj)] = np.ones((1,10))*MAX
                     epsilons[(latint,lonint,lati,lonj)] = MAX
-                    
-                      
+                                          
     return xis, nodes, epsilons
 
 def trapz(y, dx):
@@ -172,7 +169,6 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
     )
     
     def obj(xarg):
-        mu = 2.0
         LIM = 2.0
         a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
         a4 = ex - a0 - (a1+a2+a3)
@@ -188,7 +184,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         z[z<0.0] = MAX
         res = z * sq
         T = trapz(res, 1.0/len(t))
-        COEF = 1000.0
+        COEF = 2000.0
         T = T + np.dot(xarg,xarg)*COEF
             
         return T
@@ -356,20 +352,20 @@ def test_path():
     a0,b0,ex,ey=lon2,lat2,lon1,lat1
     connmod = sqlite3.connect(params['elevdbmod'])
 
-    latmin = int(np.min([lat1,lat2]))-2
-    latmax = int(np.max([lat1,lat2]))+2
-    lonmin = int(np.min([lon1,lon2]))-2
-    lonmax = int(np.max([lon2,lon2]))+2
+    latmin = int(np.min([lat1,lat2]))-3
+    latmax = int(np.max([lat1,lat2]))+3
+    lonmin = int(np.min([lon1,lon2]))-3
+    lonmax = int(np.max([lon2,lon2]))+3
 
     lats = list(range(latmin,latmax))
     lons = list(range(lonmin,lonmax))
 
-    ls = itertools.product(lats,lons)
-    print (list(ls))
-    
+    ls = list(itertools.product(lats,lons))
+
     xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
     
     path = find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
+    print ('best bath',path)
 
     a1,a2,a3,b1,b2,b3=path
     a4 = ex - a0 - (a1+a2+a3)
