@@ -150,69 +150,6 @@ def trapz(y, dx):
     tmp = np.sum(vals*2.0)    
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
-def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
-    t = np.linspace(0,1.0,200)
-
-    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
-          {'type': 'ineq','fun': lambda x: LIM-x[1]},
-          {'type': 'ineq','fun': lambda x: LIM-x[2]},
-          {'type': 'ineq','fun': lambda x: LIM-x[3]},
-          {'type': 'ineq','fun': lambda x: LIM-x[4]},
-          {'type': 'ineq','fun': lambda x: LIM-x[5]},
-          {'type': 'ineq','fun': lambda x: x[0]+LIM}, # y>-LIM
-          {'type': 'ineq','fun': lambda x: x[1]+LIM},
-          {'type': 'ineq','fun': lambda x: x[2]+LIM},
-          {'type': 'ineq','fun': lambda x: x[3]+LIM},
-          {'type': 'ineq','fun': lambda x: x[4]+LIM},
-          {'type': 'ineq','fun': lambda x: x[5]+LIM},
-    )
-    
-    def obj(xarg):
-        LIM = 2.0
-        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
-        a4 = ex - a0 - (a1+a2+a3)
-        b4 = ey - b0 - (b1+b2+b3)
-        tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
-        tmp[tmp<0.0] = 0.0
-        sq = np.sqrt(tmp)
-        x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
-        y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
-        pts = np.vstack((y,x))
-        res = f_elev(pts.T, xis, nodes, epsilons)
-        if (len(res)==0): return MAX
-        z = np.array(list(res.values()))
-        z[z<0.0] = MAX
-        res = z * sq
-        T = trapz(res, 1.0/len(t))
-        COEF = 30000.0
-        #T = T + np.dot(xarg,xarg)*COEF
-            
-        return T
-
-    obj_res = []
-    obj_paths = []
-    
-    DIV =2.0
-    #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
-    for s in range(100):
-        np.random.seed(s)
-        a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-        b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-        x0 = np.array([a1,a2,a3,b1,b2,b3])
-        print (x0)
-        sol = optimize.minimize(obj,
-                                x0,
-                                method = 'COBYLA',
-                                tol=0.00001,
-                                constraints=cons,
-                                options={'maxiter': 3, 'disp':True})
-        print (obj(sol.x))
-        print (sol.x)
-        obj_res.append(obj(sol.x))
-        obj_paths.append(sol.x)
-
-            
-    return obj_paths[np.argmin(obj_res)]
 
 def plot_topo_and_pts(lat1,lon1,fout1,how_far,tx,ty):
     D = 30
@@ -326,38 +263,71 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
     rgb = ls.shade(zz, cmap=cm.gist_earth, vert_exag=0.1, blend_mode='soft')
     surf = ax.plot_surface(xx, yy, zz, rstride=1, cstride=1, facecolors=rgb, linewidth=0, antialiased=False, shade=False)
     plt.savefig(fout3)
+
+def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
+    t = np.linspace(0,1.0,200)
+
+    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
+          {'type': 'ineq','fun': lambda x: LIM-x[1]},
+          {'type': 'ineq','fun': lambda x: LIM-x[2]},
+          {'type': 'ineq','fun': lambda x: LIM-x[3]},
+          {'type': 'ineq','fun': lambda x: LIM-x[4]},
+          {'type': 'ineq','fun': lambda x: LIM-x[5]},
+          {'type': 'ineq','fun': lambda x: x[0]+LIM}, # y>-LIM
+          {'type': 'ineq','fun': lambda x: x[1]+LIM},
+          {'type': 'ineq','fun': lambda x: x[2]+LIM},
+          {'type': 'ineq','fun': lambda x: x[3]+LIM},
+          {'type': 'ineq','fun': lambda x: x[4]+LIM},
+          {'type': 'ineq','fun': lambda x: x[5]+LIM},
+    )
     
-def test_path():
-    #lat1,lon1 = 41.084967,31.126588
-    #lat2,lon2 = 40.749752,31.610694
-    lat1,lon1 =  40.960056,29.0818    
-    lat2,lon2 =  41.035114,29.173926
+    def obj(xarg):
+        LIM = 2.0
+        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
+        a4 = ex - a0 - (a1+a2+a3)
+        b4 = ey - b0 - (b1+b2+b3)
+        tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
+        tmp[tmp<0.0] = 0.0
+        sq = np.sqrt(tmp)
+        x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
+        y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
+        pts = np.vstack((y,x))
+        res = f_elev(pts.T, xis, nodes, epsilons)
+        if (len(res)==0): return MAX
+        z = np.array(list(res.values()))
+        z[z<0.0] = MAX
+        res = z * sq
+        T = trapz(res, 1.0/len(t))
+        COEF = 30000.0
+        #T = T + np.dot(xarg,xarg)*COEF
+            
+        return T
+
+    obj_res = []
+    obj_paths = []
     
-    a0,b0,ex,ey=lon2,lat2,lon1,lat1
-    connmod = sqlite3.connect(params['elevdbmod'])
+    DIV =3.0
+    #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
+    for s in range(60):
+        np.random.seed(s)
+        a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
+        x0 = np.array([a1,a2,a3,b1,b2,b3])
+        print (x0)
+        sol = optimize.minimize(obj,
+                                x0,
+                                method = 'COBYLA',
+                                tol=0.001,
+                                constraints=cons,
+                                options={'maxiter': 3, 'disp':True})
+        print (obj(sol.x))
+        print (sol.x)
+        obj_res.append(obj(sol.x))
+        obj_paths.append(sol.x)
 
-    latmin = int(np.min([lat1,lat2]))-3
-    latmax = int(np.max([lat1,lat2]))+3
-    lonmin = int(np.min([lon1,lon2]))-3
-    lonmax = int(np.max([lon1,lon2]))+3
+            
+    return obj_paths[np.argmin(obj_res)]
 
-    lats = list(range(latmin,latmax))
-    lons = list(range(lonmin,lonmax))
-
-    ls = list(itertools.product(lats,lons))
-
-    xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
-    
-    path = find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
-    print ('best path',path)
-
-    a1,a2,a3,b1,b2,b3=path
-    a4 = ex - a0 - (a1+a2+a3)
-    b4 = ey - b0 - (b1+b2+b3)
-    t = np.linspace(0,1.0,100.0)
-    x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
-    y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
-    plot_topo_and_pts(lat2,lon2,'/tmp/out1.png',90.0,x,y)
     
 def test_topo():
     lat1,lon1 = 41.084967,31.126588
@@ -393,6 +363,40 @@ def pts_elev_test():
     print (res)
     print (get_elev_single(40.749752,31.610694,connmod))
 
+def test_path():
+    #route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
+    #29.173926 41.035114 29.0818 40.960056
+    #lat1,lon1 = 40.749752,31.610694
+    #lat2,lon2 = 41.084967,31.126588
+    lat1,lon1 =  40.960056,29.0818
+    lat2,lon2 =  41.035114,29.173926
+    
+    a0,b0,ex,ey=lon1,lat1,lon2,lat2
+    connmod = sqlite3.connect(params['elevdbmod'])
+
+    latmin = int(np.min([lat1,lat2]))-3
+    latmax = int(np.max([lat1,lat2]))+3
+    lonmin = int(np.min([lon1,lon2]))-3
+    lonmax = int(np.max([lon1,lon2]))+3
+
+    lats = list(range(latmin,latmax))
+    lons = list(range(lonmin,lonmax))
+
+    ls = list(itertools.product(lats,lons))
+
+    xis, nodes, epsilons = get_rbf_for_latlon_ints(ls,connmod)
+    
+    #path = find_path(lon1,lat1,lon2,lat2,xis, nodes, epsilons)
+    path = ( 0.4587563,  -0.03392798, -0.6032637,   0.08755128,  0.08665089, -0.12702879)
+    print ('best path',path)
+
+    a1,a2,a3,b1,b2,b3=path
+    a4 = ex - a0 - (a1+a2+a3)
+    b4 = ey - b0 - (b1+b2+b3)
+    t = np.linspace(0,1.0,100.0)
+    x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
+    y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
+    plot_topo_and_pts(lat1,lon1,'/tmp/out1.png',20.0,x,y)
     
 #test_single_rbf_block()    
 test_path()

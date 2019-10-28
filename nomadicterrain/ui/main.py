@@ -714,15 +714,12 @@ def hay_search():
 
 @app.route('/flattestroute/<coords>')
 def flattestroute(coords):
-    lat1,lon1 = coords.split(';')
-    lat1 = float(lat1)
-    lon1 = float(lon1)
-    lat2,lon2 = my_curr_location()
-
-    #lat1,lon1 = 41.035114,29.173926
-    #lat2,lon2 =  40.960056,29.0818    
+    lat1,lon1 = my_curr_location()
+    lat2,lon2 = coords.split(';')
+    lat2 = float(lat2)
+    lon2 = float(lon2)
     
-    a0,b0,ex,ey=lon2,lat2,lon1,lat1
+    a0,b0,ex,ey=lon1,lat1,lon2,lat2
     connmod = sqlite3.connect(params['elevdbmod'])
 
     latmin = int(np.min([lat1,lat2]))-3
@@ -736,7 +733,7 @@ def flattestroute(coords):
     ls = list(itertools.product(lats,lons))
     
     xis, nodes, epsilons = route.get_rbf_for_latlon_ints(ls,connmod)    
-    path = route.find_path(lon2,lat2,lon1,lat1,xis, nodes, epsilons)
+    path = route.find_path(lon1,lat2,lon1,lat1,xis, nodes, epsilons)
     
     a1,a2,a3,b1,b2,b3=path
     a4 = ex - a0 - (a1+a2+a3)

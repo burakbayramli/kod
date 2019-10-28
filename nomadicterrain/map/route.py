@@ -369,6 +369,8 @@ def trapz(y, dx):
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
+    print ('----')
+    print (a0,b0,ex,ey)
     t = np.linspace(0,1.0,200)
     cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
           {'type': 'ineq','fun': lambda x: LIM-x[1]},
@@ -405,10 +407,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
 
     obj_res = []
     obj_paths = []
-    
-    
+        
     DIV =2.0
-    #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
     for s in range(100):
         np.random.seed(s)
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
