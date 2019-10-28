@@ -154,7 +154,7 @@ def trapz(y, dx):
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
-    t = np.linspace(0,1.0,100)
+    t = np.linspace(0,1.0,200)
 
     cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
           {'type': 'ineq','fun': lambda x: LIM-x[1]},
@@ -182,19 +182,22 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
         pts = np.vstack((y,x))
         res = f_elev(pts.T, xis, nodes, epsilons)
-        if (len(res)==0): return 100000.
+        if (len(res)==0): return MAX
         z = np.array(list(res.values()))
         z[z<0.0] = MAX
         res = z * sq
         T = trapz(res, 1.0/len(t))
+        COEF = 1000.0
+        T = T + np.dot(xarg,xarg)*COEF
+            
         return T
 
     obj_res = []
     obj_paths = []
     
-    for s in [0, 42, 100, 120]:
+    DIV =2.0
+    for s in [0, 42, 100, 120, 300]:
         np.random.seed(s)
-        DIV =2.0
         a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
         x0 = np.array([a1,a2,a3,b1,b2,b3])
@@ -210,9 +213,8 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         obj_res.append(obj(sol.x))
         obj_paths.append(sol.x)
 
-    for s in [0, 42, 100, 120]:
+    for s in [0, 42, 100, 120, 300]:
         np.random.seed(s)
-        DIV =2.0
         a1,a2,a3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
         b1,b2,b3 = np.random.rand()/DIV, np.random.rand()/DIV, np.random.rand()/DIV
         x0 = np.array([a1,a2,a3,b1,b2,b3])
@@ -227,7 +229,7 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
         print (sol.x)
         obj_res.append(obj(sol.x))
         obj_paths.append(sol.x)
-        
+
             
     return obj_paths[np.argmin(obj_res)]
 
