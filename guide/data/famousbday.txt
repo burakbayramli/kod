@@ -39762,3 +39762,4 @@ Bob Lazar:Scientist, UFO:26/1/1959
 Kamala Harris:Politician:20/10/1964
 Aydin Selcen:Author:29/11/1969
 Burhan Kuzu:Politikaci:1/1/1955
+Elizabeth Warren::22/6/1949
