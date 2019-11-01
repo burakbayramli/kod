@@ -929,6 +929,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
+(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_70_dfo")
 
 
 (switch-to-buffer "*scratch*")
