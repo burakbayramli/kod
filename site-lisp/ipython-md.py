@@ -1,5 +1,5 @@
 from Pymacs import lisp
-import re, time, os
+import re, time, os, glob
 
 interactions = {}
 
@@ -65,9 +65,11 @@ def run_py_code():
 
     # generate savefig for execution code (no output in emacs yet)
     bc = lisp.buffer_string()
-    plt_count_before = len(re.findall('plt\.savefig\(',bc))
-    base = os.path.splitext(lisp.buffer_name())[0]
-    f = '%s_%s.png' % (base, two_digit(plt_count_before+1))
+    #plt_count_before = len(re.findall('plt\.savefig\(',bc))
+    #base = os.path.splitext(lisp.buffer_name())[0]
+    base = lisp.buffer_name()[:-4]
+    plt_count_before = len(glob.glob(base + "*.png"))
+    f = '%s_%s.png' % (base, two_digit(plt_count_before+1))    
     rpl = "plt.savefig('%s')" % f
     show_replaced = True if "plt.show()" in content else False
     content=content.replace("plt.show()",rpl)
