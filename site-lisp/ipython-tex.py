@@ -79,7 +79,12 @@ def run_py_code():
     #plt_count_before = len(re.findall('plt\.savefig\(',bc))
     #base = os.path.splitext(lisp.buffer_name())[0]
     base = lisp.buffer_name()[:-4]
-    plt_count_before = len(glob.glob(base + "*.png"))    
+    ##plt_count_before = len(glob.glob(base + "*.png"))
+    fs = glob.glob(base + '*.png')
+    if len(fs)==0:
+        plt_count_before = 0
+    else:
+        plt_count_before =int(fs[-1][-6:-4])
     f = '%s_%s.png' % (base, two_digit(plt_count_before+1))
     rpl = "plt.savefig('%s')" % f
     show_replaced = True if "plt.show()" in content else False

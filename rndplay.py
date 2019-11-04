@@ -22,7 +22,7 @@ def my_random(upper):
     audio.terminate()
     M = 1e20
     I = np.abs(np.log(r1) + np.log(r2) + np.log(r3) + np.log(r4)) * 1e3
-    print I, r1, r2, r3, r4
+    print (I, r1, r2, r3, r4)
     return int( I % upper)
     #return int( ( (r1 * r3 * r4)*M) % upper)
 
@@ -31,22 +31,22 @@ if __name__ == "__main__":
     fout = open("/tmp/rndplay.out","w")
 
     while True:
-        print "Music Dir", sys.argv[1]
+        print ("Music Dir", sys.argv[1])
         os.chdir(sys.argv[1])
         list = glob.glob("*.m*")
-        print '\n'
+        print ('\n')
         idx = my_random(len(list))
-        print "# of songs", len(list), 
+        print ("# of songs", len(list),) 
         "song idx selected", idx, 
         "song", list[idx]
         fout.write(str(list[idx]) + "\n")
         fout.flush()
-        print '\n'
+        print ('\n')
         #cmd = "/usr/bin/ffplay -nodisp '%s'" % list[idx]
         cmd = 'mplayer "%s" ' % list[idx]
-        print cmd
+        print (cmd)
         os.system(cmd)
-        print "Delete? (Press d for delete)..."
+        print ("Delete? (Press d for delete)...")
         k=""
         def input():
             global k
@@ -62,9 +62,9 @@ if __name__ == "__main__":
         T.setDaemon(1)
         T.start()
         T.join(1) # wait for [arg] seconds
-        print "\n>>>>>>>>>" + k
+        print ("\n>>>>>>>>>" + k)
         if 'd' in k:
-            print "deleting ===================> " +  list[idx]
+            print ("deleting ===================> " +  list[idx])
             cmd = "rm '%s'" % list[idx]
             os.system(cmd)
 
