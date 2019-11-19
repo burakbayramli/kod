@@ -1,11 +1,9 @@
-from scipy import optimize
 import numpy.linalg as lin, datetime
 import geopy.distance, sqlite3
 from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math, random, requests
 import numpy as np, pandas as pd
-from scipy.interpolate import Rbf
 from pqdict import pqdict
 from constants import gpxbegin
 from constants import gpxend
@@ -222,6 +220,7 @@ def get_rbf_for_latlon_ints(latlons, connmod):
     return xis, nodes, epsilons
 
 def insert_rbf_recs(latint,lonint,conn,connmod):
+    from scipy.interpolate import Rbf
     c = conn.cursor()    
     cm = connmod.cursor()    
     sql = "DELETE FROM ELEVRBF where latint=%d and lonint=%d" % (latint, lonint)
@@ -369,6 +368,7 @@ def trapz(y, dx):
     return (y[0]+tmp+y[-1])*(dx/2.0)
     
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
+    from scipy import optimize
     print ('----')
     print (a0,b0,ex,ey)
     t = np.linspace(0,1.0,200)

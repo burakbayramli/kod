@@ -614,7 +614,7 @@ This command does not push erased text to kill-ring."
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
 
 (tempo-define-template  "tex-matrix" 
- '("\\left[\\begin{array}{rrr}\n" (s) "\n\\end{array}\\right]" )    "")
+ '("\\left[\\begin{array}{ccc}\n" (s) "\n\\end{array}\\right]" )    "")
 
 (tempo-define-template  "tex-function-in-pieces" 
  '("\\left\\{ \\begin{array}{ll}\n" (s) "\n\\end{array} \\right." ) "")

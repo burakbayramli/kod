@@ -65,7 +65,7 @@ def run_py_code():
 
     # generate savefig for execution code (no output in emacs yet)
     bc = lisp.buffer_string()
-    base = lisp.buffer_name()[:-4]
+    base = lisp.buffer_name()[:-3]
     fs = glob.glob(base + '*.png')
     if len(fs)==0:
         plt_count_before = 0
