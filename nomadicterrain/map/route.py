@@ -4,7 +4,6 @@ from urllib.request import urlopen
 import numpy as np, polyline, json
 import os, pickle, math, random, requests
 import numpy as np, pandas as pd
-from pqdict import pqdict
 from constants import gpxbegin
 from constants import gpxend
 from constants import SROWS
