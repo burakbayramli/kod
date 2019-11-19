@@ -1,5 +1,4 @@
 from mpl_toolkits.mplot3d import Axes3D
-from scipy.spatial.distance import cdist
 from matplotlib.colors import LightSource
 from matplotlib import cm
 import os, glob, re, zipfile
