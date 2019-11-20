@@ -242,7 +242,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
             print (X.shape)
             if X.shape[0]!=0: 
                 rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
-                wdf = pickle.dumps(rbfi)
+                wdf = pickle.dumps({"xi": rbfi.xi, "nodes": rbfi.nodes, "epsilon": rbfi.epsilon} )
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
     
@@ -312,7 +312,7 @@ def do_all_rbf_ints():
         res1 = c2.execute(sql1)
         res1 = list(res1)
 
-        sql2 = "select count(*) from RBF1 where latint=%d and lonint=%d; "  % (latint,lonint)
+        sql2 = "select count(*) from ELEVRBF where latint=%d and lonint=%d; "  % (latint,lonint)
         c3 = connmod.cursor()
         res2 = c3.execute(sql2)
         res2 = list(res2)
@@ -436,5 +436,5 @@ if __name__ == "__main__":
     #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
-    #do_all_rbf_ints()
-    get_all_countries()
+    do_all_rbf_ints()
+    #get_all_countries()

@@ -5,10 +5,10 @@ geopy
 feedparser
 flask
 gpxpy
-pqdict
 datedelta
 quandl
 timezonefinder
 sqlite3
 pandas_datareader
 polyline
+beautifulsoup4
