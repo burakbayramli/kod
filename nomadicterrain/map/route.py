@@ -241,7 +241,7 @@ def insert_rbf_recs(latint,lonint,conn,connmod):
             Z = np.array(Z)
             print (X.shape)
             if X.shape[0]!=0: 
-                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian',epsilon=0.01)
+                rbfi = Rbf(X[:,0], X[:,1], Z,function='gaussian')
                 wdf = pickle.dumps({"xi": rbfi.xi, "nodes": rbfi.nodes, "epsilon": rbfi.epsilon} )
                 cm.execute("INSERT INTO ELEVRBF(latint,lonint,lati,lonj,W) VALUES(?,?,?,?,?);",(latint, lonint, lati, lonj, wdf))
                 connmod.commit()
@@ -272,9 +272,9 @@ def get_elev(pts,connmod):
         r = list(r)
         rbfi = r[0]
         rbfi = pickle.loads(rbfi[0])
-        xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
-        nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
-        epsilons[(latint,lonint,lati,lonj)] = rbfi.epsilon
+        xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi['xi']])
+        nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi['nodes']])
+        epsilons[(latint,lonint,lati,lonj)] = rbfi['epsilon']
     elevs = f_elev(pts, xis, nodes, epsilons)
     return elevs
 
@@ -436,5 +436,8 @@ if __name__ == "__main__":
     #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
-    do_all_rbf_ints()
+    #do_all_rbf_ints()
+    conn = sqlite3.connect(params['elevdb'])
+    connmod = sqlite3.connect(params['elevdbmod'])
+    insert_rbf_recs(40,29,conn,connmod)
     #get_all_countries()
