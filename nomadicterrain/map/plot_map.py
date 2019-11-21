@@ -152,9 +152,9 @@ def plot_topo(lat1,lon1,fout1,fout2,fout3,how_far):
 
     plon,plat = np.round(float(lon1),3),np.round(float(lat1),3)
 
-    from scipy.ndimage.filters import gaussian_filter
-    sigma = 0.7
-    zz = gaussian_filter(zz, sigma)
+    #from scipy.ndimage.filters import gaussian_filter
+    #sigma = 0.7
+    #zz = gaussian_filter(zz, sigma)
     
     plt.figure()
     plt.plot(plon,plat,'rd')
