@@ -64,6 +64,7 @@ def getnews(outfile):
                 fout.write("<a href='%s'>%s</a><br/><br/>\n" % (link, title))
                 fout.write("%s<br/><br/>\n" % (summary))
             except Exception as e:
+                print (repr(e))
                 pass
     fout.close()
 
