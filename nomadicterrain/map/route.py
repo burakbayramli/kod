@@ -208,9 +208,9 @@ def get_rbf_for_latlon_ints(latlons, connmod):
                 if len(r)>0:
                     rbfi = r[0]
                     rbfi = pickle.loads(rbfi[0])
-                    xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.xi])
-                    nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi.nodes])
-                    epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi.epsilon)
+                    xis[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi['xi']])
+                    nodes[(latint,lonint,lati,lonj)] = np.array([x for x in rbfi['nodes']])
+                    epsilons[(latint,lonint,lati,lonj)] = np.float(rbfi['epsilon'])
                 else:
                     xis[(latint,lonint,lati,lonj)] = np.ones((2,10))*MAX
                     nodes[(latint,lonint,lati,lonj)] = np.ones((1,10))*MAX
@@ -432,12 +432,10 @@ def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
 
 if __name__ == "__main__":
     #conn = sqlite3.connect(params['elevdb'])
-    #c = conn.cursor()
+    #connmod = sqlite3.connect(params['elevdbmod'])
     #delete_int_rows(48, 5)
     #show_ints()
     #get_elev_data(42,45)
-    #do_all_rbf_ints()
-    conn = sqlite3.connect(params['elevdb'])
-    connmod = sqlite3.connect(params['elevdbmod'])
-    insert_rbf_recs(40,29,conn,connmod)
+    do_all_rbf_ints()
+    #insert_rbf_recs(40,29,conn,connmod)
     #get_all_countries()
