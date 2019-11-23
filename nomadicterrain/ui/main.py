@@ -1047,9 +1047,8 @@ def tube():
 @app.route("/tube_dload", methods=["POST"])
 def tube_dload():
     url = request.form.get("url")
-    print (url)
     owd = os.getcwd()    
-    os.chdir(params['news_dir'])
+    os.chdir(params['tube_dir'])
     download_song(url)
     os.chdir(owd)
     return tube()
