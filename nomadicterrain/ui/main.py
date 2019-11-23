@@ -981,6 +981,8 @@ def time():
     now_ny = now_utc.astimezone(timezone('US/Eastern'))
     times['ny'] = now_ny.strftime(fmt)
 
+    times['utc'] = now_utc.strftime(fmt)
+
     now_tr = now_utc.astimezone(timezone('Turkey'))
     times['tr'] = now_tr.strftime(fmt)
 
