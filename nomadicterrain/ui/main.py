@@ -10,7 +10,7 @@ import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import news, csv, io, zipfile, math, itertools
 from urllib.request import urlopen
-import urllib, requests, json, re
+import urllib, requests, json, re, youtube_dl
 import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import route, sqlite3, datedelta
@@ -1033,6 +1033,26 @@ def celeb_search():
     print (len(res))
     return celeb()
 
+def download_song(song_url):
+    ydl_opts = {
+        'format': '140'
+    }
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(song_url, download=True) 
+
+@app.route('/tube')
+def tube():
+    return render_template('/tube.html')
+
+@app.route("/tube_dload", methods=["POST"])
+def tube_dload():
+    url = request.form.get("url")
+    print (url)
+    owd = os.getcwd()    
+    os.chdir(params['news_dir'])
+    download_song(url)
+    os.chdir(owd)
+    return tube()
 
 
 if __name__ == '__main__':
