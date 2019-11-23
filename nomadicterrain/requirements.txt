@@ -12,3 +12,5 @@ sqlite3
 pandas_datareader
 polyline
 beautifulsoup4
+youtube_dl
+numpy
