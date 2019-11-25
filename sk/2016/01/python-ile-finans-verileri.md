@@ -12,7 +12,7 @@ Senet verisi, mesela MSFT
 
 ```
 import pandas as pd, datetime
-import pandas.io.data as web
+import pandas_datareader.data as web
 
 start=datetime.datetime(2013, 1, 1)
 end=datetime.datetime(2015, 9, 30)
