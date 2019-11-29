@@ -929,7 +929,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_70_dfo")
+(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_50_bfgs")
+(find-file-other-window "/home/burak/Documents/py3k/lib/python3.5/site-packages/scipy/optimize/")
+(find-file-other-window "/home/burak/Documents/classnotes/linear/linear_08")
 
 
 (switch-to-buffer "*scratch*")
