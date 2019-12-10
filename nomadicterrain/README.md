@@ -31,6 +31,7 @@ Sample .nomadicterrain config (the two numbers after the zip filename are SCALEX
 	     "europe2": ["/dir/dir/europe2.zip",[3300,-4600]],
 	     "europe3": ["/dir/dir/europe3.zip",[1450,-2400]],
 	     "turkey1": ["/dir/dir/turkey1.zip",[1450,-1850]],
+	     "turkey2": ["/dir/dir/turkey2.zip",[1600,-2000]],
 	     "turkey3": ["/dir/dir/turkey3.zip",[2900,-3500]]	     
   },
   "edible_plants": "/dir/dir/edible_plants.csv",
