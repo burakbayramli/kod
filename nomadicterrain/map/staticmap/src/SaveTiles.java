@@ -14,11 +14,11 @@ import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture;
-import org.mapsforge.core.model.LatLong;
-import org.mapsforge.core.model.Point;
-
 import java.io.File;
 import java.io.IOException;
+
+import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.model.Point;
 
 public class SaveTiles {
 

@@ -1,15 +1,9 @@
 
 
 ```python
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.colors import LightSource
-from matplotlib import cm
-import os, glob, re, zipfile
-import pandas as pd, pickle
-import numpy as np, sqlite3, json
+import numpy as np, json
 import matplotlib.pyplot as plt
 from PIL import Image
-import geopy.distance, route
 import subprocess, os, json
 
 def plot(points,outfile,pixel=False,bp=True):
@@ -45,9 +39,9 @@ def load_map(pts):
     res = json.loads(result.stdout.decode('utf-8'))
     return res
 
-lat1,lon1=40.970041,29.070311
-lat2,lon2=40.971041,29.071311
-lat3,lon3=40.968254,29.080640
+lat1,lon1=40.970041,29.170311
+lat2,lon2=40.971041,29.171311
+lat3,lon3=40.971041,29.172311
 pts = [[lat1,lon1],[lat2,lon2],[lat3,lon3]]
 plot(points=pts, outfile="/tmp/out.png")
 
