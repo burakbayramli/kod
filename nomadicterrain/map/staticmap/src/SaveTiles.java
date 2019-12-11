@@ -29,15 +29,17 @@ public class SaveTiles {
     private static final File DEFAULT_MAP_PATH = new File("/home/burak/Downloads/turkey.map");
 
     // Location you'd like to render.
-    //private static final double LAT = 42.490369;
-    //private static final double LAT = 42.470369;
-    //private static final double LNG = 20.838044;
-    private static final double LAT = 40.970041;
-    private static final double LNG = 29.070311;
+    private static double LAT = 40.970041;
+    private static double LNG = 29.070311;
 
     private static final byte ZOOM = 14;
 
     public static void main(String[] args) throws IOException {
+
+	System.out.println(args[0]);
+	System.out.println(args[1]);
+	LAT = Double.parseDouble(args[0]);
+	LNG = Double.parseDouble(args[1]);
         // TODO Use args for all parameters
 
         // Load map.
@@ -72,6 +74,6 @@ public class SaveTiles {
         // Close map.
         mapData.close();
 
-        System.out.printf("Tile has been saved at %s/%d/%d/%d.tile.\n", cacheDir.getPath(), ZOOM, tx, ty);
+        System.out.printf("Output: %s/%d/%d/%d.tile.\n", cacheDir.getPath(), ZOOM, tx, ty);
     }
 }
