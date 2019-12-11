@@ -75,8 +75,7 @@
     <java fork="yes" classname="SaveTiles"
           failonerror="true">
       <classpath refid="compile.classpath"/>
-      <arg value="40.970041"/>
-      <arg value="29.070311"/>
+      <arg value="40.970041,29.070311;40.971041,29.071311;40.968254,29.080640"/>
     </java>
   </target>
   

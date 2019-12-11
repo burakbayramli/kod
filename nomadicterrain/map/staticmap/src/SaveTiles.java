@@ -14,10 +14,11 @@ import org.mapsforge.map.reader.MapFile;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 import org.mapsforge.map.rendertheme.XmlRenderTheme;
 import org.mapsforge.map.rendertheme.rule.RenderThemeFuture;
+import org.mapsforge.core.model.LatLong;
+import org.mapsforge.core.model.Point;
 
 import java.io.File;
 import java.io.IOException;
-import org.mapsforge.core.model.LatLong;
 
 public class SaveTiles {
 
@@ -32,10 +33,10 @@ public class SaveTiles {
 
     public static void main(String[] args) throws IOException {
 
-	System.out.println(args[0]);
-	System.out.println(args[1]);
-	LAT = Double.parseDouble(args[0]);
-	LNG = Double.parseDouble(args[1]);
+	String [] tokens = args[0].split(";");
+	    	
+	LAT = Double.parseDouble(tokens[0].split(",")[0]);
+	LNG = Double.parseDouble(tokens[0].split(",")[1]);
         // TODO Use args for all parameters
 
         // Load map.
@@ -46,7 +47,20 @@ public class SaveTiles {
         final int tx = MercatorProjection.longitudeToTileX(LNG, ZOOM);
         Tile tile = new Tile(tx, ty, ZOOM, 800);
 	
-	System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(40.968254,29.080640), tile));
+	System.out.print("{'pixels':[");
+	//System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(40.968254,29.080640), tile));
+	for (int i=0;i<tokens.length;i++){
+	    //System.out.println(tokens[i]);
+	    double currlat = Double.parseDouble(tokens[i].split(",")[0]);
+	    double currlng = Double.parseDouble(tokens[i].split(",")[1]);
+	    //System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile));
+	    Point pix = MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile);
+	    System.out.print("[" + pix.x + ","+pix.y+"]");
+	    if (i<tokens.length-1) {
+		System.out.print(",");
+	    }	    
+	}
+	System.out.print("]");
 
         // Create requirements.
         GraphicFactory gf = AwtGraphicFactory.INSTANCE;
@@ -72,6 +86,7 @@ public class SaveTiles {
         // Close map.
         mapData.close();
 
-        System.out.printf("Output: %s/%d/%d/%d.tile.\n", cacheDir.getPath(), ZOOM, tx, ty);
+        System.out.printf(",'file': '%s/%d/%d/%d.tile'", cacheDir.getPath(), ZOOM, tx, ty);
+	System.out.print("}");	
     }
 }
