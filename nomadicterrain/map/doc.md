@@ -1,24 +1,4 @@
 
-```python
-import subprocess, os, json
-print (os.getcwd())
-cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', '40.970041;29.070311,40.971041;29.071311,40.968254;29.080640','/tmp']
-result = subprocess.run(cmd, stdout=subprocess.PIPE)
-res = json.loads(result.stdout.decode('utf-8'))
-print (res['pixels'])
-print (res['file'])
-```
-
-```text
-/home/burak/Documents/kod/nomadicterrain/map
-[[17.723164443857968, 475.3467543730512], [54.132053333334625, 427.126049364917], [393.79057777673006, 561.5153343658894]]
-/tmp/14/9515/6144.tile
-```
-
-
-
-
-
 
 ```python
 from mpl_toolkits.mplot3d import Axes3D
@@ -33,28 +13,19 @@ import geopy.distance, route
 
 import subprocess, os, json
 
-def plot(points,outfile,scale,pixel=False,bp=True):
+def plot(points,outfile,pixel=False,bp=True):
     plt.figure()
-    center_res = points[0]
-    imgcoord = []
-    found_file = "/home/burak/Downloads/6144.tile"
-    mapcenter = np.array([40.970041,29.070311])
-    print (mapcenter)    
+    res = load_map(pts)
+    pixels = res['pixels']
+    found_file = res['file']
     im = Image.open(found_file)
     nim = np.array(im)
-    c = nim.shape[0] / 2, nim.shape[0] / 2
     plt.axis('off')
     fig=plt.imshow(im)
     fig.axes.get_xaxis().set_visible(False)
     fig.axes.get_yaxis().set_visible(False)
     plt.imshow(im)
-    print (c)
-    for i,[lat,lon] in enumerate(points):
-        dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
-        print (dx,dy)
-        xx = c[0]+dx
-        yy = c[1]+dy
-        xx,yy=(393.79057777673006,561.5153343658894)
+    for i,[xx,yy] in enumerate(pixels):
         if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
         if i==0:
             if bp: plt.plot(xx,yy,'rx')
@@ -78,17 +49,13 @@ def load_map(pts):
 lat1,lon1=40.970041,29.070311
 lat2,lon2=40.971041,29.071311
 lat3,lon3=40.968254,29.080640
-#plot(points=[[lat3,lon3]], outfile="/tmp/out.png", scale=[-30000,20000])
-
 pts = [[lat1,lon1],[lat2,lon2],[lat3,lon3]]
-print (pts)
-res = load_map(pts)
-print (res['pixels'])
+plot(points=pts, outfile="/tmp/out.png")
+
 ```
 
 ```text
 [[40.970041, 29.070311], [40.971041, 29.071311], [40.968254, 29.08064]]
-40.970041;29.070311,40.971041;29.071311,40.968254;29.08064
 [[17.723164443857968, 475.3467543730512], [54.132053333334625, 427.126049364917], [393.79057777673006, 561.5153343658894]]
 ```
 
