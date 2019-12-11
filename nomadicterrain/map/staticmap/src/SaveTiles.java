@@ -33,7 +33,7 @@ public class SaveTiles {
 
     public static void main(String[] args) throws IOException {
 
-	String [] tokens = args[0].split(";");
+	String [] tokens = args[0].split(";");	
 	    	
 	LAT = Double.parseDouble(tokens[0].split(",")[0]);
 	LNG = Double.parseDouble(tokens[0].split(",")[1]);
@@ -68,7 +68,7 @@ public class SaveTiles {
         DisplayModel dm = new FixedTileSizeDisplayModel(256);
         RenderThemeFuture rtf = new RenderThemeFuture(gf, theme, dm);
         RendererJob theJob = new RendererJob(tile, mapData, rtf, dm, 1.0f, false, false);
-        File cacheDir = new File("/tmp", "");
+        File cacheDir = new File(args[1], "");
         FileSystemTileCache tileCache = new FileSystemTileCache(10, cacheDir, gf, false);
         TileBasedLabelStore tileBasedLabelStore = new TileBasedLabelStore(tileCache.getCapacityFirstLevel());
 
