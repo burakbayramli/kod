@@ -10,7 +10,6 @@ import numpy as np, sqlite3, json
 import matplotlib.pyplot as plt
 from PIL import Image
 import geopy.distance, route
-
 import subprocess, os, json
 
 def plot(points,outfile,pixel=False,bp=True):

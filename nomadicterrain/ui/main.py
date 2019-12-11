@@ -129,7 +129,7 @@ def location():
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    plot_map.plot(points=pts, outfile=fout)
     walking = been_walking()
     elev = get_elev(lat,lon)
     return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
@@ -477,7 +477,9 @@ def gogeo(coords):
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+    
+    plot_map.plot(points=pts, outfile=fout)
+    
     walking = been_walking()
     elev = get_elev(float(lat),float(lon))
     return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
@@ -795,7 +797,7 @@ def gopoly(coords):
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
     locs.insert(0,(lat2,lon2))
-    locs.insert(0,c)
+    locs.insert(0,c)        
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
 
