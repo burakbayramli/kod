@@ -1,4 +1,4 @@
-# Mapsforge, Statik Harita Tabandan OSM Bazlı Tabandan Almak
+# Mapsforge, OSM Bazlı Harita Tabanından Harita Görüntüsü Almak
 
 Açık harita veri tabanı OSM bazlı bir diğer haritalama tabanı ve
 kodlama altyapısı mapsforge. Eğer kendi diskimizdeki bir dosyadan
@@ -85,12 +85,12 @@ https://mvnrepository.com/artifact/com.kitfox.svg/svg-salamander/1.0
 
 Kodu derlemek icin gerekli iskelet dizi, Ant yapisi icin
 
-https://github.com/burakbayramli/kod/tree/master/sk/2019/12/staticmap
+[https://github.com/burakbayramli/kod/tree/master/sk/2019/12/staticmap](https://github.com/burakbayramli/kod/tree/master/sk/2019/12/staticmap)
 
 Mapsforge tabanları pek çok ülke için bulunabilir, mesela Kosova için
 (ufak olduğu için oraya gittik), `kosovo.map` indirilir,
 
-http://download.mapsforge.org/maps/v5/europe/
+[http://download.mapsforge.org/maps/v5/europe/](http://download.mapsforge.org/maps/v5/europe/)
 
 istenilen dizine konup ona göre kod ayarlanınca, `ant run` ile
 işletiriz, ve sonuç bir `tile` dosyası oluyor, alttaki gibi çıkacak,

@@ -42,7 +42,6 @@
     <javac srcdir="src" destdir="./build" debug="true">
       <classpath refid="compile.classpath"/>
     </javac>
-    <jar destfile="./${project.distname}.jar" basedir="./build/WEB-INF/classes"/>
   </target>
 
 

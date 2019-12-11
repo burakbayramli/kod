@@ -26,12 +26,15 @@ public class SaveTiles {
     private static final String SAVE_PATH = "/tmp/";
 
     // Your compiled map. 
-    private static final File DEFAULT_MAP_PATH = new File("/home/burak/Downloads/staticmap/kosovo.map");
+    private static final File DEFAULT_MAP_PATH = new File("/home/burak/Downloads/turkey.map");
 
     // Location you'd like to render.
     //private static final double LAT = 42.490369;
-    private static final double LAT = 42.470369;
-    private static final double LNG = 20.838044;
+    //private static final double LAT = 42.470369;
+    //private static final double LNG = 20.838044;
+    private static final double LAT = 40.970041;
+    private static final double LNG = 29.070311;
+
     private static final byte ZOOM = 14;
 
     public static void main(String[] args) throws IOException {
@@ -51,7 +54,7 @@ public class SaveTiles {
         DisplayModel dm = new FixedTileSizeDisplayModel(256);
         RenderThemeFuture rtf = new RenderThemeFuture(gf, theme, dm);
         RendererJob theJob = new RendererJob(tile, mapData, rtf, dm, 1.0f, false, false);
-        File cacheDir = new File("/tmp", "tmp");
+        File cacheDir = new File("/tmp", "");
         FileSystemTileCache tileCache = new FileSystemTileCache(10, cacheDir, gf, false);
         TileBasedLabelStore tileBasedLabelStore = new TileBasedLabelStore(tileCache.getCapacityFirstLevel());
 
