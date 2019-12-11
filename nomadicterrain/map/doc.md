@@ -41,7 +41,7 @@ def load_map(pts):
     spts = str([str(pt[0]) + ";" + str(pt[1]) for pt in pts])
     spts = spts.replace('[','').replace(']','')
     spts = spts.replace("'","").replace(" ","")
-    cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', spts,'/tmp']
+    cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', spts,'/tmp','/home/burak/Downloads/turkey.map']
     result = subprocess.run(cmd, stdout=subprocess.PIPE)
     res = json.loads(result.stdout.decode('utf-8'))
     return res

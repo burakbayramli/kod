@@ -24,15 +24,17 @@ public class SaveTiles {
 
     private static final String SAVE_PATH = "/tmp/";
 
-    private static final File DEFAULT_MAP_PATH = new File("/home/burak/Downloads/turkey.map");
+    private static File DEFAULT_MAP_PATH;
 
     private static double LAT = 40.970041;
     private static double LNG = 29.070311;
 
     private static final byte ZOOM = 14;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {	
 
+	DEFAULT_MAP_PATH = new File(args[2]);
+	
 	String [] tokens = args[0].split(",");	
 	    	
 	LAT = Double.parseDouble(tokens[0].split(";")[0]);

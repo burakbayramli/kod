@@ -77,6 +77,7 @@
       <classpath refid="compile.classpath"/>
       <arg value="40.970041;29.070311,40.971041;29.071311,40.968254;29.080640"/>
       <arg value="/tmp"/>
+      <arg value="/home/burak/Downloads/turkey.map"/>
     </java>
   </target>
   
