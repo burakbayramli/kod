@@ -33,10 +33,10 @@ public class SaveTiles {
 
     public static void main(String[] args) throws IOException {
 
-	String [] tokens = args[0].split(";");	
+	String [] tokens = args[0].split(",");	
 	    	
-	LAT = Double.parseDouble(tokens[0].split(",")[0]);
-	LNG = Double.parseDouble(tokens[0].split(",")[1]);
+	LAT = Double.parseDouble(tokens[0].split(";")[0]);
+	LNG = Double.parseDouble(tokens[0].split(";")[1]);
         // TODO Use args for all parameters
 
         // Load map.
@@ -51,8 +51,8 @@ public class SaveTiles {
 	//System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(40.968254,29.080640), tile));
 	for (int i=0;i<tokens.length;i++){
 	    //System.out.println(tokens[i]);
-	    double currlat = Double.parseDouble(tokens[i].split(",")[0]);
-	    double currlng = Double.parseDouble(tokens[i].split(",")[1]);
+	    double currlat = Double.parseDouble(tokens[i].split(";")[0]);
+	    double currlng = Double.parseDouble(tokens[i].split(";")[1]);
 	    //System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile));
 	    Point pix = MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile);
 	    System.out.print("[" + pix.x + ","+pix.y+"]");

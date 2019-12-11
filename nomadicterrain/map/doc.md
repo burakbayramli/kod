@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 ```python
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.colors import LightSource
@@ -20,6 +9,14 @@ import numpy as np, sqlite3, json
 import matplotlib.pyplot as plt
 from PIL import Image
 import geopy.distance, route
+
+import subprocess, os, json
+
+def load_map():
+    cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', '40.970041,29.070311;40.971041,29.071311;40.968254,29.080640','/tmp']
+    result = subprocess.run(cmd, stdout=subprocess.PIPE)
+    res = json.loads(result.stdout.decode('utf-8'))
+    return res
 
 def plot(points,outfile,scale,pixel=False,bp=True):
     plt.figure()
@@ -57,14 +54,17 @@ def plot(points,outfile,scale,pixel=False,bp=True):
 lat1,lon1=40.970041,29.070311
 lat2,lon2=40.971041,29.071311
 lat3,lon3=40.968254,29.080640
-plot(points=[[lat3,lon3]], outfile="/tmp/out.png", scale=[-30000,20000])
+#plot(points=[[lat3,lon3]], outfile="/tmp/out.png", scale=[-30000,20000])
 
+pts = [[lat1,lon1],[lat2,lon2],[lat3,lon3]]
+print (pts)
+spts = [str(pt[0]) + ";" + str(pt[1]) for pt in pts]
+print (spts)
 ```
 
 ```text
-[40.970041 29.070311]
-(400.0, 400.0)
--309.869999999961 -35.7400000000041
+[[40.970041, 29.070311], [40.971041, 29.071311], [40.968254, 29.08064]]
+['40.970041;29.070311', '40.971041;29.071311', '40.968254;29.08064']
 ```
 
 
