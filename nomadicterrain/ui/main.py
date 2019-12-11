@@ -266,7 +266,7 @@ def location_nav_action():
     OnlyOne().last_location = res
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
+    plot_map.plot(pts, fout) 
     return render_template('/location.html', location=fout, lat=res[0],lon=res[1])
 
 
