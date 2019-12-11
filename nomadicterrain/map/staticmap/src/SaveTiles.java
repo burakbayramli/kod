@@ -25,20 +25,23 @@ public class SaveTiles {
     private static final String SAVE_PATH = "/tmp/";
 
     private static File DEFAULT_MAP_PATH;
-
-    private static double LAT = 40.970041;
-    private static double LNG = 29.070311;
-
-    private static final byte ZOOM = 14;
+    private static byte ZOOM;
 
     public static void main(String[] args) throws IOException {	
 
+	System.out.println(args[0]);
+	System.out.println(args[1]);
+	System.out.println(args[2]);
+	System.out.println(args[3]);
+	
 	DEFAULT_MAP_PATH = new File(args[2]);
+
+	ZOOM = (byte)Integer.parseInt(args[3]);
 	
 	String [] tokens = args[0].split(",");	
 	    	
-	LAT = Double.parseDouble(tokens[0].split(";")[0]);
-	LNG = Double.parseDouble(tokens[0].split(";")[1]);
+	double LAT = Double.parseDouble(tokens[0].split(";")[0]);
+	double LNG = Double.parseDouble(tokens[0].split(";")[1]);
         // TODO Use args for all parameters
 
         // Load map.
