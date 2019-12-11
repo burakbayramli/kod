@@ -28,11 +28,6 @@ public class SaveTiles {
     private static byte ZOOM;
 
     public static void main(String[] args) throws IOException {	
-
-	System.out.println(args[0]);
-	System.out.println(args[1]);
-	System.out.println(args[2]);
-	System.out.println(args[3]);
 	
 	DEFAULT_MAP_PATH = new File(args[2]);
 
