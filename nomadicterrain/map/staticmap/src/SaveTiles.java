@@ -17,18 +17,14 @@ import org.mapsforge.map.rendertheme.rule.RenderThemeFuture;
 
 import java.io.File;
 import java.io.IOException;
+import org.mapsforge.core.model.LatLong;
 
-/**
- * This sample demo how to render & save a tile.
- */
 public class SaveTiles {
 
     private static final String SAVE_PATH = "/tmp/";
 
-    // Your compiled map. 
     private static final File DEFAULT_MAP_PATH = new File("/home/burak/Downloads/turkey.map");
 
-    // Location you'd like to render.
     private static double LAT = 40.970041;
     private static double LNG = 29.070311;
 
@@ -49,6 +45,8 @@ public class SaveTiles {
         final int ty = MercatorProjection.latitudeToTileY(LAT, ZOOM);
         final int tx = MercatorProjection.longitudeToTileX(LNG, ZOOM);
         Tile tile = new Tile(tx, ty, ZOOM, 800);
+	
+	System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(40.968254,29.080640), tile));
 
         // Create requirements.
         GraphicFactory gf = AwtGraphicFactory.INSTANCE;

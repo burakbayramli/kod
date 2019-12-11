@@ -30,8 +30,9 @@ def plot(points,outfile,scale,pixel=False,bp=True):
     for i,[lat,lon] in enumerate(points):
         dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
         print (dx,dy)
-        xx = c[0]+dy
-        yy = c[1]+dx
+        xx = c[0]+dx
+        yy = c[1]+dy
+        xx,yy=(393.79057777673006,561.5153343658894)
         if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
         if i==0:
             if bp: plt.plot(xx,yy,'rx')
@@ -44,15 +45,15 @@ def plot(points,outfile,scale,pixel=False,bp=True):
     plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
 lat1,lon1=40.970041,29.070311
-lat2,lon2=40.971041,29.070311
-plot(points=[[lat2,lon2]], outfile="/tmp/out.png", scale=[-10,-200000])
+lat3,lon3=40.968254,29.080640
+plot(points=[[lat3,lon3]], outfile="/tmp/out.png", scale=[-30000,20000])
 
 ```
 
 ```text
 [40.970041 29.070311]
 (400.0, 400.0)
--0.0 -199.99999999953388
+-309.869999999961 -35.7400000000041
 ```
 
 
