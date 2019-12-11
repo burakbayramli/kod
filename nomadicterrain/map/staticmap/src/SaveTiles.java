@@ -47,7 +47,7 @@ public class SaveTiles {
         final int tx = MercatorProjection.longitudeToTileX(LNG, ZOOM);
         Tile tile = new Tile(tx, ty, ZOOM, 800);
 	
-	System.out.print("{'pixels':[");
+	System.out.print("{\"pixels\":[");
 	//System.out.println("abs="+MercatorProjection.getPixelRelativeToTile(new LatLong(40.968254,29.080640), tile));
 	for (int i=0;i<tokens.length;i++){
 	    //System.out.println(tokens[i]);
@@ -86,7 +86,8 @@ public class SaveTiles {
         // Close map.
         mapData.close();
 
-        System.out.printf(",'file': '%s/%d/%d/%d.tile'", cacheDir.getPath(), ZOOM, tx, ty);
-	System.out.print("}");	
+        System.out.printf(",\"file\": \"%s/%d/%d/%d.tile\"", cacheDir.getPath(), ZOOM, tx, ty);
+	System.out.print("}");
+	
     }
 }
