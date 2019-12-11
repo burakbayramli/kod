@@ -1,76 +1,59 @@
 
+
 ```python
-from scipy.interpolate import Rbf
-import autograd.numpy as anp
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.colors import LightSource
+from matplotlib import cm
+import os, glob, re, zipfile
+import pandas as pd, pickle
+import numpy as np, sqlite3, json
+import matplotlib.pyplot as plt
+from PIL import Image
+import geopy.distance, route
 
-np.random.seed(0)
+def plot(points,outfile,scale,pixel=False,bp=True):
+    plt.figure()
+    center_res = points[0]
+    imgcoord = []
+    found_file = "/home/burak/Downloads/6144.tile"
+    mapcenter = np.array([40.970041,29.070311])
+    print (mapcenter)    
+    im = Image.open(found_file)
+    nim = np.array(im)
+    c = nim.shape[0] / 2, nim.shape[0] / 2
+    plt.axis('off')
+    fig=plt.imshow(im)
+    fig.axes.get_xaxis().set_visible(False)
+    fig.axes.get_yaxis().set_visible(False)
+    plt.imshow(im)
+    print (c)
+    for i,[lat,lon] in enumerate(points):
+        dx,dy=((lon-mapcenter[1])*scale[0],(lat-mapcenter[0])*scale[1])
+        print (dx,dy)
+        xx = c[0]+dy
+        yy = c[1]+dx
+        if xx > nim.shape[0] or yy > nim.shape[1] or xx<0 or yy<0: continue
+        if i==0:
+            if bp: plt.plot(xx,yy,'rx')
+            else: plt.plot(xx,yy,'r,')
+        else:
+            if pixel:
+                plt.plot(xx,yy,'r,')
+            else:
+                plt.plot(xx,yy,'r.')
+    plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
-def func(x, y):
-    s1 = 0.2; x1 = 36.5; y1 = 32.5
-    s2 = 0.4; x2 = 36.1; y2 = 32.8
-    g1 = np.exp( -4 *np.log(2) * ((x-x1)**2+(y-y1)**2) / s1**2)
-    g2 = np.exp( -2 *np.log(2) * ((x-x2)**2+(y-y2)**2) / s2**2)    
-    return g1 + g2 
+lat1,lon1=40.970041,29.070311
+lat2,lon2=40.971041,29.070311
+plot(points=[[lat2,lon2]], outfile="/tmp/out.png", scale=[-10,-200000])
 
-D = 100
-
-x = np.linspace(36,37,D)
-y = np.linspace(32,33,D)
-
-xx,yy = np.meshgrid(x,y)
-zz = func(xx,yy)
-
-xx = xx.reshape(D,D)
-yy = yy.reshape(D,D)
-zz = func(xx,yy)
-
-S = 50
-np.random.seed(0)
-idx = np.random.choice(range(D*D),S)
-xr = xx.reshape(D*D)[idx].reshape(S,1)
-yr = yy.reshape(D*D)[idx].reshape(S,1)
-zr = zz.reshape(D*D)[idx].reshape(S,1)
-
-rbfi = Rbf(xr,yr,zr,function='gaussian',epsilon=0.15)
-
-def dist_matrix(X, Y):
-    sx = anp.sum(X**2, 1)
-    sy = anp.sum(Y**2, 1)
-    D2 =  sx[:, anp.newaxis] - 2.0*X.dot(Y.T) + sy[anp.newaxis, :] 
-    D2[D2 < 0] = 0
-    D = anp.sqrt(D2)
-    return D
-    
-test_1 = np.array([[36.0,32.0]])
-test_1_dist = dist_matrix(test_1, rbfi.xi.T)
-
-nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
-def gaussian(r,eps): return np.exp(-(r/eps)**2)
-
-def f_interp(newp, rbfi):
-    nodes = rbfi.nodes.reshape(1,len(rbfi.nodes))
-    newp_dist = dist_matrix(newp, rbfi.xi.T)
-    return anp.dot(gaussian(newp_dist, rbfi.epsilon), nodes.T)
-
-test_2 = anp.array([[36.0,32.0],[36.1,31.9]])
-
-print (rbfi.epsilon)
-print (rbfi.smooth)
-print (rbfi.xi.shape)
-print (rbfi.nodes.shape)
-print (f_interp(test_2,rbfi))
 ```
 
 ```text
-0.15
-0.0
-(2, 50)
-(50,)
-[[-0.00387063]
- [-0.00337065]]
+[40.970041 29.070311]
+(400.0, 400.0)
+-0.0 -199.99999999953388
 ```
-
-
 
 
 
