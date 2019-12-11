@@ -1,5 +1,26 @@
 
 ```python
+import subprocess, os, json
+print (os.getcwd())
+cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', '40.970041;29.070311,40.971041;29.071311,40.968254;29.080640','/tmp']
+result = subprocess.run(cmd, stdout=subprocess.PIPE)
+res = json.loads(result.stdout.decode('utf-8'))
+print (res['pixels'])
+print (res['file'])
+```
+
+```text
+/home/burak/Documents/kod/nomadicterrain/map
+[[17.723164443857968, 475.3467543730512], [54.132053333334625, 427.126049364917], [393.79057777673006, 561.5153343658894]]
+/tmp/14/9515/6144.tile
+```
+
+
+
+
+
+
+```python
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.colors import LightSource
 from matplotlib import cm
@@ -11,12 +32,6 @@ from PIL import Image
 import geopy.distance, route
 
 import subprocess, os, json
-
-def load_map():
-    cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', '40.970041,29.070311;40.971041,29.071311;40.968254,29.080640','/tmp']
-    result = subprocess.run(cmd, stdout=subprocess.PIPE)
-    res = json.loads(result.stdout.decode('utf-8'))
-    return res
 
 def plot(points,outfile,scale,pixel=False,bp=True):
     plt.figure()
@@ -51,6 +66,15 @@ def plot(points,outfile,scale,pixel=False,bp=True):
                 plt.plot(xx,yy,'r.')
     plt.savefig(outfile, bbox_inches='tight', pad_inches = 0, dpi = 300)
 
+def load_map(pts):
+    spts = str([str(pt[0]) + ";" + str(pt[1]) for pt in pts])
+    spts = spts.replace('[','').replace(']','')
+    spts = spts.replace("'","").replace(" ","")
+    cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh', spts,'/tmp']
+    result = subprocess.run(cmd, stdout=subprocess.PIPE)
+    res = json.loads(result.stdout.decode('utf-8'))
+    return res
+
 lat1,lon1=40.970041,29.070311
 lat2,lon2=40.971041,29.071311
 lat3,lon3=40.968254,29.080640
@@ -58,13 +82,14 @@ lat3,lon3=40.968254,29.080640
 
 pts = [[lat1,lon1],[lat2,lon2],[lat3,lon3]]
 print (pts)
-spts = [str(pt[0]) + ";" + str(pt[1]) for pt in pts]
-print (spts)
+res = load_map(pts)
+print (res['pixels'])
 ```
 
 ```text
 [[40.970041, 29.070311], [40.971041, 29.071311], [40.968254, 29.08064]]
-['40.970041;29.070311', '40.971041;29.071311', '40.968254;29.08064']
+40.970041;29.070311,40.971041;29.071311,40.968254;29.08064
+[[17.723164443857968, 475.3467543730512], [54.132053333334625, 427.126049364917], [393.79057777673006, 561.5153343658894]]
 ```
 
 
