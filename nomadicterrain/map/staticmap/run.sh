@@ -4,4 +4,3 @@ $DIR/lib/mapsforge-map-0.12.0.jar:$DIR/lib/mapsforge-map-awt-0.12.0.jar:\
 $DIR/lib/mapsforge-map-reader-0.12.0.jar:$DIR/lib/mapsforge-themes-0.12.0.jar:\
 $DIR/lib/svg-salamander-1.0.jar \
 SaveTiles $1 $2 $3 $4
-

@@ -822,6 +822,5 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod/nomadicterrain")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/thirdwave")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/algs/dict")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/compscieng/compscieng_2_11")
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
