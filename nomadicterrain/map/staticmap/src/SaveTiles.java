@@ -22,8 +22,6 @@ import org.mapsforge.core.model.Point;
 
 public class SaveTiles {
 
-    private static final String SAVE_PATH = "/tmp/";
-
     private static File DEFAULT_MAP_PATH;
     private static byte ZOOM;
 
