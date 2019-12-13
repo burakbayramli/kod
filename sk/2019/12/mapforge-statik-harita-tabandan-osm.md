@@ -117,33 +117,33 @@ public class SaveTiles {
 
     public static void main(String[] args) throws IOException {	
 	
-	DEFAULT_MAP_PATH = new File(args[2]);
+        DEFAULT_MAP_PATH = new File(args[2]);
 
-	ZOOM = (byte)Integer.parseInt(args[3]);
-	
-	String [] tokens = args[0].split(",");	
-	    	
-	double LAT = Double.parseDouble(tokens[0].split(";")[0]);
-	double LNG = Double.parseDouble(tokens[0].split(";")[1]);
+        ZOOM = (byte)Integer.parseInt(args[3]);
+        
+        String [] tokens = args[0].split(",");  
+                
+        double LAT = Double.parseDouble(tokens[0].split(";")[0]);
+        double LNG = Double.parseDouble(tokens[0].split(";")[1]);
 
         MapDataStore mapData = new MapFile(DEFAULT_MAP_PATH);
 
         final int ty = MercatorProjection.latitudeToTileY(LAT, ZOOM);
         final int tx = MercatorProjection.longitudeToTileX(LNG, ZOOM);
         Tile tile = new Tile(tx, ty, ZOOM, 800);
-	
-	System.out.print("{\"pixels\":[");
+        
+        System.out.print("{\"pixels\":[");
 
-	for (int i=0;i<tokens.length;i++){
-	    double currlat = Double.parseDouble(tokens[i].split(";")[0]);
-	    double currlng = Double.parseDouble(tokens[i].split(";")[1]);
-	    Point pix = MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile);
-	    System.out.print("[" + pix.x + ","+pix.y+"]");
-	    if (i<tokens.length-1) {
-		System.out.print(",");
-	    }	    
-	}
-	System.out.print("]");
+        for (int i=0;i<tokens.length;i++){
+            double currlat = Double.parseDouble(tokens[i].split(";")[0]);
+            double currlng = Double.parseDouble(tokens[i].split(";")[1]);
+            Point pix = MercatorProjection.getPixelRelativeToTile(new LatLong(currlat,currlng), tile);
+            System.out.print("[" + pix.x + ","+pix.y+"]");
+            if (i<tokens.length-1) {
+                System.out.print(",");
+            }       
+        }
+        System.out.print("]");
 
         GraphicFactory gf = AwtGraphicFactory.INSTANCE;
         XmlRenderTheme theme = InternalRenderTheme.OSMARENDER;
@@ -165,8 +165,8 @@ public class SaveTiles {
         mapData.close();
 
         System.out.printf(",\"file\": \"%s/%d/%d/%d.tile\"", cacheDir.getPath(), ZOOM, tx, ty);
-	System.out.print("}");
-	
+        System.out.print("}");
+        
     }
 }
 ```
