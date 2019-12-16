@@ -47,7 +47,7 @@ public class GetMap {
 
 	double centerlon  = tile.getBoundingBox().getCenterPoint().getLongitude();
 	double centerlat  = tile.getBoundingBox().getCenterPoint().getLatitude();
-	System.out.println("center:["+centerlat+","+centerlon+"]");
+	System.out.print(centerlat+","+centerlon);
 
         // Create requirements.
         GraphicFactory gf = AwtGraphicFactory.INSTANCE;
@@ -73,6 +73,7 @@ public class GetMap {
         // Close map.
         mapData.close();
 
+        System.out.printf(";%s/%d/%d/%d.tile", cacheDir.getPath(), ZOOM, tx, ty);
 	
     }
 }
