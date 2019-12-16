@@ -1,4 +1,11 @@
 
+```python
+3000 * 70
+```
+
+```text
+Out[1]: 210000
+```
 
 ```python
 import json, os

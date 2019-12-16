@@ -129,7 +129,7 @@ def location():
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(points=pts, outfile=fout)
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     walking = been_walking()
     elev = get_elev(lat,lon)
     return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
@@ -266,9 +266,8 @@ def location_nav_action():
     OnlyOne().last_location = res
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout) 
+    plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
     return render_template('/location.html', location=fout, lat=res[0],lon=res[1])
-
 
 @app.route('/parks_nav_action', methods=['GET', 'POST'])
 def parks_nav_action():
@@ -477,9 +476,7 @@ def gogeo(coords):
     OnlyOne().last_location = [lat,lon]
     map = OnlyOne().map
     zfile,scale = params['mapzip'][map]
-    
-    plot_map.plot(points=pts, outfile=fout)
-    
+    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
     walking = been_walking()
     elev = get_elev(float(lat),float(lon))
     return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)

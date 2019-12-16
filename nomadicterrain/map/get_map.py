@@ -1,5 +1,7 @@
 from PIL import Image
 import subprocess, os, json
+import numpy as np
+
 print (os.getcwd())
 
 def get_map(lat, lon, zoom):
@@ -22,15 +24,29 @@ def get_map(lat, lon, zoom):
     print (fout)
 
     imgout = lat.replace(".","_") + "_" + lon.replace(".","_") 
-    cmd = ['/usr/bin/convert', '-scale', '70%', fout, '/tmp/turkey1/%s.jpg' % imgout]
+    cmd = ['/usr/bin/convert', '-scale', '70%', fout, '/tmp/marmara1/%s.jpg' % imgout]
     print (cmd)
     result = subprocess.run(cmd, stdout=subprocess.PIPE)
 
-if __name__ == "__main__":
+def get_maps():
     zoom = 13
-    lat,lon=40.970041,29.070311
-    get_map(lat,lon,zoom)
-    lat,lon=40.965634, 29.093566
-    get_map(lat,lon,zoom)
+    lonmin,latmin,lonmax,latmax=26.922181,39.649373,31.360657,41.254376
+    for latint in range(int(latmin),int(latmax)):
+        for lonint in range(int(lonmin),int(lonmax)):
+            for declat in np.linspace(0,1,10):
+                for declon in np.linspace(0,1,10):
+                    lat,lon = float(latint) + declat, float(lonint) + declon
+                    print (lat,lon)
+                    get_map(lat,lon,zoom)
+    
+if __name__ == "__main__":
+
+    get_maps()
+    
+    #zoom = 13
+    #lat,lon=40.970041,29.070311
+    #get_map(lat,lon,zoom)
+    #lat,lon=40.965634, 29.093566
+    #get_map(lat,lon,zoom)
     #40.966282, 29.092686 test this
     

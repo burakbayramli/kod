@@ -8,9 +8,9 @@ import pandas_datareader.data as web
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
 def test_mapm1():
-    pts = [[40.962166, 29.101865]]
-    zfile,scale = "/tmp/turkey1.zip",(1000,1000)
-    plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
+    pts = [[40.999323, 29.101465]]
+    zfile,scale = "/home/burak/Downloads/campdata/marmara1.zip",(12000,-12000)
+    plot_map.plot(pts,'/tmp/out.png',zfile=zfile,scale=scale)
     
 def test_map0():
     pts = [[36.54,32.0]]
