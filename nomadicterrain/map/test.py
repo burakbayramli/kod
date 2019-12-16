@@ -7,6 +7,11 @@ import pandas_datareader.data as web
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
+def test_mapm1():
+    pts = [[40.962166, 29.101865]]
+    zfile,scale = "/tmp/turkey1.zip",(1000,1000)
+    plot_map.plot(pts,'out.png',zfile=zfile,scale=scale)
+    
 def test_map0():
     pts = [[36.54,32.0]]
     zfile,scale = params['mapzip']['turkey3']
@@ -61,8 +66,9 @@ def test_elev_ex():
                              headers=headers, data=data)
     print(response.text)    
 
-test_elev_ex()
+test_mapm1()
 exit()
+test_elev_ex()
 test_findata()
 test_map0()
 test_map3()
