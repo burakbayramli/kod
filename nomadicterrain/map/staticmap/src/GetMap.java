@@ -47,8 +47,7 @@ public class GetMap {
 
 	double centerlon  = tile.getBoundingBox().getCenterPoint().getLongitude();
 	double centerlat  = tile.getBoundingBox().getCenterPoint().getLatitude();
-	System.out.println(centerlat);
-	System.out.println(centerlon);
+	System.out.println("center:["+centerlat+","+centerlon+"]");
 
         // Create requirements.
         GraphicFactory gf = AwtGraphicFactory.INSTANCE;
@@ -70,8 +69,6 @@ public class GetMap {
         // Draw tile and save as PNG.
         TileBitmap tb = renderer.executeJob(theJob);
         tileCache.put(theJob, tb);
-
-
 	
         // Close map.
         mapData.close();

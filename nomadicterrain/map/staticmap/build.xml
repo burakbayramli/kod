@@ -1,8 +1,5 @@
 <project name="blank" basedir="" default="all">
 
-  <property file="build.properties"/>
-
-  <!-- classpath for Struts 1.1 -->
   <path id="compile.classpath">
     <pathelement location ="src/sql"/>
     <pathelement location ="build"/>
@@ -63,14 +60,7 @@
       <classfileset dir="build" includes="**/*.class"/>
     </testng>
   </target>
-  
-  <target name="test-one" depends="compile">
-    <echo>Testing ${test}...</echo>
-    <testng classpathref="compile.classpath" haltonfailure="yes" outputDir="/tmp"> 
-      <classfileset dir="build" includes="**/${test}.class"/>
-    </testng>
-  </target>  
-  
+    
   <target name="run" depends="compile">
     <java fork="yes" classname="GetMap"
           failonerror="true">
