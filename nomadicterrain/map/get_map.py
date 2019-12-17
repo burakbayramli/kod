@@ -33,8 +33,8 @@ def get_maps():
     lonmin,latmin,lonmax,latmax=26.922181,39.649373,31.360657,41.254376
     for latint in range(int(latmin),int(latmax)):
         for lonint in range(int(lonmin),int(lonmax)):
-            for declat in np.linspace(0,1,10):
-                for declon in np.linspace(0,1,10):
+            for declat in np.linspace(0,1,20):
+                for declon in np.linspace(0,1,20):
                     lat,lon = float(latint) + declat, float(lonint) + declon
                     print (lat,lon)
                     get_map(lat,lon,zoom)
