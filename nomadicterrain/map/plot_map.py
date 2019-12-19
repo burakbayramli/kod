@@ -19,7 +19,7 @@ def plot2(points,outfile,zfile,scale,map_retrieval_on,my_curr_location,pixel=Fal
         for f in z.namelist():
             # the lat/lon middle of the map is encoded in the map's
             # filename
-            tmp = re.findall("map_(\d+)_(\d+)_(\d+)_(\d+)",f,re.DOTALL)
+            tmp = re.findall("(\d+)_(\d+)_(\d+)_(\d+)",f,re.DOTALL)
             if len(tmp)==0: continue
             tmp = tmp[0]
             imgcoord.append([float(tmp[0] + "." + tmp[1]), float(tmp[2] + "." + tmp[3]), f])

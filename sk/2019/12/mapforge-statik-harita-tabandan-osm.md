@@ -98,6 +98,17 @@ işletiriz, ve sonuç bir `tile` dosyası oluyor, alttaki gibi çıkacak,
 ![](kosovo.png)
 ![](https://1.bp.blogspot.com/-s95YnKzUq4o/Xe-qDizx-1I/AAAAAAAAB4g/OHJV4a_5A-cwtXkmUoBPDL8VN1PiGy86ACLcBGAsYHQ/s320/kosovo.png)
 
+Dikkat: enlem/boylam verip bir statik elde ettiğimizde bu harita
+verilen enlem/boylam merkezli ortalanmış olmayabiliyor. Haritanın
+ortasının hangi kordinatlara sahip olduğunu bulmak için
+
+```
+double centerlon  = tile.getBoundingBox().getCenterPoint().getLongitude();
+double centerlat  = tile.getBoundingBox().getCenterPoint().getLatitude();
+```
+
+işletilebilir.
+
 ## Python
 
 Eğer Python üzerinden Java çağırmak istiyorsak, şu şekilde bir
