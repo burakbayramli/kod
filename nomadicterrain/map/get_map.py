@@ -13,24 +13,26 @@ def get_map(lat, lon, zoom):
     cmd = ['/bin/sh',os.environ['HOME']+'/Documents/kod/nomadicterrain/map/staticmap/run.sh',
            spts,
            '/home/burak/Downloads',
-           '/home/burak/Downloads/maps/turkey.map',
+           '/home/burak/Downloads/campdata/turkey.map',
            str(zoom)]
     result = subprocess.run(cmd, stdout=subprocess.PIPE)
     print (result.stdout)
     s = result.stdout.decode('utf-8')
+    print (s)
     center,fout = s.split(';')
     lat,lon = center.split(",")
     print (lat,lon)
     print (fout)
 
     imgout = lat.replace(".","_") + "_" + lon.replace(".","_") 
-    cmd = ['/usr/bin/convert', '-scale', '70%', fout, '/tmp/marmara1/%s.jpg' % imgout]
+    cmd = ['/usr/bin/convert', '-scale', '70%', fout, '/tmp/marmara2/%s.jpg' % imgout]
     print (cmd)
     result = subprocess.run(cmd, stdout=subprocess.PIPE)
 
 def get_maps():
-    zoom = 13
-    lonmin,latmin,lonmax,latmax=26.922181,39.649373,31.360657,41.254376
+    #zoom = 13
+    zoom = 10
+    lonmin,latmin,lonmax,latmax=25,38,32,42
     for latint in range(int(latmin),int(latmax)):
         for lonint in range(int(lonmin),int(lonmax)):
             for declat in np.linspace(0,1,20):

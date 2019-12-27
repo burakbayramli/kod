@@ -9,7 +9,8 @@ params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf"
 
 def test_mapm1():
     pts = [[40.999323, 29.101465]]
-    zfile,scale = "/home/burak/Downloads/campdata/marmara1.zip",(12000,-12000)
+    #zfile,scale = "/home/burak/Downloads/campdata/marmara1.zip",(12000,-12000)
+    zfile,scale = "/home/burak/Downloads/campdata/marmara2.zip",(1000,-2300)
     plot_map.plot(pts,'/tmp/out.png',zfile=zfile,scale=scale)
     
 def test_map0():

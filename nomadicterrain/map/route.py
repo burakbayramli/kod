@@ -10,6 +10,7 @@ from constants import SROWS
 from constants import S
 from constants import params
 from constants import gps_coord_sample_file
+from scipy.optimize import minimize, Bounds, SR1, BFGS
 
 OFFSET = 0.0
 LIM = 2.0
@@ -361,74 +362,77 @@ def get_centroid(poly):
         area_total += area
     return centroid_total
 
-def trapz(y, dx):
-    vals = np.array([_ if np.isnan(_)==False else OFFSET for _ in y[1:-1]])
-    tmp = np.sum(vals*2.0)    
-    return (y[0]+tmp+y[-1])*(dx/2.0)
     
+def trapz(y, dx):
+    vals = y[1:-1]
+    vals = vals[vals>0.0]
+    return (y[0]+np.sum(vals*2.0)+y[-1])*(dx/2.0)
+
+epsilon = np.sqrt(np.finfo(float).eps)
+
+def _approx_fprime_helper(xk, f):
+    f0 = f(xk)
+    grad = np.zeros((len(xk),), float)
+    ei = np.zeros((len(xk),), float)
+    for k in range(len(xk)):
+        ei[k] = 1.0
+        d = epsilon * ei
+        df = (f(xk + d) - f0) / d[k]
+        if not np.isscalar(df):
+            try:
+                df = df.item()
+            except (ValueError, AttributeError):
+                raise ValueError("The user-provided "
+                                 "objective function must "
+                                 "return a scalar value.")
+        grad[k] = df
+        ei[k] = 0.0
+    return grad
+
+
 def find_path(a0,b0,ex,ey,xis,nodes,epsilons):
-    from scipy import optimize
     print ('----')
     print (a0,b0,ex,ey)
     t = np.linspace(0,1.0,200)
-    cons=({'type': 'ineq','fun': lambda x: LIM-x[0]}, # y<LIM
-          {'type': 'ineq','fun': lambda x: LIM-x[1]},
-          {'type': 'ineq','fun': lambda x: LIM-x[2]},
-          {'type': 'ineq','fun': lambda x: LIM-x[3]},
-          {'type': 'ineq','fun': lambda x: LIM-x[4]},
-          {'type': 'ineq','fun': lambda x: LIM-x[5]},
-          {'type': 'ineq','fun': lambda x: x[0]+LIM}, # y>-LIM
-          {'type': 'ineq','fun': lambda x: x[1]+LIM},
-          {'type': 'ineq','fun': lambda x: x[2]+LIM},
-          {'type': 'ineq','fun': lambda x: x[3]+LIM},
-          {'type': 'ineq','fun': lambda x: x[4]+LIM},
-          {'type': 'ineq','fun': lambda x: x[5]+LIM},
-    )
     
-    def obj(xarg):
-        LIM = 2.0
-        a1,a2,a3,b1,b2,b3=xarg[0],xarg[1],xarg[2],xarg[3],xarg[4],xarg[5]
+    def calc_int(pars):
+        a1,a2,a3,b1,b2,b3=pars
         a4 = ex - a0 - (a1+a2+a3)
         b4 = ey - b0 - (b1+b2+b3)
-        tmp = b1 + 2*b2*t + 3*b3*np.power(t,2.0) - 112.0*np.power(t,3.0) + np.power((a1 + 2.0*a2*t + 3*a3*np.power(t,2.0) - 65.2*np.power(t,3)),2.0)
-        tmp[tmp<0.0] = 0.0
-        sq = np.sqrt(tmp)
-        x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
-        y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)
-        pts = np.vstack((y,x))
-        res = f_elev(pts.T, xis, nodes, epsilons)
-        if (len(res)==0): return MAX
-        z = np.array(list(res.values()))
-        z[z<0.0] = MAX
-        res = z * sq
-        T = trapz(res, 1.0/len(t))
-        return T
-
-    obj_res = []
-    obj_paths = []
-        
-    DIV =3.0
-    #for s in [1, 2, 3, 0, 42, 100, 120, 300]:
-    for s in range(80):
-        np.random.seed(s)
-        a1,a2,a3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-        b1,b2,b3 = np.random.randn()/DIV, np.random.randn()/DIV, np.random.randn()/DIV
-        x0 = np.array([a1,a2,a3,b1,b2,b3])
-        print (x0)
-        sol = optimize.minimize(obj,
-                                x0,
-                                method = 'COBYLA',
-                                tol=0.001,
-                                constraints=cons,
-                                options={'maxiter': 4, 'disp':True})
-        print (obj(sol.x))
-        print (sol.x)
-        obj_res.append(obj(sol.x))
-        obj_paths.append(sol.x)
-
+        def gfunc(t):        
+            t = t[0]
+            x = a0 + a1*t + a2*t**2 + a3*t**3 + a4*t**4 
+            y = b0 + b1*t + b2*t**2 + b3*t**3 + b4*t**4
+            pts = np.vstack((y,x))
+            res = f_elev(pts.T, xis, nodes, epsilons)
+            res = list(res.values())[0]
+            return res
+        ts = np.linspace(0.0,1.0,100)
+        dzs = np.array([_approx_fprime_helper([t],gfunc)[0] for t in ts])
+        tmp = np.sqrt(1.0+(dzs**2.0))
+        Iv = trapz(tmp, 1/100.)
+        tmp = np.array([b1 + 2*b2*t + 3*b3*t**2 - 112.0*t**3 + (a1 + 2*a2*t + 3*a3*t**2 - 65.2*t**3)**2 for t in ts])
+        tmp = tmp[tmp>0.0]
+        tmp = np.sqrt(tmp)
+        Ih = trapz(tmp, 1/100.)
+        res = Iv*5 + Ih*1
+        return res 
             
-    return obj_paths[np.argmin(obj_res)]
+    LIM = 5.0
+    a1,a2,a3 = 0,0,0
+    b1,b2,b3 = 0,0,0
+    x0 = a1,a2,a3,b1,b2,b3
 
+    opts = {'maxiter': 300, 'verbose': 0}
+    res = minimize (fun=calc_int,
+                    x0=x0,
+                    method='trust-constr',
+                    hess = BFGS (),
+                    bounds=Bounds([-LIM, -LIM, -LIM, -LIM, -LIM, -LIM],
+                                  [LIM, LIM, LIM, LIM, LIM, LIM]),
+                    options=opts)
+    
+    return res.x
 
 if __name__ == "__main__":
     #conn = sqlite3.connect(params['elevdb'])

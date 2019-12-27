@@ -70,7 +70,11 @@ sanal dizinini sildiğimiz anda bu ortam silinmiş olur. 
 
 Çıkmak için deactivate işletilir ve normal komut satırına geri dönülür.
 
-Script ile nasil program isletilir? Bazen sadece py2a/bin/python script.py çağrısı yaparak pür bu ortamdaki paketleri işletebiliyoruz. Fakat bu her zaman işlemeyebilir, o zaman komut script'i içinde, sh ya da bash mesela, önce source sonra Python çağrısı yapmak lazım.
+Script ile nasil program isletilir? Bazen sadece py2a/bin/python
+script.py çağrısı yaparak pür bu ortamdaki paketleri
+işletebiliyoruz. Fakat bu her zaman işlemeyebilir, o zaman komut
+script'i içinde, sh ya da bash mesela, önce source sonra Python
+çağrısı yapmak lazım.
 
 Python 3
 

@@ -80,6 +80,10 @@ Veri tabanlarına bağlanmak için PostgreSql var. `pkg install
 postgresql-dev python-dev make clang`, ve python seviyesinde pip
 install `psycopg2`. Yok yok.
 
+Tüm Termux dizinlerini yedeklemek için
+
+https://wiki.termux.com/wiki/Backing_up_Termux
+
 Latex
 
 pkg install texlive ile kapsamli bir TeX kurulabilecegini gorduk. Ama

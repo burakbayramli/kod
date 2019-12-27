@@ -65,10 +65,10 @@
     <java fork="yes" classname="GetMap"
           failonerror="true">
       <classpath refid="compile.classpath"/>
-      <arg value="40.970041;29.070311"/>
+      <arg value="40.612299;31.687923"/>
       <arg value="/tmp"/>
-      <arg value="/home/burak/Downloads/maps/turkey.map"/>
-      <arg value="14"/>
+      <arg value="/home/burak/Downloads/campdata/turkey.map"/>
+      <arg value="10"/>
     </java>
   </target>
   
