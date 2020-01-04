@@ -905,13 +905,8 @@ def finance(bdays):
 
        df1.loc[:,'oil'] = df.Value
 
-       df = quandl.get("FRED/DTWEXM",                 
-                       returns="pandas",
-                       start_date=start_d.strftime('%Y-%m-%d'),
-                       end_date=today.strftime('%Y-%m-%d'),
-                       authtoken=auth)
-       
-       df1.loc[:,'usd'] = df.Value
+       df = web.DataReader("DTWEXM", 'fred', start_d, end_d)
+       df1.loc[:,'usd'] = df.DTWEXM
        
        df1.to_csv(finfile)
        
