@@ -9,6 +9,7 @@ if sys.argv[1] == "acer_hd":
     os.system("python rsync.py '/home/burak/Documents/thirdwave' '/media/burak/Seagate Backup Plus Drive/archive/repos/thirdwave'  --ignore-list=.git --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/Seagate Backup Plus Drive/archive/kod' --ignore-list=.git --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/Seagate Backup Plus Drive/archive/classnotes'  --ignore-list=.git  --delete 1")
+    os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/Seagate Backup Plus Drive/archive/repos/books'  --ignore-list=.git")
     
 if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")

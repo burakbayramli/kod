@@ -40,3 +40,28 @@ ODE Pkg kurmak icin
 [fname, success] = urlwrite ("https://bitbucket.org/odepkg/odepkg/get/default.tar.gz", [P_tmpdir "/odepkg.tar.gz"]);
 pkg ("install", fname)
 ```
+
+Matlab ve Python Arasında Dosya Okumak
+
+Eğer Matlab / Octave'den bir matris dosyaya yazıp onu Python'dan
+okutmak istiyorsak, Octave'da
+
+```
+save ("A.mat", "A", "-v7")
+```
+
+diyebiliriz. Python tarafında `scipy.iö` ile bu matris okunabilir,
+
+```
+f = 'A.mat'
+import scipy.io as sio
+A = sio.loadmat(f)
+A = test['A']
+print (A.shape)
+```
+
+
+
+
+
+
