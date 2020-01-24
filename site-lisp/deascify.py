@@ -35,7 +35,7 @@ def convert():
     # alttaki listeye dokunulmamasi istenen kelimeler tek ogeli
     # tuple olarak yazilir, ("kelime",) gibi. eger degisim isteniyorsa
     # ("kelime","degisim") olarak bir tuple eklenir. 
-    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
+    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),              
               ("ise",), ("kontur",), ("hacim",), ("ODE",),("parcaciga", u"parçacığa"),
               ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
               ("integral",), ("arastirmaci",u"araştırmacı"),("Amacimiz",u"Amacımız"),
@@ -43,9 +43,9 @@ def convert():
               ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),("amacimiz",u"amacımız"),
               ("ihtiyaci",u'ihtiyacı'), ("acilim",u'açılım'),("inip",),
               ("acisini",u'açısını'), ("acisi",u'açısı'),("meyilli",), 
-              ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),
-              ("Pandas",), ("algoritma",), ("gayri",u'gayrı'),
-              ("sigma",), ("volatility",), ("matris",),
+              ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),("icbukey",u'içbükey'),
+              ("Pandas",), ("algoritma",), ("gayri",u'gayrı'),("duality",),
+              ("sigma",), ("volatility",), ("matris",),("disbukey",u'dışbükey'),
               ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
               ("sonusur",u"sonuşur"), ("amaciyla",u"amacıyla"), 
               ("amaci",u"amacı"),("sarsim",u"sarsım"),("autograd",),

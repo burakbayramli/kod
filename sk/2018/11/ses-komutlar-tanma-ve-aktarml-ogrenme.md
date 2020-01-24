@@ -1,26 +1,23 @@
 # Ses Komutları Tanıma ve Aktarımlı Öğrenme (Transfer Learning)
 
+Görüntüler üzerinde aktarımlı öğrenmeyi şu yazıda gördük. Acaba aynı
+yaklasım ses komutları için de kullanılabilir mi? Diyelim ki up
+(yukarı) ve down (aşağı) komutlarını öğrenmek lazım, ve elde 4000
+civarı 1 saniyelik ses kayıtları var, bu kayitlar up ve down
+kelimelerini farklı şekillerde söylemiş olan kişilerin kayıtları.
 
-
-
-Ses Komutları Tanıma ve Aktarımlı Öğrenme (Transfer Learning)
-
-
-
-
-Görüntüler üzerinde aktarımlı öğrenmeyi şu yazıda gördük. Acaba aynı yaklasım ses komutları için de kullanılabilir mi? Diyelim ki up (yukarı) ve down (aşağı) komutlarını öğrenmek lazım, ve elde 4000 civarı 1 saniyelik ses kayıtları var, bu kayitlar up ve down kelimelerini farklı şekillerde söylemiş olan kişilerin kayıtları.
-
-Görüntü yazısındaki gibi özellik çıkartımı yapmak iyi olabilir. O zaman önceden eğitilmiş bir YSA bulmamız lazım. Alttaki bağlantılar
+Görüntü yazısındaki gibi özellik çıkartımı yapmak iyi olabilir. O
+zaman önceden eğitilmiş bir YSA bulmamız lazım. Alttaki bağlantılar
 
 https://arxiv.org/abs/1703.09179
 
 https://github.com/keunwoochoi/transfer_learning_music
 
-bu tür bir YSA'dan bahsediyor. İlginç bir durum, YSA müzik verisi üzerinde eğitilmiş, müzik kayıtlarını 50 kategoriye ayirmak icin kullanilmış. Kategoriler müziği bir şekilde sınıflayan özellikler, mesela müziğin enstrumental olup olmadığı, hangi döneme ait olduğu, vs...
-
-
-
-
+Bu tür bir YSA'dan bahsediyor. İlginç bir durum, YSA müzik verisi
+üzerinde eğitilmiş, müzik kayıtlarını 50 kategoriye ayirmak icin
+kullanilmış. Kategoriler müziği bir şekilde sınıflayan özellikler,
+mesela müziğin enstrumental olup olmadığı, hangi döneme ait olduğu,
+vs...
 
 YSA ağırlık dosyası (üstteki bağlantıdan da indirilebilir)
 
