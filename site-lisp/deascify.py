@@ -46,7 +46,7 @@ def convert():
               ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),("icbukey",u'içbükey'),
               ("Pandas",), ("algoritma",), ("gayri",u'gayrı'),("duality",),
               ("sigma",), ("volatility",), ("matris",),("disbukey",u'dışbükey'),
-              ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
+              ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),("inverse",),
               ("sonusur",u"sonuşur"), ("amaciyla",u"amacıyla"), 
               ("amaci",u"amacı"),("sarsim",u"sarsım"),("autograd",),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
