@@ -906,7 +906,11 @@ def finance(bdays):
        df1.loc[:,'oil'] = df.Value
 
        df = web.DataReader("DTWEXM", 'fred', start_d, end_d)
-       df1.loc[:,'usd'] = df.DTWEXM
+
+       df = quandl.get("CHRIS/ICE_DX1-US-Dollar-Index-Futures-Continuous-Contract", 
+                       returns="pandas",
+                       authtoken=auth)
+       df1.loc[:,'usd'] = df['Settle']
        
        df1.to_csv(finfile)
        

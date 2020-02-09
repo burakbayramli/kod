@@ -35,24 +35,31 @@ def convert():
     # alttaki listeye dokunulmamasi istenen kelimeler tek ogeli
     # tuple olarak yazilir, ("kelime",) gibi. eger degisim isteniyorsa
     # ("kelime","degisim") olarak bir tuple eklenir. 
-    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),              
-              ("ise",), ("kontur",), ("hacim",), ("ODE",),("parcaciga", u"parçacığa"),
-              ("Oklit",u'Öklit'), ("karekok",u'karekök'),("parcacigi",u"parçacığı"),
-              ("integral",), ("arastirmaci",u"araştırmacı"),("Amacimiz",u"Amacımız"),
+    r_list = [("verisi",), ("Calculus",), ("AIC",), ("estimator",),
+              ("ise",), ("kontur",), ("hacim",), ("ODE",),
+              ("parcaciga", u"parçacığa"), ("Oklit",u'Öklit'),
+              ("karekok",u'karekök'), ("parcacigi",u"parçacığı"),
+              ("integral",), ("arastirmaci",u"araştırmacı"),
+              ("Amacimiz",u"Amacımız"),(u'içbükey',),(u'dışbükey',),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
-              ("parcaci",u"parçacı"), ("acilimi",u'açılımı'),("amacimiz",u"amacımız"),
-              ("ihtiyaci",u'ihtiyacı'), ("acilim",u'açılım'),("inip",),
-              ("acisini",u'açısını'), ("acisi",u'açısı'),("meyilli",), 
-              ("aci",u'açı'), ("minimize",), ("gayri",u'gayrı'),("icbukey",u'içbükey'),
-              ("Pandas",), ("algoritma",), ("gayri",u'gayrı'),("duality",),
-              ("sigma",), ("volatility",), ("matris",),("disbukey",u'dışbükey'),
-              ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),("inverse",),
-              ("sonusur",u"sonuşur"), ("amaciyla",u"amacıyla"), 
-              ("amaci",u"amacı"),("sarsim",u"sarsım"),("autograd",),
-              ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",), (" yani",),
-              (" Yani ",), ("entegrali",), ("sistem",),("invertible",),
-              ("sistemi",), ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
-              ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",) ]
+              ("disbukey",u'dışbükey'), ("parcaci",u"parçacı"),
+              ("acilimi",u'açılımı'), ("amacimiz",u"amacımız"),
+              ("icbukey",u'içbükey'), ("ihtiyaci",u'ihtiyacı'),
+              ("acilim",u'açılım'), ("inip",), ("acisini",u'açısını'),
+              ("acisi",u'açısı'), ("meyilli",), ("aci",u'açı'),
+              ("minimize",), ("gayri",u'gayrı'), ("Pandas",),
+              ("algoritma",), ("gayri",u'gayrı'), ("duality",),
+              ("sigma",), ("volatility",), ("matris",),
+              ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
+              ("inverse",), ("sonusur",u"sonuşur"),
+              ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
+              ("sarsim",u"sarsım"),("autograd",),
+              ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
+              ("yani",), (" Yani ",), ("entegrali",),
+              ("sistem",),("invertible",), ("sistemi",),
+              ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
+              ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",)
+    ]
               
     dict = {}; r_list_coded = []
     for x in r_list:
