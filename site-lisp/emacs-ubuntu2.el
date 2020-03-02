@@ -931,6 +931,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_60_primdual")
+(find-file-other-window "/home/burak/Documents/env3/lib/python3.5/site-packages/scipy/optimize")
+
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
