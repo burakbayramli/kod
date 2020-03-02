@@ -930,7 +930,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_59_barr")
 (find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_60_primdual")
 
 (switch-to-buffer "*scratch*")
