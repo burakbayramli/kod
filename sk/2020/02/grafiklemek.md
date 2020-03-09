@@ -32,8 +32,7 @@ plt.savefig('graf_02.png')
 Renkleri de aynı komutta belirtilebiliyoruz. Üstteki `r` kırmızı (red) için. 
 
 Çoğu zaman aynı imajda birden fazla grafik olmasını isteyebiliyoruz,
-karşılaştırma amaçlı vs. amaçıyla. Alt alta iki grafik için çabuk bir
-şekilde
+karşılaştırma amacıyla, vs. Alt alta iki grafik için çabuk bir şekilde
 
 ```python
 x2 = x+100
