@@ -50,18 +50,24 @@ okutmak istiyorsak, Octave'da
 save ("A.mat", "A", "-v7")
 ```
 
-diyebiliriz. Python tarafında `scipy.iö` ile bu matris okunabilir,
+diyebiliriz. Python tarafında `scipy.io` ile bu matris okunabilir,
 
 ```
 f = 'A.mat'
 import scipy.io as sio
-A = sio.loadmat(f)
-A = test['A']
+mat = sio.loadmat(f)
+A = mat['A']
 print (A.shape)
 ```
 
+Eger Python'dan yazip Octave'dan okumak istiyorsak, mesela `A` matrisi,
 
+```
+sio.savemat("A.mat", {"A": A})
+```
 
+Octave tarafinda
 
-
-
+```
+load A.mat
+```
