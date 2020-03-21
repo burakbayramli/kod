@@ -1036,7 +1036,8 @@ def celeb_search():
 
 def download_song(song_url):
     ydl_opts = {
-        'format': '140'
+        'format': '140',
+        'outtmpl': params['tube_dir'] + '/%(title)s.%(ext)s'
     }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(song_url, download=True) 
@@ -1048,10 +1049,7 @@ def tube():
 @app.route("/tube_dload", methods=["POST"])
 def tube_dload():
     url = request.form.get("url")
-    owd = os.getcwd()    
-    os.chdir(params['tube_dir'])
     download_song(url)
-    os.chdir(owd)
     return tube()
 
 
