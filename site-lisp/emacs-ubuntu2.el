@@ -262,9 +262,9 @@ This command does not push erased text to kill-ring."
    ["Regression" tempo-template-reg]
    ["Tex Minted Python (File)" tempo-template-tex-listings-python-file]
    ["Tex Minted Python" tempo-template-tex-listings-python]
-   ["Tex Itemize" x-tex-itemize]
+   ["Tex List" x-tex-itemize]
    ["Tex Verbatim" tempo-template-tex-verbatim-big]
-   ["Tex Enumerate" tempo-template-tex-enumerate]
+   ["Tex Numbered List" tempo-template-tex-enumerate]
    ["Tex Vector" tempo-template-tex-vector]
    ["Tex Matrix" tempo-template-tex-matrix]
    ["Tex Partial Derivative" tempo-template-tex-partial-derivative]
@@ -921,7 +921,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi/bilgiler")
-(find-file-other-window "/home/burak/Documents/thirdwave")
 (find-file-other-window "/home/burak/Documents/kod/sk")
 (find-file-other-window "/home/burak/Documents/kod/loogle")
 (find-file-other-window "/home/burak/Documents")
@@ -931,8 +930,10 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/2019/05")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/2020/02")
+(find-file-other-window "/home/burak/Documents/thirdwave/en/tweets/2020")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/classnotes/func_analysis/")
+(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_90_nflow")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
