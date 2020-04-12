@@ -227,8 +227,8 @@ Credentials ile tabana erişmek için gereken makina, taban ismi,
 kullanıcı, vs bilgileri görebiliriz. Fakat bu bilgileri alıp bir
 kenara yazmak, sonra uygulamanıza dışarıdan (bir ayar dosyası, ya da
 python kodu içinde) eklemek yerine, taban URL'ini sistem çevre
-değişkeni `os.environ['DATABASE_ÜRL']` ile almak en iyisi. Bu bilgi
-oraya Heroku sistemı tarafından set ediliyor. Bu şekilde okumak bir
+değişkeni `os.environ['DATABASE_URL']` ile almak en iyisi. Bu bilgi
+oraya Heroku sistemi tarafından set ediliyor. Bu şekilde okumak bir
 diğer açıdan daha önemli, Heroku bazen güvenlik açısından taban erişim
 bilgilerini rasgele bir şekilde değiştirebiliyor, sonra servisimizi
 tekrar başlatıyor. Bu durumda Heroku yeni taban bilgisini çevre
