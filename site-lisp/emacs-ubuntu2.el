@@ -356,29 +356,7 @@ This command does not push erased text to kill-ring."
   (local-set-key [?\M-g] 'keyboard-quit)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook11)
-
-(setq my-preview nil)
-(defun my-org-mode-latex-preview()
-  (interactive)
-  (if (equal my-preview nil)
-      (progn
-	(org-preview-latex-fragment)
-	(setq my-preview t)
-	)
-    (progn
-      (org-ctrl-c-ctrl-c)
-      (setq my-preview nil)
-      )
-    )
-  (message "%s" my-preview)
-  )
   
-(defun my-org-mode-hook () 
-  (local-set-key [?\M-a] 'move-beginning-of-line)
-  (local-set-key [?\M-e] 'move-end-of-line)
-  )
-(add-hook 'org-mode-hook 'my-org-mode-hook)
-
 ;; compilation mode buffer should wrap lines
 (defun my-compilation-mode-hook ()
   (setq truncate-lines nil)
@@ -608,7 +586,7 @@ This command does not push erased text to kill-ring."
  '("\\left[\\begin{array}{ccc} " (s) " \\end{array}\\right]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
- '("\\includegraphics[width=20em]{" (s) ".png}" ) "")
+ '("\\includegraphics[width=20em]{" (s) "}" ) "")
 
 (tempo-define-template  "tex-listings-python-file" 
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
@@ -717,7 +695,6 @@ This command does not push erased text to kill-ring."
 (global-set-key "\C-x\q" 'query-replace)
 (global-set-key "\C-c\C-g" 'grep-find)
 (global-set-key "\C-x\g" 'goto-line)
-(global-set-key "\M-4" 'my-org-mode-latex-preview)
 (global-set-key [?\M-m] 'scroll-up)
 (global-set-key [?\C-,] 'scroll-up)
 (global-set-key [?\M-q] 'scroll-down)
@@ -933,7 +910,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/thirdwave/en/tweets/2020")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/classnotes/func_analysis/")
-(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_90_nflow")
+(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_59_barr")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
