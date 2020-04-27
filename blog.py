@@ -2,7 +2,6 @@ import markdown, sys, os
 head = '''
 <html>
 <head>
-<script type="text/javascript" src="http://livejs.com/live.js"></script>
 <script type="text/x-mathjax-config">MathJax.Hub.Config({  tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}});</script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML-full">
 </script>
