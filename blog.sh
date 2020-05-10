@@ -1,2 +1,2 @@
-python $HOME/Documents/kod/blog.py $1 > $HOME/Downloads/out.html
-xvkbd -window Firefox -text "\Cr"
+python $HOME/Documents/kod/blog.py $1 > `pwd`/out.html
+xvkbd -window *Chromi* -text "\Cr"
