@@ -740,6 +740,13 @@ This command does not push erased text to kill-ring."
   (recenter 0)
   )
 
+(defun tweet-end ()
+  (interactive)
+  (insert (shell-command-to-string "echo -n $(date +\"%Y-%m-%d %H:%M:%S\")"))
+  (insert "\n\n---\n\n")
+  )
+  
+
 (defun my-untabify ()
   (save-excursion
     (goto-char (point-min))
