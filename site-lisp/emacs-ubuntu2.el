@@ -742,7 +742,7 @@ This command does not push erased text to kill-ring."
 
 (defun tweet-end ()
   (interactive)
-  (insert (shell-command-to-string "echo -n $(date +\"%Y-%m-%d %H:%M:%S\")"))
+  (insert (shell-command-to-string "echo -n *$(date +\"%Y-%m-%d %H:%M:%S\")*"))
   (insert "\n\n---\n\n")
   )
   
