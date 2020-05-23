@@ -52,7 +52,8 @@
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
 (setq img-viewer-exe "eog") 
-(setq chrome-exe "/usr/bin/chromium-browser") 
+;;(setq chrome-exe "/usr/bin/chromium-browser") 
+(setq chrome-exe "/usr/bin/firefox") 
 
 (defun open-file-ext ()
   "In dired, open the file named on this line."
