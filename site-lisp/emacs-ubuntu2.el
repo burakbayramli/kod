@@ -743,7 +743,7 @@ This command does not push erased text to kill-ring."
 (defun tweet-end ()
   (interactive)
   (insert (shell-command-to-string "echo -n *$(date +\"%Y-%m-%d %H:%M:%S\")*"))
-  (insert "\n\n---\n\n")
+  (insert "\n\n---")
   )
   
 
@@ -911,13 +911,13 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/twmoney/")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/2019/05")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/2020/02")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/tweets/2020")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Documents/classnotes/tser/")
-(find-file-other-window "/home/burak/Downloads/exch")
+(find-file-other-window "/home/burak/Downloads/lift")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_045_quad")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
