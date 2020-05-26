@@ -20,6 +20,7 @@ def getnews(outfile):
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
         ("Bloomberg", "https://twitrss.me/twitter_user_to_rss/?user=business",15),
         ("The Atlantic", "http://www.theatlantic.com/feed/all/",10),
+        ("The New Republic", "https://newrepublic.com/rss.xml",10),
         ("Deusche Welle (World)", "http://rss.dw.de/rdf/rss-en-all", 15),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
         ("Deusche Welle (Europe)", "http://rss.dw.de/rdf/rss-en-eu", 15)
