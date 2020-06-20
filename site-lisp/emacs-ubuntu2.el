@@ -837,7 +837,7 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
-(add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh ")
+(add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh atw.md")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
 
@@ -912,10 +912,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/tweets/2020")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Downloads/lift")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_045_flight")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_045_flight")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)

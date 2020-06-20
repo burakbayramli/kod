@@ -106,7 +106,12 @@ olacaktır.
 
 Spesifik Python Versiyonları
 
-Diyelim ki çok spesifik bir Python versiyonu gerekiyor, bizde 2.7.1 var, ama illa ki 2.7.7 lazım. Olur mu? Olur. Öyle bir paket vardır ki belli bir Python versiyonunda desteklenmektedir sadece, vs. Bu gibi durumlarda Python'u kaynaklarından derlemek gerekebilir, ve sonra virtualenv ile sanal ortam yaratılırken o derlenen Python kullanılır. Derlemek için 
+Diyelim ki çok spesifik bir Python versiyonu gerekiyor, bizde 2.7.1
+var, ama illa ki 2.7.7 lazım. Olur mu? Olur. Öyle bir paket vardır ki
+belli bir Python versiyonunda desteklenmektedir sadece, vs. Bu gibi
+durumlarda Python'u kaynaklarından derlemek gerekebilir, ve sonra
+virtualenv ile sanal ortam yaratılırken o derlenen Python
+kullanılır. Derlemek için 
 
 ```
 wget http://www.python.org/ftp/python/2.7.7/Python-2.7.7.tgz
@@ -115,7 +120,7 @@ tar zxvf Python-2.7.7.tgz
 
 cd Python-2.7.7
 
-./configure --prefix=$HOME/opt/python-2.7.7
+./configure --prefix=/opt/python-2.7.7
 
 make
 
