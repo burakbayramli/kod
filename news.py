@@ -22,6 +22,7 @@ def getnews(outfile):
         ("The Atlantic", "http://www.theatlantic.com/feed/all/",10),
         ("Deusche Welle (World)", "http://rss.dw.de/rdf/rss-en-all", 15),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
+        ("The Conversation", "https://theconversation.com/global/articles.atom", 10),
         ("Deusche Welle (Europe)", "http://rss.dw.de/rdf/rss-en-eu", 15)
     ]
 
