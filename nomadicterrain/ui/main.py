@@ -8,7 +8,7 @@ import sys; sys.path.append("../../loogle")
 import sys; sys.path.append("../..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
-import news, csv, io, zipfile, math, itertools
+import csv, io, zipfile, math, itertools
 from urllib.request import urlopen
 import urllib, requests, json, re, youtube_dl
 import gpxpy, gpxpy.gpx, polyline, codecs
@@ -18,6 +18,8 @@ from datetime import timedelta
 import pandas_datareader.data as web, loogle3
 import quandl, os, calendar, timezonefinder
 from pytz import timezone
+from bs4 import BeautifulSoup
+import urllib.request as req2
 
 app = Flask(__name__)
 
@@ -25,15 +27,12 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-nfile = "./templates/news.html"
-
-wfile = os.environ['TMPDIR'] + "/weather.pkl"
-
 finfile = os.environ['TMPDIR'] + "/finance.csv"
 
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
 
 place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=10000&keyword=&type=%s&key=%s"
+
 
 def been_walking():
     df = pd.read_csv(params['gps'])
@@ -309,19 +308,6 @@ def choosemap():
     print (map)
     return mapset()
 
-@app.route('/news')
-def news_action():
-    files_day = -1
-    todays_day = datetime.datetime.now().day
-    if os.path.isfile(nfile):
-       files_day = datetime.datetime.fromtimestamp(os.path.getctime(nfile)).day
-    # get news file once each day. if news file exists for today, dont get it again
-    if files_day != todays_day:        
-        print ('getting file')
-        news.getnews(nfile)
-        shutil.copy(nfile, params['news_dir'])
-    return render_template('/news.html')
-
 def plot_trace(pts):
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -489,12 +475,6 @@ def reset(what):
         df = df.tail(1)
         msg = "Log is reset"
         df.to_csv(params['gps'],index=None)
-    elif what == "weather":
-        if os.path.isfile(wfile): os.remove(wfile)
-        msg = "Weather is reset"
-    elif what == "news":
-        if os.path.isfile(nfile): os.remove(nfile)
-        msg = "News is reset"
     elif what == "finance":
         if os.path.isfile(finfile): os.remove(finfile)
         msg = "Finance is reset"
@@ -520,58 +500,6 @@ def place_search():
     OnlyOne().place_results = res
     return place()
 
-def get_weather(lat,lon):
-    base_url = 'http://api.openweathermap.org/data/2.5/weather?'
-
-    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi'] }
-
-    r = requests.get(base_url, params=payload) 
-    res = []
-    for x in r.iter_lines():
-        x = json.loads(x.decode())
-        res.append(x['name'])
-        res.append (x['main'])
-        res.append (x['wind'])
-        res.append (('clouds', x['clouds']))
-
-    base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
-
-    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': params['weatherapi']}
-
-    r = requests.get(base_url, params=payload) 
-
-    for x in r.iter_lines():
-        x = json.loads(x.decode())
-        for xx in x['list']:
-            rain = xx.get('rain')
-            res.append ((xx['dt_txt'],
-                         xx['weather'][0]['description'],
-                         rain,
-                         xx))
-            res.append ('---------------')
-    return res
-
-@app.route('/goweather/<coords>')
-def goweather(coords):
-    lat,lon = coords.split(';')
-    res = get_weather(lat,lon)
-    return render_template('/weather.html', res=res)
-
-@app.route('/weather')
-def weather():
-    print (wfile)
-    files_day = -1
-    todays_day = datetime.datetime.now().day
-    if os.path.isfile(wfile):
-       files_day = datetime.datetime.fromtimestamp(os.path.getctime(wfile)).day       
-    # get news file once each day. if news file exists for today, dont get it again
-    if files_day != todays_day:            
-        lat,lon = my_curr_location()
-        res = get_weather(lat,lon)
-        pickle.dump(res, open(wfile,"wb"))
-        
-    res = pickle.load(open(wfile,"rb"))
-    return render_template('/weather.html', res=res)
 
 @app.route('/trail/<gpx_file>')
 def trail(gpx_file):
@@ -1045,6 +973,7 @@ def download_song(song_url):
 @app.route('/tube')
 def tube():
     return render_template('/tube.html')
+
 
 @app.route("/tube_dload", methods=["POST"])
 def tube_dload():
