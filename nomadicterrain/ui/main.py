@@ -10,7 +10,7 @@ import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, math, itertools
 from urllib.request import urlopen
-import urllib, requests, json, re, youtube_dl
+import urllib, requests, json, re, youtube_dl, elevutil
 import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import route, sqlite3, datedelta
@@ -685,18 +685,6 @@ def flattestroute(coords):
     
     print (path)
     
-@app.route('/gotopo/<coords>/<how_far>')
-def gotopo(coords,how_far):
-    lat,lon = coords.split(';')
-    how_far = float(how_far)
-    fout1 = "static/out-%s.png" % uuid.uuid4()
-    fout2 = "static/out-%s.png" % uuid.uuid4()
-    fout3 = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    lat=float(lat);lon=float(lon)
-    plot_map.plot_topo(lat,lon,fout1,fout2,fout3,how_far)
-    return render_template('/topo.html', location1=fout1, location2=fout2, location3=fout3)
-
 @app.route('/gopoly/<coords>')
 def gopoly(coords):
     locs = polyline.decode(coords,precision=6)
@@ -750,33 +738,6 @@ def line_elev_calc():
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
     
-@app.route('/goestelevline/<coords>')
-def goestelevline(coords):
-    npts = 200
-    lat,lon = my_curr_location()
-    lat2,lon2 = coords.split(';')
-    lat2 = float(lat2)
-    lon2 = float(lon2)
-    print (lat,lon)
-    print (lat2,lon2)
-    far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
-    print (far)
-    bearing = route.get_bearing((lat,lon),(lat2,lon2))
-    locs = []
-    for x in np.linspace(0,far,npts):
-        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-
-    conn = sqlite3.connect(params['elevdbmod'])
-    c = conn.cursor()
-
-    res = [route.get_elev_single(lat,lon,c) for (lat,lon) in  locs]
-
-    plt.figure()
-    plt.plot(np.linspace(0,far,npts),res)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    plt.savefig(fout)
-    return render_template('/lineelev.html', fout=fout)
 
 @app.route('/gogoogelevline/<coords>')
 def gogoogelevline(coords):
@@ -980,6 +941,15 @@ def tube_dload():
     url = request.form.get("url")
     download_song(url)
     return tube()
+
+@app.route('/gotopo2/<coords>/<how_far>')
+def gotopo2(coords,how_far):
+    from flask import send_file
+    lat,lon = coords.split(';')
+    how_far = float(how_far)
+    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    elevutil.get_topo(lat,lon,how_far,fout)
+    return send_file(fout)
 
 
 if __name__ == '__main__':
