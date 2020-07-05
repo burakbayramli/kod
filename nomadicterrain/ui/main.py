@@ -754,45 +754,6 @@ def gogoogelevline(coords):
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
 
-@app.route('/time')
-def time():
-    lat,lon = my_curr_location()
-    
-    y = datetime.datetime.now().year
-    m = datetime.datetime.now().month
-    calcurr = str(calendar.month(y, m))
-
-    prev = datetime.datetime.now() - datedelta.MONTH
-    next = datetime.datetime.now() + datedelta.MONTH
-    calprev = str(calendar.month(prev.year, prev.month))
-    calnext = str(calendar.month(next.year, next.month))    
-    
-    times = {}
-    fmt = '%Y-%m-%d %H:%M'
-    now_utc = datetime.datetime.now(timezone('UTC'))
-
-    now_ny = now_utc.astimezone(timezone('US/Eastern'))
-    times['ny'] = now_ny.strftime(fmt)
-
-    times['utc'] = now_utc.strftime(fmt)
-
-    now_tr = now_utc.astimezone(timezone('Turkey'))
-    times['tr'] = now_tr.strftime(fmt)
-
-    tf = timezonefinder.TimezoneFinder()
-    timezone_str = tf.certain_timezone_at(lat=lat, lng=lon)
-    now_curr = now_utc.astimezone(timezone(timezone_str))
-    times['curr'] = now_curr.strftime(fmt)
-
-    weekday = list(calendar.day_name)[now_utc.weekday()]
-    
-    return render_template('/time.html',
-                           calprev=calprev,
-                           calcurr=calcurr,
-                           calnext=calnext,
-                           times=times,
-                           weekday=weekday,
-                           tzone=timezone_str)
 
 @app.route('/book/<init>')
 def book(init):
