@@ -942,16 +942,6 @@ def tube_dload():
     download_song(url)
     return tube()
 
-@app.route('/gotopo2/<coords>/<how_far>')
-def gotopo2(coords,how_far):
-    from flask import send_file
-    lat,lon = coords.split(';')
-    how_far = float(how_far)
-    fout = "/tmp/out-%s.png" % uuid.uuid4()
-    elevutil.get_topo(lat,lon,how_far,fout)
-    return send_file(fout)
-
-
 if __name__ == '__main__':
     app.debug = True
     app.run(host="localhost",port=5000)
