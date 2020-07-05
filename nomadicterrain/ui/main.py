@@ -27,8 +27,6 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-finfile = os.environ['TMPDIR'] + "/finance.csv"
-
 place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
 
 place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=10000&keyword=&type=%s&key=%s"
@@ -475,9 +473,6 @@ def reset(what):
         df = df.tail(1)
         msg = "Log is reset"
         df.to_csv(params['gps'],index=None)
-    elif what == "finance":
-        if os.path.isfile(finfile): os.remove(finfile)
-        msg = "Finance is reset"
     return render_template('/reset.html', msg=msg)
 
 @app.route("/place_search", methods=["POST"])
@@ -758,96 +753,6 @@ def gogoogelevline(coords):
     fout = "static/out-%s.png" % uuid.uuid4()
     plt.savefig(fout)
     return render_template('/lineelev.html', fout=fout)
-
-@app.route('/finance/<bdays>')
-def finance(bdays):
-    files_day = -1
-    todays_day = datetime.datetime.now().day
-    auth = params['quandl']
-    
-    if os.path.isfile(finfile):
-       files_day = datetime.datetime.fromtimestamp(os.path.getctime(finfile)).day
-       
-    if files_day != todays_day:
-       start_s = '2018-06-01'
-       bdays = int(bdays)
-       #start_d = datetime.datetime(2018, 6, 1)
-       today = datetime.datetime.now()
-       end_d=datetime.datetime(today.year, today.month, today.day)
-       start_d = end_d - timedelta(days=bdays)
-
-       end=datetime.datetime(today.year, today.month, today.day)
-       df = web.DataReader("^GSPC", 'yahoo', start_d, end_d)
-       df = df[['Close']]
-       df.columns = ['SP500']
-
-       df1 = df.copy()
-
-       df = web.DataReader("DGS10", 'fred', start_d, end_d)
-       df1.loc[:,'10yr'] = df.DGS10
-
-       df = quandl.get("EIA/PET_RWTC_D",                 
-                       returns="pandas",
-                       start_date=start_d.strftime('%Y-%m-%d'),
-                       end_date=today.strftime('%Y-%m-%d'),
-                       authtoken=auth)
-
-       df1.loc[:,'oil'] = df.Value
-
-       df = web.DataReader("DTWEXM", 'fred', start_d, end_d)
-
-       df = quandl.get("CHRIS/ICE_DX1-US-Dollar-Index-Futures-Continuous-Contract", 
-                       returns="pandas",
-                       authtoken=auth)
-       df1.loc[:,'usd'] = df['Settle']
-       
-       df1.to_csv(finfile)
-       
-    df1 = pd.read_csv(finfile,index_col=0,parse_dates=True)
-
-    clean_dir()
-    
-    fout1 = "static/out-%s.png" % uuid.uuid4()
-    plt.figure()
-    df1['SP500'].plot()
-    s = np.array(df1['SP500'])
-    c1 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    c1 = np.round(c1*100.0,2)
-    l1 = np.float(s[-1])
-    plt.savefig(fout1)
-
-    fout2 = "static/out-%s.png" % uuid.uuid4()
-    plt.figure()
-    df1['usd'].plot()
-    s = np.array(df1['usd'].dropna())
-    c2 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    c2 = np.round(c2*100.0,2)
-    l2 = np.float(s[-1])
-    plt.savefig(fout2)
-
-    fout3 = "static/out-%s.png" % uuid.uuid4()
-    plt.figure()
-    df1['oil'].plot()
-    s = np.array(df1['oil'].dropna())
-    c3 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    c3 = np.round(c3*100.0,2)
-    l3 = np.float(s[-1])
-    plt.savefig(fout3)
-
-    fout4 = "static/out-%s.png" % uuid.uuid4()
-    plt.figure()
-    df1['10yr'].dropna().plot()
-    s = np.array(df1['10yr'].dropna())
-    c4 = (np.float(s[-1])-np.float(s[-2])) / (np.float(s[-2]))
-    c4 = np.round(c4*100.0,2)
-    l4 = np.float(s[-1])
-    plt.savefig(fout4)
-    
-    return render_template('/finance.html',
-                           location1=fout1,c1=c1,l1=l1,
-                           location2=fout2,c2=c2,l2=l2,
-                           location3=fout3,c3=c3,l3=l3,
-                           location4=fout4,c4=c4,l4=l4)
 
 @app.route('/time')
 def time():
