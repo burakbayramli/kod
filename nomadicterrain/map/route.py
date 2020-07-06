@@ -65,28 +65,6 @@ def get_elev_data_ex_chunk(chunk):
     print (res[:5])
     return res
     
-def get_elev_int_ex(latint, lonint):
-    
-    conn = sqlite3.connect(params['elevdb'])
-    c = conn.cursor()
-
-    sql1 = "SELECT count(*) FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
-    res = c.execute(sql1)
-    for x in res: print (x)
-
-    sql = "SELECT lat,lon FROM ELEVATION WHERE latint=%d and lonint=%d and elevation is NULL" % (latint,lonint)
-    res = c.execute(sql)
-    res = list(res)
-    N = 40
-    for chunk in chunks(res, N):
-        elev_results = get_elev_data_ex_chunk(chunk)
-        for i in range(N):
-            sql = "UPDATE ELEVATION set elevation=%f where lat=%f and lon=%f" % (elev_results[i],chunk[i][0],chunk[i][1])
-            c.execute(sql)
-        conn.commit()
-        res1 = c.execute(sql1)
-        for x in res1: print (x)
-        print (datetime.datetime.now())
 
 def gdist(x1,x2):
     x1=x1.reshape(-1,2)

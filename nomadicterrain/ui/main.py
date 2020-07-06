@@ -633,52 +633,6 @@ def hay_search():
     OnlyOne().hay_results = res
     return hay()
 
-@app.route('/flattestroute/<coords>')
-def flattestroute(coords):
-    lat1,lon1 = my_curr_location()
-    lat2,lon2 = coords.split(';')
-    lat2 = float(lat2)
-    lon2 = float(lon2)
-    
-    a0,b0,ex,ey=lon1,lat1,lon2,lat2
-    connmod = sqlite3.connect(params['elevdbmod'])
-
-    latmin = int(np.min([lat1,lat2]))-3
-    latmax = int(np.max([lat1,lat2]))+3
-    lonmin = int(np.min([lon1,lon2]))-3
-    lonmax = int(np.max([lon1,lon2]))+3
-
-    lats = list(range(latmin,latmax))
-    lons = list(range(lonmin,lonmax))
-
-    ls = list(itertools.product(lats,lons))
-
-    print ('getting rbfs')
-    xis, nodes, epsilons = route.get_rbf_for_latlon_ints(ls,connmod)    
-    print ('calculating path')
-    path = route.find_path(lon1,lat1,lon2,lat2,xis, nodes, epsilons)
-    #path = ( 0.4587563,  -0.03392798, -0.6032637,   0.08755128,  0.08665089, -0.12702879)
-    
-    a1,a2,a3,b1,b2,b3=path
-    a4 = ex - a0 - (a1+a2+a3)
-    b4 = ey - b0 - (b1+b2+b3)
-    t = np.linspace(0,1.0,100.0)
-    x = a0 + a1*t + a2*np.power(t,2.0) + a3*np.power(t,3.0) + a4*np.power(t,4.0)
-    y = b0 + b1*t + b2*np.power(t,2.0) + b3*np.power(t,3.0) + b4*np.power(t,4.0)    
-
-    lines = ""
-    lines += route.gpxbegin   
-    templ = '<trkpt lat="%f" lon="%f"> <ele>%f</ele></trkpt>\n'
-    for lat,lon in zip(x,y):
-        lines += templ % (lon,lat,10)
-    lines += route.gpxend
-    gpxfile = "01_calc_path.gpx"
-    fout = open(params['trails'] + "/" + gpxfile,"w")
-    fout.write(lines)
-    fout.close()
-    return trail(gpxfile)
-    
-    print (path)
     
 @app.route('/gopoly/<coords>')
 def gopoly(coords):
