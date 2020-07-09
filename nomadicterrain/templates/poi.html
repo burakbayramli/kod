@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <a href="/">Back</a>
+    
+    <h2>POI</h2>
+
+    <form class="form-inline" action="/poi_search" method="POST">
+
+      <input type="text" name="name"/>
+      <input type="submit" value="Search"/>
+
+      {% for x in data %}
+         <br/>
+         <br/>
+         {{x[5]}},
+         {% if 'Polygon' in x[0] %}
+           <a href="/gopoly/{{x[4]}}">{{x[2]}} {{x[3]}} </a>
+         {% endif %}    
+         {% if 'Single' in x[0] %}
+           <a href="/gogeo/{{x[4]}}">{{x[2]}} {{x[3]}} </a>
+         {% endif %}    
+      {% endfor %}    
+      
+    </form>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    <a href="/">Back</a>
+    
+    <h2>Blood Type</h2>
+    <br/>
+    <a href="https://github.com/burakbayramli/kod/tree/master/guide/doc/details/btype">Description</a>
+    <br/>
+    <br/>
+    <a href="/btype/a">A</a> &nbsp;
+    <a href="/btype/b">B</a> &nbsp;
+    <a href="/btype/O">O</a> &nbsp;
+    <a href="/btype/ab">AB</a> &nbsp;
+    
+    <br/><br/>
+    Name,Secretor,Non-Secretor
+    <br/><br/>    
+    {% for x in res %}
+      <a href="http://web.archive.org/web/20170310062004/http://www.dadamo.com/typebase4/depictor5.pl?{{x[0]}}">{{x[1]}}<a/> {{ x[2] }},{{ x[3] }} <br/>
+      {% endfor %}
+
+  </body>
+</html>
+    
+
+
+

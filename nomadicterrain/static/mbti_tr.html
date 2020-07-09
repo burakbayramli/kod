@@ -1,0 +1,778 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://muratk3n.github.io/thirdwave/en/2019/08/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+     function calculate_mbti(input) { 
+         var mbti = "";
+         var res = [];
+         for (var i=0;i<7;i++){
+           var s = 0;
+           for (var j=0;j<10;j++){
+               s = s + input[(j*7)+i];
+           }
+           res.push(s);
+          }
+
+          
+         ei = res[0];
+         if (ei<0) mbti = mbti + "E";
+         else mbti = mbti + "I";
+
+         sn = res[1]+res[2];
+         if (sn<0) mbti = mbti + "S";
+         else mbti = mbti + "N";
+
+         tf = res[3]+res[4];
+         if (tf<0) mbti = mbti + "T";
+         else mbti = mbti + "F";
+
+         jp = res[5]+res[6];
+         if (jp<0) mbti = mbti + "J";
+         else mbti = mbti + "P";
+         
+         return mbti;
+     }
+     
+     function evaluate_mbti() {
+       for (var i=0;i<70;i++){
+         var j = i+1;
+         res = $("input[name='group"+j+"']:checked").val();
+         if (res == undefined) {
+           	$('#mbtierror').html("Question " + j + " cevaplanmamis");
+           	return;
+           }
+       }    
+       var list = [];
+       for (var i=0;i<70;i++){
+         var j = i+1;
+         res = $("input[name=group"+j+"]:checked").val();
+         list.push(parseFloat(res));
+       }  
+       mb = calculate_mbti(list);
+       document.getElementById('mbtires').innerHTML = mb;
+     }
+    </script>
+  </head>
+  
+  <body>    
+    
+    <div id="mbti">
+            
+      <p>
+        Myers-Briggs Testi
+      </p>
+      
+      <p>
+        Alttaki sorulari cevaplarken eger cevabiniz (a)'ya daha yakinda sol
+        secenegi, (b)'ye daha yakinsa sag secenegi, eger emin degilseniz ya da
+        her iki secenege ayni derecede yakinsa ortadaki secenegi
+        isaretleyin. Tum tipler altta listelenmektedir. 
+      </p>
+                        
+      <div id="mbt_input">
+        <form>
+        <div>
+          1) Telefon calinca a) acele ederek cevaplar misiniz b) baskasinin
+          cevaplamasini mi umarsiniz?
+          <p>            
+            <input type="radio" name="group1" value="-1"/>
+            <input type="radio" name="group1" value="0"/>
+            <input type="radio" name="group1" value="1"/>
+          </p>
+        </div>
+        
+        <div>
+          2) Hangisi sizi daha cok tanimliyor a) disariyi gozleyen b) icini gozlemleyen
+          <p>            
+            <input type="radio" name="group2" value="-1"/>
+            <input type="radio" name="group2" value="0"/>
+            <input type="radio" name="group2" value="1"/>
+          </p>
+        </div>                       
+        
+        <div>
+          3) Bunlardan hangisi sizin icin daha kotu? a) akli havada olmak b)
+          hayatta tikanmis kalmis olmak
+          <p>            
+            <input type="radio" name="group3" value="-1"/>
+            <input type="radio" name="group3" value="0"/>
+            <input type="radio" name="group3" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          4) Insanlarla iletisirken daha a) esnek olmaktan cok pozisyonunuzu
+          korumaya mi, yoksa b) pozisyonunuzu korumaktan cok esnek olmaya mi egilimlisiniz?
+          <p>            
+            <input type="radio" name="group4" value="-1"/>
+            <input type="radio" name="group4" value="0"/>
+            <input type="radio" name="group4" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          5) Daha cok a) elestirel mi, yoksa b) deger yargilari iceren ifadeler
+          belirtmek mi size daha rahat geliyor?
+          <p>            
+            <input type="radio" name="group5" value="-1"/>
+            <input type="radio" name="group5" value="0"/>
+            <input type="radio" name="group5" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          6) Is yerindeki daginiklik varsa onu a) duzeltir misiniz? b) tolere
+          eder misiniz?
+          <p>            
+            <input type="radio" name="group6" value="-1"/>
+            <input type="radio" name="group6" value="0"/>
+            <input type="radio" name="group6" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          7) Kararlarinizi a) cabuk alirsiniz b) uzun uzadiya dusunursunuz
+          <p>            
+            <input type="radio" name="group7" value="-1"/>
+            <input type="radio" name="group7" value="0"/>
+            <input type="radio" name="group7" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          8) Bir sirada beklerken a) bekleyen digerleri ile konusur musunuz b)
+          kendi isinize mi bakarsiniz
+          <p>            
+            <input type="radio" name="group8" value="-1"/>
+            <input type="radio" name="group8" value="0"/>
+            <input type="radio" name="group8" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          9) Daha bariz, ortada olana mi dikkat edersiniz, yoksa fikirsel olana
+          mi dikkat edersiniz?
+          <p>            
+            <input type="radio" name="group9" value="-1"/>
+            <input type="radio" name="group9" value="0"/>
+            <input type="radio" name="group9" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          10) a) Mevcut, olmakta olanla mi b) olabilecek olanla mi daha cok ilgilisiniz
+          <p>            
+            <input type="radio" name="group10" value="-1"/>
+            <input type="radio" name="group10" value="0"/>
+            <input type="radio" name="group10" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          11) Karar verirken hangisini daha cok kullanmaya egilimlisiniz? a) veri b) istekleriniz
+          <p>            
+            <input type="radio" name="group11" value="-1"/>
+            <input type="radio" name="group11" value="0"/>
+            <input type="radio" name="group11" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          12) Baskalarini tartarken a) objektif ve kisisel olmadan 
+          b) arkadasca ve kisisel olarak mi dusunursunuz.
+          <p>            
+            <input type="radio" name="group12" value="-1"/>
+            <input type="radio" name="group12" value="0"/>
+            <input type="radio" name="group12" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          13) Kontrakt, anlasmalarinizin a) yazili, imzali olarak mi b) el sıkısarak
+          mi halledilmesini tercih edersiniz?
+          <p>            
+            <input type="radio" name="group13" value="-1"/>
+            <input type="radio" name="group13" value="0"/>
+            <input type="radio" name="group13" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div> 
+          14) Bir isi a) tamamlamak mi b) uzerinde calismaya devam etmek mi sizi daha cok
+          tatmin eder
+          <p>            
+            <input type="radio" name="group14" value="-1"/>
+            <input type="radio" name="group14" value="0"/>
+            <input type="radio" name="group14" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          15) Bir partide a) pek cok kisiyle, hatta yabancilarla bile iletisim
+          kurarsiniz b) az sayida arkadasinizla yetinirsiniz
+          <p>            
+            <input type="radio" name="group15" value="-1"/>
+            <input type="radio" name="group15" value="0"/>
+            <input type="radio" name="group15" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          16) Daha cok a) olmakta olan, gercek durum b) olabilecek olan hakkinda
+          spekulasyon ile mi daha cok mesgul olursunuz?
+          <p>            
+            <input type="radio" name="group16" value="-1"/>
+            <input type="radio" name="group16" value="0"/>
+            <input type="radio" name="group16" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          17) Hangi tur yazarlardan daha cok hoslanirsiniz a) soylemek
+          istedigini acik bir sekilde belli eden yazarlar b) metafor, sembolizm
+          kullanan yazarlar
+          <p>            
+            <input type="radio" name="group17" value="-1"/>
+            <input type="radio" name="group17" value="0"/>
+            <input type="radio" name="group17" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          18) Hangisi size daha yakin geliyor a) tutarli olan dusunceler b) uyum
+          icinde olan iliskiler
+          <p>            
+            <input type="radio" name="group18" value="-1"/>
+            <input type="radio" name="group18" value="0"/>
+            <input type="radio" name="group18" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          19) Birine karsi elestirel, kirici olmaniz gerekiyorsa a) acik ve
+          direk olursunuz b) sicak ve halden anlar tavirda olursunuz.
+          <p>            
+            <input type="radio" name="group19" value="-1"/>
+            <input type="radio" name="group19" value="0"/>
+            <input type="radio" name="group19" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          20) Calisirken / isteyken gununuzun a) takvime bagli b) serbest
+          olmasini istersiniz.
+          <p>            
+            <input type="radio" name="group20" value="-1"/>
+            <input type="radio" name="group20" value="0"/>
+            <input type="radio" name="group20" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          21) Daha cok a) nihai, degistirilemez ifadeleri mi tercih edersiniz b)
+          baslangicsal, gecici ifadeleri mi tercih edersiniz?
+          <p>            
+            <input type="radio" name="group21" value="-1"/>
+            <input type="radio" name="group21" value="0"/>
+            <input type="radio" name="group21" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          22) Yabancilarla tanismak, konusmak a) size enerji veriyor b) enerjinizi tuketiyor
+          <p>            
+            <input type="radio" name="group22" value="-1"/>
+            <input type="radio" name="group22" value="0"/>
+            <input type="radio" name="group22" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          23) Gercekler a) olduklari haliyle olani biteni anlatirlar b) prensipleri dogrularlar
+          <p>            
+            <input type="radio" name="group23" value="-1"/>
+            <input type="radio" name="group23" value="0"/>
+            <input type="radio" name="group23" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          24) Vizyonerler, teorisyenleri a) biraz itici bulursunuz b) cok ilginc bulursunuz.
+          <p>            
+            <input type="radio" name="group24" value="-1"/>
+            <input type="radio" name="group24" value="0"/>
+            <input type="radio" name="group24" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          25) Atesli bir tartisma sirasinda a) kendi tutumunuza sarilirsiniz b)
+          ortak nokta ararsiniz.
+          <p>            
+            <input type="radio" name="group25" value="-1"/>
+            <input type="radio" name="group25" value="0"/>
+            <input type="radio" name="group25" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          26) Eger bir secim yapmak zorunda kalsaniz, hangisi olmak daha iyi a)
+          adil b) bagislayici
+          <p>            
+            <input type="radio" name="group26" value="-1"/>
+            <input type="radio" name="group26" value="0"/>
+            <input type="radio" name="group26" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          27) Is yerinde sizin icin hangisi daha dogal a) hatalari gostermek b)
+          baskalarini memnun etmeye calismak
+          <p>            
+            <input type="radio" name="group27" value="-1"/>
+            <input type="radio" name="group27" value="0"/>
+            <input type="radio" name="group27" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          28) Bir karardan a) once mi b) sonra mi daha rahat olursunuz
+          <p>            
+            <input type="radio" name="group28" value="-1"/>
+            <input type="radio" name="group28" value="0"/>
+            <input type="radio" name="group28" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          29) Cogunlukla aklinizda olani a) oldugu gibi soylermisiniz b)
+          kulaklarinizi mi acik tutarsiniz
+          <p>            
+            <input type="radio" name="group29" value="-1"/>
+            <input type="radio" name="group29" value="0"/>
+            <input type="radio" name="group29" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          30) Sagduyu a) cogunlukla guvenilebilecek bir seydir b) cogunlukla
+          suphelidir
+          <p>            
+            <input type="radio" name="group30" value="-1"/>
+            <input type="radio" name="group30" value="0"/>
+            <input type="radio" name="group30" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          31) Gunumuzde cocuklar size gore a) yeterince faydali islerle ugrasmiyorlar b)
+          hayal guclerini yeterince isletmiyorlar.
+          <p>            
+            <input type="radio" name="group31" value="-1"/>
+            <input type="radio" name="group31" value="0"/>
+            <input type="radio" name="group31" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          32) Eger yonetici bir pozisyonda iseniz a) pozisyonunu degistirmeyen,
+          esnemeyen b) bagislayici ve esnek olursunuz
+          <p>            
+            <input type="radio" name="group32" value="-1"/>
+            <input type="radio" name="group32" value="0"/>
+            <input type="radio" name="group32" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          33) Cogunlukla serinkanli misini b) sicakkanli misiniz? 
+          <p>            
+            <input type="radio" name="group33" value="-1"/>
+            <input type="radio" name="group33" value="0"/>
+            <input type="radio" name="group33" value="1"/>
+          </p>
+        </div>                       
+                 
+        <div>
+          34) a) Sonuca varmaya mi b) olasiliklari arastirmaya mi megillisiniz?
+          <p>            
+            <input type="radio" name="group34" value="-1"/>
+            <input type="radio" name="group34" value="0"/>
+            <input type="radio" name="group34" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          35) Cogu olayda a) planli mi b) spontane mi hareket edersiniz
+          <p>            
+            <input type="radio" name="group35" value="-1"/>
+            <input type="radio" name="group35" value="0"/>
+            <input type="radio" name="group35" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          36) Kendinizi a) disa donuk mu b) ice donuk mu olarak gorursunuz
+          <p>            
+            <input type="radio" name="group36" value="-1"/>
+            <input type="radio" name="group36" value="0"/>
+            <input type="radio" name="group36" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          37) a) Pratik misiniz b) satafatli, gosterisli seylere mi megillisiniz?
+          <p>            
+            <input type="radio" name="group37" value="-1"/>
+            <input type="radio" name="group37" value="0"/>
+            <input type="radio" name="group37" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          38) Cogunlukla somut, detaylari kullanarak mi b) genel ifadeleri
+          kullanarak mi konusursunuz?
+          <p>            
+            <input type="radio" name="group38" value="-1"/>
+            <input type="radio" name="group38" value="0"/>
+            <input type="radio" name="group38" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          39) Hangisi daha iyi bir iltifat a) "iste bu mantiki bir insan" b)
+          "iste bu duygusal bir insan"
+          <p>            
+            <input type="radio" name="group39" value="-1"/>
+            <input type="radio" name="group39" value="0"/>
+            <input type="radio" name="group39" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          40) Hangisi sizi daha cok kontrol eder a) dusunceleriniz b) hisleriniz
+          <p>            
+            <input type="radio" name="group40" value="-1"/>
+            <input type="radio" name="group40" value="0"/>
+            <input type="radio" name="group40" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          41) Bir isi bitirdiginizde a) eksik gordugunuz taraflari bitirmeye
+          ugrasirsiniz b) baska bir ise gecersiniz
+          <p>            
+            <input type="radio" name="group41" value="-1"/>
+            <input type="radio" name="group41" value="0"/>
+            <input type="radio" name="group41" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          42) a) Bir takvime, bitis anina gore b) kafaniza gore calismayi tercih
+          edersiniz.
+          <p>            
+            <input type="radio" name="group42" value="-1"/>
+            <input type="radio" name="group42" value="0"/>
+            <input type="radio" name="group42" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          43) Daha cok a) konuskan mi b) konusulani iyi takip eden bir
+          kisiliginiz mi var?
+          <p>            
+            <input type="radio" name="group43" value="-1"/>
+            <input type="radio" name="group43" value="0"/>
+            <input type="radio" name="group43" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          44) Soylenenleri a) oldugu gibi, kelime anlamiyla mi b) sembolik
+          anlamiyla mi duyma egilimindesiniz
+          <p>            
+            <input type="radio" name="group44" value="-1"/>
+            <input type="radio" name="group44" value="0"/>
+            <input type="radio" name="group44" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          45) Daha cok a) onunuzde olani mi b) hayal edilebilen / olabilecek
+          olani mi gorursunuz
+          <p>            
+            <input type="radio" name="group45" value="-1"/>
+            <input type="radio" name="group45" value="0"/>
+            <input type="radio" name="group45" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          46) Hangisi daha kotu a) yumusak basli olmak b) tam kararli, nihai olmak
+          <p>            
+            <input type="radio" name="group46" value="-1"/>
+            <input type="radio" name="group46" value="0"/>
+            <input type="radio" name="group46" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          47) Cok stresli durumlarda bazen a) sempatinizi kaybediyorsunuz b) daha
+          sempati eder hale geliyorsunuz
+          <p>            
+            <input type="radio" name="group47" value="-1"/>
+            <input type="radio" name="group47" value="0"/>
+            <input type="radio" name="group47" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          48) Secerken a) dikkatli mi b) estigi gibi mi secersiniz
+          <p>            
+            <input type="radio" name="group48" value="-1"/>
+            <input type="radio" name="group48" value="0"/>
+            <input type="radio" name="group48" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          49) Mizaciniz daha cok a) rahat, dinginden cok aceleci mi b)
+          aceleciden cok dingin, rahat mi
+          <p>            
+            <input type="radio" name="group49" value="-1"/>
+            <input type="radio" name="group49" value="0"/>
+            <input type="radio" name="group49" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          50) Is yerinde a) is arkadaslarinizla sosyallesir misiniz b) kendi
+          isinize mi bakarsiniz
+          <p>            
+            <input type="radio" name="group50" value="-1"/>
+            <input type="radio" name="group50" value="0"/>
+            <input type="radio" name="group50" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          51) a) Onceki tecrubelerinize mi b) kavramlariniza mi guvenirsiniz
+          <p>            
+            <input type="radio" name="group51" value="-1"/>
+            <input type="radio" name="group51" value="0"/>
+            <input type="radio" name="group51" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          52) Kendinizi daha cok a) yere saglam basar halde mi b) dunyadan
+          ayrilmis halde mi goruyorsunuz
+          <p>            
+            <input type="radio" name="group52" value="-1"/>
+            <input type="radio" name="group52" value="0"/>
+            <input type="radio" name="group52" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          53) Kendinizi daha cok a) kararli, keskin dusunceli mi b) yumusak kalpli mi goruyorsunuz
+          <p>            
+            <input type="radio" name="group53" value="-1"/>
+            <input type="radio" name="group53" value="0"/>
+            <input type="radio" name="group53" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          54) Kendinizde deger verdiginiz a) makul olmak b) kendini bir seye,
+          kisiye adamis olmak 
+          <p>            
+            <input type="radio" name="group54" value="-1"/>
+            <input type="radio" name="group54" value="0"/>
+            <input type="radio" name="group54" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          55) Konulari, isleri a) bitmis ve karar verilmis olarak mi b) sonra bakilmak
+          uzere kenara not edilmis olarak mi gormek size daha rahat geliyor.
+          <p>            
+            <input type="radio" name="group55" value="-1"/>
+            <input type="radio" name="group55" value="0"/>
+            <input type="radio" name="group55" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          56) Sizce a) ciddi ve kararli mi b) rahat mizacli misiniz
+          <p>            
+            <input type="radio" name="group56" value="-1"/>
+            <input type="radio" name="group56" value="0"/>
+            <input type="radio" name="group56" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          57) a) Iyi bir muhabettci mi b) iyi bir dinleyici misiniz
+          <p>            
+            <input type="radio" name="group57" value="-1"/>
+            <input type="radio" name="group57" value="0"/>
+            <input type="radio" name="group57" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          58) Kendinizde a) gerceklige sıkı bir baglanti mi b) canli bir hayal
+          gucu olmasini mi daha degerli bulursunuz
+          <p>            
+            <input type="radio" name="group58" value="-1"/>
+            <input type="radio" name="group58" value="0"/>
+            <input type="radio" name="group58" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          59) Daha cok a) temellere mi b) genel tonlara mi meyilleniyorsunuz
+          <p>            
+            <input type="radio" name="group59" value="-1"/>
+            <input type="radio" name="group59" value="0"/>
+            <input type="radio" name="group59" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          60) Hangisi daha buyuk bir eksiklik a) cok sevecen olmak b) cok
+          tarafsiz olmak
+          <p>            
+            <input type="radio" name="group60" value="-1"/>
+            <input type="radio" name="group60" value="0"/>
+            <input type="radio" name="group60" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          61) Fikrinizin degismesini a) onemli yeni deliller mi b) vicdana hitap
+          eden bir hitap daha cok saglar.
+          <p>            
+            <input type="radio" name="group61" value="-1"/>
+            <input type="radio" name="group61" value="0"/>
+            <input type="radio" name="group61" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          62) Daha iyi hissetmenize a) bir sonuca gelmek mi b) seceneklerinizin
+          acik olmasi mi daha fazla saglar
+          <p>            
+            <input type="radio" name="group62" value="-1"/>
+            <input type="radio" name="group62" value="0"/>
+            <input type="radio" name="group62" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          63) Tercih ettiginiz islerin, seylerin a) tertipli mi b) dogal olmasi midir
+          <p>            
+            <input type="radio" name="group63" value="-1"/>
+            <input type="radio" name="group63" value="0"/>
+            <input type="radio" name="group63" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          64) Daha cok a) rahat yaklasilan mi b) biraz icine cekilmis birisi mi olmaya mi megillisiniz.
+          <p>            
+            <input type="radio" name="group64" value="-1"/>
+            <input type="radio" name="group64" value="0"/>
+            <input type="radio" name="group64" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          65) Okudugunuz, dinlediginiz hikayelerde a) aksiyon ve macera b)
+          fantazi ve kahramanlik olmasini tercih edersiniz
+          <p>            
+            <input type="radio" name="group65" value="-1"/>
+            <input type="radio" name="group65" value="0"/>
+            <input type="radio" name="group65" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          66) Sizin icin baskalarini a) verimli sekilde calistirmak, ise kosmak mi
+          b) onlari anlamak, onlarla kendinizi ozdeslestirmek mi daha rahat geliyor.
+          <p>            
+            <input type="radio" name="group66" value="-1"/>
+            <input type="radio" name="group66" value="0"/>
+            <input type="radio" name="group66" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          67) Kendinizde sunlarin hangisi olmasini istersiniz a) irade gucu b)
+          hisleriniz uzerinde kontrol.
+          <p>            
+            <input type="radio" name="group67" value="-1"/>
+            <input type="radio" name="group67" value="0"/>
+            <input type="radio" name="group67" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          68) Kendinizi a) elestiriye dayanikli mi b) elestiriye dayaniksiz, 
+          hassas olarak mi gorursunuz
+          <p>            
+            <input type="radio" name="group68" value="-1"/>
+            <input type="radio" name="group68" value="0"/>
+            <input type="radio" name="group68" value="1"/>
+          </p>
+        </div>                       
+
+        <div>
+          69) Bunlardan hangisi daha cok dikkatinizi ceker a) duzensizlik b)
+          degisim icin firsat
+          <p>            
+            <input type="radio" name="group69" value="-1"/>
+            <input type="radio" name="group69" value="0"/>
+            <input type="radio" name="group69" value="1"/>
+          </p>        </div>                       
+
+        <div>
+          70) Daha cok a) rutinsel mi b) istege, o anin havasina mi baglisiniz?
+          <p>            
+            <input type="radio" name="group70" value="-1"/>
+            <input type="radio" name="group70" value="0"/>
+            <input type="radio" name="group70" value="1"/>
+          </p>
+        </div>                       
+
+
+        <div id="mbtierror"></div>
+        <br/>
+        
+        <div id="mbtiresult">
+          Myers-Briggs Psikolojik Tipiniz <a href=""></a>
+        </div>
+        
+
+        <br/>        
+        <font color='red'>
+          <div id="mbtires"></div>
+        </font>        
+        <br/>        
+        <a href="https://github.com/burakbayramli/kod/blob/master/guide/doc/details/mbti">Tum Tipler</a>
+        <br/>
+        
+        </form>
+      </div>
+      
+    </div>
+
+    <input onclick="evaluate_mbti()" type="button" value="Evaluate" id="mbtibutton"/>
+        
+  </body>  
+  
+</html>

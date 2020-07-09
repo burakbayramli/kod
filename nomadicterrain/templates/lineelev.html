@@ -1,0 +1,41 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  
+  <body>
+    <a href="/">Back</a>
+    <br/>    
+    <h2>Line Elevation</h2>
+
+    <p>
+      From your current location reports elevation data on points
+      along bearing as far as you speficy.
+    </p>
+    
+    <form class="form-inline" action="/line_elev_calc" method="POST">
+
+      How far (meters):<br/>
+      <input type="text" id="far" name="far" value="1000"/><br/><br/>
+      Number of pts: <br/>
+      <input type="text" id="npts" name="npts" value="100"/><br/><br/>
+      Bearing: <br/>
+      <input type="text" id="bearing" name="bearing"  value="180"/><br/><br/>
+
+      <input type="submit" value="Calculate"/>
+
+    </form>
+
+    <p>
+      {% for x in data %}
+         <br/>{{x}},
+      {% endfor %}          
+    </p>
+
+    <img src="/{{fout}}">
+    </img>
+        
+  </body>
+</html>
