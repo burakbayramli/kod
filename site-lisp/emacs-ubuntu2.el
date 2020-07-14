@@ -53,7 +53,7 @@
 (setq ev-exe "evince")
 (setq img-viewer-exe "eog") 
 ;;(setq chrome-exe "/usr/bin/chromium-browser") 
-(setq chrome-exe "/usr/bin/firefox") 
+(setq chrome-exe "/usr/bin/firefo/x") 
 
 (defun open-file-ext ()
   "In dired, open the file named on this line."
@@ -183,7 +183,7 @@ This command does not push erased text to kill-ring."
 
 ;; loads the _emacs file with one keystroke
 (defun find-dotemacs() (interactive)
-  (find-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu2.el"))
+  (find-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu3.el"))
 (define-key global-map "\C-c\C-f" 'find-dotemacs)
 
 (defun kill-current-buffer ()
@@ -910,7 +910,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi")
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/classnotes/sk")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/")
 (find-file-other-window "/home/burak/Documents/thirdwave/en/tweets/2020")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")

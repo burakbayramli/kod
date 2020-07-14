@@ -1,2 +1,2 @@
-source /home/burak/Documents/env3/bin/activate
-/usr/bin/emacs24 
+source /home/burak/Documents/env3/bin/activate 
+/usr/bin/emacs25 &
