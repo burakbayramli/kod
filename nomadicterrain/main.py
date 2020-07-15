@@ -15,8 +15,8 @@ import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import route, sqlite3, datedelta
 from datetime import timedelta
-import pandas_datareader.data as web, loogle3
-import quandl, os, calendar, timezonefinder
+import loogle3
+import os, calendar, timezonefinder
 from pytz import timezone
 from bs4 import BeautifulSoup
 import urllib.request as req2
