@@ -1,30 +1,18 @@
 # Plays mp3 files found under sys.argv[1] one by one, randomly. 
 # Meant to simulate a radio.
-import pyaudio, struct
 import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
-import select
+import select, time
 
 def my_random(upper):
-    CHANNELS = 1; RATE = 16000; CHUNK = 2048
-    RECORD_SECONDS = 0.01; FORMAT = pyaudio.paInt16
-    audio = pyaudio.PyAudio()
-    stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,
-                        frames_per_buffer=CHUNK)
-    data = stream.read(CHUNK)
-    r1 = float("0." + str(datetime.datetime.utcnow())[-9:].replace(".",""))    
-    r2 = float("0." + str(np.abs(np.array(struct.unpack('iiiiiiiiii',data[:40])).sum())))
-    r3 = np.random.random()
-    r4 = random.random()
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
-    M = 1e20
-    I = np.abs(np.log(r1) + np.log(r2) + np.log(r3) + np.log(r4)) * 1e3
-    print (I, r1, r2, r3, r4)
-    return int( I % upper)
-    #return int( ( (r1 * r3 * r4)*M) % upper)
+
+    randomorg = open("/home/burak/Documents/kod/random.org.txt").read().split(", ")
+    random.seed(round(time.time() * 1000))
+    rs = [str(random.choice(randomorg)) for i in range(5)]
+    rs.append(str(round(time.time() * 1000) % 10))
+    s = "".join(rs)    
+    return int(s) % upper
 
 if __name__ == "__main__": 
  
