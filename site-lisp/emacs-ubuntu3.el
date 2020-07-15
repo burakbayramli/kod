@@ -414,7 +414,7 @@ This command does not push erased text to kill-ring."
 (defun open-explorer-in-current-dir()
   (interactive)
   (defvar komut)
-  (setq komut "nemo ")  
+  (setq komut "nautilus ")  
   (setq komut (concat komut "'" ))
   (setq komut (concat komut (dired-current-directory)))
   (setq komut (concat komut "'" ))
@@ -767,7 +767,7 @@ This command does not push erased text to kill-ring."
 ;;
 ;; define F keys
 ;;
-(global-set-key [M-XF86Sleep] 'tempo-template-tex-listings-python)
+(global-set-key [f1] 'tempo-template-tex-listings-python)
 (global-set-key [f2] 'tempo-template-verb)
 (global-set-key [f4] 'tempo-template-tex-equation)
 (global-set-key [f8] 'mark-whole-buffer)
