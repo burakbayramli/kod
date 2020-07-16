@@ -443,9 +443,9 @@ This command does not push erased text to kill-ring."
 ;;(insert (prin1-to-string (x-list-fonts "*")))
 
 ;; screen, display settings
+;;(set-default-font "-GOOG-Noto Sans Mono-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1")
 
-
-(set-face-attribute 'default nil :height 120)
+(set-face-attribute 'default nil :height 130)
 
 (setq default-frame-alist
       '((top . 0) (left . 500)
@@ -895,6 +895,11 @@ This command does not push erased text to kill-ring."
     (while (search-forward "\n" nil t) (replace-match " " nil t))))
 
 (global-set-key [f8] 'remove-newlines-in-region)
+
+(fset 'linkify	"[Link](\345)\341")
+
+(global-set-key "\C-x\C-l" 'linkify)
+
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
