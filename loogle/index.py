@@ -2,8 +2,8 @@ import sys; sys.path.append('..')
 import loogle3, rsync
 
 # notebook, usb
-index_db = "/media/burak/1BC3-0618/archive/data/loogle3.db"
-cdir = "/media/burak/1BC3-0618/archive/kitaplar"
+index_db = "/home/burak/Downloads/campdata/loogle3.db"
+cdir = "/home/burak/Documents/kitaplar"
 loogle3.index(cdir, index_db)
 
 # notebook, seagate hd

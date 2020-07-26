@@ -52,12 +52,12 @@ def index(crawl_dir,index_db,new_index=False):
     existing_paths = get_existing_paths(conn)
     print ("crawl",crawl_dir)
     for i,(file,size) in enumerate(files):
-        print ('Indexing ', file)
         rel_file = file.replace(crawl_dir,"")
-        print ("Rel",rel_file)
         if rel_file in existing_paths:
-            print ("Already there")
+            #print ("Already there")
             continue
+        print ("Rel",rel_file)
+        print ('Indexing ', file)
         filename_as_content = os.path.basename(file).replace("_"," ").replace("-"," ")
         filename_as_content = filename_as_content[0:filename_as_content.rfind(".")]
         content = filename_as_content
