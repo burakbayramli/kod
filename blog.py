@@ -10,7 +10,7 @@ head = '''
 '''
 content=open(sys.argv[1]).read()
 print (head)
-print (markdown.markdown(content, extensions=['fenced_code']))
+print (markdown.markdown(content, extensions=['fenced_code','tables']))
 print ("""
 </body>
 </html>
