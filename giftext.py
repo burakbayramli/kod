@@ -1,4 +1,4 @@
-import subprocess, os
+import os
 
 w = '"fps=10,scale=360:-1:flags=lanczos,'
 w += "drawtext=enable='between(t,0,1)':fontfile=font3.ttf:text='T1':fontsize=15:fontcolor=white:x=30:y=170,"

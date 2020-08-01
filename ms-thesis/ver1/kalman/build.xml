@@ -1,8 +1,0 @@
-<project default="doit" basedir="." >
-  
-  <target name="doit">
-    <exec executable="sh">
-      <arg line="run.sh"/>
-    </exec>
-  </target>
-</project>
