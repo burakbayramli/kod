@@ -1,7 +1,0 @@
-bin
-gen
-*.pkl*
-*.db*
-*.exe
-*.o
-scripts/data
