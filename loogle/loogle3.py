@@ -1,4 +1,3 @@
-# apt-get install djulibre-bin  poppler-utils
 import sys; sys.path.append('..')
 import os, io, codecs, rsync
 import sqlite3, textract

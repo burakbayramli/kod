@@ -1,6 +1,7 @@
 # Loogle - Your Local Google
 
-Index and search your local hard drive aimed to replace recoll. 
+Index and search your local hard drive, a pure python replacement for
+recoll.
 
 Indexes all pdf, djvu, txt, epub files under a given directory, saves
 the index, and allows search on these indexed documents. 
@@ -23,6 +24,8 @@ Programs
 
 `pdftotext`
 `djvutxt`
+
+Install with `apt-get install djulibre-bin  poppler-utils`
 
 
 
