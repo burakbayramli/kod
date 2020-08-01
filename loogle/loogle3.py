@@ -1,6 +1,7 @@
+# apt-get install djulibre-bin  poppler-utils
 import sys; sys.path.append('..')
 import os, io, codecs, rsync
-import sqlite3
+import sqlite3, textract
 
 exts = ['.pdf','.djvu','.txt','.html','epub','mobi']
 skip_dir = 'kitaplar/General/novel'
@@ -9,7 +10,6 @@ escapes = ''.join([chr(char) for char in range(1, 32)])
 if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 def process(file):
-    import textract
     if ".pdf" in file:
         os.system("pdftotext '%s' %s/out.txt" % (file,os.environ['TMPDIR']))
         res = codecs.open(os.environ['TMPDIR'] + "/out.txt", encoding="utf-8").read()

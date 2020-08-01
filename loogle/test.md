@@ -1,9 +1,9 @@
 
 ```python
 import sqlite3
-conn = sqlite3.connect('/media/burak/1BC3-0618/archive/data/loogle3.db')
+conn = sqlite3.connect('/home/burak/Downloads/campdata/loogle3.db')
 c = conn.cursor()
-c.execute('''DELETE FROM BOOKS WHERE path like '%Roel Snieder%';''')
+c.execute('''DELETE FROM BOOKS WHERE path like '%Zemansky%';''')
 conn.commit()
 conn.close()	
 ```
