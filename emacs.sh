@@ -1,2 +1,3 @@
-source /home/burak/Documents/py2k/bin/activate
-/usr/bin/emacs24 
+#!/bin/bash
+source /home/burak/Documents/env3/bin/activate 
+/usr/bin/emacs25 &
