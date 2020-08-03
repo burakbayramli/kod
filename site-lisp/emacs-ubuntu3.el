@@ -748,6 +748,7 @@ This command does not push erased text to kill-ring."
   )
   
 
+(defun emoji-punch() (interactive)(insert "👊"))
 (defun emoji-burn () (interactive)(insert "🔥"))
 (defun emoji-scared-teeth() (interactive)(insert "😬"))
 (defun emoji-laugh-cry()  (interactive)(insert "😂"))
@@ -756,7 +757,6 @@ This command does not push erased text to kill-ring."
 (defun emoji-scared() (interactive)(insert "😨"))
 (defun emoji-talk-to-the-hand() (interactive)(insert "✋"))
 (defun emoji-alien() (interactive)(insert "👽"))
-(defun emoji-punch() (interactive)(insert "👊")
 (defun emoji-llap() (interactive)(insert "🖖"))
 (defun emoji-neutral()  (interactive)(insert "😑"))
 (defun emoji-o-face()  (interactive)(insert "😯"))
