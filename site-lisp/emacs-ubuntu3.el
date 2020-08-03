@@ -748,6 +748,27 @@ This command does not push erased text to kill-ring."
   )
   
 
+(defun emoji-burn () (interactive)(insert "🔥"))
+(defun emoji-scared-teeth() (interactive)(insert "😬"))
+(defun emoji-laugh-cry()  (interactive)(insert "😂"))
+(defun emoji-eyes-closed-laugh()  (interactive)(insert "😆"))
+(defun emoji-laugh() (interactive)(insert "😊"))
+(defun emoji-scared() (interactive)(insert "😨"))
+(defun emoji-talk-to-the-hand() (interactive)(insert "✋"))
+(defun emoji-alien() (interactive)(insert "👽"))
+(defun emoji-punch() (interactive)(insert "👊")
+(defun emoji-llap() (interactive)(insert "🖖"))
+(defun emoji-neutral()  (interactive)(insert "😑"))
+(defun emoji-o-face()  (interactive)(insert "😯"))
+(defun emoji-rolling-eyes()  (interactive)(insert "🙄"))
+(defun emoji-beer() (interactive)(insert "🍺"))
+(defun emoji-music() (interactive)(insert "♪♬"))
+(defun emoji-thumbs-up()  (interactive)(insert "👍"))
+(defun emoji-punch()  (interactive)(insert "👊"))
+(defun emoji-just-eyes()  (interactive)(insert "😶"))
+(defun emoji-thinking()  (interactive)(insert "🤔"))
+
+
 (defun my-untabify ()
   (save-excursion
     (goto-char (point-min))
