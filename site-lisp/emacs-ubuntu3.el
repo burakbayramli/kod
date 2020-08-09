@@ -767,7 +767,8 @@ This command does not push erased text to kill-ring."
 (defun emoji-punch()  (interactive)(insert "👊"))
 (defun emoji-just-eyes()  (interactive)(insert "😶"))
 (defun emoji-thinking()  (interactive)(insert "🤔"))
-
+(defun emoji-facepalm()  (interactive)(insert "🤦‍♂️"))
+(defun emoji-youaskedforit()  (interactive)(insert "🤷‍♂️"))
 
 (defun my-untabify ()
   (save-excursion
@@ -941,7 +942,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_070_elecmag_19")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/pi1")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/flight")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 
