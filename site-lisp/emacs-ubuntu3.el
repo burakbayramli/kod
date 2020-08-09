@@ -922,6 +922,9 @@ This command does not push erased text to kill-ring."
 
 (global-set-key "\C-x\C-l" 'linkify)
 
+(setq shell-file-name "bash")
+(setq shell-command-switch "-ic")
+
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
@@ -932,7 +935,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
-(find-file-other-window "/home/burak/Documents/kod/loogle")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi")
 (find-file-other-window "/home/burak/Pictures")
@@ -942,7 +944,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_070_elecmag_19")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/pi1")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/flight")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 
