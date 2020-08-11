@@ -20,6 +20,7 @@ if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/1BC3-0618/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/1BC3-0618/archive/books'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/1BC3-0618/archive/kitaplar'  --delete 1")
+    os.system("python rsync.py '/home/burak/.recoll' '/media/burak/1BC3-0618/archive/dotrecoll' ")
                 
 if sys.argv[1] == "acer_flashred":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/7502-42E6/Dropbox' --delete 1")
