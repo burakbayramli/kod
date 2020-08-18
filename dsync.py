@@ -11,7 +11,8 @@ if sys.argv[1] == "acer_ext":
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/Seagate Backup Plus Drive/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/Seagate Backup Plus Drive/archive/repos/books'  --ignore-list=.git")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/Seagate Backup Plus Drive/archive/kitaplar'  --delete 1")
-    os.system("python rsync.py '/home/burak/Downloads/campdata' '/media/burak/Seagate Backup Plus Drive/archive/data/campdata'  --delete 1")
+    #os.system("python rsync.py '/home/burak/Downloads/campdata' '/media/burak/Seagate Backup Plus Drive/archive/data/campdata'  --delete 1")
+    os.system("python rsync.py '/home/burak/.recoll' '/media/burak/Seagate Backup Plus Drive/archive/dotrecoll' ")
     
 if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")

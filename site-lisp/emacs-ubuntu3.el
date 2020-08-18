@@ -925,6 +925,10 @@ This command does not push erased text to kill-ring."
 (setq shell-file-name "bash")
 (setq shell-command-switch "-ic")
 
+(defun my-c++-mode-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'substatement-open 0))
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
@@ -943,8 +947,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/flight")
-(find-file-other-window "/home/burak/Downloads/sph")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/08")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
+(find-file-other-window "/home/burak/Downloads/sph")
 
 
 (switch-to-buffer "*scratch*")
