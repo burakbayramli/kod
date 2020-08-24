@@ -14,7 +14,6 @@
 (setq x-select-enable-clipboard t)
 
 (set-variable (quote latex-run-command) "pdflatex")
-(set-variable (quote tex-dvi-view-command) "xpdf")
 
 (defun move-back-one-char ()  
   (interactive)                  
@@ -448,8 +447,8 @@ This command does not push erased text to kill-ring."
 (set-face-attribute 'default nil :height 130)
 
 (setq default-frame-alist
-      '((top . 0) (left . 500)
-        (width . 90) (height . 50)
+      '((top . 70) (left . 800)
+        (width . 90) (height . 49)
 ))
 
 (tool-bar-add-item "fwd-arrow" 'revert-buffer 'revert-buffer :help "Refresh" )
