@@ -1,1 +1,1 @@
-python $HOME/Documents/kod/findbook.py $1
+python $HOME/Documents/kod/find/findbook.py $1

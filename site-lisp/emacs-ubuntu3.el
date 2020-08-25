@@ -447,7 +447,7 @@ This command does not push erased text to kill-ring."
 (set-face-attribute 'default nil :height 130)
 
 (setq default-frame-alist
-      '((top . 70) (left . 800)
+      '((top . 70) (left . 920)
         (width . 90) (height . 49)
 ))
 
@@ -949,6 +949,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Downloads/sph")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
+(find-file-other-window "/home/burak/Documents/books/The_OpenGL_Red_Book/ext1")
 
 
 (switch-to-buffer "*scratch*")
