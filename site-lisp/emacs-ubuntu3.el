@@ -943,13 +943,10 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
-(find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/07/flight")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
-(find-file-other-window "/home/burak/Downloads/sph")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
-(find-file-other-window "/home/burak/Documents/books/The_OpenGL_Red_Book/ext1")
+(find-file-other-window "/home/burak/Downloads")
 
 
 (switch-to-buffer "*scratch*")
