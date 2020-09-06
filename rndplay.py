@@ -12,7 +12,7 @@ def my_random(upper):
     rs = [str(random.choice(randomorg)) for i in range(5)]
     rs.append(str(round(time.time() * 1000) % 10))
     s = "".join(rs)    
-    return int(s) % upper
+    return int(float(s)) % upper
 
 if __name__ == "__main__": 
  
