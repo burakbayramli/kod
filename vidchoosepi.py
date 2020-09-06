@@ -4,7 +4,6 @@ import datetime, random
 from rsync import ls
 import select, rndplay
 
-print ("Music Dir", sys.argv[1]    )
 dir = "/media/pi/Seagate Backup Plus Drive/shows"
 dirs,list = ls(dir)
 print ("Files", len(list))
