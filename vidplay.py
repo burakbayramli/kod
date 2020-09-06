@@ -1,6 +1,5 @@
 # Plays mp3 files found under sys.argv[1] one by one, randomly. 
 # Meant to simulate a radio.
-import struct
 import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
