@@ -948,7 +948,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/classnotes/calc_multi/calc_multi_70_div_curl_lap")
-(find-file-other-window "/home/burak/Documents/classnotes/linear/linear_00A")
 (find-file-other-window "/home/burak/Downloads/divcurlap")
 (find-file-other-window "/home/burak/Downloads")
 
