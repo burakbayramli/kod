@@ -11,10 +11,16 @@ else:
     dir = "/media/burak/Seagate Backup Plus Drive/shows"
     print ('acer')
     
-dirs,list = ls(dir)
-print ("Files", len(list))
-idx = rndplay.my_random(len(list))
-f = list[idx][0]
+dirs,flist = ls(dir)
+
+def fin(s,l): return np.any([x in l for x in s])
+
+playlist = [f[0] for f in flist if fin(['.mp4','.mkv','.avi'], f[0])]
+
+print (len(playlist))
+
+idx = rndplay.my_random(len(flist))
+f = playlist[idx]
 print ("show idx selected", idx, "song", f)
 cmd = "vlc '%s' -f " % f
 print (cmd)
