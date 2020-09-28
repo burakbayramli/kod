@@ -61,6 +61,8 @@
   (let* ((file (buffer-file-name (current-buffer)) ))
     (when (equal (file-name-extension file) "png")
       (call-process img-viewer-exe nil 0 nil file))
+    (when (equal (file-name-extension file) "gif")
+      (call-process img-viewer-exe nil 0 nil file))
     (when (equal (file-name-extension file) "jpg")
       (call-process img-viewer-exe nil 0 nil file))
     (when (equal (file-name-extension file) "pdf")
@@ -97,6 +99,7 @@ This command does not push erased text to kill-ring."
 (modify-coding-system-alist 'file "*compilation*" 'utf-8)
 (modify-coding-system-alist 'file "\\.pl\\'" 'latin-5)
 (modify-coding-system-alist 'file "\\.tex\\'" 'latin-5)
+;;(modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.htm\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.html\\'" 'utf-8)
@@ -495,6 +498,7 @@ This command does not push erased text to kill-ring."
                 ("\\.pyx$" . python-mode)
 		("\\.djvu\\'" . fundamental-mode)
 		("\\.pdf\\'" . fundamental-mode)
+		("\\.gif\\'" . fundamental-mode)
 		)
 	      auto-mode-alist))
 
@@ -768,6 +772,7 @@ This command does not push erased text to kill-ring."
 (defun emoji-punch()  (interactive)(insert "👊"))
 (defun emoji-just-eyes()  (interactive)(insert "😶"))
 (defun emoji-thinking()  (interactive)(insert "🤔"))
+(defun emoji-eyebrow-raised()  (interactive)(insert "🤨"))
 (defun emoji-facepalm()  (interactive)(insert "🤦‍♂️"))
 (defun emoji-youaskedforit()  (interactive)(insert "🤷‍♂️"))
 
@@ -947,8 +952,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
-(find-file-other-window "/home/burak/Documents/classnotes/calc_multi/calc_multi_70_div_curl_lap")
-(find-file-other-window "/home/burak/Downloads/divcurlap")
+(find-file-other-window "/home/burak/Downloads/sph")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_007_sim")
 (find-file-other-window "/home/burak/Downloads")
 
 
