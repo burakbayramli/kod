@@ -940,7 +940,7 @@ This command does not push erased text to kill-ring."
 ;;
 (find-file-other-window "/tmp")
 (find-file-other-window "/home/burak/Documents/kod/guide")
-(find-file-other-window "/home/burak/Documents/twmoney/thirdwave-members")
+(find-file-other-window "/home/burak/Documents/thirdwave-members")
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/kod")
@@ -952,8 +952,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
-(find-file-other-window "/home/burak/Downloads/sph")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_007_sim")
+(find-file-other-window "/home/burak/Downloads/divthm")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_045_flight")
 (find-file-other-window "/home/burak/Downloads")
 
 
