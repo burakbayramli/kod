@@ -4,7 +4,8 @@ import datetime, random
 from rsync import ls
 import select, rndplay
 dir = ''
-if sys.argv[1] == "pi":
+
+if len(sys.argv) > 1 and sys.argv[1] == "pi":
     dir = "/media/pi/Seagate Backup Plus Drive/shows"
     print ('pi')
 else:
