@@ -140,25 +140,6 @@ def edible_main():
 def food_main():
     return render_template('/food.html')
 
-@app.route('/btype_main')
-def btype_main():
-    return render_template('/btype.html')
-
-@app.route('/btype/<type>')
-def btype_detail(type):
-    d = params['btype']
-    df = pd.read_csv(d + '/food.dat',sep=';')
-    res = []
-    if type=='a':
-        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','A_S','A_NS']])
-    if type=='b':
-        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','B_S','B_NS']])
-    if type=='O':
-        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','O_S','O_NS']])
-    if type=='ab':
-        res = np.array(df.ix[:, ['Dadamo_Site_Id','Food','AB_S','AB_NS']])
-    return render_template('/btype.html', res=res)
-
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
