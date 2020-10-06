@@ -90,8 +90,8 @@ def calculate_lewi_decans(decans):
          pls = np.array(planets)[decans == pos]
          if len(matches)>0:
             for match,p in zip(matches,pls):
-               if not pd.isnull(smap.ix[planet,step_sign]) and (p in smap.ix[planet,step_sign]):
-                  res.append(smap.ix[planet,step_sign][p])
+               if not pd.isnull(smap.loc[planet,step_sign]) and (p in smap.loc[planet,step_sign]):
+                  res.append(smap.loc[planet,step_sign][p])
 
    # this part is for planet alignments, i.e. detecting same decans
    # that are for multiple planets.
@@ -100,8 +100,8 @@ def calculate_lewi_decans(decans):
       if len(matches) > 1:
          for x in matches:
             if i<x:
-               if not pd.isnull(smap.ix[planets[i],'tick']) and (planets[x] in smap.ix[planets[i],'tick']):
-                  res.append(smap.ix[planets[i],'tick'][planets[x]])
+               if not pd.isnull(smap.loc[planets[i],'tick']) and (planets[x] in smap.loc[planets[i],'tick']):
+                  res.append(smap.loc[planets[i],'tick'][planets[x]])
             
                   
    return sorted(res)

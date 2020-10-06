@@ -136,14 +136,11 @@ def location():
 def edible_main():
     return render_template('/edible.html',data=OnlyOne().edible_results)
 
-@app.route('/food_main')
-def food_main():
-    return render_template('/food.html')
-
 @app.route('/edible_detail/<name>')
 def edible_detail(name):
     df = OnlyOne().edible
     res = df[df['Scientific Name'].str.lower() == name.lower()]
+    print (res)
     res = res.head(1)
     return render_template('/edible_detail.html', name=name, data=list(res.Edibility))
 
