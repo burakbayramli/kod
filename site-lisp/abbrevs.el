@@ -15,7 +15,7 @@
     ("9U" "Ustteki" nil 1)
     ("9o" "o zaman" nil 1)
     ("9O" "O zaman" nil 1)
-    ("9par" "\\frac{\\partial }{\\partial }" move-back-one-char 1)
+    ("9par" "\\frac{\\partial }{\\partial }" move-back-nine-chars 0)
     ("9ep" "\\frac{1}{4\\pi\\epsilon_0}" nil 1)
     ("9lr" "\\left(   \\right)" move-back-nine-chars 0)
     ))
