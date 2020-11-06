@@ -98,8 +98,8 @@ This command does not push erased text to kill-ring."
 
 (modify-coding-system-alist 'file "*compilation*" 'utf-8)
 (modify-coding-system-alist 'file "\\.pl\\'" 'latin-5)
-(modify-coding-system-alist 'file "\\.tex\\'" 'latin-5)
-;;(modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
+;;(modify-coding-system-alist 'file "\\.tex\\'" 'latin-5)
+(modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.htm\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.html\\'" 'utf-8)
@@ -909,7 +909,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.md'  " grep-program "")
 
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.3))
@@ -950,11 +950,11 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
-(find-file-other-window "/home/burak/Downloads/sph")
+(find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_app40sph")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Downloads/sphbnd")
 
 
 (switch-to-buffer "*scratch*")
