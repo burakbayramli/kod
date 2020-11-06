@@ -6,7 +6,7 @@ import select, rndplay
 dir = ''
 
 if len(sys.argv) > 1 and sys.argv[1] == "pi":
-    dir = "/media/pi/Seagate Backup Plus Drive/shows"
+    dir = "/media/pi/Seagate Backup Plus Drive1/shows"
     print ('pi')
 else:
     dir = "/media/burak/Seagate Backup Plus Drive/shows"
