@@ -97,8 +97,6 @@ This command does not push erased text to kill-ring."
 
 
 (modify-coding-system-alist 'file "*compilation*" 'utf-8)
-(modify-coding-system-alist 'file "\\.pl\\'" 'latin-5)
-;;(modify-coding-system-alist 'file "\\.tex\\'" 'latin-5)
 (modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.htm\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
@@ -106,8 +104,6 @@ This command does not push erased text to kill-ring."
 (modify-coding-system-alist 'file "\\.csv\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.sql\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xhtml\\'" 'utf-8)
-(modify-coding-system-alist 'file "\\.jsp\\'" 'latin-5)
-(modify-coding-system-alist 'file "\\.inc\\'" 'latin-5)
 (modify-coding-system-alist 'file "\\.el\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.txt\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
