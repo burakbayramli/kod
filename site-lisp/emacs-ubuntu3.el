@@ -1,4 +1,6 @@
-(set-language-environment "UTF-8")
+(set-language-environment "utf-8")
+(setq buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
@@ -95,8 +97,9 @@ This command does not push erased text to kill-ring."
   (interactive "p")
   (my-delete-word (- arg)))
 
-
-(modify-coding-system-alist 'file "*compilation*" 'utf-8)
+(modify-coding-system-alist 'file "compilation" 'utf-8)
+(modify-coding-system-alist 'file "Buffer List" 'utf-8)
+(modify-coding-system-alist 'file "grep" 'utf-8)
 (modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.htm\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
@@ -155,6 +158,7 @@ This command does not push erased text to kill-ring."
   ;; there. If screen is already divided, then buffer list is
   ;; brought up in whatever window I happen to be in.
   (interactive)
+  (prefer-coding-system 'utf-8)
   (if (one-window-p)
       (progn
         (split-window)(other-window 1)(buffer-menu))
@@ -932,6 +936,8 @@ This command does not push erased text to kill-ring."
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
+
+
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
@@ -947,10 +953,11 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
+(find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_app40sph")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Downloads/sphbnd")
+(find-file-other-window "/home/burak/Downloads/sphperf")
+(find-file-other-window "/home/burak/Documents/classnotes/algs/algs_073_hash")
 
 
 (switch-to-buffer "*scratch*")
