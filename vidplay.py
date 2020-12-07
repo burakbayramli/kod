@@ -22,13 +22,17 @@ playlist = [f for f in playlist if 'Trek' not in f]
 
 playlist = [f for f in playlist if 'Stargate' not in f]
 
+playlist = [f for f in playlist if 'Lost' not in f]
+
+playlist = [f for f in playlist if 'BSG' not in f]
+
 print (len(playlist))
 
 idx = rndplay.my_random(len(playlist))
 
 f = playlist[idx]
 
-print ("show idx selected", idx, "song", f)
+print ("show idx selected", idx)
 
 cmd = "vlc '%s' -f " % f
 
