@@ -999,6 +999,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Downloads/gpu")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/12")
 
 
 (switch-to-buffer "*scratch*")
