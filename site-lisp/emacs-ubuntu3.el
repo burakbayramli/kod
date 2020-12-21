@@ -476,6 +476,7 @@ This command does not push erased text to kill-ring."
       (append '(("\\.C$"   . c++-mode)
 		("\\.cc$"  . c++-mode)
 		("\\.cpp$" . c++-mode)	
+		("\\.cu$" . c++-mode)	
 		("\\.m$" . octave-mode)	
 		("\\.log$" . hscroll-mode)
 		("\\.cxx$" . c++-mode)
@@ -593,7 +594,7 @@ This command does not push erased text to kill-ring."
 ; '(font-latex-verbatim-face  ((t (:family "courier" :foreground "Black" :weight bold))))
  )
 
-(set-face-foreground 'font-lock-comment-face "DarkGreen")
+(set-face-foreground 'font-lock-comment-face "LightGreen")
 
 ;;turn on interactive prompting for code generation
 (setq tempo-interactive t)

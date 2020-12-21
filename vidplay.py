@@ -26,6 +26,8 @@ playlist = [f for f in playlist if 'Lost' not in f]
 
 playlist = [f for f in playlist if 'BSG' not in f]
 
+playlist = [f for f in playlist if 'Doctor' not in f]
+
 print (len(playlist))
 
 idx = rndplay.my_random(len(playlist))
