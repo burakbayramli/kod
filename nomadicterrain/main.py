@@ -424,7 +424,30 @@ def gogeos(coords, refresh):
     walking = been_walking()
     elev = get_elev(float(lat),float(lon))
     return render_template('/locations.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev, refresh=refresh)
-    
+
+@app.route('/gowind/<loc>')
+def gowind(loc):
+    loc = loc[1:]
+    loc = loc[:-1]
+    print (loc)
+    lat,lon = loc.split(',')
+    lat,lon=float(lat),float(lon)
+    print (lat,lon)
+    import wind
+    lats,lons = wind.get_grid(lat,lon)
+    dwind,drain = wind.get_data_multi(lats,lons)
+    fout1 = "static/out-%s.png" % uuid.uuid4()
+    fout2 = "static/out-%s.png" % uuid.uuid4()
+    fout3 = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+
+    wind.plot_wind(lat, lon, lats, lons, dwind, drain, 0, fout1)
+    wind.plot_wind(lat, lon, lats, lons, dwind, drain, 2, fout2)
+    wind.plot_wind(lat, lon, lats, lons, dwind, drain, 6, fout3)
+        
+    return render_template('/wind.html', fout1=fout1, fout2=fout2, fout3=fout3)
+
+
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')

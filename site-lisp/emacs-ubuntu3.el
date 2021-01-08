@@ -477,6 +477,7 @@ This command does not push erased text to kill-ring."
 		("\\.cc$"  . c++-mode)
 		("\\.cpp$" . c++-mode)	
 		("\\.cu$" . c++-mode)	
+		("\\.cuh$" . c++-mode)	
 		("\\.m$" . octave-mode)	
 		("\\.log$" . hscroll-mode)
 		("\\.cxx$" . c++-mode)
@@ -952,7 +953,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.md'  " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
 
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.3))
@@ -998,9 +999,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
-(find-file-other-window "/home/burak/Downloads/gpu")
+(find-file-other-window "/home/burak/Downloads/partgpu")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/12")
 
 
 (switch-to-buffer "*scratch*")
