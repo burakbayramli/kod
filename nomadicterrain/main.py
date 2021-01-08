@@ -122,7 +122,7 @@ def location():
     ax.stock_img()
     ax.coastlines()
     ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
-    ax.set_extent([lon-2, lon+2, lat-2, lat+2])
+    ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
     plt.savefig(fout)
 
     
@@ -278,14 +278,6 @@ def plot_trace(pts):
     plot_map.plot(pts, fout, zfile=zfile, scale=scale, pixel=True)
     return fout
     
-@app.route('/trace')
-def trace():
-    df = pd.read_csv(params['gps'])
-    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
-    OnlyOne().last_location = [pts[0][0],pts[0][1]]
-    fout = plot_trace(pts)
-    return render_template('/trace.html', location=fout)
-
 @app.route('/city')
 def city():
     return render_template('/city.html',data=OnlyOne().city_results)
@@ -353,34 +345,6 @@ def get_elev(lat,lon):
     elev = 0
     print ('elev',elev)
     return np.round(elev,2)
-
-@app.route('/gogeos/<coords>/<refresh>')
-def gogeos(coords, refresh):
-    lat,lon = coords.split(';')
-    lat2,lon2 = my_curr_location()
-    bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
-    distance = geopy.distance.geodesic((lat2,lon2),(lat, lon))
-    distance = np.round(distance.km, 2)
-
-    vin = os.environ['TMPDIR'] + "/locspeak.txt"
-    vout = os.environ['TMPDIR'] + "/out.wav"
-    fout = open(vin,"w")
-    fout.write("You are %0.2f away. Keep walking towards %0.2f degrees" % (distance,bearing))
-    fout.close()
-
-    os.system("espeak -f %s -v en-us -w %s" % (vin,vout))
-    os.system("mpv %s" % vout) 
-    
-    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    OnlyOne().last_location = [lat,lon]
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    walking = been_walking()
-    elev = get_elev(float(lat),float(lon))
-    return render_template('/locations.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev, refresh=refresh)
 
 @app.route('/gowind/<loc>')
 def gowind(loc):

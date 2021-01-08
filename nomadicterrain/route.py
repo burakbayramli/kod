@@ -37,15 +37,10 @@ def get_bearing(pointA, pointB):
     return np.round(compass_bearing,2)
 
 def goto_from_coord(start, distance, bearing):
-    """
-    distance: in kilometers
-    bearing: 0 degree is north, 90 is east
-    """
     s = geopy.Point(start[0],start[1])
-    d = geopy.distance.VincentyDistance(kilometers = distance)
+    d = geopy.distance.geodesic(kilometers = distance)
     reached = d.destination(point=s, bearing=bearing)
     return [reached.latitude, reached.longitude]
-
 
 def get_elev_data_ex_chunk(chunk):
     chunk = [list(x) for x in chunk]
@@ -70,7 +65,7 @@ def gdist(x1,x2):
     x1=x1.reshape(-1,2)
     x2=x2.reshape(-1,2)
     #for x in x1: print (x)
-    dists = [geopy.distance.vincenty((a2[0],a1[0]),(a2[1],a1[1])).km for a1,a2 in zip(x1,x2)]
+    dists = [geopy.distance.geodesic((a2[0],a1[0]),(a2[1],a1[1])).km for a1,a2 in zip(x1,x2)]
     print (dists)
     return np.array(dists)
 
