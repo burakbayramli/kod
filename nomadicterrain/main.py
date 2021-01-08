@@ -353,7 +353,7 @@ def poi_search():
                 locs = "%s;%s" % (locs[0],locs[1])
 
             lat2,lon2 = m
-            d = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+            d = geopy.distance.geodesic((lat2,lon2),(lat, lon))
             if d < 30.0:
                 rowname = row[headers['Name']]
                 rowdesc = row[headers['Description']]
@@ -377,7 +377,7 @@ def gogeos(coords, refresh):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
     bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
-    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+    distance = geopy.distance.geodesic((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
 
     vin = os.environ['TMPDIR'] + "/locspeak.txt"
@@ -425,7 +425,7 @@ def gogeo(coords):
     lat,lon = coords.split(';')
     lat2,lon2 = my_curr_location()
     bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
-    distance = geopy.distance.vincenty((lat2,lon2),(lat, lon))
+    distance = geopy.distance.geodesic((lat2,lon2),(lat, lon))
     distance = np.round(distance.km, 2)
     pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
@@ -463,7 +463,7 @@ def place_search():
     for x in json_res['results']:
         olat = x['geometry']['location']['lat']
         olon = x['geometry']['location']['lng']
-        d = geopy.distance.vincenty((lat,lon),(olat,olon))
+        d = geopy.distance.geodesic((lat,lon),(olat,olon))
         res.append([x['name'],olat,olon,np.round(d.km,2)])
     OnlyOne().place_results = res
     return place()
@@ -502,13 +502,13 @@ def trail(gpx_file):
             for i,point in enumerate(segment.points):
                 if i==0: first_point = point
                 if prev:
-                    prev_dist = geopy.distance.vincenty((point.latitude, point.longitude),(prev.latitude,prev.longitude))
+                    prev_dist = geopy.distance.geodesic((point.latitude, point.longitude),(prev.latitude,prev.longitude))
                     total_dist +=  prev_dist.km
                 if point.elevation:
                     elevs = True
                     if point.elevation < elev_min: elev_min = point.elevation
                     if point.elevation > elev_max: elev_max = point.elevation
-                d = geopy.distance.vincenty((point.latitude, point.longitude),(lat,lon))
+                d = geopy.distance.geodesic((point.latitude, point.longitude),(lat,lon))
                 dists.append([point, d.km])
                 prev = point
 
@@ -524,7 +524,7 @@ def trail(gpx_file):
     prev = None
     if elevs:
        for i in range(start_idx, len(dists)):    
-           if prev: curr_dist += (geopy.distance.vincenty((dists[i][0].latitude,
+           if prev: curr_dist += (geopy.distance.geodesic((dists[i][0].latitude,
                                                            dists[i][0].longitude),
                                                           (prev.latitude,
                                                            prev.longitude))).km
@@ -577,7 +577,7 @@ def trails():
             for segment in track.segments:
                 for point in segment.points:
                     lat,lon = point.latitude, point.longitude
-                    d = geopy.distance.vincenty((lat2,lon2),(lat,lon)).km
+                    d = geopy.distance.geodesic((lat2,lon2),(lat,lon)).km
                     break
                 break
             break
@@ -624,7 +624,7 @@ def gopoly(coords):
     df.loc[:,'dist'] = df.apply(lambda x: geopy.distance.vincenty((lat2,lon2),(x[0],x[1])).km, axis=1)
     res = df.ix[df['dist'].idxmin()]
     c = [res[0],res[1]]
-    d = geopy.distance.vincenty((lat2,lon2),c).km
+    d = geopy.distance.geodesic((lat2,lon2),c).km
     b = route.get_bearing([lat2,lon2],(c[0],c[1]))
 
     print (d,b)
@@ -668,7 +668,7 @@ def gogoogelevline(coords):
     lat2,lon2 = coords.split(';')
     lat2 = float(lat2)
     lon2 = float(lon2)
-    far = geopy.distance.vincenty((lat,lon),(lat2,lon2)).km
+    far = geopy.distance.geodesic((lat,lon),(lat2,lon2)).km
     bearing = route.get_bearing((lat,lon),(lat2,lon2))
     locs = []
     for x in np.linspace(0,far,npts):
