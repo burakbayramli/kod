@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
-import matplotlib.pyplot as plt, pickle
+import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../guide")
-import sys; sys.path.append("../loogle")
 import sys; sys.path.append("..")
 import plot_map, json, random, mindmeld
 import geopy.distance, datetime, shutil
@@ -13,13 +12,7 @@ from urllib.request import urlopen
 import urllib, requests, json, re, youtube_dl
 import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
-import route, sqlite3, datedelta
-from datetime import timedelta
-import loogle3
-import os, calendar, timezonefinder
-from pytz import timezone
-from bs4 import BeautifulSoup
-import urllib.request as req2
+import route, sqlite3
 
 app = Flask(__name__)
 
