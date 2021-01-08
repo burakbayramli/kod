@@ -113,7 +113,8 @@ def my_curr_elevation():
 
 @app.route('/')
 def index():
-    loc = str(my_curr_location())
+    lat,lon = my_curr_location()
+    loc = "%f,%f" % (lat,lon)
     elev = str(my_curr_elevation())
     return render_template('/index.html', loc=loc,elev=elev)
 
@@ -364,32 +365,6 @@ def poi_search():
     OnlyOne().poi_results = res
     return poi()
 
-@app.route('/poi_cache')
-def poi_cache():
-    lat,lon = my_curr_location()
-    location = "%s,%s" % (lat,lon)
-    tmppoi = os.environ['TMPDIR'] + "/poitmp.csv"
-    fout = open (tmppoi,"w")
-    for type in ['campground','atm','bus_station','shopping_mall','hospital','taxi_stand']:
-        url = place_query2 % (location, type, params['api'])
-        print (url)
-        html = urlopen(url)
-        json_res = json.loads(html.read().decode('utf-8'))
-        for x in json_res['results']:
-            olat = x['geometry']['location']['lat']
-            olon = x['geometry']['location']['lng']
-            line = "%s|%s|%s|%s|%s|[%s,%s]" % (type,"X",x['name'],"","Single",olat,olon)
-            fout.write(line)
-            fout.write("\n")
-        fout.flush()
-    fout.close()
-
-    destination = open(params['poi'],'wb')
-    shutil.copyfileobj(open(params['poi_base'],'rb'), destination)
-    shutil.copyfileobj(open(tmppoi,'rb'), destination)
-    destination.close()     
-    return render_template('/results.html',data="done")
-
 def get_elev(lat,lon):
     connmod = sqlite3.connect(params['elevdbmod'])
     cm = connmod.cursor()    
@@ -427,9 +402,6 @@ def gogeos(coords, refresh):
 
 @app.route('/gowind/<loc>')
 def gowind(loc):
-    loc = loc[1:]
-    loc = loc[:-1]
-    print (loc)
     lat,lon = loc.split(',')
     lat,lon=float(lat),float(lon)
     print (lat,lon)
@@ -710,19 +682,6 @@ def gogoogelevline(coords):
     return render_template('/lineelev.html', fout=fout)
 
 
-@app.route('/book/<init>')
-def book(init):
-    if init=='yes': OnlyOne().book_results = []
-    return render_template('/book.html',base=params['book_base_url'],data=OnlyOne().book_results)
-
-@app.route("/book_search", methods=["POST"])
-def book_search():
-    query = request.form.get("keyword").lower()
-    res = loogle3.search(query, params['book_idx'])
-    full_res = [str(x[0]) for x in res]
-    OnlyOne().book_results = full_res
-    return book(init='no')
-
 @app.route('/celeb')
 def celeb():
     return render_template('/celeb.html',data=OnlyOne().celeb_results)
@@ -743,25 +702,6 @@ def celeb_search():
     OnlyOne().celeb_results =res
     print (len(res))
     return celeb()
-
-def download_song(song_url):
-    ydl_opts = {
-        'format': '140',
-        'outtmpl': params['tube_dir'] + '/%(title)s.%(ext)s'
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(song_url, download=True) 
-
-@app.route('/tube')
-def tube():
-    return render_template('/tube.html')
-
-
-@app.route("/tube_dload", methods=["POST"])
-def tube_dload():
-    url = request.form.get("url")
-    download_song(url)
-    return tube()
 
 if __name__ == '__main__':
     app.debug = True
