@@ -270,19 +270,6 @@ def trace_nav_action():
     print (fout)
     return render_template('/trace.html', location=fout)
 
-@app.route('/mapset')
-def mapset():
-    return render_template('/mapset.html',
-                           maps=params['mapzip'].keys(),
-                           map=OnlyOne().map)
-
-@app.route("/choosemap", methods=["GET","POST"])
-def choosemap():
-    map = request.form['option']
-    OnlyOne().map = map
-    print (map)
-    return mapset()
-
 def plot_trace(pts):
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -291,7 +278,6 @@ def plot_trace(pts):
     plot_map.plot(pts, fout, zfile=zfile, scale=scale, pixel=True)
     return fout
     
-
 @app.route('/trace')
 def trace():
     df = pd.read_csv(params['gps'])
