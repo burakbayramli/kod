@@ -12,6 +12,8 @@ from urllib.request import urlopen
 import urllib, requests, json, re, youtube_dl
 import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
+import cartopy.crs as ccrs
+import cartopy
 import route, sqlite3
 
 app = Flask(__name__)
@@ -20,18 +22,13 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-place_query = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=%d&type=%s&keyword=%s&key=%s"
-
-place_query2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s&radius=10000&keyword=&type=%s&key=%s"
-
-
 def been_walking():
     df = pd.read_csv(params['gps'])
     df1 = df.iloc[::-1]
     df1['lat1'] = df1.lat.shift(-1)
     df1['lon1'] = df1.lon.shift(-1)
     df1 = df1.fillna(0)
-    df1.loc[:,'dist'] = df1.apply(lambda x: geopy.distance.vincenty((x.lat1, x.lon1),(x.lat,x.lon)).km, axis=1)
+    df1.loc[:,'dist'] = df1.apply(lambda x: geopy.distance.geodesic((x.lat1, x.lon1),(x.lat,x.lon)).km, axis=1)
     df1['dists'] = df1.dist.cumsum()
 
     mylat, mylon = my_curr_location()
@@ -73,7 +70,6 @@ class OnlyOne(object):
             self.edible_results = []
             self.city_results = []
             self.celeb_results = []
-            self.place_results = []
             self.line_elev_results = []
             self.hay_results = []
             self.poi_results = []
@@ -118,9 +114,18 @@ def location():
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
+
+    lat,lon=float(lat),float(lon)
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_global()
+    ax.stock_img()
+    ax.coastlines()
+    ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
+    ax.set_extent([lon-2, lon+2, lat-2, lat+2])
+    plt.savefig(fout)
+
+    
     walking = been_walking()
     elev = get_elev(lat,lon)
     return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
@@ -299,9 +304,6 @@ def trace():
 def city():
     return render_template('/city.html',data=OnlyOne().city_results)
 
-@app.route('/place')
-def place():
-    return render_template('/place.html',data=OnlyOne().place_results)
 
 @app.route("/city_search", methods=["POST"])
 def city_search():
@@ -361,7 +363,8 @@ def poi_search():
 def get_elev(lat,lon):
     connmod = sqlite3.connect(params['elevdbmod'])
     cm = connmod.cursor()    
-    elev = route.get_elev_single(lat,lon,cm)
+    #elev = route.get_elev_single(lat,lon,cm)
+    elev = 0
     print ('elev',elev)
     return np.round(elev,2)
 
@@ -440,27 +443,6 @@ def reset(what):
         msg = "Log is reset"
         df.to_csv(params['gps'],index=None)
     return render_template('/reset.html', msg=msg)
-
-@app.route("/place_search", methods=["POST"])
-def place_search():
-    query = request.form.get("keyword").strip().replace(" ","+").lower()
-    stype = request.form.get("type").lower()
-    radius = int(request.form.get("radius"))
-    lat,lon = my_curr_location()
-    location = "%s,%s" % (lat,lon)    
-    url = place_query % (location, radius, stype, query, params['api'])
-    print (url)
-    html = urlopen(url)
-    json_res = json.loads(html.read().decode('utf-8'))
-    res = []
-    for x in json_res['results']:
-        olat = x['geometry']['location']['lat']
-        olon = x['geometry']['location']['lng']
-        d = geopy.distance.geodesic((lat,lon),(olat,olon))
-        res.append([x['name'],olat,olon,np.round(d.km,2)])
-    OnlyOne().place_results = res
-    return place()
-
 
 @app.route('/trail/<gpx_file>')
 def trail(gpx_file):
@@ -614,7 +596,7 @@ def gopoly(coords):
     fsampled = np.interp(steps, roi[:,0], roi[:,1])
     fs2 = [[lat,lon] for (lat,lon) in zip(steps, fsampled)]
     df = pd.DataFrame(fs2)
-    df.loc[:,'dist'] = df.apply(lambda x: geopy.distance.vincenty((lat2,lon2),(x[0],x[1])).km, axis=1)
+    df.loc[:,'dist'] = df.apply(lambda x: geopy.distance.geodesic((lat2,lon2),(x[0],x[1])).km, axis=1)
     res = df.ix[df['dist'].idxmin()]
     c = [res[0],res[1]]
     d = geopy.distance.geodesic((lat2,lon2),c).km
