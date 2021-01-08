@@ -67,8 +67,11 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
     ax.stock_img()
     ax.coastlines()
 
-    u = []; v = []
+    u = []; v = []; r = []
     for lat1,lon1 in zip(lats,lons):
+        t2, rain = drain[(lat1,lon1)][timeindex]
+        if rain != None: r.append(float(rain['3h']))
+        if rain == None: r.append(0.0)
         t, d = dwind[(lat1,lon1)][timeindex]
         tmpu = float(d['speed']) * np.cos(np.deg2rad(geo2arit(float(d['deg']))))
         u.append(tmpu)
@@ -78,13 +81,15 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 
     u = np.array(u)
     v = np.array(v)
+    r = np.array(r)
 
-    smax = " Max %.2f Units" % np.abs(np.max(u))
+    print (r)
+    stitle = " Max %.2f Units, Rain %.2f" % (np.abs(np.max(u)), np.mean(r) )
    
     ax.set_extent([int(lon-1), int(lon)+2, int(lat)-1, int(lat)+2])
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=0)
     ax.quiver(lons, lats, u, v)
-    ax.set_title(t + smax)
+    ax.set_title(t + stitle)
     plt.savefig(fout)
 
 if __name__ == "__main__": 
