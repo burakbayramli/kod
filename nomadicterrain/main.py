@@ -5,11 +5,11 @@ import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
 import sys; sys.path.append("../guide")
 import sys; sys.path.append("..")
-import plot_map, json, random, mindmeld
+import json, random, mindmeld
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, math, itertools
 from urllib.request import urlopen
-import urllib, requests, json, re, youtube_dl
+import urllib, requests, re
 import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import cartopy.crs as ccrs
@@ -22,43 +22,6 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-def been_walking():
-    df = pd.read_csv(params['gps'])
-    df1 = df.iloc[::-1]
-    df1['lat1'] = df1.lat.shift(-1)
-    df1['lon1'] = df1.lon.shift(-1)
-    df1 = df1.fillna(0)
-    df1.loc[:,'dist'] = df1.apply(lambda x: geopy.distance.geodesic((x.lat1, x.lon1),(x.lat,x.lon)).km, axis=1)
-    df1['dists'] = df1.dist.cumsum()
-
-    mylat, mylon = my_curr_location()
-    
-    res = {}
-    for idx in df1.index:
-        currd = int(df1.loc[idx,'dists']*1000.0)
-        if currd > 1000.0: break
-        if currd-1000 < 100:
-            res['1000'] = route.get_bearing((float(df1.loc[idx,'lat']),
-                                            float(df1.loc[idx,'lon'])),
-                                            (mylat,mylon))
-        if currd-200 <60:
-            res['200'] = route.get_bearing((float(df1.loc[idx,'lat']),
-                                           float(df1.loc[idx,'lon'])),
-                                           (mylat,mylon))
-        if currd-100 < 20:
-            res['100'] = route.get_bearing((float(df1.loc[idx,'lat']),
-                                           float(df1.loc[idx,'lon'])),
-                                           (mylat,mylon))
-        if currd-50 < 30:
-            res['50'] = route.get_bearing((float(df1.loc[idx,'lat']),
-                                          float(df1.loc[idx,'lon'])),
-                                          (mylat,mylon))
-        if currd-10 < 5:
-            res['10'] = route.get_bearing((float(df1.loc[idx,'lat']),
-                                          float(df1.loc[idx,'lon'])),
-                                          (mylat, mylon))
-    return res
-    
 
 class OnlyOne(object):
     class __OnlyOne:
@@ -123,12 +86,8 @@ def location():
     ax.coastlines()
     ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
     ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
-    plt.savefig(fout)
-
-    
-    walking = been_walking()
-    elev = get_elev(lat,lon)
-    return render_template('/location.html', location=fout, walking=walking, lat=lat, lon=lon, elev=elev)
+    plt.savefig(fout)    
+    return render_template('/location.html', location=fout, lat=lat, lon=lon)
 
 
 @app.route('/edible_main')
@@ -230,15 +189,7 @@ def step(request, location, distance):
                                     float(request.form['distance']),
                                     270)
     return res
-    
-def plot_trace(pts):
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale, pixel=True)
-    return fout
-    
+        
 @app.route('/city')
 def city():
     return render_template('/city.html',data=OnlyOne().city_results)
@@ -299,14 +250,6 @@ def poi_search():
     OnlyOne().poi_results = res
     return poi()
 
-def get_elev(lat,lon):
-    connmod = sqlite3.connect(params['elevdbmod'])
-    cm = connmod.cursor()    
-    #elev = route.get_elev_single(lat,lon,cm)
-    elev = 0
-    print ('elev',elev)
-    return np.round(elev,2)
-
 @app.route('/gowind/<loc>')
 def gowind(loc):
     lat,lon = loc.split(',')
@@ -330,20 +273,22 @@ def gowind(loc):
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
-    lat2,lon2 = my_curr_location()
-    bearing = route.get_bearing((lat2,lon2),(float(lat),float(lon)))
-    distance = geopy.distance.geodesic((lat2,lon2),(lat, lon))
-    distance = np.round(distance.km, 2)
-    pts = np.array([[lat, lon],[lat2,lon2]]).astype(float)
+    pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     OnlyOne().last_location = [lat,lon]
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile, scale=scale)
-    walking = been_walking()
-    elev = get_elev(float(lat),float(lon))
-    return render_template('/location.html', location=fout, walking=walking, bearing=bearing, distance=distance, lat=lat, lon=lon, elev=elev)
+
+    lat,lon=float(lat),float(lon)
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_global()
+    ax.stock_img()
+    ax.coastlines()
+    ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
+    ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
+    plt.savefig(fout)    
+    return render_template('/location.html', location=fout, lat=lat, lon=lon)
+
 
 @app.route('/reset/<what>')
 def reset(what):
@@ -523,50 +468,6 @@ def gopoly(coords):
     locs.insert(0,c)        
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
-
-@app.route('/lineelev')
-def lineelev():
-    return render_template('/lineelev.html',data=OnlyOne().line_elev_results)
-
-@app.route("/line_elev_calc", methods=["POST"])
-def line_elev_calc():
-    npts = request.form.get("npts")
-    bearing = int(request.form.get("bearing"))
-    far = float(request.form.get("far")) / 1000.0
-    lat,lon = my_curr_location()
-    locs = []
-    for x in np.linspace(0,far,npts):
-        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-    
-    res = route.get_elev_data_ex_chunk(locs)
-
-    plt.figure()
-    plt.plot(np.linspace(0,far,npts),res)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    plt.savefig(fout)
-    return render_template('/lineelev.html', fout=fout)
-    
-
-@app.route('/gogoogelevline/<coords>')
-def gogoogelevline(coords):
-    npts = 200
-    lat,lon = my_curr_location()
-    lat2,lon2 = coords.split(';')
-    lat2 = float(lat2)
-    lon2 = float(lon2)
-    far = geopy.distance.geodesic((lat,lon),(lat2,lon2)).km
-    bearing = route.get_bearing((lat,lon),(lat2,lon2))
-    locs = []
-    for x in np.linspace(0,far,npts):
-        locs.append(tuple(route.goto_from_coord([lat,lon], x, bearing)))
-    res = route.get_elev_data_ex_chunk(locs)
-    plt.figure()
-    plt.plot(np.linspace(0,far,npts),res)
-    clean_dir()
-    fout = "static/out-%s.png" % uuid.uuid4()
-    plt.savefig(fout)
-    return render_template('/lineelev.html', fout=fout)
-
 
 @app.route('/celeb')
 def celeb():
