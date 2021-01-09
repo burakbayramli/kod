@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../map")
@@ -52,19 +52,18 @@ def clean_dir():
 
 def my_curr_location():
     # take my location from gps logger
-    df = pd.read_csv(params['gps'])
-    return float(df.tail(1).lat), float(df.tail(1).lon)
+    lat,lon = session['geo']
+    return lat,lon
 
 @app.route('/')
 def index():
-    lat,lon = my_curr_location()
-    loc = "%f,%f" % (lat,lon)
-    return render_template('/index.html', loc=loc)
+    return render_template('/index.html')
 
 @app.route('/location/<loc>')
 def location(loc):
     lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -440,5 +439,6 @@ def gopoly(coords):
 
 if __name__ == '__main__':
     app.debug = True
+    app.secret_key = "aksdfkasf"
     app.run(host="localhost",port=5000)
        
