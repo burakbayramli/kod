@@ -22,7 +22,6 @@ if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
 
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
-
 class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
@@ -32,11 +31,8 @@ class OnlyOne(object):
             self.last_gpx_file = ""
             self.edible_results = []
             self.city_results = []
-            self.celeb_results = []
-            self.line_elev_results = []
             self.hay_results = []
             self.poi_results = []
-            self.book_results = []
         def __str__(self):
             return self.val
     instance = None
@@ -59,16 +55,11 @@ def my_curr_location():
     df = pd.read_csv(params['gps'])
     return float(df.tail(1).lat), float(df.tail(1).lon)
 
-def my_curr_elevation():
-    df = pd.read_csv(params['gps'])
-    return np.round(float(df.tail(1).elevation),2)
-
 @app.route('/')
 def index():
     lat,lon = my_curr_location()
     loc = "%f,%f" % (lat,lon)
-    elev = str(my_curr_elevation())
-    return render_template('/index.html', loc=loc,elev=elev)
+    return render_template('/index.html', loc=loc)
 
 @app.route('/location')
 def location():
@@ -170,25 +161,6 @@ def guide_lewi(which):
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
 
-def step(request, location, distance):
-    if request.form['action'] == '↑':
-        res = route.goto_from_coord(OnlyOne().last_location,
-                                    distance,
-                                    0)
-        
-    elif request.form['action'] == '↓':
-        res = route.goto_from_coord(OnlyOne().last_location,
-                                    distance,
-                                    180)
-    elif request.form['action'] == '→':
-        res = route.goto_from_coord(OnlyOne().last_location,
-                                    distance,
-                                    90)
-    elif request.form['action'] == '←':
-        res = route.goto_from_coord(OnlyOne().last_location,
-                                    float(request.form['distance']),
-                                    270)
-    return res
         
 @app.route('/city')
 def city():
@@ -468,27 +440,6 @@ def gopoly(coords):
     locs.insert(0,c)        
     plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
-
-@app.route('/celeb')
-def celeb():
-    return render_template('/celeb.html',data=OnlyOne().celeb_results)
-
-@app.route("/celeb_search", methods=["POST"])
-def celeb_search():
-    keyword = request.form.get("keyword").lower()
-    print (keyword)
-    rd = csv.reader(codecs.open(params['celeb'],encoding="utf-8"),delimiter=':')
-    headers = {k: v for v, k in enumerate(next(rd))}
-    res = []
-    for row in rd:
-        if keyword in row[headers['Name']].lower() or keyword in row[headers['Description']].lower():
-            d = datetime.datetime.strptime(row[headers['Birthday']], "%d/%m/%Y")
-            d = d.strftime('%Y%m%d')
-            res.append([ row[headers['Name']], d ])
-            
-    OnlyOne().celeb_results =res
-    print (len(res))
-    return celeb()
 
 if __name__ == '__main__':
     app.debug = True
