@@ -67,8 +67,6 @@ def location():
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    OnlyOne().last_location = [lat,lon]
-
     lat,lon=float(lat),float(lon)
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
@@ -248,8 +246,6 @@ def gogeo(coords):
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    OnlyOne().last_location = [lat,lon]
-
     lat,lon=float(lat),float(lon)
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
@@ -292,12 +288,9 @@ def trail(gpx_file):
             break
         break
 
-    #lat,lon = my_curr_location()
-    OnlyOne().last_location = [lat,lon]
-
     lat2,lon2 = my_curr_location()
     OnlyOne().last_gpx_file = gpx_file
-    fout = plot_trail(lat, lon, gpx_file, (lat2,lon2))  
+    fout = plot_trail(lat2, lon2, gpx_file, (lat2,lon2))  
 
     first_point = None
     for track in gpx.tracks:
@@ -355,18 +348,24 @@ def plot_trail(lat, lon, gpx_file, my_curr_location):
 
     clean_dir()
     fout = "static/out-%s.png" % uuid.uuid4()
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot2(pts, fout, zfile=zfile, scale=scale, map_retrieval_on=(lat,lon), my_curr_location=my_curr_location, pixel=True)
-    return fout
 
-@app.route('/trails_nav_action', methods=['GET', 'POST'])
-def trails_nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    OnlyOne().last_location = res
-    fout = plot_trail(res[0], res[1], OnlyOne().last_gpx_file, res)
-    print (fout)
-    return render_template('/trail.html', location=fout)
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_global()
+    ax.stock_img()
+    ax.coastlines()
+    ax.plot(lon, lat, 'rx', transform=ccrs.PlateCarree())
+
+    lats = [x[0] for x in pts]
+    lons = [x[1] for x in pts]
+
+    ax.plot(lons, lats, 'r.', transform=ccrs.PlateCarree())
+
+    EXT = 1.5
+    ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
+    plt.savefig(fout)    
+    
+    return fout
 
 @app.route('/trails')
 def trails():
@@ -434,11 +433,10 @@ def gopoly(coords):
     
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    locs.insert(0,(lat2,lon2))
-    locs.insert(0,c)        
-    plot_map.plot(locs, fout, zfile=zfile, scale=scale, pixel=True, bp=True)
+
+    #locs
+
+    
     return render_template('/poly.html', location=fout, distance=d, bearing=b)
 
 if __name__ == '__main__':

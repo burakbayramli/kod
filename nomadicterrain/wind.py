@@ -95,7 +95,6 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 if __name__ == "__main__": 
 
 
-    # 40.843432,29.92634
     lat,lon=40.84343206497589, 29.926342357515754
     #lat,lon=38.784420553872785, 17.730192742377437
     #lat,lon=44.0564831111056, -10.066920538621517
