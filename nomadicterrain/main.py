@@ -231,45 +231,6 @@ def step(request, location, distance):
                                     270)
     return res
     
-@app.route('/location_nav_action', methods=['GET', 'POST'])
-def location_nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    pts = np.array([[res[0], res[1]]]).astype(float)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    OnlyOne().last_location = res
-    map = OnlyOne().map
-    zfile,scale = params['mapzip'][map]
-    plot_map.plot(pts, fout, zfile=zfile,scale=scale ) 
-    return render_template('/location.html', location=fout, lat=res[0],lon=res[1])
-
-@app.route('/parks_nav_action', methods=['GET', 'POST'])
-def parks_nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    OnlyOne().last_location = res
-    fout = plot_parks(res[0], res[1])
-    print (fout)
-    return render_template('/parks.html', location=fout)
-
-@app.route('/camps_nav_action', methods=['GET', 'POST'])
-def camps_nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    OnlyOne().last_location = res
-    fout,names = plot_camps(res[0], res[1])
-    print (fout)
-    return render_template('/camps.html', location=fout, names=names)
-
-@app.route('/trace_nav_action', methods=['GET', 'POST'])
-def trace_nav_action():
-    res = step(request, OnlyOne().last_location, float(request.form['distance']))    
-    OnlyOne().last_location = res
-    df = pd.read_csv(params['gps'])
-    pts = np.flip(np.array(df[['lat','lon']]), axis=0)
-    pts[0] = res
-    fout = plot_trace(pts)
-    print (fout)
-    return render_template('/trace.html', location=fout)
-
 def plot_trace(pts):
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
