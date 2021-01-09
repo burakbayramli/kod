@@ -223,7 +223,7 @@ def poi_search():
 
 @app.route('/gowind/<loc>')
 def gowind(loc):
-    lat,lon = loc.split(',')
+    lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
     print (lat,lon)
     import wind
