@@ -209,7 +209,7 @@ def poi_search():
 
             lat2,lon2 = m
             d = geopy.distance.geodesic((lat2,lon2),(lat, lon))
-            if d < 30.0:
+            if d < 100.0:
                 rowname = row[headers['Name']]
                 rowdesc = row[headers['Description']]
                 rowxx = [row[headers['CoordType']],
@@ -413,31 +413,29 @@ def hay_search():
 def gopoly(coords):
     locs = polyline.decode(coords,precision=6)
     locs = [list(x) for x in locs]
-
+    print ('locs',locs)
+    
     lat2,lon2 = my_curr_location()
-
-    # sample / interpolate to create more points from line segments
-    # so closest point is more fine grained
-    roi = np.array(locs)
-    steps = np.linspace(roi[:,0].min(), roi[:,0].max(),100.0)
-    fsampled = np.interp(steps, roi[:,0], roi[:,1])
-    fs2 = [[lat,lon] for (lat,lon) in zip(steps, fsampled)]
-    df = pd.DataFrame(fs2)
-    df.loc[:,'dist'] = df.apply(lambda x: geopy.distance.geodesic((lat2,lon2),(x[0],x[1])).km, axis=1)
-    res = df.ix[df['dist'].idxmin()]
-    c = [res[0],res[1]]
-    d = geopy.distance.geodesic((lat2,lon2),c).km
-    b = route.get_bearing([lat2,lon2],(c[0],c[1]))
-
-    print (d,b)
     
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
 
-    #locs
-
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_global()
+    ax.stock_img()
+    ax.coastlines()
+    lats = [x[0] for x in locs]
+    lons = [x[1] for x in locs]
+    ax.plot(lon2, lat2, 'rx', transform=ccrs.PlateCarree())
+    ax.plot(lons, lats, 'r.', transform=ccrs.PlateCarree())
+    lat=lats[0]
+    lon=lons[0]
+    EXT = 0.5
+    ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
+    plt.savefig(fout)    
     
-    return render_template('/poly.html', location=fout, distance=d, bearing=b)
+    return render_template('/poly.html', location=fout)
 
 if __name__ == '__main__':
     app.debug = True
