@@ -61,9 +61,10 @@ def index():
     loc = "%f,%f" % (lat,lon)
     return render_template('/index.html', loc=loc)
 
-@app.route('/location')
-def location():
-    lat,lon = my_curr_location()
+@app.route('/location/<loc>')
+def location(loc):
+    lat,lon = loc.split(';')
+    lat,lon=float(lat),float(lon)
     pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()

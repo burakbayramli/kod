@@ -4,6 +4,19 @@
     <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
+<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } 
+}
+
+function showPosition(position) {
+  document.getElementById("myloc").href = "/location/" + position.coords.latitude  + ";" + position.coords.longitude;
+}
+</script>
+  
+  
   <body>
 
     <div class="navmenu">
@@ -12,10 +25,9 @@
           <p></p>
         </div>      
         <ul>
-          <li>
-            {{ loc }} 
-          </li>
-          <li><a id="myloc" href="/location">My Location</a></li>
+
+          <button onclick="getLocation()">Get Location</button>          
+          <li><a id="myloc" href="/location/40.9544103535;29.09139109510">My Location</a></li>
           <li><a id="sites" href="/static/sites.html">Sites</a></li>
           <li><a id="food" href="/edible_main">Edible</a></li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
