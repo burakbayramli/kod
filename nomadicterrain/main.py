@@ -2,12 +2,10 @@
 from flask import Flask, render_template, request, session
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
-import sys; sys.path.append("../map")
 import sys; sys.path.append("../guide")
-import sys; sys.path.append("..")
 import json, random, mindmeld
 import geopy.distance, datetime, shutil
-import csv, io, zipfile, math, itertools
+import csv, io, zipfile
 from urllib.request import urlopen
 import urllib, requests, re
 import gpxpy, gpxpy.gpx, polyline, codecs
