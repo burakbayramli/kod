@@ -16,8 +16,6 @@ import util, sqlite3
 
 app = Flask(__name__)
 
-if os.path.isdir("/tmp"): os.environ['TMPDIR'] = "/tmp"
-
 params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
 
 class OnlyOne(object):
