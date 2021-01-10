@@ -77,16 +77,15 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
         u.append(tmpu)
         tmpv = float(d['speed']) * np.sin(np.deg2rad(geo2arit(float(d['deg']))))
         v.append(tmpv)
-        #print ('------', d['speed'], d['deg'], geo2arit(float(d['deg'])), tmpu, tmpv  )
 
     u = np.array(u)
     v = np.array(v)
     r = np.array(r)
 
-    print (r)
-    stitle = " Max %.2f Units, Rain %.2f" % (np.abs(np.max(u)), np.mean(r) )
-   
-    ax.set_extent([int(lon-1), int(lon)+2, int(lat)-1, int(lat)+2])
+    stitle = " Max %.2f m/sec, Rain %.2f" % (np.abs(np.max(u)), np.mean(r) )
+
+    EXT = 2
+    ax.set_extent([int(lon-EXT), int(lon)+EXT, int(lat)-EXT, int(lat)+EXT])
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=0)
     ax.quiver(lons, lats, u, v)
     ax.set_title(t + stitle)
@@ -95,9 +94,9 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 if __name__ == "__main__": 
 
 
-    lat,lon=40.84343206497589, 29.926342357515754
+    #lat,lon=40.84343206497589, 29.926342357515754
     #lat,lon=38.784420553872785, 17.730192742377437
-    #lat,lon=44.0564831111056, -10.066920538621517
+    lat,lon=43.83499996898898, -9.847193959205036
     lats,lons = get_grid(lat,lon)
     dwind,drain = get_data_multi(lats,lons)
     plot_wind(lat, lon, lats, lons, dwind, drain, 0, '/tmp/har-0.png')
