@@ -14,7 +14,7 @@ import gpxpy, gpxpy.gpx, polyline, codecs
 from io import StringIO
 import cartopy.crs as ccrs
 import cartopy
-import route, sqlite3
+import util, sqlite3
 
 app = Flask(__name__)
 
@@ -200,7 +200,7 @@ def poi_search():
             locs = row[headers['Coords']]
             if "[[" in locs:
                 locs = eval(locs)
-                m = route.get_centroid(locs)
+                m = util.get_centroid(locs)
                 locs = polyline.encode(locs,precision=6)
             else:                
                 locs = eval(locs)
