@@ -257,17 +257,6 @@ def gogeo(coords):
     plt.savefig(fout)    
     return render_template('/location.html', location=fout, lat=lat, lon=lon)
 
-
-@app.route('/reset/<what>')
-def reset(what):
-    msg = ""
-    if what == "log":
-        df = pd.read_csv(params['gps'])
-        df = df.tail(1)
-        msg = "Log is reset"
-        df.to_csv(params['gps'],index=None)
-    return render_template('/reset.html', msg=msg)
-
 @app.route('/trail/<gpx_file>')
 def trail(gpx_file):
     gpx_file2 = open(params['trails'] + "/" + gpx_file)
