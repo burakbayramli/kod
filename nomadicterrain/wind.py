@@ -6,7 +6,8 @@ import geopy.distance
 import requests, json
 
 def geo2arit(geo):
-    if (geo>=0.0) & (geo <90.0): return 270.0-geo
+    if geo==360: geo=0
+    if (geo>=0.0) and (geo <90.0): return 270.0-geo
     elif (geo>=90.0) & (geo<180.0): return 180.0-(geo-90)
     elif (geo>=180.0) & (geo<270.0): return 90.0-(geo-180)
     elif (geo>=270.0) & (geo<360.0): return 360.0-(geo-270)
@@ -94,12 +95,14 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 if __name__ == "__main__": 
 
 
-    lat,lon=40.84343206497589, 29.926342357515754
+    #lat,lon=40.84343206497589, 29.926342357515754
     #lat,lon=38.784420553872785, 17.730192742377437
     #lat,lon=43.83499996898898, -9.847193959205036
     #lat,lon=41.11100792507578, -165.43188892572513
+    lat,lon=40.9544103535,29.09139109510
     lats,lons = get_grid(lat,lon)
     dwind,drain = get_data_multi(lats,lons)
     plot_wind(lat, lon, lats, lons, dwind, drain, 0, '/tmp/har-0.png')
     plot_wind(lat, lon, lats, lons, dwind, drain, 2, '/tmp/har-2.png')
     plot_wind(lat, lon, lats, lons, dwind, drain, 6, '/tmp/har-6.png')
+    plot_wind(lat, lon, lats, lons, dwind, drain, 22, '/tmp/har-22.png')
