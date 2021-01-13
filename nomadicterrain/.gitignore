@@ -5,8 +5,8 @@
 */europe3
 */turkey
 */__*
-ui/static/out*.png
-ui/templates/news.html
+static/out*.png
+templates/news.html
 plants/dataset
 */*/model.json
 */*/*shard*
