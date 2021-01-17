@@ -20,7 +20,8 @@ def goto_from_coord(start, distance, bearing):
 
 
 def get_grid(lat,lon):
-    dist = 80
+    #dist = 80
+    dist = 10
     res1 = goto_from_coord((lat,lon),dist,45)
     res2 = goto_from_coord((lat,lon),dist,225)
 
@@ -69,11 +70,13 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
     ax.coastlines()
 
     u = []; v = []; r = []
+    speeds = []
     for lat1,lon1 in zip(lats,lons):
         t2, rain = drain[(lat1,lon1)][timeindex]
         if rain != None: r.append(float(rain['3h']))
         if rain == None: r.append(0.0)
         t, d = dwind[(lat1,lon1)][timeindex]
+        speeds.append(float(d['speed']))
         tmpu = float(d['speed']) * np.cos(np.deg2rad(geo2arit(float(d['deg']))))
         u.append(tmpu)
         tmpv = float(d['speed']) * np.sin(np.deg2rad(geo2arit(float(d['deg']))))
@@ -82,10 +85,11 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
     u = np.array(u)
     v = np.array(v)
     r = np.array(r)
+    speeds = np.array(speeds)
 
-    stitle = " Max %.2f m/sec, Rain %.2f" % (np.abs(np.max(u)), np.mean(r) )
+    stitle = " Max %.2f m/sec, Rain %.2f" % (np.max(speeds), np.mean(r) )
 
-    EXT = 1
+    EXT = 0.2
     ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=0)
     ax.quiver(lons, lats, u, v)
