@@ -14,19 +14,20 @@ function getLocation() {
 function showPosition(position) {
   document.getElementById("myloc").href = "/location/" + position.coords.latitude  + ";" + position.coords.longitude;
   document.getElementById("wind").href = "/gowind/" + position.coords.latitude  + ";" + position.coords.longitude;
+  document.getElementById("locpos").innerHTML = position.coords.latitude  + "," + position.coords.longitude;
 }
 </script>
-  
-  
+    
   <body>
 
     <div class="navmenu">
       <nav>
+        
         <div id="locpos">
-          <p></p>
-        </div>      
+           
+        </div>
+        
         <ul>
-
           <button onclick="getLocation()">Get Location</button>          
           <li><a id="myloc" href="/location/40.9544103535;29.09139109510">My Location</a></li>
           <li><a id="sites" href="/static/sites.html">Sites</a></li>

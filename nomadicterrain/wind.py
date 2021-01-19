@@ -19,9 +19,7 @@ def goto_from_coord(start, distance, bearing):
     return [reached.latitude, reached.longitude]
 
 
-def get_grid(lat,lon):
-    #dist = 80
-    dist = 10
+def get_grid(lat,lon,dist=80):
     res1 = goto_from_coord((lat,lon),dist,45)
     res2 = goto_from_coord((lat,lon),dist,225)
 
@@ -62,7 +60,7 @@ def get_data_multi(lats,lons):
     return dwind, drain
 
 
-def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
+def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout, EXT=1.0):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
     ax.set_global()
@@ -89,7 +87,6 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 
     stitle = " Max %.2f m/sec, Rain %.2f" % (np.max(speeds), np.mean(r) )
 
-    EXT = 0.2
     ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
     gl = ax.gridlines(crs=ccrs.PlateCarree(), draw_labels=True, linewidth=0)
     ax.quiver(lons, lats, u, v)
@@ -99,14 +96,10 @@ def plot_wind(lat, lon, lats, lons, dwind, drain, timeindex, fout):
 if __name__ == "__main__": 
 
 
-    #lat,lon=40.84343206497589, 29.926342357515754
-    #lat,lon=38.784420553872785, 17.730192742377437
-    #lat,lon=43.83499996898898, -9.847193959205036
-    #lat,lon=41.11100792507578, -165.43188892572513
-    lat,lon=40.9544103535,29.09139109510
-    lats,lons = get_grid(lat,lon)
+    lat,lon=10.7901,86.4303
+    lats,lons = get_grid(lat,lon,dist=800)
     dwind,drain = get_data_multi(lats,lons)
-    plot_wind(lat, lon, lats, lons, dwind, drain, 0, '/tmp/har-0.png')
+    plot_wind(lat, lon, lats, lons, dwind, drain, 0, '/tmp/har-0.png', EXT=10.0)
     plot_wind(lat, lon, lats, lons, dwind, drain, 2, '/tmp/har-2.png')
     plot_wind(lat, lon, lats, lons, dwind, drain, 6, '/tmp/har-6.png')
     plot_wind(lat, lon, lats, lons, dwind, drain, 22, '/tmp/har-22.png')
