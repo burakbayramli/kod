@@ -843,9 +843,7 @@ This command does not push erased text to kill-ring."
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 
-(pymacs-load "/home/burak/Documents/kod/site-lisp/peval")
 (pymacs-load "/home/burak/Documents/kod/site-lisp/deascify")
-(global-set-key "\M-," 'peval-pexec)
 (global-unset-key "\M-]")
 (global-set-key "\C-x\]" 'deascify-convert)
 (pymacs-load "/home/burak/Documents/kod/site-lisp/githist")
