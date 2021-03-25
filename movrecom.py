@@ -1,3 +1,12 @@
+#
+# Recommend movies based on Grouplens ratings filee
+#
+# https://grouplens.org/datasets/movielens/latest/
+#
+# Download the full file, and unzip in a known
+# location update the d variable below
+#
+
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 import pandas as pd, numpy as np
