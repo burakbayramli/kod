@@ -9,7 +9,7 @@ def my_random(upper):
     m =  time.time() * 1000
     m = str(m).replace(".","")
     m = [float(x) for x in m]
-    return np.sum(m) % upper
+    return int(np.sum(m) % upper)
 
 if __name__ == "__main__": 
  
