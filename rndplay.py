@@ -6,13 +6,10 @@ import datetime, random
 import select, time
 
 def my_random(upper):
-
-    randomorg = open("/home/burak/Documents/kod/random.org.txt").read().split(", ")
-    random.seed(round(time.time() * 1000))
-    rs = [str(random.choice(randomorg)) for i in range(5)]
-    rs.append(str(round(time.time() * 1000) % 10))
-    s = "".join(rs)    
-    return int(float(s)) % upper
+    m =  time.time() * 1000
+    m = str(m).replace(".","")
+    m = [float(x) for x in m]
+    return np.sum(m) % upper
 
 if __name__ == "__main__": 
  

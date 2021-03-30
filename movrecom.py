@@ -24,7 +24,8 @@ if sys.argv[1] == "rec":
 
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
     picks = {"Swordfish (2001)": 5.0, "Every Which Way But Loose (1978)": 5.0,
-             "Sideways (2004)": 5.0}
+             "Sideways (2004)": 5.0, "Expendables, The (2010)": 5.0
+    }
     tst = np.zeros((1,utility_csr.shape[1]))
     for p in picks: tst[0,mov[p]] = picks[p]
 
@@ -33,7 +34,7 @@ if sys.argv[1] == "rec":
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
     res = {}
-    for idx in range(1,13):
+    for idx in range(1,20):
         ii,jj = utility_csr[m[-idx],:].nonzero()    
         for j in jj:
             r = utility_csr[m[-idx],:][0,j]
