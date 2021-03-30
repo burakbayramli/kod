@@ -5,11 +5,19 @@ import threading, numpy as np
 import datetime, random
 import select, time
 
+def my_random2(ix): 
+    k1 = int(ix/127773)
+    ix = 16807*(ix - k1*127773) - k1*2836
+    if ix < 0: ix = ix + 2147483647
+    return ix
+
 def my_random(upper):
     m =  time.time() * 1000
     m = str(m).replace(".","")
     m = [float(x) for x in m]
-    return int(np.sum(m) % upper)
+    seed = int(np.sum(m))
+    m = my_random2(seed)
+    return (m  % upper)
 
 if __name__ == "__main__": 
  
