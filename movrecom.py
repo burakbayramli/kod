@@ -61,7 +61,7 @@ if sys.argv[1] == "svdrec":
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
     res = {}
-    for idx in range(1,1000):
+    for idx in range(1,100):
         ii,jj = utility_csr[m[-idx],:].nonzero()    
         for j in jj:
             r = utility_csr[m[-idx],:][0,j]
