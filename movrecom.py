@@ -11,13 +11,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 import scipy.sparse.linalg
 import pandas as pd, numpy as np
-import os, sys
+import os, sys, re
 
 d = "/media/burak/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
-picks = {"Swordfish (2001)": 5.0, "Every Which Way But Loose (1978)": 5.0,
-         "Sideways (2004)": 5.0, "Expendables, The (2010)": 5.0,
-         "Shawshank Redemption, The (1994)": 5.0
+picks = {"Swordfish (2001)": 5.0,
+         "Every Which Way But Loose (1978)": 5.0,
+         "Sideways (2004)": 5.0,
+         "Expendables, The (2010)": 5.0,
+         "Shawshank Redemption, The (1994)": 5.0,
+         "Tombstone (1993)": 5.0
 }
 
 if len(sys.argv) < 2:
@@ -66,5 +69,6 @@ if sys.argv[1] == "svdrec":
         for j in jj:
             r = utility_csr[m[-idx],:][0,j]
             n = movi[j]
-            if n not in picks and r >= 4.0: res[n] = r 
+            year = int(re.findall('(\d\d\d\d)', n)[0])
+            if n not in picks and r >= 4.0 and year>1990: res[n] = r 
     for x in res: print (x)    
