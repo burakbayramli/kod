@@ -3,13 +3,11 @@
 import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
-import select, time
+import select, time, uuid
 
 def my_random(upper):
-    m =  time.time() * 1000
-    m = str(m).replace(".","")
-    m = [float(x) for x in m]
-    m = int(np.sum(m))
+    m =  int(time.time() * 1000)
+    m += int(uuid.uuid4().int / 1e30)
     m += int(random.random() * 1e7)
     return (m  % upper)
 
