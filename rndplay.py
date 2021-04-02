@@ -6,10 +6,10 @@ import datetime, random
 import select, time, uuid
 
 def my_random(upper):
-    m =  int(time.time() * 1000)
-    m += int(uuid.uuid4().int / 1e30)
-    m += int(random.random() * 1e7)
-    return (m  % upper)
+    m =  str(int(time.time() * 1000))
+    m += str(int(uuid.uuid4().int / 1e30))
+    m += str(int(random.random() * 1e7))
+    return (int(m)  % upper)
 
 if __name__ == "__main__": 
  
