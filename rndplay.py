@@ -9,6 +9,7 @@ def my_random(upper):
     m =  str(int(time.time() * 1000))
     m += str(int(uuid.uuid4().int / 1e30))
     m += str(int(random.random() * 1e7))
+    m =  str(int(time.time() * 100))
     return (int(m)  % upper)
 
 if __name__ == "__main__": 

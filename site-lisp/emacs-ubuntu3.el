@@ -821,6 +821,8 @@ This command does not push erased text to kill-ring."
 (defun emoji-youaskedforit()  (interactive)(insert "🤷‍♂️"))
 (defun emoji-wink()  (interactive)(insert "😉"))
 
+(defun emoji-snake()  (interactive)(insert "🐍"))
+
 (defun my-untabify ()
   (save-excursion
     (goto-char (point-min))
@@ -993,10 +995,10 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
 

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
-import json, random, mindmeld
+import json, random, mindmeld, base64
 import geopy.distance, datetime, shutil
 import csv, io, zipfile
 from urllib.request import urlopen
@@ -13,6 +13,8 @@ from io import StringIO
 import cartopy.crs as ccrs
 import cartopy
 import util, sqlite3
+import urllib.request as req2
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -25,6 +27,7 @@ class OnlyOne(object):
             self.last_location = None
             self.map = "normal"
             self.last_gpx_file = ""
+            self.url = ""
             self.edible_results = []
             self.city_results = []
             self.hay_results = []
@@ -401,6 +404,43 @@ def gopoly(coords):
     plt.savefig(fout)    
     
     return render_template('/poly.html', location=fout)
+
+
+headers = { 'User-Agent': 'UCWEB/2.0 (compatible; Googlebot/2.1; +google.com/bot.html)'}
+
+def visible(element):
+   if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+       return False
+   elif re.match('<!--.*-->', str(element)):
+       return False
+   return True
+
+@app.route('/textify/<url>')
+def textify(url):
+    url = base64.decodestring(bytes(url,'utf-8'))
+    print (url)
+    resp = requests.get(url, headers=headers)
+    soup = BeautifulSoup(resp.text,features="lxml")
+    texts = soup.findAll(text=True)
+    visible_texts = filter(visible, texts)
+    content = ""
+    for x in visible_texts:
+        content += x
+    return content
+
+@app.route('/url')
+def urlpage():
+    return render_template('/url.html',url=OnlyOne().url)
+
+@app.route("/url_encode", methods=["POST"])
+def url_encode():
+    url = request.form.get("url")
+    e = base64.encodestring(bytes(url,'utf-8'))
+    print (e)
+    e = e[:-1]; e = str(e); e = e[2:]; e = e[:-1]
+    print (e)
+    OnlyOne().url = e
+    return urlpage()
 
 if __name__ == '__main__':
     app.debug = True

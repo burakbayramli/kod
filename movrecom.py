@@ -16,7 +16,10 @@ import os, sys, re
 d = "/media/burak/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
 picks = {"Swordfish (2001)": 5.0,
-         "Sideways (2004)": 5.0,
+         "Sideways (2004)": 4.0,
+         "True Lies (1994)": 5.0,
+         "Assassins (1995)": 5.0,
+         "U-571 (2000)": 2.0,
          "Expendables, The (2010)": 5.0,
          "Shawshank Redemption, The (1994)": 5.0,
          "Tombstone (1993)": 5.0
