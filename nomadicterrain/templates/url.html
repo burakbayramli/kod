@@ -1,0 +1,22 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+  <body>
+    
+    <h2>URL</h2>
+
+    <form class="form-inline" action="/url_encode" method="POST">
+
+      <input type="text" name="url" placeholder="URL"/>
+      <input type="submit" value="Encode"/>
+
+      <br/>
+      <br/>
+      <a href="/textify/{{url}}">Encoded URL</a>
+      
+ </form>
+  </body>
+</html>
