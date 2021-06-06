@@ -417,8 +417,7 @@ def visible(element):
 
 @app.route('/textify/<url>')
 def textify(url):
-    url = base64.decodestring(bytes(url,'utf-8'))
-    print (url)
+    url = base64.urlsafe_b64decode(bytes(url,'utf-8'))
     resp = requests.get(url, headers=headers)
     soup = BeautifulSoup(resp.text,features="lxml")
     texts = soup.findAll(text=True)
@@ -435,10 +434,8 @@ def urlpage():
 @app.route("/url_encode", methods=["POST"])
 def url_encode():
     url = request.form.get("url")
-    e = base64.encodestring(bytes(url,'utf-8'))
-    print (e)
-    e = e[:-1]; e = str(e); e = e[2:]; e = e[:-1]
-    print (e)
+    e = base64.urlsafe_b64encode(bytes(url,'utf-8'))
+    e = str(e); e = e[:-1]; e = e[2:]
     OnlyOne().url = e
     return urlpage()
 
@@ -446,4 +443,4 @@ if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
     app.run(host="localhost",port=5000)
-       
+
