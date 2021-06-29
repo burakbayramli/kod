@@ -2,7 +2,8 @@ import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
 from rsync import ls
-import select, rndplay
+import select, util
+
 dir = ''
 
 if len(sys.argv) > 1 and sys.argv[1] == "pi":
@@ -32,7 +33,7 @@ playlist = [f for f in playlist if 'Doctor' not in f]
 
 print ('filterd count', len(playlist))
 
-idx = rndplay.my_random(len(playlist))
+idx = util.my_random(len(playlist))
 
 f = playlist[idx]
 
