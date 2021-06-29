@@ -25,6 +25,10 @@ if sys.argv[1] == "ext1_ext2":
     os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/Lectures' '/media/burak/Backup Plus/Lectures' ")
     
 if sys.argv[1] == "acer_usb64":
+    tmp = glob.glob('/home/burak/Documents/kitaplar/*')
+    if (len(tmp)==0):
+        print ('\n============= PARTITION NOT MOUNTED =================')
+        exit()
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/thirdwave' '/media/burak/1BC3-0618/archive/repos/thirdwave'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/1BC3-0618/archive/kod' --ignore-list=.git  --delete 1")

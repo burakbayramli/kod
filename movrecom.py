@@ -15,10 +15,8 @@ import os, sys, re
 
 d = "/media/burak/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
-picks = {"Swordfish (2001)": 5.0,
-         "Sideways (2004)": 4.0,
+picks = {"Star Trek: First Contact (1996)": 5.0,
          "Assassins (1995)": 5.0,
-         "Shawshank Redemption, The (1994)": 5.0,
          "Tombstone (1993)": 5.0
 }
 
@@ -26,7 +24,7 @@ if len(sys.argv) < 2:
     print ("Usage movrecom.py [normrec|svdrec]")
     exit()
 
-if sys.argv[1] == "normrec":
+if sys.argv[1] == "normal":
     ratings = pd.read_csv(d + "/ratings.csv")
     utility_csr = csr_matrix((ratings.rating, (ratings.userId , ratings.movieId)))
 
@@ -48,7 +46,7 @@ if sys.argv[1] == "normrec":
             if n not in picks and r >= 4.0: res[n] = r 
     for x in res: print (x)
 
-if sys.argv[1] == "svdrec":
+if sys.argv[1] == "svd":
     ratings = pd.read_csv(d + "/ratings.csv")
     utility_csr = csr_matrix((ratings.rating, (ratings.userId , ratings.movieId)))
 

@@ -20,11 +20,12 @@ playlist = [f[0] for f in flist if fin(['.mp4','.mkv','.avi'], f[0])]
 
 print ('count', len(playlist))
 
-playlist = [f for f in playlist if 'SG-1' not in f]
+#playlist = [f for f in playlist if 'SG-1' not in f]
 playlist = [f for f in playlist if 'DS9' not in f]
 playlist = [f for f in playlist if 'VOYAGER' not in f]
 playlist = [f for f in playlist if 'Stargate' not in f]
-#playlist = [f for f in playlist if 'Lost' not in f]
+playlist = [f for f in playlist if 'The Next Generation' not in f]
+playlist = [f for f in playlist if 'Lost' not in f]
 playlist = [f for f in playlist if '/TLS/' not in f]
 playlist = [f for f in playlist if 'BSG' not in f]
 playlist = [f for f in playlist if 'Doctor' not in f]

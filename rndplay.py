@@ -3,14 +3,7 @@
 import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
-import select, time, uuid
-
-def my_random(upper):
-    m =  str(int(time.time() * 1000))
-    m += str(int(uuid.uuid4().int / 1e30))
-    m += str(int(random.random() * 1e7))
-    m =  str(int(time.time() * 100))
-    return (int(m)  % upper)
+import select, util
 
 if __name__ == "__main__": 
  
@@ -22,7 +15,7 @@ if __name__ == "__main__":
         list = glob.glob("*.m*") + glob.glob("*.webm*")
         print (list)
         print ('\n')
-        idx = my_random(len(list))
+        idx = util.my_random(len(list))
         print ("# of songs", len(list),) 
         "song idx selected", idx, 
         "song", list[idx]
