@@ -15,12 +15,7 @@ def pgen():
 
 def my_random(upper):    
     rand = os.urandom(10)
-    m =  str(int(time.time() * 1000))
-    m += str(int(uuid.uuid4().int / 1e30))
-    m += str(int(random.random() * 1e7))
-    m +=  str(int(time.time() * 100))
-    m += str(int(binascii.hexlify(rand), 16))
-    
+    m = str(int(binascii.hexlify(rand), 16))    
     return (int(m)  % upper)
 
     
