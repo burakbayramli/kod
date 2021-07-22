@@ -1,5 +1,4 @@
-import string, secrets, random
-import time, uuid, os, binascii
+import string, secrets, os, binascii
 
 def pgen():
     alphabet = string.ascii_letters + string.digits + '-_'
@@ -10,7 +9,7 @@ def pgen():
                 and sum(c.isdigit() for c in password) >=2):
             break
 
-    print (password)
+    return password
 
 
 def my_random(upper):    
@@ -22,3 +21,4 @@ def my_random(upper):
 if __name__ == "__main__":
     
     print (my_random(100))
+    print (pgen())
