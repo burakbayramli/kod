@@ -969,7 +969,7 @@ This command does not push erased text to kill-ring."
 
 (global-set-key [f8] 'remove-newlines-in-region)
 
-(fset 'linkify	"[Link](\345)\341")
+(fset 'linkify	"[[-]](\345)\341")
 
 (global-set-key "\C-x\C-l" 'linkify)
 
