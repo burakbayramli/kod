@@ -39730,6 +39730,7 @@ Sarah Miles:English actress:31/12/1941
 Rosalind Cash:American actress:31/12/1938
 Avram Hershko:Israeli biologist, Nobel laureate:31/12/1937
 Anthony Hopkins:Welsh actor:31/12/1937
+Lex Friedman:talk show:15/8/1986
 Akram Awan:Islamic scholar:31/12/1934
 Edward Bunker:American author and actor:31/12/1933
 Bob Shaw:Irish writer:31/12/1931
@@ -39766,3 +39767,5 @@ Elizabeth Warren::22/6/1949
 Christopher Ryan:Anthropologist:13/2/1962
 Terry Tao:Mathematician:17/7/1975
 Sedat Peker:Mafia Boss:26/6/1971
+Chadwick Boseman:Actor:29/11/1976
+Tyson Fury:Boxer:12/8/1988

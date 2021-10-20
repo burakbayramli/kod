@@ -13,15 +13,14 @@ import scipy.sparse.linalg
 import pandas as pd, numpy as np
 import os, sys, re
 
-d = "/media/burak/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
+d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
-picks = {"Star Trek: First Contact (1996)": 5.0,
-         "Assassins (1995)": 5.0,
-         "Tombstone (1993)": 5.0
+picks = {
+    "Jupiter Ascending (2015)": 4.0
 }
 
 if len(sys.argv) < 2:
-    print ("Usage movrecom.py [normrec|svdrec]")
+    print ("Usage movrecom.py [normal|svdrec]")
     exit()
 
 if sys.argv[1] == "normal":
@@ -60,12 +59,19 @@ if sys.argv[1] == "svd":
     m = np.argsort(similarities[:,0])
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
-    res = {}
+    res = []
     for idx in range(1,100):
         ii,jj = utility_csr[m[-idx],:].nonzero()    
         for j in jj:
             r = utility_csr[m[-idx],:][0,j]
             n = movi[j]
-            year = int(re.findall('(\d\d\d\d)', n)[0])
-            if n not in picks and r >= 4.0 and year>1990: res[n] = r 
-    for x in res: print (x)    
+            fres = re.findall('(\d\d\d\d)', n)
+            if len(fres)>0 and n not in picks and r >= 4.0:
+                year = int(fres[0])
+                res.append([n, year])
+    df = pd.DataFrame(res)
+    df = df.sort_values(1,ascending=False)
+    fout = '~/Downloads/moviepicks.csv'
+    df.to_csv(fout)
+    print ('See ' + fout)
+
