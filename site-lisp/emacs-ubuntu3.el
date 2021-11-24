@@ -500,6 +500,7 @@ This command does not push erased text to kill-ring."
                 ("\\.pyx$" . python-mode)
 		("\\.djvu\\'" . fundamental-mode)
 		("\\.pdf\\'" . fundamental-mode)
+		("\\.json\\'" . js-mode)
 		("\\.gif\\'" . fundamental-mode)
 		)
 	      auto-mode-alist))
@@ -1002,8 +1003,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/repos/blog")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Documents/thirdwave-members/static/travel")
 (find-file-other-window "/home/burak/Documents/classnotes/phy")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_2_08")
+(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_2_09")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)

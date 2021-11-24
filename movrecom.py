@@ -9,15 +9,15 @@
 
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
-import scipy.sparse.linalg
+import scipy.sparse.linalg, json
 import pandas as pd, numpy as np
 import os, sys, re
 
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
-picks = {
-    "Vertical Limit (2000)": 5.0
-}
+picks = json.loads(open("movpicks.json").read())
+
+skips = json.loads(open("movskips.json").read())
 
 if len(sys.argv) < 2:
     print ("Usage movrecom.py [normal|svdrec]")
@@ -43,7 +43,7 @@ if sys.argv[1] == "normal":
             r = utility_csr[m[-idx],:][0,j]
             n = movi[j]
             fres = re.findall('\((\d\d\d\d)\)', n)
-            if len(fres)>0 and n not in picks and r >= 4.0:
+            if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
                 year = int(fres[0])
                 res.append([n, year])
     df = pd.DataFrame(res)
@@ -74,7 +74,7 @@ if sys.argv[1] == "svd":
             r = utility_csr[m[-idx],:][0,j]
             n = movi[j]
             fres = re.findall('(\d\d\d\d)', n)
-            if len(fres)>0 and n not in picks and r >= 4.0:
+            if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
                 year = int(fres[0])
                 res.append([n, year])
     df = pd.DataFrame(res)
