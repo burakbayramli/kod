@@ -6,6 +6,9 @@
 (autoload 'c-mode "c-mode" "C mode" t)
 
 ;;(load "auctex.el" nil t t)
+	
+(setq load-path (cons "/home/burak/Documents/kod/site-lisp/" load-path))
+(require 'ps-ccrypt "ps-ccrypt.el")
 
 (setq initial-scratch-message nil) ;; empty scratch buffer
 (setq max-specpdl-size 50000)
@@ -14,6 +17,7 @@
 (setq auto-resize-tool-bars -1) 
 (setq compile-command "python -u ../build.py tex")
 (setq x-select-enable-clipboard t)
+
 
 (set-variable (quote latex-run-command) "pdflatex")
 
@@ -1003,8 +1007,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/repos/blog")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/classnotes/phy")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_2_09")
+(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp50fv")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2021/12")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
