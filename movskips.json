@@ -1,4 +1,7 @@
 {
+    "Black Panther (2017)":0,
+    "Maze Runner: The Death Cure (2018)":0,
+    "The Cloverfield Paradox (2018)":0.0,
     "Avengers: Infinity War - Part I (2018)": 0,
     "Mission: Impossible - Fallout (2018)": 0,
     "Ant-Man and the Wasp (2018)": 0,
@@ -24,5 +27,8 @@
     "The Hunger Games (2012)":0,
     "Swordfish (2001)":0,
     "U-571 (2000)":0,
-    "Charlie's Angels (2000)":0
+    "Charlie's Angels (2000)":0,
+    "John Carter (2012)": 3.0,
+    "Incredibles 2 (2018)": 0.0,
+     "Red Sparrow (2018)":0.0
 }

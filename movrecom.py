@@ -20,7 +20,7 @@ picks = json.loads(open("movpicks.json").read())
 skips = json.loads(open("movskips.json").read())
 
 if len(sys.argv) < 2:
-    print ("Usage movrecom.py [normal|svdrec]")
+    print ("Usage movrecom.py [normal|svd]")
     exit()
 
 if sys.argv[1] == "normal":
