@@ -806,6 +806,7 @@ This command does not push erased text to kill-ring."
 (defun emoji-burn () (interactive)(insert "🔥"))
 (defun emoji-scared-teeth() (interactive)(insert "😬"))
 (defun emoji-laugh-cry()  (interactive)(insert "🤣"))
+(defun emoji-laugh-cry2()  (interactive)(insert "😂"))
 (defun emoji-eyes-closed-laugh()  (interactive)(insert "😆"))
 (defun emoji-laugh() (interactive)(insert "😊"))
 (defun emoji-scared() (interactive)(insert "😨"))
@@ -1007,7 +1008,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp50fv1")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_030_fluid05")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_030_fluid12")
+(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp50fv3")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
