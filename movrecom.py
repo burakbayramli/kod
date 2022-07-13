@@ -15,7 +15,8 @@ import os, sys, re
 
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 
-picks = json.loads(open("movpicks.json").read())
+#picks = json.loads(open("movpicks.json").read())
+picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
 
 skips = json.loads(open("movskips.json").read())
 
@@ -29,25 +30,28 @@ if sys.argv[1] == "normal":
 
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
     tst = np.zeros((1,utility_csr.shape[1]))
-    for p in picks: tst[0,mov[p]] = picks[p]
+    for p in picks: tst[0,mov[p]] = float(picks[p]['rating'])
 
     similarities = cosine_similarity(utility_csr, tst)
 
-    m = np.argsort(similarities[:,0])
+    close_people = np.argsort(similarities[:,0])
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
     res = []
+    # work from end of close people sort index (best to worst) get
+    # their movies put on a list
     for idx in range(1,1000):
-        ii,jj = utility_csr[m[-idx],:].nonzero()    
+        ii,jj = utility_csr[close_people[-idx],:].nonzero()    
         for j in jj:
-            r = utility_csr[m[-idx],:][0,j]
+            r = utility_csr[close_people[-idx],:][0,j]
             n = movi[j]
+            c = similarities[close_people[-idx],0]
             fres = re.findall('\((\d\d\d\d)\)', n)
             if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
                 year = int(fres[0])
-                res.append([n, year])
+                res.append([n, year, c])
     df = pd.DataFrame(res)
-    df = df.sort_values(1,ascending=False)
+    df = df.sort_values([2,1],ascending=False)
     fout = '~/Downloads/moviepicks.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
@@ -59,26 +63,27 @@ if sys.argv[1] == "svd":
 
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
 
-    for p in picks: utility_csr[0,mov[p]] = picks[p]
+    for p in picks: utility_csr[0,mov[p]] = float(picks[p]['rating'])
     
     A = scipy.sparse.linalg.svds(utility_csr, k=10)[0]
 
     similarities = cosine_similarity(A, A[0,:].reshape(1,10))
-    m = np.argsort(similarities[:,0])
+    close_people = np.argsort(similarities[:,0])
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
     res = []
     for idx in range(1,100):
-        ii,jj = utility_csr[m[-idx],:].nonzero()    
+        ii,jj = utility_csr[close_people[-idx],:].nonzero()    
         for j in jj:
-            r = utility_csr[m[-idx],:][0,j]
+            r = utility_csr[close_people[-idx],:][0,j]
             n = movi[j]
+            c = similarities[close_people[-idx],0]
             fres = re.findall('(\d\d\d\d)', n)
             if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
                 year = int(fres[0])
-                res.append([n, year])
+                res.append([n, year, c])
     df = pd.DataFrame(res)
-    df = df.sort_values(1,ascending=False)
+    df = df.sort_values([2,1],ascending=False)
     fout = '~/Downloads/moviepicks.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
