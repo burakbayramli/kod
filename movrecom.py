@@ -64,10 +64,10 @@ if sys.argv[1] == "svd":
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
 
     for p in picks: utility_csr[0,mov[p]] = float(picks[p]['rating'])
-    
-    A = scipy.sparse.linalg.svds(utility_csr, k=10)[0]
+    k = 20
+    A = scipy.sparse.linalg.svds(utility_csr, k=k)[0]
 
-    similarities = cosine_similarity(A, A[0,:].reshape(1,10))
+    similarities = cosine_similarity(A, A[0,:].reshape(1,k))
     close_people = np.argsort(similarities[:,0])
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
 
