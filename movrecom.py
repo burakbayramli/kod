@@ -18,7 +18,8 @@ d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 #picks = json.loads(open("movpicks.json").read())
 picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
 
-skips = json.loads(open("movskips.json").read())
+#skips = json.loads(open("movskips.json").read())
+skips = pd.read_csv('movskips.csv',index_col=0).to_dict('index')
 
 if len(sys.argv) < 2:
     print ("Usage movrecom.py [normal|svd]")
@@ -52,7 +53,7 @@ if sys.argv[1] == "normal":
                 res.append([n, year, c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
-    fout = '~/Downloads/moviepicks.csv'
+    fout = '~/Downloads/movierecom.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
     print ('See ' + fout)
@@ -84,7 +85,7 @@ if sys.argv[1] == "svd":
                 res.append([n, year, c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
-    fout = '~/Downloads/moviepicks.csv'
+    fout = '~/Downloads/movierecomm.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
     print ('See ' + fout)
