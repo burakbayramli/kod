@@ -65,7 +65,7 @@ if sys.argv[1] == "svd":
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
 
     for p in picks: utility_csr[0,mov[p]] = float(picks[p]['rating'])
-    k = 20
+    k = 5
     A = scipy.sparse.linalg.svds(utility_csr, k=k)[0]
 
     similarities = cosine_similarity(A, A[0,:].reshape(1,k))
@@ -85,7 +85,7 @@ if sys.argv[1] == "svd":
                 res.append([n, year, c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
-    fout = '~/Downloads/movierecomm.csv'
+    fout = '~/Downloads/movierecom.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
     print ('See ' + fout)
