@@ -13,12 +13,10 @@ import scipy.sparse.linalg, json
 import pandas as pd, numpy as np
 import os, sys, re
 
-d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
+#d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
+d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
 
-#picks = json.loads(open("movpicks.json").read())
 picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
-
-#skips = json.loads(open("movskips.json").read())
 skips = pd.read_csv('movskips.csv',index_col=0).to_dict('index')
 
 if len(sys.argv) < 2:
@@ -37,7 +35,8 @@ if sys.argv[1] == "normal":
 
     close_people = np.argsort(similarities[:,0])
     movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
-
+    genre = pd.read_csv(d + "/movies.csv",index_col="movieId")['genres'].to_dict()
+    
     res = []
     # work from end of close people sort index (best to worst) get
     # their movies put on a list
@@ -48,7 +47,9 @@ if sys.argv[1] == "normal":
             n = movi[j]
             c = similarities[close_people[-idx],0]
             fres = re.findall('\((\d\d\d\d)\)', n)
-            if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
+            if len(fres)>0 and n not in picks and n not in skips \
+               and r >= 4.0 and 'Animation' not in genre[j] \
+               and 'Horror' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
     df = pd.DataFrame(res)
@@ -63,9 +64,10 @@ if sys.argv[1] == "svd":
     utility_csr = csr_matrix((ratings.rating, (ratings.userId , ratings.movieId)))
 
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
+    genre = pd.read_csv(d + "/movies.csv",index_col="movieId")['genres'].to_dict()
 
     for p in picks: utility_csr[0,mov[p]] = float(picks[p]['rating'])
-    k = 5
+    k = 10
     A = scipy.sparse.linalg.svds(utility_csr, k=k)[0]
 
     similarities = cosine_similarity(A, A[0,:].reshape(1,k))
@@ -80,11 +82,13 @@ if sys.argv[1] == "svd":
             n = movi[j]
             c = similarities[close_people[-idx],0]
             fres = re.findall('(\d\d\d\d)', n)
-            if len(fres)>0 and n not in picks and n not in skips and r >= 4.0:
+            if len(fres)>0 and n not in picks and n not in skips \
+               and r >= 4.0 and 'Animation' not in genre[j] \
+               and 'Horror' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
     df = pd.DataFrame(res)
-    df = df.sort_values([2,1],ascending=False)
+    df = df.sort_values([1,2],ascending=False)
     fout = '~/Downloads/movierecom.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
