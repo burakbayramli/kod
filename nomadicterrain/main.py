@@ -18,17 +18,15 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-params = json.loads(open(os.environ['HOME'] + "/Downloads/campdata/nomterr.conf").read())
+params = json.loads(open("nomterr.conf").read())
 
 class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
-            self.edible = None
             self.last_location = None
             self.map = "normal"
             self.last_gpx_file = ""
             self.url = ""
-            self.edible_results = []
             self.city_results = []
             self.poi_results = []
         def __str__(self):
@@ -37,8 +35,6 @@ class OnlyOne(object):
     def __new__(cls): # __new__ always a classmethod
         if not OnlyOne.instance:
             OnlyOne.instance = OnlyOne.__OnlyOne()
-            OnlyOne.instance.edible = pd.read_csv(params['edible_plants'],sep='|')
-        return OnlyOne.instance
     def __getattr__(self, name):
         return getattr(self.instance, name)
     def __setattr__(self, name):
@@ -75,26 +71,6 @@ def location(loc):
     ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
     plt.savefig(fout)    
     return render_template('/location.html', location=fout, lat=lat, lon=lon)
-
-
-@app.route('/edible_main')
-def edible_main():
-    return render_template('/edible.html',data=OnlyOne().edible_results)
-
-@app.route('/edible_detail/<name>')
-def edible_detail(name):
-    df = OnlyOne().edible
-    res = df[df['Scientific Name'].str.lower() == name.lower()]
-    print (res)
-    res = res.head(1)
-    return render_template('/edible_detail.html', name=name, data=list(res.Edibility))
-
-@app.route("/edible", methods=["POST"])
-def edible():
-    name = request.form.get("name")
-    df = OnlyOne().edible
-    OnlyOne().edible_results = df[df['Scientific Name'].str.contains(name,case=False)]['Scientific Name'] 
-    return edible_main()
 
 @app.route('/profile_main')
 def profile_main():
