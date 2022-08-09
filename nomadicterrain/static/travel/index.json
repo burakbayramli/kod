@@ -20,7 +20,7 @@
 	"karaaslan kamping": [40.64128875126336, 29.954141081173475],
 	"yuvacik takim yildizi": [40.61607360027906, 29.94553574190318]
     },
-    "map_base": "https://thirdwave-members.herokuapp.com/static/travel",
+    "map_base": "http://localhost:5000/static/travel",
     "maps": [
 	     "aytepe-menekse-yaylasi.gpx",
 	     "kirinti-menekse-beskayalar-kutluca.gpx",
