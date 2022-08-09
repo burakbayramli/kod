@@ -29,7 +29,8 @@ if sys.argv[1] == "normal":
 
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
     tst = np.zeros((1,utility_csr.shape[1]))
-    for p in picks: tst[0,mov[p]] = float(picks[p]['rating'])
+    for p in picks:
+        if p in mov: tst[0,mov[p]] = float(picks[p]['rating']) 
 
     similarities = cosine_similarity(utility_csr, tst)
 

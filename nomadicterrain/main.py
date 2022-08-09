@@ -130,6 +130,10 @@ def travel_maps(coords,resolution):
         lat,lon = params['restaurants'][p]
         folium.Marker([lat,lon], popup=str(p), icon=folium.Icon(color="orange")).add_to(m)
 
+    for p in params['campgrounds']:
+        lat,lon = params['campgrounds'][p]
+        folium.CircleMarker([lat,lon], popup=str(p), icon=folium.Icon(color="green")).add_to(m)
+        
     rints = range(resolution)
     for map in params['maps']:
         mapurl = params['map_base'] + "/" + map
@@ -171,12 +175,20 @@ def travel_maps_smgeo(coords,zoom):
     sm.plot_water(lat,lon,zoom)
 
     labels = ""
-    for i,p in enumerate(params['points']):
+    i = 1
+    for p in params['points']:
         lat,lon = params['points'][p]
-        #folium.Marker([lat,lon], popup=p, icon=folium.Icon(color="blue")).add_to(m)
-        plt.plot(lon,lat,'rx')
+        plt.plot(lon,lat,'bx')
         plt.text(lon+eps,lat+eps,str(i))
         labels += "%d %s <br/>" % (i,p)
+        i += 1
+
+    for p in params['campgrounds']:
+        lat,lon = params['campgrounds'][p]
+        plt.plot(lon,lat,'go')
+        plt.text(lon+eps,lat+eps,str(i))
+        labels += "%d %s <br/>" % (i,p)
+        i += 1
 
     plt.savefig(fout)
     plt.clf()
