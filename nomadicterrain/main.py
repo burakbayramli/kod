@@ -15,7 +15,6 @@ import urllib.request as urllib2
 app = Flask(__name__)
 
 params = json.loads(open("nomterr.conf").read())
-
     
 def clean_dir():
     files = glob.glob("static/out-*.png")
@@ -35,7 +34,6 @@ def location(loc,zoom):
     lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
     session['geo'] = (lat,lon)
-    pts = np.array([[lat, lon]]).astype(float)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
     lat,lon=float(lat),float(lon)
@@ -107,25 +105,7 @@ def guide_lewi(which):
     fin = params['guide_detail_dir'] + "/lewi/" + which + ".html"
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
-
         
-@app.route('/gogeo/<coords>')
-def gogeo(coords):
-    lat,lon = coords.split(';')
-    pts = np.array([[lat, lon]]).astype(float)
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-    lat,lon=float(lat),float(lon)
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
-    ax.set_global()
-    ax.stock_img()
-    ax.coastlines()
-    ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
-    ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
-    plt.savefig(fout)    
-    return render_template('/location.html', location=fout, lat=lat, lon=lon)
-
 @app.route('/travel_maps/<coords>/<resolution>')
 def travel_maps(coords,resolution):
     resolution = int(resolution)
@@ -170,8 +150,37 @@ def travel_maps(coords,resolution):
     return send_file(fout)
 
 
+@app.route('/travel_maps_smgeo/<coords>/<zoom>')
+def travel_maps_smgeo(coords,zoom):
+    fout = "/tmp/trav-%s.html" % uuid.uuid4()
+    url = "http://localhost:5000/static/travel/index.json"
+    data = urllib2.urlopen(url).read().decode('utf-8')
+    params = json.loads(data)
 
+    zoom = float(zoom)
+    eps = 0.001
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+    
+    clat,clon = params['center']
 
+    currlat,currlon = coords.split(';')
+    lat,lon=float(currlat),float(currlon)
+    plt.plot(lon,lat,'gd')
+    sm.plot_countries(clat,clon,zoom,outcolor='lavenderblush')    
+    sm.plot_water(lat,lon,zoom)
+
+    labels = ""
+    for i,p in enumerate(params['points']):
+        lat,lon = params['points'][p]
+        #folium.Marker([lat,lon], popup=p, icon=folium.Icon(color="blue")).add_to(m)
+        plt.plot(lon,lat,'rx')
+        plt.text(lon+eps,lat+eps,str(i))
+        labels += "%d %s <br/>" % (i,p)
+
+    plt.savefig(fout)
+    plt.clf()
+    return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels)
 
 
 
