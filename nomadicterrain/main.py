@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, send_file
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64
 import geopy.distance, datetime, shutil
-import csv, io, zipfile
+import csv, io, zipfile, folium
 from urllib.request import urlopen
 import urllib, requests, re
 import gpxpy, gpxpy.gpx, polyline, codecs
@@ -13,32 +13,12 @@ from io import StringIO
 import cartopy.crs as ccrs
 import cartopy
 import util, sqlite3
-import urllib.request as req2
-from bs4 import BeautifulSoup
+import urllib.request as urllib2
 
 app = Flask(__name__)
 
 params = json.loads(open("nomterr.conf").read())
 
-class OnlyOne(object):
-    class __OnlyOne:
-        def __init__(self):
-            self.last_location = None
-            self.map = "normal"
-            self.last_gpx_file = ""
-            self.url = ""
-            self.city_results = []
-            self.poi_results = []
-        def __str__(self):
-            return self.val
-    instance = None
-    def __new__(cls): # __new__ always a classmethod
-        if not OnlyOne.instance:
-            OnlyOne.instance = OnlyOne.__OnlyOne()
-    def __getattr__(self, name):
-        return getattr(self.instance, name)
-    def __setattr__(self, name):
-        return setattr(self.instance, name)
     
 def clean_dir():
     files = glob.glob("static/out-*.png")
@@ -134,66 +114,6 @@ def guide_lewi(which):
     return render_template('/profile_detail.html', output=output)
 
         
-@app.route('/city')
-def city():
-    return render_template('/city.html',data=OnlyOne().city_results)
-
-
-@app.route("/city_search", methods=["POST"])
-def city_search():
-    name = request.form.get("name").lower()
-    zfile = params['geocity']
-    zip_file    = zipfile.ZipFile(zfile)
-    items_file  = zip_file.open('geolitecity.csv')
-    items_file  = io.TextIOWrapper(items_file)
-    rd = csv.reader(items_file)
-    headers = {k: v for v, k in enumerate(next(rd))}
-    res = []
-    for row in rd:
-        if name in row[headers['cityascii2']].lower():
-            res.append(row)
-    OnlyOne().city_results = res
-    return city()
-
-@app.route('/poi')
-def poi():
-    return render_template('/poi.html',data=OnlyOne().poi_results)
-
-def match(ms, s):
-    return not re.search(s,ms,re.IGNORECASE) is None
-
-@app.route("/poi_search", methods=["POST"])
-def poi_search():
-    keyword = request.form.get("name")
-    rd = csv.reader(codecs.open(params['poi'],encoding="utf-8"),delimiter='|')
-    headers = {k: v for v, k in enumerate(next(rd))}
-    res = []
-    lat,lon = my_curr_location()
-    for row in rd:
-        if match(row[headers['Name']], keyword) or match(row[headers['Type']], keyword): 
-            locs = row[headers['Coords']]
-            if "[[" in locs:
-                locs = eval(locs)
-                m = util.get_centroid(locs)
-                locs = polyline.encode(locs,precision=6)
-            else:                
-                locs = eval(locs)
-                m = locs
-                locs = "%s;%s" % (locs[0],locs[1])
-
-            lat2,lon2 = m
-            d = geopy.distance.geodesic((lat2,lon2),(lat, lon))
-            if d < 100.0:
-                rowname = row[headers['Name']]
-                rowdesc = row[headers['Description']]
-                rowxx = [row[headers['CoordType']],
-                         row[headers['Type']],
-                         rowname,rowdesc,locs,np.round(d.km,2)]
-                res.append(rowxx)
-            
-    OnlyOne().poi_results = res
-    return poi()
-
 @app.route('/gogeo/<coords>')
 def gogeo(coords):
     lat,lon = coords.split(';')
@@ -211,187 +131,56 @@ def gogeo(coords):
     plt.savefig(fout)    
     return render_template('/location.html', location=fout, lat=lat, lon=lon)
 
-@app.route('/trail/<gpx_file>')
-def trail(gpx_file):
-    gpx_file2 = open(params['trails'] + "/" + gpx_file)
-    gpx = gpxpy.parse(gpx_file2)
-    disp = []
-    elev_min = 10000
-    elev_max = -10000
-    total_dist = 0.0
-    dists = []
-    prev = None
-    elevs = False
-    lat,lon = None,None
-    for track in gpx.tracks:
-        for segment in track.segments:
-            for point in segment.points:
-                lat,lon = point.latitude, point.longitude
-                break
-            break
-        break
-
-    lat2,lon2 = my_curr_location()
-    OnlyOne().last_gpx_file = gpx_file
-    fout = plot_trail(lat2, lon2, gpx_file, (lat2,lon2))  
-
-    first_point = None
-    for track in gpx.tracks:
-        for segment in track.segments:
-            for i,point in enumerate(segment.points):
-                if i==0: first_point = point
-                if prev:
-                    prev_dist = geopy.distance.geodesic((point.latitude, point.longitude),(prev.latitude,prev.longitude))
-                    total_dist +=  prev_dist.km
-                if point.elevation:
-                    elevs = True
-                    if point.elevation < elev_min: elev_min = point.elevation
-                    if point.elevation > elev_max: elev_max = point.elevation
-                d = geopy.distance.geodesic((point.latitude, point.longitude),(lat,lon))
-                dists.append([point, d.km])
-                prev = point
-
-    disp.append("Total distance %f " % total_dist)
-    disp.append("Total elevation %f " % (elev_max-elev_min))
-    dists = np.array(dists)
-    start_idx = dists[:,1].argmin()
-
-    front = [0.1, 0.2, 10000.0]
-    elev_mins = [10000.0, 10000.0, 10000.0]
-    elev_maxs = [-10000.0, -10000.0, -10000.0]
-    curr_dist= float(0.0)
-    prev = None
-    if elevs:
-       for i in range(start_idx, len(dists)):    
-           if prev: curr_dist += (geopy.distance.geodesic((dists[i][0].latitude,
-                                                           dists[i][0].longitude),
-                                                          (prev.latitude,
-                                                           prev.longitude))).km
-           for j in range(len(front)):
-               if curr_dist < front[j]:
-                   if dists[i][0].elevation < elev_mins[j]: elev_mins[j] = dists[i][0].elevation
-                   if dists[i][0].elevation > elev_maxs[j]: elev_maxs[j] = dists[i][0].elevation
-           prev = dists[i][0] 
-
-       disp.append("For the next x km the elevation change will be")
-       for j in range(len(front)):
-           disp.append("%f %f" % (front[j], elev_maxs[j]-elev_mins[j]))
-           #print (front[j], elev_maxs[j]-elev_mins[j])
+@app.route('/travel_maps/<coords>/<resolution>')
+def travel_maps(coords,resolution):
+    resolution = int(resolution)
     
-    return render_template('/trail.html', location=fout, disp=disp, link=gpx.link, first_point_lat=first_point.latitude, first_point_lon=first_point.longitude)
+    fout = "/tmp/trav-%s.html" % uuid.uuid4()
+    url = "http://localhost:5000/static/travel/index.json"
+    data = urllib2.urlopen(url).read().decode('utf-8')
+    params = json.loads(data)
 
-def plot_trail(lat, lon, gpx_file, my_curr_location):
-    pts = []
-    gpx_file = open(params['trails'] + "/" + gpx_file)
-    gpx = gpxpy.parse(gpx_file)
-    for track in gpx.tracks:
-        for segment in track.segments:
-            for point in segment.points:
-                pts.append([point.latitude, point.longitude])
+    clat,clon = params['center']
+    m = folium.Map(location=[clat, clon], zoom_start=10, tiles="Stamen Terrain")
 
-    clean_dir()
-    fout = "static/out-%s.png" % uuid.uuid4()
-
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
-    ax.set_global()
-    ax.stock_img()
-    ax.coastlines()
-    ax.plot(lon, lat, 'rx', transform=ccrs.PlateCarree())
-
-    lats = [x[0] for x in pts]
-    lons = [x[1] for x in pts]
-
-    ax.plot(lons, lats, 'r.', transform=ccrs.PlateCarree())
-
-    EXT = 1.5
-    ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
-    plt.savefig(fout)    
+    currlat,currlon = coords.split(';')
+    lat,lon=float(currlat),float(currlon)
+    folium.Marker([lat,lon], icon=folium.Icon(color="green")).add_to(m)
     
-    return fout
+    for p in params['points']:
+        lat,lon = params['points'][p]
+        folium.Marker([lat,lon], popup=p, icon=folium.Icon(color="blue")).add_to(m)
 
-@app.route('/trails')
-def trails():
-    res = []
-    files = glob.glob(params['trails'] + "/*.gpx" )
-    lat2,lon2 = my_curr_location()
-    for x in files:
-        gpx_file = open(x)
-        gpx = gpxpy.parse(gpx_file)
+    for p in params['restaurants']:
+        lat,lon = params['restaurants'][p]
+        folium.Marker([lat,lon], popup=str(p), icon=folium.Icon(color="orange")).add_to(m)
+
+    rints = range(resolution)
+    for map in params['maps']:
+        mapurl = params['map_base'] + "/" + map
+        print (mapurl)
+        data = urllib2.urlopen(mapurl).read().decode('utf-8')
+        gpx = gpxpy.parse(data)
+        points = []
         for track in gpx.tracks:
             for segment in track.segments:
                 for point in segment.points:
+                    if random.choice(rints) != 0: continue
                     lat,lon = point.latitude, point.longitude
-                    d = geopy.distance.geodesic((lat2,lon2),(lat,lon)).km
-                    break
-                break
-            break
-        
-        res.append([x[x.rindex('/')+1:],np.round(d,2)])
-    
-    return render_template('/trails.html', res=res)
-    
-@app.route('/gopoly/<coords>')
-def gopoly(coords):
-    locs = polyline.decode(coords,precision=6)
-    locs = [list(x) for x in locs]
-    print ('locs',locs)
-    
-    lat2,lon2 = my_curr_location()
-    
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
+                    points.append([lat,lon])
 
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
-    ax.set_global()
-    ax.stock_img()
-    ax.coastlines()
-    lats = [x[0] for x in locs]
-    lons = [x[1] for x in locs]
-    ax.plot(lon2, lat2, 'rx', transform=ccrs.PlateCarree())
-    ax.plot(lons, lats, 'r.', transform=ccrs.PlateCarree())
-    lat=lats[0]
-    lon=lons[0]
-    EXT = 0.5
-    ax.set_extent([lon-EXT, lon+EXT, lat-EXT, lat+EXT])
-    plt.savefig(fout)    
-    
-    return render_template('/poly.html', location=fout)
+        folium.PolyLine(points, color='red', weight=1.0, opacity=1).add_to(m)
+         
+    m.save(fout)    
+    return send_file(fout)
 
 
-headers = { 'User-Agent': 'UCWEB/2.0 (compatible; Googlebot/2.1; +google.com/bot.html)'}
 
-def visible(element):
-   if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
-       return False
-   elif re.match('<!--.*-->', str(element)):
-       return False
-   return True
 
-@app.route('/textify/<url>')
-def textify(url):
-    url = base64.urlsafe_b64decode(bytes(url,'utf-8'))
-    resp = requests.get(url, headers=headers)
-    soup = BeautifulSoup(resp.text,features="lxml")
-    texts = soup.findAll(text=True)
-    visible_texts = filter(visible, texts)
-    content = ""
-    for x in visible_texts:
-        content += x
-    return content
 
-@app.route('/url')
-def urlpage():
-    return render_template('/url.html',url=OnlyOne().url)
 
-@app.route("/url_encode", methods=["POST"])
-def url_encode():
-    url = request.form.get("url")
-    e = base64.urlsafe_b64encode(bytes(url,'utf-8'))
-    e = str(e); e = e[:-1]; e = e[2:]
-    OnlyOne().url = e
-    return urlpage()
+
+
 
 if __name__ == '__main__':
     app.debug = True

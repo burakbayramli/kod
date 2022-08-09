@@ -14,6 +14,7 @@ function getLocation() {
 function showPosition(position) {
   document.getElementById("myloc").href = "/location/" + position.coords.latitude  + ";" + position.coords.longitude;
   document.getElementById("locpos").innerHTML = position.coords.latitude  + "," + position.coords.longitude;
+  document.getElementById("trav").href = "/travel_maps/" + position.coords.latitude  + ";" + position.coords.longitude+"/4";
 }
 </script>
     
@@ -29,10 +30,8 @@ function showPosition(position) {
         <ul>
           <button onclick="getLocation()">Get Location</button>          
           <li><a id="myloc" href="/location/40.9544103535;29.09139109510">My Location</a></li>
-          <li><a id="sites" href="/static/sites.html">Sites</a></li>
-          <li><a id="food" href="/edible_main">Edible</a></li>
+          <li><a id='trav' href="/travel_maps/40.9544103535;29.09139109510/4">Travel</a></li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
-          <li><a id="trails" href="/trails">Trails</a></li>
         </ul>
       </nav>
     </div>
