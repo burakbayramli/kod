@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, session, send_file
+from io import StringIO
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
-import json, random, mindmeld, base64
-import geopy.distance, datetime, shutil
+import json, random, mindmeld, base64, simplegeomap as sm
+import geopy.distance, datetime, shutil, util
 import csv, io, zipfile, folium
 from urllib.request import urlopen
 import urllib, requests, re
 import gpxpy, gpxpy.gpx, polyline, codecs
-from io import StringIO
-import cartopy.crs as ccrs
-import cartopy
-import util, sqlite3
 import urllib.request as urllib2
 
 app = Flask(__name__)
@@ -33,8 +30,8 @@ def my_curr_location():
 def index():
     return render_template('/index.html')
 
-@app.route('/location/<loc>')
-def location(loc):
+@app.route('/location/<loc>/<zoom>')
+def location(loc,zoom):
     lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
     session['geo'] = (lat,lon)
@@ -43,12 +40,10 @@ def location(loc):
     clean_dir()
     lat,lon=float(lat),float(lon)
     fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
-    ax.set_global()
-    ax.stock_img()
-    ax.coastlines()
-    ax.plot(lon, lat, 'ro', transform=ccrs.PlateCarree())
-    ax.set_extent([lon-0.5, lon+0.5, lat-0.5, lat+0.5])
+    zoom = float(zoom)
+    sm.plot_countries(lat,lon,zoom,outcolor='lavenderblush')    
+    sm.plot_water(lat,lon,zoom)
+    plt.plot(lon,lat,'rd')
     plt.savefig(fout)    
     return render_template('/location.html', location=fout, lat=lat, lon=lon)
 
