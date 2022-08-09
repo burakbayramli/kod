@@ -190,6 +190,22 @@ def travel_maps_smgeo(coords,zoom):
         labels += "%d %s <br/>" % (i,p)
         i += 1
 
+    rints = range(4)
+    for map in params['maps']:
+        mapurl = params['map_base'] + "/" + map
+        print (mapurl)
+        data = urllib2.urlopen(mapurl).read().decode('utf-8')
+        gpx = gpxpy.parse(data)
+        points = []
+        for track in gpx.tracks:
+            for segment in track.segments:
+                for point in segment.points:
+                    if random.choice(rints) != 0: continue
+                    lat,lon = point.latitude, point.longitude
+                    points.append([lat,lon])
+        points = np.array(points)
+        plt.plot(points[:,1],points[:,0],'red',alpha=0.4)
+        
     plt.savefig(fout)
     plt.clf()
     return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels)
