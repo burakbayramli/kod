@@ -1,0 +1,19 @@
+{
+    "center": [41.1381164, 29.85441851],
+    "points": {
+	 "kilimli koyu": [41.142256778, 29.872581682]
+    },
+    "restaurants": {	
+    },
+    "map_base": "http://localhost:5000/static/travel",
+    "maps": [
+	     "trekinturkey-tepemanayir-degirmencayiri-15-3-2015.gpx",
+	     "tepemanayir-hacilli-selaleleri.gpx",
+	     "tepemanayir-hacilli.gpx",
+	     "tepemanayir-goksu.gpx",
+	     "hacilli-goksu-agva.gpx",
+	     "agva-kilimli-9-km.gpx",
+	     "agva-istanbul-bagirkanli-kocaeli-08-09-2013.gpx"
+     ]
+	
+}
