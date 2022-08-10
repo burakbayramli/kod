@@ -112,8 +112,10 @@ def guide_lewi(which):
         
 @app.route('/travel_maps/<coords>/<resolution>')
 def travel_maps(coords,resolution):
-    resolution = int(resolution)
+
+    travel_url = request.host_url + "static/travel"
     
+    resolution = int(resolution)    
     fout = "/tmp/trav-%s.html" % uuid.uuid4()    
     data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
@@ -159,6 +161,9 @@ def travel_maps(coords,resolution):
 
 @app.route('/travel_maps_smgeo/<coords>/<zoom>')
 def travel_maps_smgeo(coords,zoom):
+
+    travel_url = request.host_url + "static/travel"
+
     fout = "/tmp/trav-%s.html" % uuid.uuid4()    
     data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
