@@ -212,12 +212,12 @@ def travel_maps_smgeo(coords,zoom):
     plt.clf()
     return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels)
 
-
-
-
-
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
-    app.run(host="localhost",port=5000)
+    print (len(sys.argv))
+    if len(sys.argv) == 2 and sys.argv[1]=="pi":
+        app.run(host="192.168.43.89",port=5000)
+    else: 
+        app.run(host="localhost",port=5000)
 
