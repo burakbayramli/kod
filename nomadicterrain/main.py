@@ -4,12 +4,14 @@ from io import StringIO
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
-import json, random, mindmeld, base64, simplegeomap as sm
+import json, random, mindmeld, base64
+import pyproj
+if pyproj.__version__ == '3.0.1': import simplegeomap as sm
 import geopy.distance, datetime, shutil, util
 import csv, io, zipfile, folium
 from urllib.request import urlopen
 import urllib, requests, re
-import gpxpy, gpxpy.gpx, polyline, codecs
+import gpxpy, gpxpy.gpx
 import urllib.request as urllib2
 
 app = Flask(__name__)
