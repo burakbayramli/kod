@@ -15,6 +15,8 @@ import urllib.request as urllib2
 app = Flask(__name__)
 
 params = json.loads(open("nomterr.conf").read())
+
+travel_url = "http://localhost:5000/static/travel/index.json"
     
 def clean_dir():
     files = glob.glob("static/out-*.png")
@@ -110,9 +112,8 @@ def guide_lewi(which):
 def travel_maps(coords,resolution):
     resolution = int(resolution)
     
-    fout = "/tmp/trav-%s.html" % uuid.uuid4()
-    url = "http://localhost:5000/static/travel/index.json"
-    data = urllib2.urlopen(url).read().decode('utf-8')
+    fout = "/tmp/trav-%s.html" % uuid.uuid4()    
+    data = urllib2.urlopen(travel_url).read().decode('utf-8')
     params = json.loads(data)
 
     clat,clon = params['center']
@@ -156,9 +157,8 @@ def travel_maps(coords,resolution):
 
 @app.route('/travel_maps_smgeo/<coords>/<zoom>')
 def travel_maps_smgeo(coords,zoom):
-    fout = "/tmp/trav-%s.html" % uuid.uuid4()
-    url = "http://localhost:5000/static/travel/index.json"
-    data = urllib2.urlopen(url).read().decode('utf-8')
+    fout = "/tmp/trav-%s.html" % uuid.uuid4()    
+    data = urllib2.urlopen(travel_url).read().decode('utf-8')
     params = json.loads(data)
 
     zoom = float(zoom)
