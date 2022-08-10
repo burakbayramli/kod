@@ -5,7 +5,6 @@
     },
     "restaurants": {	
     },
-    "map_base": "http://localhost:5000/static/travel",
     "maps": [
 	     "trekinturkey-tepemanayir-degirmencayiri-15-3-2015.gpx",
 	     "tepemanayir-hacilli-selaleleri.gpx",

@@ -10,7 +10,6 @@
     },
     "campgrounds": {
     },
-    "map_base": "http://localhost:5000/static/travel",
     "maps": [
 	     "ardesen-zilkale-pokut-yaylasi-ayder.gpx",
 	     "sal-pokut-hazindak-palovit-selalesi.gpx",
