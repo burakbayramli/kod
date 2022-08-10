@@ -1,9 +1,13 @@
 {
     "center": [41.1381164, 29.85441851],
     "points": {
+	 "tepemayanir koyu": [41.01839593908683, 29.734058686566204],
+	 "uskudar marmaray (cikisinin hemen solunda anayol uzerinde 4 nolu peronda 139A sile-agva otobus)": [41.02591884440994, 29.01374667603076],
 	 "kilimli koyu": [41.142256778, 29.872581682]
     },
     "restaurants": {	
+    },
+    "campgrounds": {	
     },
     "maps": [
 	     "trekinturkey-tepemanayir-degirmencayiri-15-3-2015.gpx",

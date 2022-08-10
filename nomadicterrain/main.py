@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 params = json.loads(open("nomterr.conf").read())
 
-travel_url = "http://localhost:5000/static/travel/index.json"
+travel_url = "http://localhost:5000/static/travel"
     
 def clean_dir():
     files = glob.glob("static/out-*.png")
@@ -113,7 +113,7 @@ def travel_maps(coords,resolution):
     resolution = int(resolution)
     
     fout = "/tmp/trav-%s.html" % uuid.uuid4()    
-    data = urllib2.urlopen(travel_url).read().decode('utf-8')
+    data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
 
     clat,clon = params['center']
@@ -137,7 +137,7 @@ def travel_maps(coords,resolution):
         
     rints = range(resolution)
     for map in params['maps']:
-        mapurl = params['map_base'] + "/" + map
+        mapurl = travel_url + "/" + map
         print (mapurl)
         data = urllib2.urlopen(mapurl).read().decode('utf-8')
         gpx = gpxpy.parse(data)
