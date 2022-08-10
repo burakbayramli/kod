@@ -158,7 +158,7 @@ def travel_maps(coords,resolution):
 @app.route('/travel_maps_smgeo/<coords>/<zoom>')
 def travel_maps_smgeo(coords,zoom):
     fout = "/tmp/trav-%s.html" % uuid.uuid4()    
-    data = urllib2.urlopen(travel_url).read().decode('utf-8')
+    data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
 
     zoom = float(zoom)
@@ -192,7 +192,7 @@ def travel_maps_smgeo(coords,zoom):
 
     rints = range(4)
     for map in params['maps']:
-        mapurl = params['map_base'] + "/" + map
+        mapurl = travel_url + "/" + map
         print (mapurl)
         data = urllib2.urlopen(mapurl).read().decode('utf-8')
         gpx = gpxpy.parse(data)
