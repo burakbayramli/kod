@@ -5,8 +5,7 @@ import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64
-import pyproj
-if pyproj.__version__ == '3.0.1': import simplegeomap as sm
+import simplegeomap as sm
 import geopy.distance, datetime, shutil, util
 import csv, io, zipfile, folium
 from urllib.request import urlopen
