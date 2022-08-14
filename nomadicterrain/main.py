@@ -24,7 +24,6 @@ def clean_dir():
     for f in files: os.remove(f)
 
 def my_curr_location():
-    # take my location from gps logger
     lat,lon = session['geo']
     return lat,lon
 
