@@ -10,7 +10,15 @@ function getLocation() {
     navigator.geolocation.getCurrentPosition(showPosition);
   } 
 }
-
+function readLocInput() {
+  var pos = document.getElementById("locValue").value;
+  var lat = pos.split(",")[0];
+  var lon = pos.split(",")[1];
+  document.getElementById("myloc").href = "/location/" + lat  + ";" + lon+"/0.4";
+  document.getElementById("locpos").innerHTML = lat  + "," + lon;
+  document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/4";
+  document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/4";  
+}
 function showPosition(position) {
   document.getElementById("myloc").href = "/location/" + position.coords.latitude  + ";" + position.coords.longitude;
   document.getElementById("locpos").innerHTML = position.coords.latitude  + "," + position.coords.longitude;
@@ -28,13 +36,17 @@ function showPosition(position) {
            
         </div>
         
-        <ul>
-          <button onclick="getLocation()">Get Location</button>          
+        <ul>          
+          <p><button onclick="getLocation()">Get Location</button></p>
           <li><a id="myloc" href="/location/40.9544103535;29.09139109510/0.1">My Location</a></li>
           <li><a id='trav' href="/travel_maps/40.9544103535;29.09139109510/4">Travel</a></li>
           <li><a id='trav_smgeo'
                  href="/travel_maps_smgeo/40.9544103535;29.09139109510/0.05">Travel SMGeo</a></li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
+          <p>
+            <p><button onclick="readLocInput()">Enter Location</button></p>
+            <p><input type="text" id="locValue" ></input></p>
+          </p>
         </ul>
       </nav>
     </div>

@@ -1,3 +1,6 @@
+.navmenu #enterLoc input {
+    display:none;
+}
 .navmenu {
     text-align: center;
 }

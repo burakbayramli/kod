@@ -221,6 +221,8 @@ if __name__ == '__main__':
     print (len(sys.argv))
     if len(sys.argv) == 2 and sys.argv[1]=="pi":
         app.run(host="192.168.43.89",port=5000)
+    if len(sys.argv) == 2 and sys.argv[1]=="acer":
+        app.run(host="192.168.43.49",port=5000)        
     else: 
         app.run(host="localhost",port=5000)
 
