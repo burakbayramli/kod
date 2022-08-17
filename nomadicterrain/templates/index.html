@@ -10,20 +10,20 @@ function getLocation() {
     navigator.geolocation.getCurrentPosition(showPosition);
   } 
 }
+function setLocOnPage(lat,lon){
+  document.getElementById("myloc").href = "/location/" + lat  + ";" + lon+"/0.4";
+  document.getElementById("locpos").innerHTML = lat  + "," + lon;
+  document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/4";
+  document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/0.05";  
+}
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
   var lat = pos.split(",")[0];
   var lon = pos.split(",")[1];
-  document.getElementById("myloc").href = "/location/" + lat  + ";" + lon+"/0.4";
-  document.getElementById("locpos").innerHTML = lat  + "," + lon;
-  document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/0.05";
-  document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/4";  
+  setLocOnPage(lat,lon);
 }
 function showPosition(position) {
-  document.getElementById("myloc").href = "/location/" + position.coords.latitude  + ";" + position.coords.longitude+"/0.4";
-  document.getElementById("locpos").innerHTML = position.coords.latitude  + "," + position.coords.longitude;
-  document.getElementById("trav").href = "/travel_maps/" + position.coords.latitude  + ";" + position.coords.longitude+"/4";
-  document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + position.coords.latitude  + ";" + position.coords.longitude+"/4";
+  setLocOnPage(position.coords.latitude,position.coords.longitude);
 }
 </script>
     
