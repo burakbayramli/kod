@@ -1,4 +1,14 @@
 movie,rating
+Life of Pi (2012),3
+Disobedience (2018),3
+Alita: Battle Angel (2019),3
+The Boy Who Harnessed the Wind (2019),3
+Anna (2019),3
+Atomic Blonde (2017),3
+At the Heart of Gold: Inside the USA Gymnastics Scandal (2019),3
+Pokémon: Detective Pikachu (2019),1
+Leaving Neverland (2019),3
+Dolemite Is My Name (2019),3
 Black Panther (2017),4
 Maze Runner: The Death Cure (2018),4
 The Cloverfield Paradox (2018),2
@@ -31,7 +41,7 @@ Incredibles 2 (2018),4
 Red Sparrow (2018),1
 Den of Thieves (2018),4
 The Revenant (2015),5
-Sicario: Day of the Soldado (2018),4
+Sicario: Day of the Soldado (2018),3
 Tag (2018),2
 Captain Marvel (2018),2
 "Matrix, The (1999)", 5
@@ -156,7 +166,6 @@ V for Vendetta (2006),5
 Casino Royale (2006),5
 "Bourne Supremacy, The (2004)",4
 Ocean's Eleven (2001),4
-London Has Fallen (2016),4
 Oblivion (2013),5
 Pacific Rim (2013),5
 Riddick (2013),4
@@ -201,7 +210,6 @@ The Hitman's Bodyguard (2017),5
 Pirates of the Caribbean: Dead Men Tell No Tales (2017),4
 Blade Runner (1982),2
 Ghost in the Shell (2017),4
-Disobedience (2018),0
 The Meg (2018),3
 Alien: Covenant (2017),3
 "Three Billboards Outside Ebbing, Missouri (2017)",4
@@ -226,7 +234,6 @@ Armageddon (1998),5
 Home Alone 2: Lost in New York (1992),3
 My Big Fat Greek Wedding (2002),1
 Terminator Genisys (2015),3
-Life of Pi (2012),0
 "Book of Eli, The (2010)",4
 Terminator Salvation (2009),4
 "Da Vinci Code, The (2006)",4
@@ -297,3 +304,44 @@ Secret Headquarters (2022),2
 Last Seen Alive (2022),4
 Day Shift (2022),4
 Aquaman (2018),5
+Gemini Man (2019),4
+Hot Tub Time Machine (2010),4
+Rush Hour (1998),5
+Deep Impact (1998),2
+Gamer (2009),5
+Olympus Has Fallen (2013),4
+London Has Fallen (2016),4
+Angel Has Fallen,4
+Top Gun (1986),5
+Basic Instinct (1992),4
+Disclosure (1994),5
+Paycheck (2003),3
+Tombstone (1993),5
+Bruce Almighty (2003),5
+Liar Liar (1997),5
+The Great Wall (2016),4
+Bumblebee (2018),5
+Mortal Engines (2018),4
+Creed II (2018),4
+Bright (2017),5
+Polar (2019),5
+Lucy (2014),3
+Event Horizon (1997),4
+Annihilation (2018),2
+The Accountant (2016),4
+Jupiter Ascending (2015),5
+Sicario (2015),4
+Traffic (2000),4
+There Are No Saints (2022),4
+Vengeance (2022),4
+Blade (1998),5
+Blade II (2002),3
+Blade: Trinity (2004),3
+Shinobi: Heart Under Blade (2005),1
+Thor: The Dark World (2013),3
+Cloud Atlas (2012),2
+Jack Reacher (2012),4
+Real Steel (2011),4
+"Girl with the Dragon Tattoo, The (2011)",4
+Red (2010),3
+2 Guns (2013),4
