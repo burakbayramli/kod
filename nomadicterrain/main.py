@@ -6,7 +6,7 @@ import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64
 import simplegeomap as sm
-import geopy.distance, datetime, shutil, util
+import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
 from urllib.request import urlopen
 import urllib, requests, re
@@ -214,6 +214,27 @@ def travel_maps_smgeo(coords,zoom):
     plt.savefig(fout)
     plt.clf()
     return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels)
+
+
+@app.route('/plot_elev/<coords>/<zoom>')
+def plot_elev(coords,zoom):
+
+    fout = "/tmp/out-%s.html" % uuid.uuid4()    
+
+    zoom = float(zoom)
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
+
+    currlat,currlon = coords.split(';')
+    lat,lon=float(currlat),float(currlon)
+    plt.plot(lon,lat,'gd')
+    sm.plot_countries(lat,lon,zoom,outcolor='lavenderblush')    
+    sm.plot_elevation(lat,lon,zoom)
+        
+    plt.savefig(fout)
+    plt.clf()
+    return render_template('/elev.html', location=fout, lat=lat, lon=lon)
+
 
 if __name__ == '__main__':
     app.debug = True
