@@ -17,7 +17,11 @@ def kamp_yerleri():
         txt = txt.replace("<![CDATA[","")
         txt = txt.replace("]]>","")
         txt = txt.replace("\n","").strip()
-        fout.write("%s|%s|%s\n" % (x[0].strip(),unidecode(txt),x[2].strip()))
+        txt = txt.replace("|", " ")
+        name = x[0].strip()
+        name = name.replace("<![CDATA[","")
+        name = name.replace("]]>","")
+        fout.write("%s;%s;%s\n" % (name,x[2].strip().replace(",0",""),unidecode(txt)))
         fout.flush()
 
     fout.close()
