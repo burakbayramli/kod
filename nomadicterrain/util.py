@@ -37,6 +37,13 @@ def camp_folium():
         folium.Marker(
             [lon,lat], popup=row['description'],
         ).add_to(m)
+        
+    df = pd.read_csv('data/trkamp2.csv',sep=';')
+    for index, row in df.iterrows():
+        lat,lon = (float(x) for x in row['location'].split(","))
+        folium.Marker(
+            [lat,lon], popup=row['name'],
+        ).add_to(m)
     m.save('static/trcamp-out.html')
     
 if __name__ == "__main__": 
