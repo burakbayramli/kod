@@ -15,6 +15,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("locpos").innerHTML = lat  + "," + lon;
   document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/4";
   document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/0.05";  
+  document.getElementById("weat").href = "/goweather/" + lat  + ";" + lon;
 }
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
@@ -46,6 +47,9 @@ function showPosition(position) {
           <li><a id='elev'
                  href="/plot_elev/40.9544103535;29.09139109510/0.05">Elevation</a></li>
           <li><a id="cap" href="/static/trcamp-out.html">Camping Sites</a></li>
+          <li><a id="weat" href="/goweather/40.9544103535;29.09139109510">
+            Weather
+          </a></li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
           <p>
             <p><button onclick="readLocInput()">Enter Location</button></p>

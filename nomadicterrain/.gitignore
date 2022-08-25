@@ -12,3 +12,4 @@ plants/dataset
 */*/*shard*
 */*/mnist*
 nomterr.conf
+.owm

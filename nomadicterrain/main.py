@@ -236,6 +236,41 @@ def plot_elev(coords,zoom):
     return render_template('/elev.html', location=fout, lat=lat, lon=lon)
 
 
+def get_weather(lat,lon):
+    base_url = 'http://api.openweathermap.org/data/2.5/weather?'
+    weatherapi = open(".owm").read()
+    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': weatherapi }
+    r = requests.get(base_url, params=payload) 
+    res = []
+    for x in r.iter_lines():
+        x = json.loads(x.decode())
+        res.append(x['name'])
+        res.append (x['main'])
+        res.append (x['wind'])
+        res.append (('clouds', x['clouds']))
+
+    base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
+    payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': weatherapi }
+    r = requests.get(base_url, params=payload) 
+
+    for x in r.iter_lines():
+        x = json.loads(x.decode())
+        for xx in x['list']:
+            rain = xx.get('rain')
+            res.append ((xx['dt_txt'],xx['weather'][0]['description'],xx['main']['temp'], "C",
+                         'feels_like :',xx['main']['feels_like'], "C",
+                         'humidity :',xx['main']['humidity'],
+                         'wind: ', xx['wind']['speed'], xx['wind']['deg']
+            ))
+            res.append ('---------------')
+    return res
+
+@app.route('/goweather/<coords>')
+def goweather(coords):
+    lat,lon = coords.split(';')
+    res = get_weather(lat,lon)
+    return render_template('/weather.html', res=res)
+
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
