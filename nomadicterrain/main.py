@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, session, send_file
-from io import StringIO
+from io import StringIO, BytesIO
 import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
-import json, random, mindmeld, base64
+import json, random, mindmeld, base64, time as timelib
 import simplegeomap as sm
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
@@ -270,6 +270,53 @@ def goweather(coords):
     lat,lon = coords.split(';')
     res = get_weather(lat,lon)
     return render_template('/weather.html', res=res)
+
+@app.route('/extnews')
+def extnews():
+    import news
+    content = news.getnews()
+    from flask import Response
+    def generate():
+        yield content
+    return Response(generate(), mimetype='text/html')
+
+@app.route('/market')
+def market():
+    plt.figure()
+    end = datetime.datetime.now()
+    start=end-datetime.timedelta(days=90)
+    start = int(timelib.mktime(start.timetuple()))
+    end = int(timelib.mktime(end.timetuple()))
+
+    url = "https://query1.finance.yahoo.com/v7/finance/download/^IXIC?period1=" + str(start) + "&period2=" + str(end) + "&interval=1d&events=history&includeAdjustedClose=true"
+    r = urllib2.urlopen(url).read()
+    file = BytesIO(r)
+    df1 = pd.read_csv(file,index_col='Date',parse_dates=True)
+
+    url = "https://query1.finance.yahoo.com/v7/finance/download/^RUT?period1=" + str(start) + "&period2=" + str(end) + "&interval=1d&events=history&includeAdjustedClose=true"
+    r = urllib2.urlopen(url).read()
+    file = BytesIO(r)
+    df2 = pd.read_csv(file,index_col='Date',parse_dates=True)
+
+    ax1 = df2['Adj Close'].plot(color='blue', grid=True, label='Nasdaq')
+    ax2 = df1['Adj Close'].plot(color='red', grid=True, label='Russell',secondary_y=True)
+    h1, l1 = ax1.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    plt.legend(h1+h2, l1+l2, loc=2)
+    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    plt.savefig(fout)
+    return send_file(fout)
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.debug = True
