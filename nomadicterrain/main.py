@@ -12,6 +12,7 @@ from urllib.request import urlopen
 import urllib, requests, re
 import gpxpy, gpxpy.gpx
 import timezonefinder, calendar, datedelta
+from bs4 import BeautifulSoup
 from pytz import timezone
 import urllib.request as urllib2
 
@@ -21,6 +22,8 @@ params = json.loads(open("nomterr.conf").read())
 
 travel_url = "http://localhost:5000/static/travel"
     
+headers = { 'User-Agent': 'UCWEB/2.0 (compatible; Googlebot/2.1; +google.com/bot.html)'}
+
 def clean_dir():
     files = glob.glob("static/out-*.png")
     for f in files: os.remove(f)
@@ -372,8 +375,52 @@ def gotopo2(coords,how_far):
     elevutil.plot_topo(lat,lon,how_far,fout)
     return send_file(fout)
 
+class OnlyOne(object):
+    class __OnlyOne:
+        def __init__(self):
+            self.url = ""
+        def __str__(self):
+            return self.val
+    instance = None
+    def __new__(cls):
+        if not OnlyOne.instance:
+            OnlyOne.instance = OnlyOne.__OnlyOne()
+        return OnlyOne.instance
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
+    def __setattr__(self, name):
+        return setattr(self.instance, name)
 
+def visible(element):
+   if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+       return False
+   elif re.match('<!--.*-->', str(element)):
+       return False
+   return True
+    
+@app.route('/textify/<url>')
+def textify(url):
+    url = base64.urlsafe_b64decode(bytes(url,'utf-8'))
+    resp = requests.get(url, headers=headers)
+    soup = BeautifulSoup(resp.text,features="lxml")
+    texts = soup.findAll(text=True)
+    visible_texts = filter(visible, texts)
+    content = ""
+    for x in visible_texts:
+        content += x
+    return content
 
+@app.route('/url')
+def urlpage():
+    return render_template('/url.html',url=OnlyOne().url)
+
+@app.route("/url_encode", methods=["POST"])
+def url_encode():
+    url = request.form.get("url")
+    e = base64.urlsafe_b64encode(bytes(url,'utf-8'))
+    e = str(e); e = e[:-1]; e = e[2:]
+    OnlyOne().url = e
+    return urlpage()
 
 
 
