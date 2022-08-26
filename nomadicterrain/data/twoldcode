@@ -1,0 +1,124 @@
+def to_bearing(lat,lon,brng,d):
+    R = 6378.1 #Radius of the Earth
+    lat1 = math.radians(lat)
+    lon1 = math.radians(lon)
+    lat2 = math.asin( math.sin(lat1)*math.cos(d/R) +
+         math.cos(lat1)*math.sin(d/R)*math.cos(brng))
+    lon2 = lon1 + math.atan2(math.sin(brng)*math.sin(d/R)*math.cos(lat1),
+                 math.cos(d/R)-math.sin(lat1)*math.sin(lat2))
+    lat2 = math.degrees(lat2)
+    lon2 = math.degrees(lon2)
+    return lat2,lon2
+
+
+def spherical_distance(lat1, long1, lat2, long2):
+    phi1 = 0.5*pi - lat1
+    phi2 = 0.5*pi - lat2
+    r = 0.5*(6378137 + 6356752) # mean radius in meters
+    t = sin(phi1)*sin(phi2)*cos(long1-long2) + cos(phi1)*cos(phi2)
+    return r * arccos(t) / 1000.
+
+@app.route('/goconflict/<coords>')
+@login_required
+def goconflict(coords):
+    fout = "/tmp/conflict-%s.html" % uuid.uuid4()
+    now = datetime.datetime.now()
+    dfs = []
+    clat,clon = coords.split(';')
+    clat,clon=float(clat),float(clon)
+    #clat = 34.933582413578954
+    #clon = 42.04398758620605
+    m = folium.Map(location=[clat, clon], zoom_start=7, tiles="Stamen Terrain")
+    def dist(x):
+        return spherical_distance(np.deg2rad(clat),np.deg2rad(clon),np.deg2rad(x['Actor2Geo_Lat']),np.deg2rad(x['Actor2Geo_Long']))
+
+    for i in range(5):
+        d = now - datetime.timedelta(days=i+1)
+        sd = "%d%02d%02d" % (d.year, d.month, d.day)
+        url = base_conflict_url + "/%s.export.CSV.zip" % sd
+        try: 
+            r = urllib2.urlopen(url).read()
+            file = ZipFile(BytesIO(r))
+            csv = file.open("%s.export.CSV" % sd)
+            df = pd.read_csv(csv,sep='\t',header=None)    
+            urls = df[57]        
+            df2 = df[range(len(conf_cols))]
+            df2 = pd.concat((df2,urls),axis=1)    
+            df2.columns = conf_cols + ['url']
+            df3 = df2[(df2.EventCode==190)|(df2.EventCode==195)|(df2.EventCode==194)]
+            df3.loc[:,'dist'] = df3.apply(dist, axis=1)
+            df3 = df3[df3.dist < how_far]
+            dft = df3[['EventCode','Actor1CountryCode','Actor1Name','Actor2Name','Actor2Geo_Lat','Actor2Geo_Long','url']].copy()
+            dfs.append(dft)
+        except:
+            print (url, 'missing')
+            continue
+        
+    df4 = pd.concat(dfs,axis=0)
+
+    df4 = df4.sample(n=50, random_state=1)    
+
+    for index, row in df4.iterrows():
+        if str(row['Actor2Geo_Lat'])=='nan': continue
+        if str(row['Actor1CountryCode'])=='nan': continue
+        folium.Marker(
+            [row['Actor2Geo_Lat'], row['Actor2Geo_Long']], popup="<a href='%s' target='_blank' rel='noopener noreferrer'>Link</a>" % (row['url']), tooltip=row['Actor1CountryCode']
+        ).add_to(m)
+
+    m.save(fout)    
+    return send_file(fout)
+
+def get_eq(minx,maxx,miny,maxy):
+    today = datetime.datetime.now()
+    days = 7
+    start = today - datetime.timedelta(days=days)
+
+    req = 'https://earthquake.usgs.gov/fdsnws'
+    req+='/event/1/query.geojson?starttime=%s&endtime=%s'
+    req+='&minlatitude=%d&maxlatitude=%d&minlongitude=%d&maxlongitude=%d'
+    req+='&minmagnitude=3.0&orderby=time&limit=300'
+    req = req % (start.isoformat(), today.isoformat(),miny,maxy,minx,maxx)
+    qr = requests.get(req).json()
+    res = []
+    for i in range(len(qr['features'])):
+        lat = qr['features'][i]['geometry']['coordinates'][1]
+        lon = qr['features'][i]['geometry']['coordinates'][0]
+        rad = qr['features'][i]['geometry']['coordinates'][2]
+        d = datetime.datetime.fromtimestamp(qr['features'][i]['properties']['time']/1000.0)
+        s = np.float(qr['features'][i]['properties']['mag'])
+        diff = (d-start).days
+        res.append([d,s,lat,lon,rad,diff])
+
+    df = pd.DataFrame(res).sort_values(by=0)
+    df = df.set_index(0)
+    df.columns = ['mag','lat','lon','rad','ago']
+    return df
+
+
+@app.route('/goeq/<coords>')
+@login_required
+def goeq(coords):
+    fout = "/tmp/eq-%s.html" % uuid.uuid4()
+    now = datetime.datetime.now()
+    dfs = []
+    clat,clon = coords.split(';')
+    lat,lon=float(clat),float(clon)
+
+    D = 2000
+    lat1,lon1 = to_bearing(lat,lon,np.deg2rad(45),D)
+    lat2,lon2 = to_bearing(lat,lon,np.deg2rad(225),D)
+    minx=np.min((lon1,lon2))
+    maxx=np.max((lon1,lon2))
+    miny=np.min((lat1,lat2))
+    maxy=np.max((lat1,lat2))
+    df = get_eq(minx,maxx,miny,maxy)
+
+    m = folium.Map(location=[lat, lon], zoom_start=3, tiles="Stamen Terrain")
+
+    for index, row in df.iterrows():
+        folium.Marker(
+            [row['lat'], row['lon']], tooltip=str(row['mag']) + " " + str(row['ago']) + " days ago"
+        ).add_to(m)
+
+    m.save(fout)    
+    return send_file(fout)
