@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
-import simplegeomap as sm
+import simplegeomap as sm, elevutil
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
 from urllib.request import urlopen
@@ -364,7 +364,13 @@ def time(coords):
                            weekday=weekday,
                            tzone=timezone_str)
 
-
+@app.route('/gotopo2/<coords>/<how_far>')
+def gotopo2(coords,how_far):
+    lat,lon = coords.split(';')
+    how_far = float(how_far)
+    fout = "/tmp/out-%s.html" % uuid.uuid4()
+    elevutil.plot_topo(lat,lon,how_far,fout)
+    return send_file(fout)
 
 
 
