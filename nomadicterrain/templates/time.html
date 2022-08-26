@@ -1,6 +1,6 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/static/main.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/jekyll.css" media="screen" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
   <body>
@@ -8,40 +8,45 @@
     <header class="w3-container">
       <h1>Time</h1>
     </header>
-
-    <pre>
-      {{ calprev }}
-    </pre>
-
-    <pre>
-      {{ calcurr }}
-    </pre>
-
-    <pre>
-      {{ calnext }}
-    </pre>
-
-    <p>
-    Today is {{ weekday }}
-    </p>
-            
-    <p>
-    NY: {{ times['ny'] }}
-    </p>
+    <div id="main_content_wrap" class="outer">                           
+      <section id="main_content" class="inner">                
+        <p>
+          Today is {{ weekday }}
+        </p>
         
-    <p>
-    London: {{ times['utc'] }}
-    </p>
+        <p>
+          NY: {{ times['ny'] }}
+        </p>
         
-    <p>
-    TR: {{ times['tr'] }}
-    </p>
+        <p>
+          London: {{ times['utc'] }}
+        </p>
+        
+        <p>
+          TR: {{ times['tr'] }}
+        </p>
 
-    You are at {{ tzone }}
-    
-    <p>
-    Time at current timezone: {{ times['curr'] }}
-    </p>
+        You are at {{ tzone }}
         
+        <p>
+          Time at current timezone: {{ times['curr'] }}
+        </p>
+
+        
+        <pre>
+          {{ calprev }}
+        </pre>
+
+        <pre>
+          {{ calcurr }}
+        </pre>
+
+        <pre>
+          {{ calnext }}
+        </pre>
+
+      </section>
+    </div>
   </body>
+  
 </html>
