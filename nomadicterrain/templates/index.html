@@ -17,6 +17,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/0.05";  
   document.getElementById("weat").href = "/goweather/" + lat  + ";" + lon;
   document.getElementById("pollu").href = "/gopollution/" + lat  + ";" + lon;
+  document.getElementById("time").href = "/time/" + lat  + ";" + lon;
 }
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
