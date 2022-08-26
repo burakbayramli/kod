@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt, pickle, os
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
-import simplegeomap as sm, elevutil
+import simplegeomap as sm, elevutil, wind
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
 from urllib.request import urlopen
@@ -422,6 +422,14 @@ def url_encode():
     OnlyOne().url = e
     return urlpage()
 
+@app.route('/gowind/<coords>/<ahead>/<wide>')
+def gowind(coords,ahead,wide):
+    lat,lon = coords.split(';')
+    ahead = int(ahead)
+    wide = float(wide)
+    fout = "/tmp/out-%s.html" % uuid.uuid4()
+    wind.plot_wind(lat,lon,ahead,wide,fout) # 0,2,6,22    
+    return send_file(fout)
 
 
 
