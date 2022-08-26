@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os; os.chdir(os.path.dirname(__file__))
-from flask import Flask, render_template, request, session, send_file
+from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
 import matplotlib.pyplot as plt, pickle
 import numpy as np, pandas as pd, os, uuid, glob
@@ -380,6 +380,7 @@ class OnlyOne(object):
     class __OnlyOne:
         def __init__(self):
             self.url = ""
+            self.tweet = ""
         def __str__(self):
             return self.val
     instance = None
@@ -431,6 +432,20 @@ def gowind(coords,ahead,wide):
     fout = "/tmp/out-%s.html" % uuid.uuid4()
     wind.plot_wind(lat,lon,ahead,wide,fout) # 0,2,6,22    
     return send_file(fout)
+
+@app.route('/edit_tweet')
+def edit_tweet():
+    content = OnlyOne().tweet
+    return render_template("/edit_tweet.html",content=content)
+
+@app.route('/submit_tweet', methods=['POST'])
+def submit_tweet():
+    OnlyOne().tweet = request.form['tweet']
+    return redirect("/")
+
+
+
+
 
 if __name__ == '__main__':
     app.debug = True
