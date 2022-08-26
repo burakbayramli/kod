@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import os; os.chdir(os.path.dirname(__file__))
 from flask import Flask, render_template, request, session, send_file
 from io import StringIO, BytesIO
-import matplotlib.pyplot as plt, pickle, os
+import matplotlib.pyplot as plt, pickle
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
@@ -430,9 +431,6 @@ def gowind(coords,ahead,wide):
     fout = "/tmp/out-%s.html" % uuid.uuid4()
     wind.plot_wind(lat,lon,ahead,wide,fout) # 0,2,6,22    
     return send_file(fout)
-
-
-
 
 if __name__ == '__main__':
     app.debug = True

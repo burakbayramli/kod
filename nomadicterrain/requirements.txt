@@ -7,3 +7,5 @@ polyline
 numpy
 requests==2.22.0
 simplegeomap
+feedparser
+lxml
