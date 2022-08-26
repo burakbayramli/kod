@@ -16,6 +16,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/4";
   document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/0.05";  
   document.getElementById("weat").href = "/goweather/" + lat  + ";" + lon;
+  document.getElementById("pollu").href = "/gopollution/" + lat  + ";" + lon;
 }
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
@@ -39,19 +40,15 @@ function showPosition(position) {
         
         <ul>          
           <p><button onclick="getLocation()">Get Location</button></p>
-          <li><a id="myloc" href="/location/40.9544103535;29.09139109510/0.1">My Location</a></li>
-          <li><a id='trav' href="/travel_maps/40.9544103535;29.09139109510/4">Travel</a></li>
-          <li><a id='trav_smgeo'
-                 href="/travel_maps_smgeo/40.9544103535;29.09139109510/0.05">Travel SMGeo</a></li>
-          <li><a id="profile" href="/profile_main">Profile</a></li>
-          <li><a id='elev'
-                 href="/plot_elev/40.9544103535;29.09139109510/0.05">Elevation</a></li>
-          <li><a id="cap" href="/static/trcamp-out.html">Camping Sites</a></li>
-          <li><a id="weat" href="/goweather/40.9544103535;29.09139109510">
-            Weather
-          </a></li>
+          <li><a id="weat" href="/goweather/40.9544103535;29.09139109510">Weather</a></li>
+          <li><a id="pollu" href="/gopollution/40.9544103535;29.09139109510">Pollution</a></li>
           <li><a href="/extnews">News</a></li>
           <li><a href="/market">Market</a></li>
+          <li><a id="myloc" href="/location/40.9544103535;29.09139109510/0.1">My Location</a></li>
+          <li><a id='trav' href="/travel_maps/40.9544103535;29.09139109510/4">Travel</a></li>
+          <li><a id='trav_smgeo'  href="/travel_maps_smgeo/40.9544103535;29.09139109510/0.05">Travel (L)</a></li>
+          <li><a id='elev' href="/plot_elev/40.9544103535;29.09139109510/0.05">Elevation (L)</a></li>
+          <li><a id="cap" href="/static/trcamp-out.html">Camping Sites</a></li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
           <p>
             <p><button onclick="readLocInput()">Enter Location</button></p>
