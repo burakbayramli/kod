@@ -443,10 +443,6 @@ def submit_tweet():
     OnlyOne().tweet = request.form['tweet']
     return redirect("/")
 
-
-
-
-
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
