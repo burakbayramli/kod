@@ -1,9 +1,14 @@
-(set-language-environment "UTF-8")
+(set-language-environment "utf-8")
+(setq buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
 
 ;;(load "auctex.el" nil t t)
+	
+(setq load-path (cons "/home/burak/Documents/kod/site-lisp/" load-path))
+(require 'ps-ccrypt "ps-ccrypt.el")
 
 (setq initial-scratch-message nil) ;; empty scratch buffer
 (setq max-specpdl-size 50000)
@@ -12,6 +17,7 @@
 (setq auto-resize-tool-bars -1) 
 (setq compile-command "python -u ../build.py tex")
 (setq x-select-enable-clipboard t)
+
 
 (set-variable (quote latex-run-command) "pdflatex")
 
@@ -51,8 +57,8 @@
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
 (setq img-viewer-exe "eog") 
-;;(setq chrome-exe "/usr/bin/chromium-browser") 
-(setq chrome-exe "/usr/bin/firefox") 
+(setq chrome-exe "/usr/bin/chromium-browser") 
+;;(setq chrome-exe "/usr/bin/firefox") 
 
 (defun open-file-ext ()
   "In dired, open the file named on this line."
@@ -60,6 +66,8 @@
   (interactive)
   (let* ((file (buffer-file-name (current-buffer)) ))
     (when (equal (file-name-extension file) "png")
+      (call-process img-viewer-exe nil 0 nil file))
+    (when (equal (file-name-extension file) "gif")
       (call-process img-viewer-exe nil 0 nil file))
     (when (equal (file-name-extension file) "jpg")
       (call-process img-viewer-exe nil 0 nil file))
@@ -93,18 +101,16 @@ This command does not push erased text to kill-ring."
   (interactive "p")
   (my-delete-word (- arg)))
 
-
-(modify-coding-system-alist 'file "*compilation*" 'utf-8)
-(modify-coding-system-alist 'file "\\.pl\\'" 'latin-5)
-(modify-coding-system-alist 'file "\\.tex\\'" 'latin-5)
+(modify-coding-system-alist 'file "compilation" 'utf-8)
+(modify-coding-system-alist 'file "Buffer List" 'utf-8)
+(modify-coding-system-alist 'file "grep" 'utf-8)
+(modify-coding-system-alist 'file "\\.tex\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.htm\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xml\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.html\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.csv\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.sql\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.xhtml\\'" 'utf-8)
-(modify-coding-system-alist 'file "\\.jsp\\'" 'latin-5)
-(modify-coding-system-alist 'file "\\.inc\\'" 'latin-5)
 (modify-coding-system-alist 'file "\\.el\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.txt\\'" 'utf-8)
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
@@ -156,6 +162,7 @@ This command does not push erased text to kill-ring."
   ;; there. If screen is already divided, then buffer list is
   ;; brought up in whatever window I happen to be in.
   (interactive)
+  (prefer-coding-system 'utf-8)
   (if (one-window-p)
       (progn
         (split-window)(other-window 1)(buffer-menu))
@@ -447,8 +454,8 @@ This command does not push erased text to kill-ring."
 (set-face-attribute 'default nil :height 130)
 
 (setq default-frame-alist
-      '((top . 70) (left . 920)
-        (width . 90) (height . 49)
+      '((top . 0) (left . 0)
+        (width . 56) (height . 35)
 ))
 
 (tool-bar-add-item "fwd-arrow" 'revert-buffer 'revert-buffer :help "Refresh" )
@@ -473,6 +480,8 @@ This command does not push erased text to kill-ring."
       (append '(("\\.C$"   . c++-mode)
 		("\\.cc$"  . c++-mode)
 		("\\.cpp$" . c++-mode)	
+		("\\.cu$" . c++-mode)	
+		("\\.cuh$" . c++-mode)	
 		("\\.m$" . octave-mode)	
 		("\\.log$" . hscroll-mode)
 		("\\.cxx$" . c++-mode)
@@ -493,8 +502,10 @@ This command does not push erased text to kill-ring."
                 ("\\.inc$" . nxml-mode)
                 ("\\.xml$" . nxml-mode)
                 ("\\.pyx$" . python-mode)
-		("\\.djvu\\'" . fundamental-mode)
-		("\\.pdf\\'" . fundamental-mode)
+		("\\.djvu$" . fundamental-mode)
+		("\\.pdf$" . fundamental-mode)
+		("\\.json$" . text-mode)
+		("\\.gif$" . fundamental-mode)
 		)
 	      auto-mode-alist))
 
@@ -533,21 +544,63 @@ This command does not push erased text to kill-ring."
  )
 
 (custom-set-faces
+ '(default ((t (:background "#141414" :foreground "#F8F8F8"))))
+ '(cursor ((t (:background "#CDA869"))))
+ '(blue ((t (:foreground "blue"))))
+ '(border-glyph ((t (nil))))
+ '(buffers-tab ((t (:background "#141414" :foreground "#CACACA"))))
+ '(font-lock-warning-face ((t (:background "#EE799F" :foreground "black"))))
+ '(font-lock-builtin-face ((t (:foreground "#CACACA"))))
+ '(font-lock-comment-face ((t (:foreground "#5F5A60"))))
+ '(dired-directory ((t (:foreground "yellow"))))
+ '(font-lock-constant-face ((t (:foreground "#CF6A4C"))))
+ '(font-lock-doc-string-face ((t (:foreground "Orange"))))
+ '(font-lock-function-name-face ((t (:foreground "#9B703F"))))
+ '(font-lock-keyword-face ((t (:foreground "#CDA869"))))
+ '(font-lock-preprocessor-face ((t (:foreground "#CF6A4C"))))
+ '(font-lock-reference-face ((t (:foreground "SlateBlue"))))
+ '(font-lock-string-face ((t (:foreground "Orange"))))
+ '(font-lock-type-face ((t (:foreground "#89788a"))))
+ '(font-lock-variable-name-face ((t (:foreground "#7587A6"))))
+;; '(font-lock-warning-face ((t (:background "#EE799F" :foreground "red"))))
+ '(font-lock-regexp-grouping-backslash ((t (:foreground "#E9C062"))))
+;; '(font-lock-regexp-grouping-construct ((t (:foreground "red"))))
+ '(minibuffer-prompt ((t (:foreground "#5F5A60"))))
+ '(fringe ((t (:background "black" :foreground "grey55"))))
+ '(linum ((t (:background "#141314" :foreground "#2D2B2E"))))
+; '(linum-highlight-face ((t (:inherit linum :foreground "yellow"))))
+ '(hl-line ((t (:background "#212121"))))
+ '(mode-line ((t (:background "grey75" :foreground "black" :height 0.8))))
+ '(mode-line-inactive ((t (:background "grey10" :foreground "grey40" :box (:line-width -1 :color "grey20") :height 0.8))))
+ '(gui-element ((t (:background "#D4D0C8" :foreground "black"))))
+ '(region ((t (:background "#27292A"))))
+ '(shadow ((t (:foreground "#4b474c"))))
+; '(highlight ((t (:background "#111111"))))
+ '(highline-face ((t (:background "SeaGreen"))))
+ '(left-margin ((t (nil))))
+ '(text-cursor ((t (:background "yellow" :foreground "black"))))
+ '(toolbar ((t (nil))))
+ '(underline ((nil (:underline nil))))
+;; '(yas/field-highlight-face ((t (:background "#27292A"))))
+ '(mumamo-background-chunk-submode ((t (:background "#222222"))))
+ '(zmacs-region ((t (:background "snow" :foreground "blue"))))
+
+ 
  ;; custom-set-faces was added by Custom -- don't edit or cut/paste it!
  ;; Your init file should contain only one such instance.
- '(font-lock-builtin-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-lock-builtin-name-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-lock-comment-face ((((class color) (background light)) (:foreground "DarkGreen"))))
- '(font-lock-constant-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-lock-keyword-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-lock-string-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-lock-type-face ((((class color) (background light)) (:foreground "Black"))))
- '(font-lock-doc-face  ((((class color) (background light)) (:foreground "DarkGreen"))))
- '(font-lock-variable-name-face ((((class color) (background light)) (:foreground "NavyBlue"))))
- '(font-latex-verbatim-face  ((t (:family "courier" :foreground "Black" :weight bold))))
+; '(font-lock-builtin-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-lock-builtin-name-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-lock-comment-face ((((class color) (background light)) (:foreground "DarkGreen"))))
+; '(font-lock-constant-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-lock-keyword-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-lock-string-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-lock-type-face ((((class color) (background light)) (:foreground "Black"))))
+; '(font-lock-doc-face  ((((class color) (background light)) (:foreground "DarkGreen"))))
+; '(font-lock-variable-name-face ((((class color) (background light)) (:foreground "NavyBlue"))))
+; '(font-latex-verbatim-face  ((t (:family "courier" :foreground "Black" :weight bold))))
  )
 
-(set-face-foreground 'font-lock-comment-face "DarkGreen")
+(set-face-foreground 'font-lock-comment-face "LightGreen")
 
 ;;turn on interactive prompting for code generation
 (setq tempo-interactive t)
@@ -588,7 +641,7 @@ This command does not push erased text to kill-ring."
  '("[\\begin{array}{ccc} " (s) " \\end{array}]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
- '("\\includegraphics[width=20em]{" (s) "}" ) "")
+ '("\\includegraphics[width=10em]{" (s) "}" ) "")
 
 (tempo-define-template  "tex-listings-python-file" 
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
@@ -752,7 +805,8 @@ This command does not push erased text to kill-ring."
 (defun emoji-punch() (interactive)(insert "👊"))
 (defun emoji-burn () (interactive)(insert "🔥"))
 (defun emoji-scared-teeth() (interactive)(insert "😬"))
-(defun emoji-laugh-cry()  (interactive)(insert "😂"))
+(defun emoji-laugh-cry()  (interactive)(insert "🤣"))
+(defun emoji-laugh-cry2()  (interactive)(insert "😂"))
 (defun emoji-eyes-closed-laugh()  (interactive)(insert "😆"))
 (defun emoji-laugh() (interactive)(insert "😊"))
 (defun emoji-scared() (interactive)(insert "😨"))
@@ -768,8 +822,12 @@ This command does not push erased text to kill-ring."
 (defun emoji-punch()  (interactive)(insert "👊"))
 (defun emoji-just-eyes()  (interactive)(insert "😶"))
 (defun emoji-thinking()  (interactive)(insert "🤔"))
+(defun emoji-eyebrow-raised()  (interactive)(insert "🤨"))
 (defun emoji-facepalm()  (interactive)(insert "🤦‍♂️"))
 (defun emoji-youaskedforit()  (interactive)(insert "🤷‍♂️"))
+(defun emoji-wink()  (interactive)(insert "😉"))
+
+(defun emoji-snake()  (interactive)(insert "🐍"))
 
 (defun my-untabify ()
   (save-excursion
@@ -917,7 +975,7 @@ This command does not push erased text to kill-ring."
 
 (global-set-key [f8] 'remove-newlines-in-region)
 
-(fset 'linkify	"[Link](\345)\341")
+(fset 'linkify	"[[-]](\345)\341")
 
 (global-set-key "\C-x\C-l" 'linkify)
 
@@ -929,26 +987,29 @@ This command does not push erased text to kill-ring."
   (c-set-offset 'substatement-open 0))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
+
+
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
 (find-file-other-window "/home/burak/Documents/kod/guide")
-(find-file-other-window "/home/burak/Documents/twmoney/thirdwave-members")
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/kod")
+(find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
-(find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi")
 (find-file-other-window "/home/burak/Pictures")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/thirdwave/en")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blogs")
-(find-file-other-window "/home/burak/Documents/classnotes/calc_multi/calc_multi_70_div_curl_lap")
-(find-file-other-window "/home/burak/Downloads/divcurlap")
+(find-file-other-window "/home/burak/Documents/classnotes")
+(find-file-other-window "/home/burak/Documents")
+(find-file-other-window "/home/burak/Documents/kitaplar")
+(find-file-other-window "/home/burak/Documents/classnotes/sk")
+(find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
-
+(find-file-other-window "/home/burak/Documents/thirdwave/en")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
+(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_1_20")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
