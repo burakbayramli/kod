@@ -19,6 +19,10 @@
     <p>
         {{labels|safe}}
     </p>
+
+    {% for x in paths %} 
+       <p><a href="{{x[1]}}"/>{{x[0]}}</a></p>    
+    {% endfor %}        
     
   </body>
   

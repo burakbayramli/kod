@@ -166,21 +166,21 @@ def travel_maps(coords,resolution):
 @app.route('/travel_maps_smgeo/<coords>/<zoom>')
 def travel_maps_smgeo(coords,zoom):
 
-    travel_url = request.host_url + "static/travel"
+    fout = "static/out-%s.png" % uuid.uuid4()
+    clean_dir()
 
-    fout = "/tmp/trav-%s.html" % uuid.uuid4()    
-    data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
+    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/static/travel"
+    data = open(base_dir + "/index.json").read()
     params = json.loads(data)
 
     zoom = float(zoom)
     eps = 0.001
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
     
     clat,clon = params['center']
 
     currlat,currlon = coords.split(';')
     lat,lon=float(currlat),float(currlon)
+    plt.clf()
     plt.plot(lon,lat,'gd')
     sm.plot_countries(clat,clon,zoom,outcolor='lavenderblush')    
     sm.plot_water(lat,lon,zoom)
@@ -202,11 +202,13 @@ def travel_maps_smgeo(coords,zoom):
         i += 1
 
     rints = range(4)
+    paths = []
     for map in params['maps']:
-        mapurl = travel_url + "/" + map
-        print (mapurl)
-        data = urllib2.urlopen(mapurl).read().decode('utf-8')
+        map = base_dir + "/" + map
+        print (map)
+        data = open(map).read()
         gpx = gpxpy.parse(data)
+        paths.append((gpx.name,gpx.link))
         points = []
         for track in gpx.tracks:
             for segment in track.segments:
@@ -219,7 +221,8 @@ def travel_maps_smgeo(coords,zoom):
         
     plt.savefig(fout)
     plt.clf()
-    return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels)
+    
+    return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels, paths=paths)
 
 
 @app.route('/plot_elev/<coords>/<zoom>')
