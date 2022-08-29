@@ -49,8 +49,7 @@ if sys.argv[1] == "normal":
             c = similarities[close_people[-idx],0]
             fres = re.findall('\((\d\d\d\d)\)', n)
             if len(fres)>0 and n not in picks and n not in skips \
-               and r >= 4.0 and 'Animation' not in genre[j] \
-               and 'Horror' not in genre[j]:
+               and r >= 4.0 and 'Animation' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
     df = pd.DataFrame(res)
@@ -84,8 +83,7 @@ if sys.argv[1] == "svd":
             c = similarities[close_people[-idx],0]
             fres = re.findall('(\d\d\d\d)', n)
             if len(fres)>0 and n not in picks and n not in skips \
-               and r >= 4.0 and 'Animation' not in genre[j] \
-               and 'Horror' not in genre[j]:
+               and r >= 4.0 and 'Animation' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
     df = pd.DataFrame(res)
