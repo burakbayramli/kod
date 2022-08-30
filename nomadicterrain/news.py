@@ -9,8 +9,8 @@ def strip_html(input):
 skip_words = ["Turk", "battery","Webb", "electric","Blinken","Biden","Thunberg",
               "lithium", "AOC", "der Leyen", "Erdo.an","Elon", "Musk","Tesla",
               "batteries", "SpaceX", "Mars","black hole", "artificial intelligence",
-              " AI ", "poll", "Zelensky", "black hole", " EV ", "Webb", "A\.I\.", 
-              "telescope", "Yellen"]
+              " AI ", "AI ", "poll", "Zelensky", "black hole", " EV ", "Webb",
+              "A\.I\.", "telescope", "Yellen"]
 
 
 
