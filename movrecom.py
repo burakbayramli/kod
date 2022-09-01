@@ -17,7 +17,6 @@ import os, sys, re
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
 
 picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
-skips = pd.read_csv('movskips.csv',index_col=0).to_dict('index')
 
 if len(sys.argv) < 2:
     print ("Usage movrecom.py [normal|svd]")
@@ -48,7 +47,7 @@ if sys.argv[1] == "normal":
             n = movi[j]
             c = similarities[close_people[-idx],0]
             fres = re.findall('\((\d\d\d\d)\)', n)
-            if len(fres)>0 and n not in picks and n not in skips \
+            if len(fres)>0 and n not in picks  \
                and r >= 4.0 and 'Animation' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
@@ -82,7 +81,7 @@ if sys.argv[1] == "svd":
             n = movi[j]
             c = similarities[close_people[-idx],0]
             fres = re.findall('(\d\d\d\d)', n)
-            if len(fres)>0 and n not in picks and n not in skips \
+            if len(fres)>0 and n not in picks  \
                and r >= 4.0 and 'Animation' not in genre[j]:
                 year = int(fres[0])
                 res.append([n, year, c])
