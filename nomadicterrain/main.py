@@ -446,6 +446,30 @@ def submit_tweet():
     OnlyOne().tweet = request.form['tweet']
     return redirect("/")
 
+@app.route('/recoll')
+def recoll():
+    return render_template("/recoll.html")
+
+@app.route('/submit_search', methods=['POST'])
+def submit_search():
+    from recoll import recoll
+    db = recoll.connect()
+    db.setAbstractParams(maxchars=80, contextwords=4)
+    results = []
+    query = db.query()
+    nres = query.execute(request.form['search'])
+    print("Result count: %d" % nres)
+    for i in range(5):
+        doc = query.fetchone()
+        row = []
+        for k in ("title", "size", "url"):
+            row.append("%s" % getattr(doc, k))
+        row.append(db.makeDocAbstract(doc, query))
+        results.append(row)
+        
+    return render_template("/recoll.html",results=results)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
