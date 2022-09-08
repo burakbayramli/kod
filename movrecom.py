@@ -40,7 +40,7 @@ if sys.argv[1] == "normal":
     res = []
     # work from end of close people sort index (best to worst) get
     # their movies put on a list
-    for idx in range(1,1000):
+    for idx in range(1,2000):
         ii,jj = utility_csr[close_people[-idx],:].nonzero()    
         for j in jj:
             r = utility_csr[close_people[-idx],:][0,j]
@@ -50,7 +50,7 @@ if sys.argv[1] == "normal":
             if len(fres)>0 and n not in picks  \
                and r >= 4.0 and 'Animation' not in genre[j]:
                 year = int(fres[0])
-                res.append([n, year, c])
+                if year > 2005 and c>0.58: res.append([n, year, c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
     fout = '~/Downloads/movierecom.csv'
