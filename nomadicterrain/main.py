@@ -454,7 +454,7 @@ def recoll():
 def submit_search():
     from recoll import recoll
     db = recoll.connect()
-    db.setAbstractParams(maxchars=80, contextwords=4)
+    db.setAbstractParams(maxchars=300, contextwords=4)
     results = []
     query = db.query()
     nres = query.execute(request.form['search'])

@@ -65,8 +65,9 @@ if sys.argv[1] == "svd":
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
     genre = pd.read_csv(d + "/movies.csv",index_col="movieId")['genres'].to_dict()
 
-    for p in picks: utility_csr[0,mov[p]] = float(picks[p]['rating'])
-    k = 10
+    for p in picks:
+        if p in mov: utility_csr[0,mov[p]] = float(picks[p]['rating'])
+    k = 5
     A = scipy.sparse.linalg.svds(utility_csr, k=k)[0]
 
     similarities = cosine_similarity(A, A[0,:].reshape(1,k))
