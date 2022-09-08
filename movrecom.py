@@ -58,38 +58,3 @@ if sys.argv[1] == "normal":
     df.to_csv(fout)
     print ('See ' + fout)
 
-if sys.argv[1] == "svd":
-    ratings = pd.read_csv(d + "/ratings.csv")
-    utility_csr = csr_matrix((ratings.rating, (ratings.userId , ratings.movieId)))
-
-    mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
-    genre = pd.read_csv(d + "/movies.csv",index_col="movieId")['genres'].to_dict()
-
-    for p in picks:
-        if p in mov: utility_csr[0,mov[p]] = float(picks[p]['rating'])
-    k = 5
-    A = scipy.sparse.linalg.svds(utility_csr, k=k)[0]
-
-    similarities = cosine_similarity(A, A[0,:].reshape(1,k))
-    close_people = np.argsort(similarities[:,0])
-    movi = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
-
-    res = []
-    for idx in range(1,100):
-        ii,jj = utility_csr[close_people[-idx],:].nonzero()    
-        for j in jj:
-            r = utility_csr[close_people[-idx],:][0,j]
-            n = movi[j]
-            c = similarities[close_people[-idx],0]
-            fres = re.findall('(\d\d\d\d)', n)
-            if len(fres)>0 and n not in picks  \
-               and r >= 4.0 and 'Animation' not in genre[j]:
-                year = int(fres[0])
-                res.append([n, year, c])
-    df = pd.DataFrame(res)
-    df = df.sort_values([1,2],ascending=False)
-    fout = '~/Downloads/movierecom.csv'
-    df = df.drop_duplicates(0)
-    df.to_csv(fout)
-    print ('See ' + fout)
-
