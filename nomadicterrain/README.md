@@ -16,5 +16,18 @@ travelers. To start simply run `main.py`.
   the config. Also install recoll's python extensions (download recoll sources,
   go to `python` folder, run setup there).
 
+An example `nomterr.conf` file looks like
 
+```
+{
+  "guide_detail_dir": "/home/burak/Documents/kod/guide/doc/details",
+  "spiller_pdf": "/home/burak/Documents/kod/nomadicterrain/static/spiller.json",
+  "weatherapi": "[API]",
+  "btype": "/home/burak/Documents/kod/guide/data",
+  "hay": "/home/burak/Documents/kod/guide/doc",
+  "quandl": "[API]",
+  "celeb": "/home/burak/Documents/kod/guide/data/famousbday.txt",
+  "book_dir": "file:///home/burak/Documents"
+}
+```
 
