@@ -31,6 +31,8 @@ function readLocInput() {
   var pos = document.getElementById("locValue").value;
   var lat = pos.split(",")[0];
   var lon = pos.split(",")[1];
+  lat = lat.replace(" ","")
+  lon = lon.replace(" ","")
   setLocOnPage(lat,lon);
 }
 function showPosition(position) {
