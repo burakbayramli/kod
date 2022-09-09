@@ -13,8 +13,10 @@
     <input type="submit">
    </form>
 
-    {% for x in results %} 
-       {{ x }} <br/><br/>
+   {% for x in results %}
+   <p>
+     {{x[0]}} MB <a href="{{x[1]}}">{{x[2]}}</a> {{x[3]}}
+   </p>
     {% endfor %}        
 
    

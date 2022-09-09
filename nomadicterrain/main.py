@@ -459,11 +459,14 @@ def submit_search():
     query = db.query()
     nres = query.execute(request.form['search'])
     print("Result count: %d" % nres)
+    newbase = "http://" + request.host + "/static/kitaplar"
     for i in range(5):
         doc = query.fetchone()
         row = []
-        for k in ("title", "size", "url"):
-            row.append("%s" % getattr(doc, k))
+        size = float(getattr(doc, "size"))
+        row.append("%0.1f" % (size / 1e6))
+        row.append("%s" % getattr(doc, "url").replace("file:///home/burak/Documents/kitaplar",newbase))
+        row.append(os.path.basename(getattr(doc, "url")))
         row.append(db.makeDocAbstract(doc, query))
         results.append(row)
         
