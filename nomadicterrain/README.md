@@ -12,5 +12,9 @@ travelers. To start simply run `main.py`.
   for free, and API key will be generated.
 
 - For the recoll section to work, place a symlink from `static` to the
-  top folder of your books, and install recoll's python extensions
+  top folder of your books. This folder should be set for `book_dir` in
+  the config. Also install recoll's python extensions (download recoll sources,
+  go to `python` folder, run setup there).
+
+
 
