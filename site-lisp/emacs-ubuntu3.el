@@ -1004,6 +1004,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kitaplar")
+(find-file-other-window "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m")
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
