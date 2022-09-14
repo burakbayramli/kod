@@ -15,14 +15,13 @@ if sys.argv[1] == "acer_ext":
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/Backup Plus/archive/classnotes'  --ignore-list=.git  --delete 1")
     #os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/Seagate Backup Plus Drive/archive/repos/books'  --ignore-list=.git")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/Backup Plus/archive/kitaplar'  --delete 1")
-    #os.system("python rsync.py '/home/burak/Downloads/campdata' '/media/burak/Seagate Backup Plus Drive/archive/data/campdata'  --delete 1")
     
-#if sys.argv[1] == "ext1_ext2":
-#    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/shows' '/media/burak/Backup Plus/shows'  --delete 1")
-#    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/archive/Dropbox' '/media/burak/Backup Plus/archive/Dropbox'  --delete 1")
-#    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/archive/data' '/media/burak/Backup Plus/archive/data'  --delete 1")
-#    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/archive/kitaplar' '/media/burak/Backup Plus/archive/kitaplar' --delete 1")
-#    os.system("python rsync.py '/media/burak/Seagate Backup Plus Drive/Lectures' '/media/burak/Backup Plus/Lectures' ")
+if sys.argv[1] == "ext1_ext2":
+    os.system("python rsync.py '/media/burak/Backup Plus/shows' '/media/burak/Seagate Backup Plus Drive/shows'   --delete 1")
+    os.system("python rsync.py '/media/burak/Backup Plus/archive/Dropbox' '/media/burak/Seagate Backup Plus Drive/archive/Dropbox'  --delete 1")
+    os.system("python rsync.py '/media/burak/Backup Plus/archive/data' '/media/burak/Seagate Backup Plus Drive/archive/data'   --delete 1")
+    os.system("python rsync.py '/media/burak/Backup Plus/archive/kitaplar' '/media/burak/Seagate Backup Plus Drive/archive/kitaplar'  --delete 1")
+    os.system("python rsync.py '/media/burak/Backup Plus/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures'  ")
     
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
