@@ -462,6 +462,7 @@ def submit_search():
     newbase = "http://" + request.host + "/static"
     for i in range(200):
         doc = query.fetchone()
+        if not doc: continue
         row = []
         size = float(getattr(doc, "size"))
         row.append("%0.1f" % (size / 1e6))
