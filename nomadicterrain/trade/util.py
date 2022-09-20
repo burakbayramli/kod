@@ -16,7 +16,7 @@ def get_yahoofin(year,ticker):
     df = pd.read_csv(file,index_col='Date',parse_dates=True)['Close']
     return df
 
-if __name__ == "__main__": 
+def get_garan_xch_data():
     res = []; cols = []
     df = pd.read_csv("garanpairs.csv",sep=';')    
     for idx, row in df.iterrows():
@@ -29,3 +29,8 @@ if __name__ == "__main__":
     dfall = pd.concat(res,axis=1)
     dfall.columns = cols
     dfall.to_csv('xch.csv')
+
+if __name__ == "__main__": 
+    #get_garan_xch_data()
+    pass
+
