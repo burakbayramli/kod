@@ -1,0 +1,31 @@
+{
+    "center": [40.5886754166493, 29.913405195349764],
+    "points": {
+	"Sogutlucesme Gar \n Izmit 08:20-09:42,\n 09:10-10:47,\n 11:15-12:45,\n 12:10-13:31":[40.99080140762753, 29.03729704263562],
+	"Izmit Tren Gari \n Sogutlucesme \n 15:31-16:54 \n 16:07-17:40 \n 16:44-18:14 \n 19:58-21:20": [40.761873846717215, 29.917998347447845],
+	"Alıç Yaylası": [40.51928585068467, 29.90112762700287],
+	"Kırıntı Köyü": [40.56420819635126, 29.878511660760662],
+	"Kutluca Koyu": [40.568834, 29.851407],
+	"Papazçayırı": [40.58517421355387, 29.914672238084314],
+	"Menekşe Yaylası 1": [40.5886754166493, 29.913405195349764],
+	"Menekşe Yaylası 2": [40.583969,29.905076],	    
+	"Şahin Tepesi": [40.597988310789994, 29.923933467294972],
+	"Kocaeli Aytepe": [40.6009822375943, 29.934368854421496]
+    },
+    "restaurants": {	
+    },
+    "campgrounds": {
+	"aytepe dirilis kamp": [40.59517382367663, 29.95576631125103],
+	"gokyuzu glamping": [40.56407187298135, 29.890353742302775],
+	"karaaslan kamping": [40.64128875126336, 29.954141081173475],
+	"yuvacik takim yildizi": [40.61607360027906, 29.94553574190318]
+    },
+    "maps": [
+	     "aytepe-menekse-yaylasi.gpx",
+	     "kirinti-menekse-beskayalar-kutluca.gpx",
+	     "yuvacik-aytepe-servetiye-karaaslan-basiskele.gpx",
+	     "yuvacik-aytepe-menekse-yaylasi.gpx",
+	     "alicli-yaylasi-kirinti-koyu-aytepekoy.gpx"
+     ]
+	
+}
