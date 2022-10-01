@@ -19,11 +19,10 @@ def getnews():
         ("H2 Central","https://hydrogen-central.com/feed/",20),
         ("H2 Fuel News","https://www.hydrogenfuelnews.com/feed/",10),
         ("Al Jazeera","https://www.aljazeera.com/xml/rss/all.xml",10),
-        ("The Mandarin AU","https://www.themandarin.com.au/feed/",15),
-        ("ABC Australia","https://www.abc.net.au/feeds/9443166/podcast.xml",10),
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
         ('Al Monitor','https://www.al-monitor.com/rss',20),
+        ("TASS","http://tass.com/rss/v2.xml",20),
         ("Arab News","https://www.arabnews.com/cat/3/rss.xml",10),
         ("Jane's Defense", "https://www.janes.com/feeds/news", 10),        
         ('CNBC','https://www.cnbc.com/id/100727362/device/rss/rss.html',10),        
@@ -36,6 +35,8 @@ def getnews():
         ("France 24","https://www.france24.com/en/rss",10),        
         ("Politico","https://www.politico.com/rss/politicopicks.xml",10),
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
+        ("The Mandarin AU","https://www.themandarin.com.au/feed/",15),
+        ("ABC Australia","https://www.abc.net.au/feeds/9443166/podcast.xml",10),
         ("H2 View","https://www.h2-view.com/rss/feed/e15e1d6422c35afec038fbd559797494/",10),
         ("The Atlantic", "https://www.theatlantic.com/feed/all",8)
     ]
