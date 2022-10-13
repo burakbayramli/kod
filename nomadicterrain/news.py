@@ -29,6 +29,7 @@ def getnews():
         ('WSJ','https://feeds.a.dj.com/rss/RSSWorldNews.xml',10),
         ("NYT", "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",15),
         ("WION","https://www.wionews.com/feeds/world/rss.xml",20),
+        ("TFI Global","https://tfiglobalnews.com/feed/",20),
         ("Hindustan Times World","https://www.hindustantimes.com/feeds/rss/world-news/rssfeed.xml",10),
         ("Politico.eu","https://www.politico.eu/feed/",5),
         ("First Post","https://www.firstpost.com/rss/world.xml",10),
