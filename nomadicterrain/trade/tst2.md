@@ -4,7 +4,7 @@
 ```python
 import pandas as pd
 df = pd.read_csv('simple1.csv')
-#print (df)
+print (df)
 df['positions'] = 1.0
 df.loc[df.index > 15,'positions'] = 0
 ret = df['positions'] * df['y'].pct_change()*100.0
@@ -16,6 +16,35 @@ plt.savefig('tst2_02.png')
 ```
 
 ```text
+      y
+0   1.0
+1   1.0
+2   1.0
+3   1.0
+4   1.0
+5   1.0
+6   1.0
+7   1.0
+8   1.0
+9   1.0
+10  2.2
+11  2.4
+12  2.6
+13  2.8
+14  3.0
+15  3.2
+16  3.4
+17  3.6
+18  3.8
+19  1.0
+20  1.0
+21  1.0
+22  1.0
+23  1.0
+24  1.0
+25  1.0
+26  1.0
+27  1.0
 0     NaN
 1     0.0
 2     0.0
