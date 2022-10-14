@@ -3,55 +3,47 @@
 
 ```python
 import pandas as pd
-pd.set_option('display.max_columns', None)
-y1 = np.array([1 for i in range (10)])
-y2 = np.array([0.2*i for i in range(11,20)])
-y3 = np.array([1 for i in range (21,30)])
-y = np.hstack((y1,y2,y3))
-df = pd.DataFrame(y)
-df.columns = ['y']
-df['y'].plot(ylim=[0,5])
+df = pd.read_csv('simple1.csv')
 #print (df)
-plt.savefig('tst2_01.png')
-```
-
-```python
 df['positions'] = 1.0
+df.loc[df.index > 15,'positions'] = 0
 ret = df['positions'] * df['y'].pct_change()*100.0
+ret = df.positions.shift(1) * (df['y'] - df['y'].shift(1))  / df['y'].shift(1)
 res = np.cumprod(1+ret)-1
 print (res)
-#plt.savefig('tst2_02.png')
+res.plot()
+plt.savefig('tst2_02.png')
 ```
 
 ```text
-0              NaN
-1     0.000000e+00
-2     0.000000e+00
-3     0.000000e+00
-4     0.000000e+00
-5     0.000000e+00
-6     0.000000e+00
-7     0.000000e+00
-8     0.000000e+00
-9     0.000000e+00
-10    1.200000e+02
-11    1.220000e+03
-12    1.139500e+04
-13    9.905654e+04
-14    8.066104e+05
-15    6.184020e+06
-16    4.483415e+07
-17    3.085644e+08
-18    2.022811e+09
-19   -1.470264e+11
-20   -1.470264e+11
-21   -1.470264e+11
-22   -1.470264e+11
-23   -1.470264e+11
-24   -1.470264e+11
-25   -1.470264e+11
-26   -1.470264e+11
-27   -1.470264e+11
+0     NaN
+1     0.0
+2     0.0
+3     0.0
+4     0.0
+5     0.0
+6     0.0
+7     0.0
+8     0.0
+9     0.0
+10    1.2
+11    1.4
+12    1.6
+13    1.8
+14    2.0
+15    2.2
+16    2.4
+17    2.4
+18    2.4
+19    2.4
+20    2.4
+21    2.4
+22    2.4
+23    2.4
+24    2.4
+25    2.4
+26    2.4
+27    2.4
 dtype: float64
 ```
 

@@ -30,6 +30,19 @@ def get_garan_xch_data():
     dfall.columns = cols
     dfall.to_csv('xch.csv')
 
+def simple1():
+    pd.set_option('display.max_columns', None)
+    y1 = np.array([1 for i in range (10)])
+    y2 = np.array([0.2*i for i in range(11,20)])
+    y3 = np.array([1 for i in range (21,30)])
+    y = np.hstack((y1,y2,y3))
+    df = pd.DataFrame(y)
+    df.columns = ['y']
+    df['y'].plot(ylim=[0,5])
+    #print (df)
+    plt.savefig('tst2_01.png')
+    df.to_csv('simple1.csv',index=None)    
+    
 if __name__ == "__main__": 
     #get_garan_xch_data()
     pass
