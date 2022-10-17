@@ -41,7 +41,11 @@ df = df[df.index > '2016-01-01']
 #df = df[['EURTRY=X','CADUSD=X','USDAUD=X']]
 #df = df[['CADUSD=X','USDAUD=X']]
 #df = df[['TRYUSD=X','USDAUD=X']]
-df = df[['EURTRY=X','GBPEUR=X']]
+#df = df[['EURTRY=X','GBPEUR=X']]
+#df = df[['EURTRY=X','GBPTRY=X']]
+#df = df[['EURTRY=X','GBPTRY=X']]
+
+df = df[['EURTRY=X','GBPTRY=X']]; df = 1./df # TRYEUR=X','TRYGBP=X
 df = df.interpolate()
 Sigma = df.cov()
 eval,evec = lin.eig(Sigma)
@@ -57,11 +61,8 @@ plt.savefig('tst1_02.png')
 ```
 
 ```text
-[1.e-04 1.e+00]
-0.00028350771591782227
-```
-
-```python
+[-0.6368  0.771 ]
+0.0023292158890772497
 ```
 
 

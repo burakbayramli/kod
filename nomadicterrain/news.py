@@ -6,7 +6,7 @@ import re, time, os
 def strip_html(input):
     return BeautifulSoup(input, "lxml").text
 
-skip_words = ["Turk", "battery","Webb", "electric","Blinken","Biden","Thunberg",
+skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden",
               "lithium", "AOC", "der Leyen", "Erdo.an","Elon", "Musk","Tesla",
               "batteries", "SpaceX", "Mars","black hole", "artificial intelligence",
               " AI ", "AI ", "poll", "Zelensky", "black hole", " EV ", "Webb",
