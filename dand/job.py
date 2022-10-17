@@ -2,6 +2,7 @@ import os
 
 def process(file_name,ci,N,hookobj,skip_lines=0):
     file_size = os.path.getsize(file_name)
+    hookobj.infile = file_name
     with open(file_name, 'r') as f:
         for j in range(skip_lines): f.readline()
         beg = f.tell()
