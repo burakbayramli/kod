@@ -1,22 +1,22 @@
 {
-    "center": [40.61786007846114, 26.55298238020851],
+    "center": [41.1381164, 29.85441851],
     "points": {
-	"sait faik abasıyanık koyu":[40.61529108146252, 26.561548211887896],
-	"gokcetepe tabiat parki": [40.63877307539608, 26.611098579621363]
+	 "tepemayanir koyu": [41.01839593908683, 29.734058686566204],
+	 "uskudar marmaray (cikisinin hemen solunda anayol uzerinde 4 nolu peronda 139A sile-agva otobus)": [41.02591884440994, 29.01374667603076],
+	 "kilimli koyu": [41.142256778, 29.872581682]
     },
     "restaurants": {	
     },
-    "campgrounds": {
+    "campgrounds": {	
     },
     "maps": [
-	     "ozeliz-gokcetepe-motivasyon-yuruyusu.gpx",
-	     "sardos-camlica-trakkale-yuruyusu.gpx",
-	     "sazlidere-adilhan-sahil.gpx",
-	     "sazlidere-edirne-turkiye-cumhuriyeti.gpx",
-	     "sazlidere-armutdere-mh-asfalti.gpx",
-	     "mahmutkoy-kalealti-gunubirlik-doga-yuruyusu.gpx",
-	     "enez.gpx",
-	     "saroz-sahil-enez-kocacesme.gpx"
+	     "trekinturkey-tepemanayir-degirmencayiri-15-3-2015.gpx",
+	     "tepemanayir-hacilli-selaleleri.gpx",
+	     "tepemanayir-hacilli.gpx",
+	     "tepemanayir-goksu.gpx",
+	     "hacilli-goksu-agva.gpx",
+	     "agva-kilimli-9-km.gpx",
+	     "agva-istanbul-bagirkanli-kocaeli-08-09-2013.gpx"
      ]
 	
 }
