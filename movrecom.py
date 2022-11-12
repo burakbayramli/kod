@@ -11,18 +11,34 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 import scipy.sparse.linalg, json
 import pandas as pd, numpy as np
-import os, sys, re
+import os, sys, re, csv
 
 #d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
 
-picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
+def to_json():
+    fin = d + "/ratings.csv"
+    fout = d + "/ratings-json.csv"
+    curruser = 0
+    row_dict = {}
+    fout = open(fout, "w")
+    with open(fin) as csvfile:   
+        rd = csv.reader(csvfile,delimiter=',')
+        headers = {k: v for v, k in enumerate(next(rd))}
+        for row in rd:
+            if row[headers['userId']] != curruser:
+                fout.write(str(curruser) + "|")
+                fout.write(json.dumps(row_dict))
+                fout.write("\n")
+                fout.flush()
+                curruser = row[headers['userId']]
+                row_dict = {}       
+            row_dict[int(row[headers['movieId']])] = float(row[headers['rating']])
+    fout.close()
 
-if len(sys.argv) < 2:
-    print ("Usage movrecom.py [normal|svd]")
-    exit()
 
-if sys.argv[1] == "normal":
+def simple_similarity():
+    picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
     ratings = pd.read_csv(d + "/ratings.csv")
     utility_csr = csr_matrix((ratings.rating, (ratings.userId , ratings.movieId)))
 
@@ -58,3 +74,16 @@ if sys.argv[1] == "normal":
     df.to_csv(fout)
     print ('See ' + fout)
 
+
+if __name__ == "__main__":  
+
+    to_json()
+    exit()
+    
+    if len(sys.argv) < 2:
+        print ("Usage movrecom.py [normal]")
+        exit()
+
+    if sys.argv[1] == "normal":
+        simple_similarity()
+        exit()
