@@ -47,7 +47,7 @@ def simple_similarity():
                 year = int(fres[0])
                 res.append([n, year, c])
     df = pd.DataFrame(res)
-    df = df.sort_values([1,2],ascending=False)
+    df = df.sort_values([2,1],ascending=False)
     fout = '~/Downloads/movierecom.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
@@ -57,9 +57,9 @@ def simple_similarity():
 if __name__ == "__main__":  
     
     if len(sys.argv) < 2:
-        print ("Usage movrecom.py [normal]")
+        print ("Usage movrecom.py [sim]")
         exit()
 
-    if sys.argv[1] == "normal":
+    if sys.argv[1] == "sim":
         simple_similarity()
         exit()

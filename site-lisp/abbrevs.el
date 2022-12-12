@@ -16,7 +16,7 @@
     ("9o" "o zaman" nil 1)
     ("9O" "O zaman" nil 1)
     ("cout" "std::cout << << std::endl;" move-back-nine-chars 0)
-    ("9par" "\\frac{\\partial }{\\partial }" move-back-nine-chars 0)
+    ("9par" "\\frac{\\partial }{\\partial }" move-back-twelve-chars 0)
     ("9ep" "\\frac{1}{4\\pi\\epsilon_0}" nil 1)
     ("9lr" "\\left(   \\right)" move-back-nine-chars 0)
     ))

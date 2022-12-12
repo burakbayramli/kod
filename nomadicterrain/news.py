@@ -34,10 +34,10 @@ def getnews():
         ("Politico.eu","https://www.politico.eu/feed/",5),
         ("First Post","https://www.firstpost.com/rss/world.xml",10),
         ("France 24","https://www.france24.com/en/rss",10),        
+        ("Slate","https://slate.com/feeds/all.rss",10),
         ("Politico","https://www.politico.com/rss/politicopicks.xml",10),
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
         ("The Mandarin AU","https://www.themandarin.com.au/feed/",15),
-        ("ABC Australia","https://www.abc.net.au/feeds/9443166/podcast.xml",10),
         ("H2 View","https://www.h2-view.com/rss/feed/e15e1d6422c35afec038fbd559797494/",10),
         ("The Atlantic", "https://www.theatlantic.com/feed/all",8)
     ]

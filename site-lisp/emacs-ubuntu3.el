@@ -51,6 +51,12 @@
   (backward-delete-char)
   )
 
+(defun move-back-twelve-chars ()  
+  (interactive)                  
+  (backward-char 12)              
+  (backward-delete-char)
+  )
+
 ;; set name of abbrev file with .el extension
 (setq abbrev-file-name "/home/burak/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
@@ -916,6 +922,7 @@ This command does not push erased text to kill-ring."
 (setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
+(add-to-list 'compile-history "conv1 o.png o.jpg")
 (add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh atw.md")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
@@ -1010,8 +1017,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/thirdwave/en")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
-(find-file-other-window "/home/burak/Documents/classnotes/work/linpar")
-(find-file-other-window "/home/burak/Documents/classnotes/work/inva")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_01")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
