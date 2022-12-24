@@ -43,9 +43,9 @@ def simple_similarity():
             c = similarities[close_people[-idx],0]
             fres = re.findall('\((\d\d\d\d)\)', n)
             if len(fres)>0 and n not in picks  \
-               and r >= 4.0 and 'Animation' not in genre[j]:
-                year = int(fres[0])
-                res.append([n, year, c])
+               and r >= 4.0 and 'Animation' not in genre[j] \
+               and int(fres[0]) > 2010:
+                res.append([n, int(fres[0]), c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
     fout = '~/Downloads/movierecom.csv'
