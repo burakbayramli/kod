@@ -13,7 +13,8 @@ if __name__ == "__main__":
         list = glob.glob("*.m*") + glob.glob("*.webm*")
         print (list)
         print ('\n')
-        idx = util.my_random(len(list))
+        #idx = util.my_random(len(list))
+        idx = util.my_random2(len(list))
         print ("# of songs", len(list),) 
         "song idx selected", idx, 
         "song", list[idx]

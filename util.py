@@ -17,6 +17,10 @@ def my_random(upper):
     r = hashlib.md5(res)
     return int(r.hexdigest(),16) % upper
 
+def my_random2(upper):
+    rand = os.urandom(10)
+    return int(binascii.hexlify(rand), 16) % upper
+
     
 if __name__ == "__main__":
     
