@@ -1,4 +1,6 @@
 movie,rating
+Underworld: Blood Wars (2016),0
+Assassin's Creed (2016),0
 Lion (2016),0
 Me Before You (2016),0
 Reservoir Dogs (1992),0
@@ -213,7 +215,6 @@ Galaxy Quest (1999),5
 Starship Troopers (1997),5
 "Usual Suspects, The (1995)",5
 Apollo 13 (1995),5
-Pulp Fiction (1994),4
 Stargate (1994),5
 Scarface (1983),2
 Any Given Sunday (1999),5
@@ -253,7 +254,6 @@ Die Hard (1988),3
 Ip Man 2 (2010),5
 "Town, The (2010)",4
 "Departed, The (2006)",4
-Kill Bill: Vol. 1 (2003),3
 John Q (2002),3
 "Patriot, The (2000)",5
 Armageddon (1998),5
@@ -315,7 +315,6 @@ Yesterday (2019),5
 Need for Speed (2014),3
 Triple Frontier (2019),3
 Joker (2019),3
-Once Upon a Time in Hollywood (2019),3
 Dark Phoenix (2019),1
 I Am Mother (2019),4
 Ad Astra (2019),5
@@ -504,14 +503,14 @@ Wind River (2017),5
 Darkest Hour (2017),1
 The Post (2017),2
 Logan Lucky (2017),3
-The Dark Tower (2017),4
+The Dark Tower (2017),3
 Mile 22 (2018),3
-BlacKkKlansman (2018),3
+BlacKkKlansman (2018),2
 Master Z: Ip Man Legacy (2018),4
 50 First Dates (2004),4
 "Green Mile, The (1999)",3
 "Negotiator, The (1998)",4
-"Signal, The (2014)", 2
+"Signal, The (2014)", 1
 Shot Caller (2017),5
 Die Hard 2 (1990),4
 "Road Warrior, The (Mad Max 2) (1981)",3
@@ -527,24 +526,24 @@ Wrath of the Titans (2012),3
 "Amazing Spider-Man, The (2012)",3
 Constantine (2005),5
 "League of Extraordinary Gentlemen, The (a.k.a. LXG) (2003)",3
-Gangs of New York (2002),4
+Gangs of New York (2002),3
 "Replacements, The (2000)",5
 Star Wars: Episode I - The Phantom Menace (1999),4
 Casino (1995),4
 Goodfellas (1990),5
 Indiana Jones and the Kingdom of the Crystal Skull (2008),5
 28 Weeks Later (2007),4
-Mission: Impossible III (2006),2
+Mission: Impossible III (2006),1
 Prisoners (2013),2
 Shooter (2007),5
-No Country for Old Men (2007),4
+No Country for Old Men (2007),3
 Predators (2010),4
 Four Brothers (2005),4
-Divergent (2014),5
-Allegiant: Part 1 (2016),5
-Underworld: Evolution (2006),4
-Underworld (2003),4
-Underworld: Awakening (2012),4
+Divergent (2014),4
+Allegiant: Part 1 (2016),4
+Underworld: Evolution (2006),3
+Underworld (2003),3
+Underworld: Awakening (2012),3
 Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002),5
 xXx (2002),4
 28 Days Later (2002),4
@@ -600,7 +599,6 @@ G.I. Joe: The Rise of Cobra (2009),5
 2012 (2009),5
 "X-Files: I Want to Believe, The (2008)",3
 "Aviator, The (2004)",3
-Death Proof (2007),3
 Hancock (2008),4
 "Bank Job, The (2008)",4
 Rush Hour 3 (2007),3
@@ -614,7 +612,6 @@ American Pie (1999),4
 U.S. Marshals (1998),4
 Conspiracy Theory (1997),5
 Outbreak (1995),5
-Grindhouse (2007),3
 Ocean's Twelve (2004),4
 Ocean's Thirteen (2007),3
 Inglourious Basterds (2009),4
@@ -622,8 +619,6 @@ Inglourious Basterds (2009),4
 Cloverfield (2008),3
 Body of Lies (2008),4
 "Hurt Locker, The (2008)",4
-Sin City (2005),3
-Kill Bill: Vol. 2 (2004),3
 Anger Management (2003),3
 Something's Gotta Give (2003),3
 Signs (2002),3
@@ -647,3 +642,14 @@ Bloodsport (1988),3
 RoboCop (1987),4
 Commando (1985),4
 Death Wish (2018),5
+The Hateful Eight (2015),1
+Grindhouse (2007),1
+Kill Bill: Vol. 2 (2004),1
+Kill Bill: Vol. 1 (2003),1
+Death Proof (2007),1
+Pulp Fiction (1994),5
+Once Upon a Time in Hollywood (2019),1
+Sin City: A Dame to Kill For (2014),1
+Sin City (2005),1
+"Monuments Men, The (2014)",4
+Moneyball (2011),4
