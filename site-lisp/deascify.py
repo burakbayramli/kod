@@ -51,7 +51,7 @@ def convert():
               ("algoritma",), ("gayri",u'gayrı'), ("duality",),
               ("sigma",), ("volatility",), ("matris",),
               ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
-              ("inverse",), ("sonusur",u"sonuşur"),
+              ("inverse",), ("sonusur",u"sonuşur"),("Rust",),
               ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
               ("sarsim",u"sarsım"),("autograd",),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
