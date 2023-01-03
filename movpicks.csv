@@ -49,7 +49,6 @@ Mission: Impossible - Fallout (2018),4
 Ant-Man and the Wasp (2018), 3
 Pacific Rim: Uprising (2018),5
 Deadpool 2 (2018), 3
-Solo: A Star Wars Story (2018),2
 Rampage (2018),3
 Upgrade (2018),4
 Untitled Spider-Man Reboot (2017),4
@@ -78,7 +77,6 @@ Tag (2018),2
 Captain Marvel (2018),2
 "Matrix, The (1999)", 5
 "Avengers, The (2012)", 5
-Star Wars: Episode IV - A New Hope (1977),5
 Guardians of the Galaxy 2 (2017),3
 John Wick: Chapter Two (2017),4
 Kingsman: The Golden Circle (2017),5
@@ -93,8 +91,6 @@ John Wick (2014),4
 Mission: Impossible - Ghost Protocol (2011),4
 "Dark Knight, The (2008)",3
 Iron Man (2008),5
-Star Wars: Episode VI - Return of the Jedi (1983),5
-Star Wars: Episode V - The Empire Strikes Back (1980),5
 Arrival (2016),4
 Kingsman: The Secret Service (2015),5
 Mad Max: Fury Road (2015),4
@@ -105,14 +101,13 @@ Inception (2010),5
 "Lord of the Rings: The Two Towers, The (2002)",4
 "Lord of the Rings: The Fellowship of the Ring, The (2001)",4
 Fight Club (1999),5
-Rogue One: A Star Wars Story (2016),3
 Passengers (2016),5
 Thor (2011),5
 "King's Speech, The (2010)",4
 Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981),5
 Batman Begins (2005),5
 Aliens (1986),4
-Star Trek Beyond (2016),3
+Star Trek Beyond (2016),2
 Ant-Man (2015),4
 The Imitation Game (2014),4
 "Wolf of Wall Street, The (2013)",4
@@ -143,7 +138,6 @@ Iron Man 2 (2010),4
 Avatar (2009),5
 Pirates of the Caribbean: At World's End (2007),5
 Pirates of the Caribbean: Dead Man's Chest (2006),5
-Star Wars: Episode III - Revenge of the Sith (2005),5
 Spider-Man 2 (2004),5
 "I, Robot (2004)",5
 Pirates of the Caribbean: The Curse of the Black Pearl (2003),4
@@ -173,8 +167,6 @@ National Treasure (2004),4
 X2: X-Men United (2003),5
 Hell or High Water (2016),4
 Sideways (2004),5
-Star Wars: Episode VII - The Force Awakens (2015),2
-Star Wars: The Last Jedi (2017),1
 Sherlock Holmes (2009),5
 The Count of Monte Cristo (2002),5
 Titanic (1997),4
@@ -239,6 +231,7 @@ Blade Runner (1982),2
 Ghost in the Shell (2017),4
 The Meg (2018),3
 Alien: Covenant (2017),3
+Prometheus (2012),3
 "Three Billboards Outside Ebbing, Missouri (2017)",4
 A Quiet Place (2018),2
 Swordfish (2001),5
@@ -265,7 +258,16 @@ Terminator Salvation (2009),4
 "Da Vinci Code, The (2006)",4
 Hitch (2005),4
 Master and Commander: The Far Side of the World (2003),3
-Star Wars: Episode II - Attack of the Clones (2002),4
+Solo: A Star Wars Story (2018),1
+Rogue One: A Star Wars Story (2016),4
+Star Wars: Episode I - The Phantom Menace (1999),5
+Star Wars: Episode II - Attack of the Clones (2002),5
+Star Wars: Episode III - Revenge of the Sith (2005),5
+Star Wars: Episode IV - A New Hope (1977),5
+Star Wars: Episode V - The Empire Strikes Back (1980),5
+Star Wars: Episode VI - Return of the Jedi (1983),4
+Star Wars: Episode VII - The Force Awakens (2015),1
+Star Wars: The Last Jedi (2017),1
 "Pianist, The (2002)",4
 "Adjustment Bureau, The (2011)",4
 Sherlock Holmes: A Game of Shadows (2011),3
@@ -528,7 +530,6 @@ Constantine (2005),5
 "League of Extraordinary Gentlemen, The (a.k.a. LXG) (2003)",3
 Gangs of New York (2002),3
 "Replacements, The (2000)",5
-Star Wars: Episode I - The Phantom Menace (1999),4
 Casino (1995),4
 Goodfellas (1990),5
 Indiana Jones and the Kingdom of the Crystal Skull (2008),5
@@ -575,7 +576,6 @@ RoboCop (2014),5
 The Drop (2014),4
 American Sniper (2014),4
 The Nice Guys (2016),3
-The Shallows (2016),4
 Nerve (2016),3
 Tomorrowland (2015),3
 Blood Father (2016),5
@@ -596,6 +596,7 @@ Argo (2012),3
 Cowboys & Aliens (2011),3
 Battle: Los Angeles (2011),4
 G.I. Joe: The Rise of Cobra (2009),5
+G.I. Joe: Retaliation (2013),2
 2012 (2009),5
 "X-Files: I Want to Believe, The (2008)",3
 "Aviator, The (2004)",3
@@ -603,6 +604,7 @@ Hancock (2008),4
 "Bank Job, The (2008)",4
 Rush Hour 3 (2007),3
 "Expendables, The (2010)",5
+The Expendables 3 (2014),4
 Valkyrie (2008),4
 "Italian Job, The (2003)",4
 Shanghai Noon (2000),3
@@ -642,15 +644,30 @@ Bloodsport (1988),3
 RoboCop (1987),4
 Commando (1985),4
 Death Wish (2018),5
+Pulp Fiction (1994),5
+Get Shorty (1995),4
 The Hateful Eight (2015),1
 Grindhouse (2007),1
 Kill Bill: Vol. 2 (2004),1
 Kill Bill: Vol. 1 (2003),1
 Death Proof (2007),1
-Pulp Fiction (1994),5
 Once Upon a Time in Hollywood (2019),1
 Sin City: A Dame to Kill For (2014),1
 Sin City (2005),1
 "Monuments Men, The (2014)",4
 Moneyball (2011),4
 Life (2017),3
+Self/less (2015),3
+Taken 2 (2012),4
+Lincoln (2012),4
+Red Dawn (2012),3
+Entourage (2015),5
+Straight Outta Compton (2015),5
+Seven Psychopaths (2012),3
+Pixels (2015),5
+The Raid 2: Berandal,4
+"Judge, The (2014)",4
+The Shallows (2016),4
+Escape Plan (2013),4
+Escape Plan 2: Hades (2018),3
+War Machine (2017),4

@@ -48,7 +48,7 @@ def simple_similarity():
                 res.append([n, int(fres[0]), c])
     df = pd.DataFrame(res)
     df = df.sort_values([2,1],ascending=False)
-    fout = '~/Downloads/movierecom.csv'
+    fout = '/opt/Downloads/movierecom.csv'
     df = df.drop_duplicates(0)
     df.to_csv(fout)
     print ('See ' + fout)
