@@ -842,9 +842,7 @@ This command does not push erased text to kill-ring."
 
 (defun insert-todays-date (arg)
   (interactive "P")
-  (insert (if arg
-              (format-time-string "%d-%m-%Y %H:%M")
-            (format-time-string "%Y-%m-%d %H:%M"))))
+  (insert (format-time-string "%Y-%m-%d %H:%M")))
 
 ;;
 ;; define F keys
