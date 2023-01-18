@@ -53,9 +53,9 @@ def convert():
               ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
               ("inverse",), ("sonusur",u"sonuşur"),("Rust",),
               ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
-              ("sarsim",u"sarsım"),("autograd",),
+              ("sarsim",u"sarsım"),("autograd",),("kiris","kiriş"),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
-              ("yani",), (" Yani ",), ("entegrali",),
+              ("yani",), (" Yani ",), ("entegrali",),("Kiris","Kiriş"),
               ("sistem",),("invertible",), ("sistemi",),
               ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
               ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",)
