@@ -29,7 +29,7 @@ def getnews():
         ('CNBC','https://www.cnbc.com/id/100727362/device/rss/rss.html',10),        
         ('WSJ','https://feeds.a.dj.com/rss/RSSWorldNews.xml',10),
         ("NYT", "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",15),
-        ("WION","https://www.wionews.com/feeds/world/rss.xml",20),
+        ("WION","https://www.wionews.com/feeds/world/rss.xml",20),        
         ("TFI Global","https://tfiglobalnews.com/feed/",20),
         ("Hindustan Times World","https://www.hindustantimes.com/feeds/rss/world-news/rssfeed.xml",10),
         ("Politico.eu","https://www.politico.eu/feed/",5),
@@ -39,7 +39,8 @@ def getnews():
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
         ("The Mandarin AU","https://www.themandarin.com.au/feed/",15),
         ("H2 View","https://www.h2-view.com/rss/feed/e15e1d6422c35afec038fbd559797494/",10),
-        ("The Atlantic", "https://www.theatlantic.com/feed/all",8)
+        ("The Atlantic", "https://www.theatlantic.com/feed/all",8),
+        ("Informed Comment","https://www.juancole.com/feed",10)
     ]
 
     content = ""
