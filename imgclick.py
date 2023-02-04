@@ -1,3 +1,5 @@
+# Start with imgclick.py [image file] and on the screen
+# click on location to collect its pixel coordinates.
 from PIL import ImageDraw, Image, ImageTk
 import sys, tkinter
 
