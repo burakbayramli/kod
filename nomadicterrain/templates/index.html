@@ -26,6 +26,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("wind2").href = "/gowind/" + lat  + ";" + lon+"/4/100";
   document.getElementById("wind3").href = "/gowind/" + lat  + ";" + lon+"/8/100";
   document.getElementById("wind4").href = "/gowind/" + lat  + ";" + lon+"/16/100";
+  document.getElementById("directions").href = "/directions_main/" + lat  + ";" + lon;
 }
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
