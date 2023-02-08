@@ -2,7 +2,7 @@
 import os; os.chdir(os.path.dirname(__file__))
 from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
-import matplotlib.pyplot as plt, pickle
+import matplotlib.pyplot as plt, pickle, polyline
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
@@ -472,6 +472,30 @@ def submit_search():
         results.append(row)
         
     return render_template("/recoll.html",results=results)
+
+@app.route('/directions_main/<coords>')
+def directions_main(coords):
+    lat,lon = coords.split(';')
+    lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
+    return render_template('/directions.html')
+
+@app.route("/directions", methods=["POST"])
+def directions():
+    lat1,lon1 = session['geo']
+    lat2 = request.form.get("lat2")
+    lon2 = request.form.get("lon2")
+    url = f'http://router.project-osrm.org/route/v1/car/' + \
+          f'{lon1},{lat1};{lon2},{lat2}' + \
+          f'?alternatives=false&steps=false'
+    response = requests.get(url, verify=False)
+    resp = json.loads(response.text)
+    decoded = polyline.decode(resp["routes"][0]['geometry'])
+    fout = "/tmp/direction-%s.html" % uuid.uuid4()        
+    map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
+    folium.PolyLine(locations=decoded, color="blue").add_to(map)    
+    map.save(fout)    
+    return send_file(fout)
 
 
 if __name__ == '__main__':
