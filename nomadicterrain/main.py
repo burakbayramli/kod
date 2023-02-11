@@ -228,8 +228,6 @@ def travel_maps_smgeo(coords,zoom):
 @app.route('/plot_elev/<coords>/<zoom>')
 def plot_elev(coords,zoom):
 
-    fout = "/tmp/out-%s.html" % uuid.uuid4()    
-
     zoom = float(zoom)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -239,7 +237,6 @@ def plot_elev(coords,zoom):
     plt.plot(lon,lat,'gd')
     sm.plot_countries(lat,lon,zoom,outcolor='lavenderblush')    
     sm.plot_elevation(lat,lon,zoom)
-        
     plt.savefig(fout)
     plt.clf()
     return render_template('/elev.html', location=fout, lat=lat, lon=lon)

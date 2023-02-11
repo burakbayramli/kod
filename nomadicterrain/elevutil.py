@@ -17,7 +17,6 @@ def goto_from_coord(start, distance, bearing):
     reached = d.destination(point=s, bearing=bearing)
     return [reached.latitude, reached.longitude]
 
-
 def get_elev_data(coords):
     chunk = [list(x) for x in coords]
     data = "["
