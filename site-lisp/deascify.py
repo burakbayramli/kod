@@ -43,7 +43,7 @@ def convert():
               ("Amacimiz",u"Amacımız"),(u'içbükey',),(u'dışbükey',),
               ("ihtiyacimiz",u'ihtiyacımız'), ("oldugu",u'olduğu'),
               ("disbukey",u'dışbükey'), ("parcaci",u"parçacı"),
-              ("acilimi",u'açılımı'), ("amacimiz",u"amacımız"),
+              ("acilimi",u'açılımı'), ("amacimiz",u"amacımız"),("amaci",u"amacı"),
               ("icbukey",u'içbükey'), ("ihtiyaci",u'ihtiyacı'),
               ("acilim",u'açılım'), ("inip",), ("acisini",u'açısını'),
               ("acisi",u'açısı'), ("meyilli",), ("aci",u'açı'),
@@ -55,7 +55,8 @@ def convert():
               ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
               ("sarsim",u"sarsım"),("autograd",),("kiris","kiriş"),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
-              ("yani",), (" Yani ",), ("entegrali",),("Kiris","Kiriş"),
+              ("yani",), (" Yani ",),
+              ("entegrali",),("Kiris","Kiriş"),
               ("sistem",),("invertible",), ("sistemi",),
               ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
               ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",)
