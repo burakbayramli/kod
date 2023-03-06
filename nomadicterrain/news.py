@@ -6,12 +6,12 @@ import re, time, os
 def strip_html(input):
     return BeautifulSoup(input, "lxml").text
 
-skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden",
+skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden","Ocasio",
               "lithium", "AOC", "der Leyen", "Erdo.an","Elon", "Musk","Tesla",
               "batteries", "SpaceX", "Mars","black hole", "artificial intelligence",
               " AI ", "AI ", " AI", "poll", "Zelensky", "black hole", " EV ", "Webb",
               "A\.I\.", "telescope", "Yellen", "Francis","Thunberg","tweet",
-              "tweets","twitter","ChatGPT"]
+              "tweets","twitter","ChatGPT", "EVs", "electrification", "charger"]
 
 
 
@@ -26,7 +26,8 @@ def getnews():
         ('Euractiv','https://www.euractiv.com/?feed=mcfeed',10),
         ("TASS","http://tass.com/rss/v2.xml",20),
         ("Arab News","https://www.arabnews.com/cat/3/rss.xml",10),
-        ("Jane's Defence", "https://www.janes.com/feeds/news", 10),        
+        ("Jane's Defence", "https://www.janes.com/feeds/news", 10),
+        ("Japan Times","https://www.japantimes.co.jp/feed/topstories/",10),
         ('CNBC','https://www.cnbc.com/id/100727362/device/rss/rss.html',10),        
         ('WSJ','https://feeds.a.dj.com/rss/RSSOpinion.xml',10),
         ("NYT", "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",15),
