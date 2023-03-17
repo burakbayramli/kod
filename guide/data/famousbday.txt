@@ -39772,3 +39772,4 @@ Tyson Fury:Boxer:12/8/1988
 Ali Koc:Businessman:1/4/1967
 Amber Heard:Actor:22/4/1986
 Harry Windsor:Royal:15/9/1984
+Dwayne Johnson:Actor:2/5/1972
