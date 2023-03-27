@@ -1,4 +1,5 @@
 # ffmpeg -y -ss 00:01:15 -i in.mp4 -t 00:00:06 -c copy out.mp4
+# ffmpeg -y -filter_complex "fps=10,scale=360:-1:flags=lanczos,split[x1][x2];[x1]palettegen[p];[x2][p]paletteuse" -i in.mp4 -c copy out.mp4
 import os
 
 w = '"fps=10,scale=360:-1:flags=lanczos,'
