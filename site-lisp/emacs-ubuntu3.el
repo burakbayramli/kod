@@ -657,7 +657,7 @@ This command does not push erased text to kill-ring."
  '("\\left[\\begin{array}{ccc}\n" (s) "\n\\end{array}\\right]" )    "")
 
 (tempo-define-template  "tex-function-in-pieces" 
- '("\\left\\{ \\begin{array}{ll}\n" (s) "\n\\end{array} \\right." ) "")
+ '("\\left\\{ \\begin{array}{rr}\n" (s) "\n\\end{array} \\right." ) "")
 
 (tempo-define-template  "tex-partial-derivative" 
  '("\\frac{\\partial "   (s)   "}{\\partial }"   ) "")
@@ -1001,6 +1001,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kitaplar")
+(find-file-other-window "/home/burak/Documents/kitaplar/Linalg_Compsci_Opt_Graph/FEM")
 (find-file-other-window "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m")
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents/books/")
@@ -1009,9 +1010,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp45fem1")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_04")
+(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp45fem3")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)

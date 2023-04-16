@@ -10,7 +10,7 @@ skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden"
               "lithium", "AOC", "der Leyen", "Erdo.an","Elon", "Musk","Tesla",
               "batteries", "SpaceX", "Mars","black hole", "artificial intelligence",
               " AI ", "AI ", " AI", "poll", "Zelensky", "black hole", " EV ", "Webb",
-              "A\.I\.", "telescope", "Yellen", "Francis","Thunberg","tweet",
+              "A\.I\.", "telescope", "Yellen", "Francis","Thunberg","tweet","charging",
               "tweets","twitter","ChatGPT", "EVs", "electrification", "charger"]
 
 
