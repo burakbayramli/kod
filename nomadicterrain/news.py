@@ -11,7 +11,7 @@ skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden"
               "batteries", "SpaceX", "Mars","black hole", "artificial intelligence",
               " AI ", "AI ", " AI", "poll", "Zelensky", "black hole", " EV ", "Webb",
               "A\.I\.", "telescope", "Yellen", "Francis","Thunberg","tweet","charging",
-              "tweets","twitter","ChatGPT", "EVs", "electrification", "charger"]
+              "tweets","twitter","ChatGPT", "EVs", "electrification", "charger","AI's"]
 
 
 
@@ -36,7 +36,7 @@ def getnews():
         ("Hindustan Times World","https://www.hindustantimes.com/feeds/rss/world-news/rssfeed.xml",10),
         ("Politico.eu","https://www.politico.eu/feed/",5),
         ("First Post","https://www.firstpost.com/rss/world.xml",10),
-        ("France 24","https://www.france24.com/en/rss",10),        
+        ("France 24","https://www.france24.com/en/rss",10),
         ("Politico","https://www.politico.com/rss/politicopicks.xml",10),
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
         ("The Mandarin AU","https://www.themandarin.com.au/feed/",15),

@@ -484,7 +484,7 @@ def directions():
     lon2 = request.form.get("lon2")
     url = f'http://router.project-osrm.org/route/v1/car/' + \
           f'{lon1},{lat1};{lon2},{lat2}' + \
-          f'?alternatives=false&steps=false'
+          f'?alternatives=false'
     response = requests.get(url, verify=False)
     resp = json.loads(response.text)
     decoded = polyline.decode(resp["routes"][0]['geometry'])
@@ -493,6 +493,29 @@ def directions():
     folium.PolyLine(locations=decoded, color="blue").add_to(map)    
     map.save(fout)    
     return send_file(fout)
+
+@app.route('/test_gpx')
+def test_gpx():
+
+    gpx = gpxpy.gpx.GPX()
+    # Create first track in our GPX:
+    gpx_track = gpxpy.gpx.GPXTrack()
+    gpx.tracks.append(gpx_track)
+
+    # Create first segment in our GPX track:
+    gpx_segment = gpxpy.gpx.GPXTrackSegment()
+    gpx_track.segments.append(gpx_segment)
+
+    # Create points:
+    gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(2.1234, 5.1234, elevation=1234))
+    gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(2.1235, 5.1235, elevation=1235))
+    gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(2.1236, 5.1236, elevation=1236))
+
+    fout = open("/tmp/out.gpx","w")
+    fout.write(gpx.to_xml())
+    fout.close()
+    
+    return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
 
 
 if __name__ == '__main__':
