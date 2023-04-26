@@ -8,11 +8,27 @@
     <a href="/">Back</a>
     
     <h2>Travel Directions</h2>
-
+    
     <form class="form-inline" action="/directions" method="POST">
+
+      Method:      
+      <select name="rmethod" method="POST">
+        <option value= ""></option>"
+        <option value= "osrm">OSRM</option>"
+        <option value= "osmnx">OSMNX</option>"
+      </select>
+
+      Output:
+      <select name="rout" method="POST">
+        <option value= ""></option>"
+        <option value= "map">Map</option>"
+        <option value= "gpx">GPX</option>"
+      </select>
+      
       <p><input type="text" name="lat2" </p>
       <p><input type="text" name="lon2" </p>
-      <input type="submit" value="Go"/>      
+      <input type="submit" value="Go"/>
+      
     </form>
 
             

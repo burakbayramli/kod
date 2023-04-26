@@ -1,7 +1,7 @@
 from pygeodesy.sphericalNvector import LatLon
-import numpy as np, folium
+import matplotlib.pyplot as plt, json, polyline
+import numpy as np, folium, requests
 import gpxpy, gpxpy.gpx
-import matplotlib.pyplot as plt
 import numpy as np
 import osmnx as ox
 
@@ -36,7 +36,18 @@ def create_gpx(coords, outfile):
         gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(c[0], c[1], elevation=0))
     fout.write(gpx.to_xml())
     fout.close()
-        
+
+def create_osrm_folium(lat1,lon1,lat2,lon2,fout):    
+    url = f'http://router.project-osrm.org/route/v1/car/' + \
+          f'{lon1},{lat1};{lon2},{lat2}' + \
+          f'?alternatives=false'
+    response = requests.get(url, verify=False)
+    resp = json.loads(response.text)
+    decoded = polyline.decode(resp["routes"][0]['geometry'])
+    map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
+    folium.PolyLine(locations=decoded, color="blue").add_to(map)    
+    map.save(fout)    
+    
 if __name__ == "__main__": 
   fr = (40.969615352945354,29.07036154764545)
   to = (40.96660865138665,29.086701750114123)

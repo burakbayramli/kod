@@ -479,32 +479,25 @@ def directions_main(coords):
 
 @app.route("/directions", methods=["POST"])
 def directions():
+    import routeutil
     lat1,lon1 = session['geo']
     lat2 = request.form.get("lat2")
     lon2 = request.form.get("lon2")
-    url = f'http://router.project-osrm.org/route/v1/car/' + \
-          f'{lon1},{lat1};{lon2},{lat2}' + \
-          f'?alternatives=false'
-    response = requests.get(url, verify=False)
-    resp = json.loads(response.text)
-    decoded = polyline.decode(resp["routes"][0]['geometry'])
-    fout = "/tmp/direction-%s.html" % uuid.uuid4()        
-    map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
-    folium.PolyLine(locations=decoded, color="blue").add_to(map)    
-    map.save(fout)    
-    return send_file(fout)
-
-@app.route('/route_gpx')
-def route_gpx():
-    import routeutil
-    outfile = "/tmp/out.gpx"
-    fr = (40.969615352945354,29.07036154764545)
-    to = (40.96660865138665,29.086701750114123)
-    mid = routeutil.midpoint(fr,to)
-    d = routeutil.dist(fr,to)
-    path = routeutil.get_path(fr,to,d*2)
-    routeutil.create_gpx(path, "/tmp/out.gpx")
-    return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
+    rmethod = request.form.get("rmethod")
+    rout = request.form.get("rout")
+    if rmethod == "osrm" and rout == "map":
+        fout = "/tmp/direction-%s.html" % uuid.uuid4()        
+        routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fout)        
+        return send_file(fout)
+    elif rmethod == "osmnx" and rout == "gpx":
+        outfile = "/tmp/out.gpx"
+        fr = (lat1,lon1)
+        to = (float(lat2),float(lon2))
+        mid = routeutil.midpoint(fr,to)
+        d = routeutil.dist(fr,to)
+        path = routeutil.get_path(fr,to,d*2)
+        routeutil.create_gpx(path, "/tmp/out.gpx")
+        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
 
 if __name__ == '__main__':
     app.debug = True
