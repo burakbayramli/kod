@@ -485,20 +485,26 @@ def directions():
     lon2 = request.form.get("lon2")
     rmethod = request.form.get("rmethod")
     rout = request.form.get("rout")
+    fouthtml = "/tmp/direction-%s.html" % uuid.uuid4()        
     if rmethod == "osrm" and rout == "map":
-        fout = "/tmp/direction-%s.html" % uuid.uuid4()        
-        routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fout)        
-        return send_file(fout)
+        routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fouthtml)        
+        return send_file(fouthtml)
     elif rmethod == "osmnx" and rout == "gpx":
         outfile = "/tmp/out.gpx"
-        fr = (lat1,lon1)
-        to = (float(lat2),float(lon2))
+        fr = (lat1,lon1); to = (float(lat2),float(lon2))
         mid = routeutil.midpoint(fr,to)
         d = routeutil.dist(fr,to)
         path = routeutil.get_path(fr,to,d*2)
-        routeutil.create_gpx(path, "/tmp/out.gpx")
+        routeutil.create_osmnx_gpx(path, "/tmp/out.gpx")
         return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
-
+    elif rmethod == "osmnx" and rout == "map":
+        fr = (lat1,lon1); to = (float(lat2),float(lon2))
+        mid = routeutil.midpoint(fr,to)
+        d = routeutil.dist(fr,to)
+        path = routeutil.get_path(fr,to,d*2)
+        routeutil.create_osmnx_folium(lat1,lon1,path,fouthtml)
+        return send_file(fouthtml)
+        
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"

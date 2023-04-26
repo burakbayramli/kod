@@ -25,7 +25,7 @@ def get_path(fr,to,d):
     coords = [[G.nodes[r]['y'],G.nodes[r]['x']] for r in route]
     return coords
     
-def create_gpx(coords, outfile):
+def create_osmnx_gpx(coords, outfile):
     fout = open(outfile, "w")
     gpx = gpxpy.gpx.GPX()
     gpx_track = gpxpy.gpx.GPXTrack()
@@ -36,6 +36,11 @@ def create_gpx(coords, outfile):
         gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(c[0], c[1], elevation=0))
     fout.write(gpx.to_xml())
     fout.close()
+
+def create_osmnx_folium(lat1,lon1,coords,fout):
+    map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
+    folium.PolyLine(locations=coords, color="blue").add_to(map)    
+    map.save(fout)    
 
 def create_osrm_folium(lat1,lon1,lat2,lon2,fout):    
     url = f'http://router.project-osrm.org/route/v1/car/' + \
