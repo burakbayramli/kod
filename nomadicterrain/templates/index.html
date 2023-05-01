@@ -22,6 +22,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("elev2").href = "/gotopo2/" + lat  + ";" + lon+"/5";
   document.getElementById("elev3").href = "/gotopo2/" + lat  + ";" + lon+"/10";
   document.getElementById("elev4").href = "/gotopo2/" + lat  + ";" + lon+"/20";
+  document.getElementById("elev5").href = "/plot_line_elev/" + lat  + ";" + lon+"/20";
   document.getElementById("wind1").href = "/gowind/" + lat  + ";" + lon+"/0/100";
   document.getElementById("wind2").href = "/gowind/" + lat  + ";" + lon+"/4/100";
   document.getElementById("wind3").href = "/gowind/" + lat  + ";" + lon+"/8/100";
@@ -54,46 +55,51 @@ function showPosition(position) {
           <p><button onclick="getLocation()">Get Location</button></p>
           <li><a href="/edit_tweet">Edit</a></li>
           <li><a href="/extnews">News</a></li>
-          <li><a id="weat" href="/goweather/40.9544103535;29.09139109510">Weather</a></li>
-          <li><a id="pollu" href="/gopollution/40.9544103535;29.09139109510">Pollution</a></li>
+          <li><a id="weat" href="/goweather/40.9544;29.09139">Weather</a></li>
+          <li><a id="pollu" href="/gopollution/40.9544;29.09139">Pollution</a></li>
           <li><a href="/recoll">Recoll</a></li>
           <li><a href="/market">Market</a></li>
           <li><a href="/url">Lynx</a></li>
-          <li><a id="myloc" href="/location/40.9544103535;29.09139109510/0.1">My Location</a></li>
-          <li><a id='trav' href="/travel_maps/40.9544103535;29.09139109510/4">
+          <li><a id="myloc" href="/location/40.9544;29.09139/0.1">My Location</a></li>
+          <li><a id='trav' href="/travel_maps/40.9544;29.09139/4">
             Trip Map</a>,
-            <a id='trav_smgeo'  href="/travel_maps_smgeo/40.9544103535;29.09139109510/0.05">
+            <a id='trav_smgeo'  href="/travel_maps_smgeo/40.9544;29.09139/0.05">
             Trip Map (L)</a>
           </li>
           <li>
             Elevation &nbsp;
-            <a id="elev1" href="/gotopo2/40.9544103535;29.09139109510/1">
+            <a id="elev1" href="/gotopo2/40.9544;29.09139/1">
               1 km
             </a>,&nbsp;
-            <a id="elev2" href="/gotopo2/40.9544103535;29.09139109510/5">
+            <a id="elev2" href="/gotopo2/40.9544;29.09139/5">
               5 km
             </a>,&nbsp;
-            <a id="elev3" href="/gotopo2/40.9544103535;29.09139109510/10">
+            <a id="elev3" href="/gotopo2/40.9544;29.09139/10">
               10 km
             </a>,&nbsp;
-            <a id="elev4" href="/gotopo2/40.9544103535;29.09139109510/20">
+            <a id="elev4" href="/gotopo2/40.9544;29.09139/20">
               20 km
-            </a>            
+            </a>,&nbsp;
+            <a id="elev" href="/plot_elev/40.9544;29.09139/0.05">
+              Local
+            </a>,&nbsp;
+            <a id="elev5" href="/elev_line_main/40.9544;29.09139">
+              Line
+            </a> 
           </li>
-          <li><a id='elev' href="/plot_elev/40.9544103535;29.09139109510/0.05">Elevation (L)</a></li>
           <li>
              <a href="/static/trgeo.html">Camps, Parks</a>
           </li>
-          <a id="time" href="/time/40.9544103535;29.09139109510">Calendar</a>
+          <a id="time" href="/time/40.9544;29.09139">Calendar</a>
           <li>
             Wind &nbsp;
-            <a id="wind1" href="/gowind/40.9544103535;29.09139109510/0/100">Now</a>,&nbsp;
-            <a id="wind2" href="/gowind/40.9544103535;29.09139109510/4/100">12 hrs</a>,&nbsp;
-            <a id="wind3" href="/gowind/40.9544103535;29.09139109510/8/100">24 hrs</a>,&nbsp;
-            <a id="wind4" href="/gowind/40.9544103535;29.09139109510/16/100">48 hrs</a> 
+            <a id="wind1" href="/gowind/40.9544;29.09139/0/100">Now</a>,&nbsp;
+            <a id="wind2" href="/gowind/40.9544;29.09139/4/100">12 hrs</a>,&nbsp;
+            <a id="wind3" href="/gowind/40.9544;29.09139/8/100">24 hrs</a>,&nbsp;
+            <a id="wind4" href="/gowind/40.9544;29.09139/16/100">48 hrs</a> 
           </li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
-          <li><a id='directions' href="/directions_main/40.9544103535;29.09139109510">Directions</a></li>
+          <li><a id='directions' href="/directions_main/40.9544;29.09139">Directions</a></li>
           <p>
             <p><button onclick="readLocInput()">Enter Location</button></p>
             <p><input type="text" id="locValue" ></input></p>

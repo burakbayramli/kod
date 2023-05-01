@@ -1,3 +1,4 @@
+from pygeodesy.sphericalNvector import LatLon
 from scipy.interpolate import Rbf
 import elevutil, uuid, geopy.distance
 from numpy.linalg import norm
@@ -94,9 +95,38 @@ def plot_topo(clat,clon,how_far,fout):
             folium.PolyLine(points, color='red', weight=1.0, opacity=1).add_to(m)
 
     m.save(fout)
+    
+def dist(fr,to):
+    p1 = LatLon(fr[0], fr[1])
+    p2 = LatLon(to[0], to[1])
+    return p1.distanceTo(p2)
 
+def bearing(fr,to):
+    p1 = LatLon(fr[0], fr[1])
+    p2 = LatLon(to[0], to[1])
+    return p1.bearingTo(p2)
+    
+def line_elev_calc(fr, to, fout):
+    npts = 20
+    be = bearing(fr, to)
+    print (be)
+    far = dist(fr,to) / 1000.0
+    print (far)
+    locs = []
+    for x in np.linspace(0,far,npts):
+        locs.append(tuple(goto_from_coord([fr[0],fr[1]], x, be)))
+
+    res = get_elev_data(locs)
+    print (locs)
+    print (res)
+    plt.figure()
+    plt.plot(np.linspace(0,far,npts),res)
+    plt.savefig(fout)
+    
+    
 if __name__ == "__main__":
     clat,clon=36.64653, 29.13920
     how_far = 50.0
-    plot_topo(clat,clon,how_far,"out.html")
-    
+    #plot_topo(clat,clon,how_far,"out.html")
+    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    line_elev_calc((36.649278935208805, 29.157651665059603), (36.69678555770977, 29.142243855775913), fout)

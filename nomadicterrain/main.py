@@ -244,7 +244,7 @@ def plot_elev(coords,zoom):
 
 def get_weather(lat,lon):
     base_url = 'http://api.openweathermap.org/data/2.5/weather?'
-    weatherapi = open(".owm").read()
+    weatherapi = open(".owm").read().strip()
     payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': weatherapi }
     r = requests.get(base_url, params=payload) 
     res = []
@@ -504,7 +504,24 @@ def directions():
         path = routeutil.get_path(fr,to,d*2)
         routeutil.create_osmnx_folium(lat1,lon1,path,fouthtml)
         return send_file(fouthtml)
-        
+
+@app.route('/elev_line_main/<coords>')
+def elev_line_main(coords):
+    lat,lon = coords.split(';')
+    lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
+    return render_template('/elev_line.html')
+
+@app.route("/elev_line_calc", methods=["POST"])
+def elev_line_calc():
+    import elevutil
+    lat1,lon1 = session['geo']
+    lat2 = request.form.get("lat2")
+    lon2 = request.form.get("lon2")
+    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    elevutil.line_elev_calc((lat1,lon1), (lat2,lon2), fout)
+    return send_file(fout)
+    
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
