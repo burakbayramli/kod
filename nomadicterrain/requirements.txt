@@ -9,3 +9,7 @@ requests==2.22.0
 simplegeomap
 feedparser
 lxml
+geopy
+folium
+timezonefinder
+bs4
