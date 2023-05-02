@@ -59,5 +59,5 @@ if __name__ == "__main__":
   mid = midpoint(fr,to)
   d = dist(fr,to)
   path = get_path(fr,to,d*2)
-  create_gpx(path, "/tmp/out.gpx")
+  create_osmnx_gpx(path, "/tmp/out.gpx")
   
