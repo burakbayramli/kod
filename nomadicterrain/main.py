@@ -113,13 +113,22 @@ def guide_lewi(which):
     fin = params['guide_detail_dir'] + "/lewi/" + which + ".html"
     output = open(fin).read()
     return render_template('/profile_detail.html', output=output)
-        
-@app.route('/travel_maps/<coords>/<resolution>')
-def travel_maps(coords,resolution):
 
-    travel_url = request.host_url + "static/travel"
-    
-    resolution = int(resolution)    
+
+@app.route('/travel_main/<coords>')
+def travel_main(coords):
+    lat,lon = coords.split(';')
+    lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
+    return render_template('/travel_main.html')
+
+@app.route('/travel_maps', methods=["POST"])
+def travel_maps():
+
+    map = request.form.get("map")
+    travel_url = request.host_url + "static/" + map
+    clat,clon = session['geo']    
+    resolution = 4
     fout = "/tmp/trav-%s.html" % uuid.uuid4()    
     data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
@@ -127,7 +136,7 @@ def travel_maps(coords,resolution):
     clat,clon = params['center']
     m = folium.Map(location=[clat, clon], zoom_start=10, tiles="Stamen Terrain")
 
-    currlat,currlon = coords.split(';')
+    currlat,currlon = session['geo']    
     lat,lon=float(currlat),float(currlon)
     folium.Marker([lat,lon], icon=folium.Icon(color="green")).add_to(m)
     
@@ -161,68 +170,6 @@ def travel_maps(coords,resolution):
          
     m.save(fout)    
     return send_file(fout)
-
-
-@app.route('/travel_maps_smgeo/<coords>/<zoom>')
-def travel_maps_smgeo(coords,zoom):
-
-    fout = "static/out-%s.png" % uuid.uuid4()
-    clean_dir()
-
-    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/static/travel"
-    data = open(base_dir + "/index.json").read()
-    params = json.loads(data)
-
-    zoom = float(zoom)
-    eps = 0.001
-    
-    clat,clon = params['center']
-
-    currlat,currlon = coords.split(';')
-    lat,lon=float(currlat),float(currlon)
-    plt.clf()
-    plt.plot(lon,lat,'gd')
-    sm.plot_countries(clat,clon,zoom,outcolor='lavenderblush')    
-    sm.plot_water(lat,lon,zoom)
-
-    labels = ""
-    i = 1
-    for p in params['points']:
-        lat,lon = params['points'][p]
-        plt.plot(lon,lat,'bx')
-        plt.text(lon+eps,lat+eps,str(i))
-        labels += "%d %s <br/>" % (i,p)
-        i += 1
-
-    for p in params['campgrounds']:
-        lat,lon = params['campgrounds'][p]
-        plt.plot(lon,lat,'go')
-        plt.text(lon+eps,lat+eps,str(i))
-        labels += "%d %s <br/>" % (i,p)
-        i += 1
-
-    rints = range(4)
-    paths = []
-    for map in params['maps']:
-        map = base_dir + "/" + map
-        print (map)
-        data = open(map).read()
-        gpx = gpxpy.parse(data)
-        paths.append((gpx.name,gpx.link))
-        points = []
-        for track in gpx.tracks:
-            for segment in track.segments:
-                for point in segment.points:
-                    if random.choice(rints) != 0: continue
-                    lat,lon = point.latitude, point.longitude
-                    points.append([lat,lon])
-        points = np.array(points)
-        plt.plot(points[:,1],points[:,0],'red',alpha=0.4)
-        
-    plt.savefig(fout)
-    plt.clf()
-    
-    return render_template('/travel.html', location=fout, lat=lat, lon=lon, labels=labels, paths=paths)
 
 
 @app.route('/plot_elev/<coords>/<zoom>')

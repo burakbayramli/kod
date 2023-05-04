@@ -13,8 +13,7 @@ function getLocation() {
 function setLocOnPage(lat,lon){
   document.getElementById("myloc").href = "/location/" + lat  + ";" + lon+"/0.4";
   document.getElementById("locpos").innerHTML = lat  + "," + lon;
-  document.getElementById("trav").href = "/travel_maps/" + lat  + ";" + lon+"/4";
-  document.getElementById("trav_smgeo").href = "/travel_maps_smgeo/" + lat  + ";" + lon+"/0.05";  
+  document.getElementById("trav").href = "/travel_main/" + lat  + ";" + lon;
   document.getElementById("weat").href = "/goweather/" + lat  + ";" + lon;
   document.getElementById("pollu").href = "/gopollution/" + lat  + ";" + lon;
   document.getElementById("time").href = "/time/" + lat  + ";" + lon;
@@ -61,11 +60,7 @@ function showPosition(position) {
           <li><a href="/market">Market</a></li>
           <li><a href="/url">Lynx</a></li>
           <li><a id="myloc" href="/location/40.9544;29.09139/0.1">My Location</a></li>
-          <li><a id='trav' href="/travel_maps/40.9544;29.09139/4">
-            Trip Map</a>,
-            <a id='trav_smgeo'  href="/travel_maps_smgeo/40.9544;29.09139/0.05">
-            Trip Map (L)</a>
-          </li>
+          <li><a id='trav' href="/travel_main/40.9544;29.09139">Trip Map</a></li>
           <li>
             Elevation &nbsp;
             <a id="elev1" href="/gotopo2/40.9544;29.09139/1">
