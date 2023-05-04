@@ -126,6 +126,9 @@ def travel_main(coords):
 def travel_maps():
 
     map = request.form.get("map")
+
+    print ('action',request.form['action'])
+    
     travel_url = request.host_url + "static/" + map
     clat,clon = session['geo']    
     resolution = 4
