@@ -126,20 +126,24 @@ def travel_main(coords):
 def travel_maps():
 
     map = request.form.get("map")
-
+    currlat,currlon = session['geo']    
     print ('action',request.form['action'])
-    
+    if request.form['action'] == "Go":
+        fout = "/tmp/trav-%s.html" % uuid.uuid4()    
+        show_travel_map(currlat,currlon,map,fout)
+        return send_file(fout)
+    elif request.form['action'] == "GPX":
+        print ('blah')
+
+def show_travel_map(currlat,currlon,map,fout):
+        
     travel_url = request.host_url + "static/" + map
-    clat,clon = session['geo']    
     resolution = 4
-    fout = "/tmp/trav-%s.html" % uuid.uuid4()    
     data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
     params = json.loads(data)
 
     clat,clon = params['center']
     m = folium.Map(location=[clat, clon], zoom_start=10, tiles="Stamen Terrain")
-
-    currlat,currlon = session['geo']    
     lat,lon=float(currlat),float(currlon)
     folium.Marker([lat,lon], icon=folium.Icon(color="green")).add_to(m)
     
@@ -172,7 +176,6 @@ def travel_maps():
         folium.PolyLine(points, color='red', weight=1.0, opacity=1).add_to(m)
          
     m.save(fout)    
-    return send_file(fout)
 
 
 @app.route('/plot_elev/<coords>/<zoom>')
