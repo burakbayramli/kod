@@ -133,7 +133,16 @@ def travel_maps():
         show_travel_map(currlat,currlon,map,fout)
         return send_file(fout)
     elif request.form['action'] == "GPX":
-        print ('blah')
+        res = show_travel_gpx(currlat,currlon,map)
+        print (res)
+        return render_template('/travel_gpx.html', res=res)
+
+def show_travel_gpx(currlat,currlon,map):
+    travel_url = request.host_url + "static/" + map
+    data = urllib2.urlopen(travel_url + "/index.json").read().decode('utf-8')
+    params = json.loads(data)
+    res = ["/static/" + map + "/" + x  for x in params['maps']]
+    return res
 
 def show_travel_map(currlat,currlon,map,fout):
         
