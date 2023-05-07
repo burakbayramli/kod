@@ -36,8 +36,8 @@ playlist = [f for f in playlist if 'Doctor' not in f]
 
 print ('filterd count', len(playlist))
 
-#idx = util.my_random(len(playlist))
-idx = util.my_random2(len(playlist))
+idx = util.my_random(len(playlist))
+#idx = util.my_random2(len(playlist))
 
 f = playlist[idx]
 

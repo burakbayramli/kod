@@ -152,7 +152,7 @@ def show_travel_map(currlat,currlon,map,fout):
     params = json.loads(data)
 
     clat,clon = params['center']
-    m = folium.Map(location=[clat, clon], zoom_start=10, tiles="Stamen Terrain")
+    m = folium.Map(location=[clat, clon], zoom_start=10, control_scale=True)
     lat,lon=float(currlat),float(currlon)
     folium.Marker([lat,lon], icon=folium.Icon(color="green")).add_to(m)
     
