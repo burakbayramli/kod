@@ -1,7 +1,8 @@
 {
     "center": [41.10394331916368, 29.224212422565664],
     "points": {
-	"cekmekoy metro m5":[41.014085775161625, 29.189929077791053]
+	"cekmekoy metro m5":[41.014085775161625, 29.189929077791053],
+	"dudullu m5": [41.01564290614335, 29.16247404988647]
     },
     "restaurants": {	
     },
@@ -11,7 +12,8 @@
 	     "boytrek-ile-polonezkoy-polonezkoy.gpx",
 	     "cekmekoy-alemdag-orman-parkuru.gpx",
 	     "cumhuriyet-koyu-polonezkoy.gpx",
-	     "cumhuriyet-polonezkoy-alemdag-29-03-2022.gpx"
+	     "cumhuriyet-polonezkoy-alemdag-29-03-2022.gpx",
+	     "dudullu-m5-istanbul-park.gpx"
      ]
 	
 }
