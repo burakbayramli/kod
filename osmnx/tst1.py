@@ -1,9 +1,9 @@
-import itertools
-import datetime as dt
-import bz2, xml.sax
+import itertools, datetime as dt, bz2, xml.sax
 from pathlib import Path
 from xml.etree import ElementTree as etree
-import networkx as nx, numpy as np
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
 
 EARTH_RADIUS_M = 6_371_009
 all_oneway = False
@@ -306,7 +306,7 @@ def _create_graph(response_jsons, retain_all=False, bidirectional=False):
 
     return G
     
-if __name__ == "__main__":      
+if __name__ == "__main__":
 
     #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
     filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
@@ -315,4 +315,6 @@ if __name__ == "__main__":
 
     G = _create_graph(j)
 
-    
+    nx.draw(G,with_labels=True)
+    plt.savefig('/tmp/out.jpg')
+
