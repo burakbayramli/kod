@@ -16,10 +16,6 @@ useful_tags_way = [ "bridge", "tunnel", "oneway", "lanes", "ref",
                     "landuse", "width", "est_width", "junction", ]
 
 def great_circle_vec(lat1, lng1, lat2, lng2, earth_radius=EARTH_RADIUS_M):
-    lat1 = np.array([np.float64(x) for x in lat1] )
-    lat2 = np.array([np.float64(x) for x in lat2] )
-    lng1 = np.array([np.float64(x) for x in lng1] )
-    lng2 = np.array([np.float64(x) for x in lng2] )
     y1 = np.deg2rad(lat1)
     y2 = np.deg2rad(lat2)
     dy = y2 - y1
@@ -46,7 +42,7 @@ def add_edge_lengths(G, precision=3, edges=None):
     y = G.nodes(data="y")
     try:
         # two-dimensional array of coordinates: y0, x0, y1, x1
-        c = np.array([(y[u], x[u], y[v], x[v]) for u, v, k in uvk])
+        c = np.array([(np.float64(y[u]), np.float64(x[u]), np.float64(y[v]), np.float64(x[v])) for u, v, k in uvk])
     except KeyError:  # pragma: no cover
         raise KeyError("some edges missing nodes, possibly due to input data clipping issue")
 
