@@ -270,8 +270,8 @@ def _create_graph(response_jsons, retain_all=False, bidirectional=False):
     
 if __name__ == "__main__":
 
-    #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
-    filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
+    filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
+    #filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
     
     j = [_overpass_json_from_file(filepath)]
 
