@@ -8,23 +8,10 @@ import matplotlib.pyplot as plt
 EARTH_RADIUS_M = 6_371_009
 all_oneway = False
 useful_tags_node = ["ref", "highway"]
-useful_tags_way = [
-    "bridge",
-    "tunnel",
-    "oneway",
-    "lanes",
-    "ref",
-    "name",
-    "highway",
-    "maxspeed",
-    "service",
-    "access",
-    "area",
-    "landuse",
-    "width",
-    "est_width",
-    "junction",
-]
+
+useful_tags_way = [ "bridge", "tunnel", "oneway", "lanes", "ref",
+                    "name", "highway", "maxspeed", "service", "access", "area",
+                    "landuse", "width", "est_width", "junction", ]
 
 def great_circle_vec(lat1, lng1, lat2, lng2, earth_radius=EARTH_RADIUS_M):
 
@@ -81,12 +68,6 @@ def _is_path_one_way(path, bidirectional, oneway_values):
 
     # rule 2
     elif bidirectional:
-        # if this is a bi-directional network type, then nothing in it is
-        # considered one-way. eg, if this is a walking network, this may very
-        # well be a one-way street (as cars/bikes go), but in a walking-only
-        # network it is a bi-directional edge (you can walk both directions on
-        # a one-way street). so we will add this path (in both directions) to
-        # the graph and set its oneway attribute to False.
         return False
 
     # rule 3
@@ -106,39 +87,24 @@ def _is_path_one_way(path, bidirectional, oneway_values):
 
 def _add_paths(G, paths, bidirectional=False):
 
-    # the values OSM uses in its 'oneway' tag to denote True, and to denote
-    # travel can only occur in the opposite direction of the node order. see:
-    # https://wiki.openstreetmap.org/wiki/Key:oneway
-    # https://www.geofabrik.de/de/data/geofabrik-osm-gis-standard-0.7.pdf
     oneway_values = {"yes", "true", "1", "-1", "reverse", "T", "F"}
     reversed_values = {"-1", "reverse", "T"}
 
     for path in paths:
-        # extract/remove the ordered list of nodes from this path element so
-        # we don't add it as a superfluous attribute to the edge later
         nodes = path.pop("nodes")
 
-        # reverse the order of nodes in the path if this path is both one-way
-        # and only allows travel in the opposite direction of nodes' order
         is_one_way = _is_path_one_way(path, bidirectional, oneway_values)
         if is_one_way and _is_path_reversed(path, reversed_values):
             nodes.reverse()
 
-        # set the oneway attribute, but only if when not forcing all edges to
-        # oneway with the all_oneway setting. With the all_oneway setting, you
-        # want to preserve the original OSM oneway attribute for later clarity
         if not all_oneway:
             path["oneway"] = is_one_way
 
-        # zip path nodes to get (u, v) tuples like [(0,1), (1,2), (2,3)].
         edges = list(zip(nodes[:-1], nodes[1:]))
 
-        # add all the edge tuples and give them the path's tag:value attrs
         path["reversed"] = False
         G.add_edges_from(edges, **path)
 
-        # if the path is NOT one-way, reverse direction of each edge and add
-        # this path going the opposite direction too
         if not is_one_way:
             path["reversed"] = True
             G.add_edges_from([(v, u) for u, v in edges], **path)
@@ -314,7 +280,4 @@ if __name__ == "__main__":
     j = [_overpass_json_from_file(filepath)]
 
     G = _create_graph(j)
-
-    nx.draw(G,with_labels=True)
-    plt.savefig('/tmp/out.jpg')
 
