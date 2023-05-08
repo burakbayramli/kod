@@ -241,12 +241,14 @@ def _create_graph(response_jsons, retain_all=False, bidirectional=False):
     G = nx.MultiDiGraph(**metadata)
 
     # extract nodes and paths from the downloaded osm data
-    nodes = {}
-    paths = {}
+    nodes = None
+    paths = None
     for response_json in response_jsons:
         nodes_temp, paths_temp = _parse_nodes_paths(response_json)
-        nodes.update(nodes_temp)
-        paths.update(paths_temp)
+        #nodes.update(nodes_temp)
+        #paths.update(paths_temp)
+        nodes = nodes_temp
+        paths = paths_temp
 
     # add each osm node to the graph
     for node, data in nodes.items():
@@ -265,13 +267,25 @@ def _create_graph(response_jsons, retain_all=False, bidirectional=False):
 
     return G
     
-if __name__ == "__main__":
+def _create_dict(response_jsons, retain_all=False, bidirectional=False):
 
-    warnings.filterwarnings('ignore') # setting ignore as a parameter
-    
-    #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
-    filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
-    
+    if not any(rj["elements"] for rj in response_jsons):  # pragma: no cover
+        raise EmptyOverpassResponse("There are no data elements in the response JSON")
+
+    nodes = None
+    paths = None
+    for response_json in response_jsons:
+        nodes_temp, paths_temp = _parse_nodes_paths(response_json)
+        #nodes.update(nodes_temp)
+        #paths.update(paths_temp)
+        nodes = nodes_temp
+        paths = paths_temp
+
+
+filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
+#filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
+        
+def main1():
     j = [_overpass_json_from_file(filepath)]
 
     G = _create_graph(j)
@@ -285,4 +299,12 @@ if __name__ == "__main__":
         assert neighbor_id in G.nodes
         assert edge_key in G.edges
         assert G.edges[edge_key]["name"] in ("8th Street", "Willow Street")
-    
+
+def main2():
+    j = [_overpass_json_from_file(filepath)]
+    _create_dict(j)
+        
+if __name__ == "__main__":
+
+    warnings.filterwarnings('ignore') # setting ignore as a parameter
+    main2()
