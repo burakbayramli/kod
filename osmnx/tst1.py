@@ -1,12 +1,9 @@
 import itertools
 import datetime as dt
-import bz2
-import xml.sax
+import bz2, xml.sax
 from pathlib import Path
 from xml.etree import ElementTree as etree
-import networkx as nx
-import numpy as np
-import pandas as pd
+import networkx as nx, numpy as np
 
 EARTH_RADIUS_M = 6_371_009
 all_oneway = False
@@ -30,33 +27,7 @@ useful_tags_way = [
 ]
 
 def great_circle_vec(lat1, lng1, lat2, lng2, earth_radius=EARTH_RADIUS_M):
-    """
-    Calculate great-circle distances between pairs of points.
 
-    Vectorized function to calculate the great-circle distance between two
-    points' coordinates or between arrays of points' coordinates using the
-    haversine formula. Expects coordinates in decimal degrees.
-
-    Parameters
-    ----------
-    lat1 : float or numpy.array of float
-        first point's latitude coordinate
-    lng1 : float or numpy.array of float
-        first point's longitude coordinate
-    lat2 : float or numpy.array of float
-        second point's latitude coordinate
-    lng2 : float or numpy.array of float
-        second point's longitude coordinate
-    earth_radius : float
-        earth's radius in units in which distance will be returned (default is
-        meters)
-
-    Returns
-    -------
-    dist : float or numpy.array of float
-        distance from each (lat1, lng1) to each (lat2, lng2) in units of
-        earth_radius
-    """
     y1 = np.deg2rad(lat1)
     y2 = np.deg2rad(lat2)
     dy = y2 - y1
@@ -73,40 +44,6 @@ def great_circle_vec(lat1, lng1, lat2, lng2, earth_radius=EARTH_RADIUS_M):
     return arc * earth_radius
 
 def add_edge_lengths(G, precision=3, edges=None):
-    """
-    Add `length` attribute (in meters) to each edge.
-
-    Vectorized function to calculate great-circle distance between each edge's
-    incident nodes. Ensure graph is in unprojected coordinates, and
-    unsimplified to get accurate distances.
-
-    Note: this function is run by all the `graph.graph_from_x` functions
-    automatically to add `length` attributes to all edges. It calculates edge
-    lengths as the great-circle distance from node `u` to node `v`. When
-    OSMnx automatically runs this function upon graph creation, it does it
-    before simplifying the graph: thus it calculates the straight-line lengths
-    of edge segments that are themselves all straight. Only after
-    simplification do edges take on a (potentially) curvilinear geometry. If
-    you wish to calculate edge lengths later, you are calculating
-    straight-line distances which necessarily ignore the curvilinear geometry.
-    You only want to run this function on a graph with all straight edges
-    (such as is the case with an unsimplified graph).
-
-    Parameters
-    ----------
-    G : networkx.MultiDiGraph
-        unprojected, unsimplified input graph
-    precision : int
-        decimal precision to round lengths
-    edges : tuple
-        tuple of (u, v, k) tuples representing subset of edges to add length
-        attributes to. if None, add lengths to all edges.
-
-    Returns
-    -------
-    G : networkx.MultiDiGraph
-        graph with edge length attributes
-    """
     if edges is None:
         uvk = tuple(G.edges)
     else:
@@ -130,21 +67,6 @@ def add_edge_lengths(G, precision=3, edges=None):
     return G
 
 def _is_path_reversed(path, reversed_values):
-    """
-    Determine if the order of nodes in a path should be reversed.
-
-    Parameters
-    ----------
-    path : dict
-        a path's tag:value attribute data
-    reversed_values : set
-        the values OSM uses in its 'oneway' tag to denote travel can only
-        occur in the opposite direction of the node order
-
-    Returns
-    -------
-    bool
-    """
     if "oneway" in path and path["oneway"] in reversed_values:
         return True
     else:
@@ -152,22 +74,6 @@ def _is_path_reversed(path, reversed_values):
 
 
 def _is_path_one_way(path, bidirectional, oneway_values):
-    """
-    Determine if a path of nodes allows travel in only one direction.
-
-    Parameters
-    ----------
-    path : dict
-        a path's tag:value attribute data
-    bidirectional : bool
-        whether this is a bi-directional network type
-    oneway_values : set
-        the values OSM uses in its 'oneway' tag to denote True
-
-    Returns
-    -------
-    bool
-    """
     # rule 1
     if all_oneway:
         # if globally configured to set every edge one-way, then it's one-way
@@ -199,22 +105,7 @@ def _is_path_one_way(path, bidirectional, oneway_values):
         return False
 
 def _add_paths(G, paths, bidirectional=False):
-    """
-    Add a list of paths to the graph as edges.
 
-    Parameters
-    ----------
-    G : networkx.MultiDiGraph
-        graph to add paths to
-    paths : list
-        list of paths' tag:value attribute data dicts
-    bidirectional : bool
-        if True, create bi-directional edges for one-way streets
-
-    Returns
-    -------
-    None
-    """
     # the values OSM uses in its 'oneway' tag to denote True, and to denote
     # travel can only occur in the opposite direction of the node order. see:
     # https://wiki.openstreetmap.org/wiki/Key:oneway
@@ -253,18 +144,7 @@ def _add_paths(G, paths, bidirectional=False):
             G.add_edges_from([(v, u) for u, v in edges], **path)
             
 def _convert_path(element):
-    """
-    Convert an OSM way element into the format for a networkx path.
 
-    Parameters
-    ----------
-    element : dict
-        an OSM way element
-
-    Returns
-    -------
-    path : dict
-    """
     path = {"osmid": element["id"]}
 
     # remove any consecutive duplicate elements in the list of nodes
@@ -277,18 +157,7 @@ def _convert_path(element):
     return path
 
 def _convert_node(element):
-    """
-    Convert an OSM node element into the format for a networkx node.
 
-    Parameters
-    ----------
-    element : dict
-        an OSM node element
-
-    Returns
-    -------
-    node : dict
-    """
     node = {"y": element["lat"], "x": element["lon"]}
     if "tags" in element:
         for useful_tag in useful_tags_node:
@@ -297,19 +166,7 @@ def _convert_node(element):
     return node
 
 def _parse_nodes_paths(response_json):
-    """
-    Construct dicts of nodes and paths from an Overpass response.
 
-    Parameters
-    ----------
-    response_json : dict
-        JSON response from the Overpass API
-
-    Returns
-    -------
-    nodes, paths : tuple of dicts
-        dicts' keys = osmid and values = dict of attributes
-    """
     nodes = {}
     paths = {}
     for element in response_json["elements"]:
@@ -321,14 +178,6 @@ def _parse_nodes_paths(response_json):
     return nodes, paths
 
 class _OSMContentHandler(xml.sax.handler.ContentHandler):
-    """
-    SAX content handler for OSM XML.
-
-    Used to build an Overpass-like response JSON object in self.object. For
-    format notes, see
-    http://wiki.openstreetmap.org/wiki/OSM_XML#OSM_XML_file_format_notes and
-    http://overpass-api.de/output_formats.html#json
-    """
 
     def __init__(self):
         self._element = None
@@ -368,18 +217,6 @@ class _OSMContentHandler(xml.sax.handler.ContentHandler):
 
 
 def _overpass_json_from_file(filepath):
-    """
-    Read OSM XML from file and return Overpass-like JSON.
-
-    Parameters
-    ----------
-    filepath : string or pathlib.Path
-        path to file containing OSM XML data
-
-    Returns
-    -------
-    OSMContentHandler object
-    """
 
     def _opener(filepath):
         if filepath.suffix == ".bz2":
@@ -394,22 +231,7 @@ def _overpass_json_from_file(filepath):
         return handler.object
 
 def get_largest_component(G, strongly=False):
-    """
-    Get subgraph of G's largest weakly/strongly connected component.
 
-    Parameters
-    ----------
-    G : networkx.MultiDiGraph
-        input graph
-    strongly : bool
-        if True, return the largest strongly instead of weakly connected
-        component
-
-    Returns
-    -------
-    G : networkx.MultiDiGraph
-        the largest connected component subgraph of the original graph
-    """
     if strongly:
         kind = "strongly"
         is_connected = nx.is_strongly_connected
@@ -431,22 +253,7 @@ def get_largest_component(G, strongly=False):
     return G
 
 def ts(style="datetime", template=None):
-    """
-    Get current timestamp as string.
 
-    Parameters
-    ----------
-    style : string {"datetime", "date", "time"}
-        format the timestamp with this built-in template
-    template : string
-        if not None, format the timestamp with this template instead of one of
-        the built-in styles
-
-    Returns
-    -------
-    ts : string
-        the string timestamp
-    """
     if template is None:
         if style == "datetime":
             template = "{:%Y-%m-%d %H:%M:%S}"
@@ -461,27 +268,6 @@ def ts(style="datetime", template=None):
     return ts
 
 def _create_graph(response_jsons, retain_all=False, bidirectional=False):
-    """
-    Create a networkx MultiDiGraph from Overpass API responses.
-
-    Adds length attributes in meters (great-circle distance between endpoints)
-    to all of the graph's (pre-simplified, straight-line) edges via the
-    `distance.add_edge_lengths` function.
-
-    Parameters
-    ----------
-    response_jsons : list
-        list of dicts of JSON responses from from the Overpass API
-    retain_all : bool
-        if True, return the entire graph even if it is not connected.
-        otherwise, retain only the largest weakly connected component.
-    bidirectional : bool
-        if True, create bi-directional edges for one-way streets
-
-    Returns
-    -------
-    G : networkx.MultiDiGraph
-    """
 
     # make sure we got data back from the server request(s)
     if not any(rj["elements"] for rj in response_jsons):  # pragma: no cover
@@ -522,8 +308,8 @@ def _create_graph(response_jsons, retain_all=False, bidirectional=False):
     
 if __name__ == "__main__":      
 
-    filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
-    #filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
+    #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
+    filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
     
     j = [_overpass_json_from_file(filepath)]
 
