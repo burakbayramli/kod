@@ -271,4 +271,13 @@ if __name__ == "__main__":
 
     G = _create_graph(j)
 
+    node_id = 53098262
+    neighbor_ids = 53092170, 53060438, 53027353, 667744075
+
+    assert node_id in G.nodes
     
+    for neighbor_id in neighbor_ids:
+        edge_key = (node_id, neighbor_id, 0)
+        assert neighbor_id in G.nodes
+        assert edge_key in G.edges
+        assert G.edges[edge_key]["name"] in ("8th Street", "Willow Street")
