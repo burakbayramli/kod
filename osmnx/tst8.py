@@ -62,12 +62,20 @@ def _convert_node(element, node_holder):
 class _OSMContentHandler(xml.sax.handler.ContentHandler):
 
     def __init__(self):
-        self._element = None
-        self.object = {"elements": []}
+        #self._element = None
+        #self.object = {"elements": []}
+        self.object = DiskDict("/tmp/object_dict")
+        self.object["elements"] = list()
 
     def startElement(self, name, attrs):
+        #print (len(self.object["elements"]))
         if name == "osm":
-            self.object.update({k: v for k, v in attrs.items() if k in {"version", "generator"}})
+            #self.object.update({k: v for k, v in attrs.items() if k in {"version", "generator"}})           
+            #for k, v in attrs.items():
+            #    if k in {"version", "generator"}: self.object[k] = v
+            for k, v in attrs.items():
+                if k in {"version", "generator"}: self.object[k] = v
+            #print (self.object.keys())
 
         elif name in {"node", "way"}:
             self._element = dict(type=name, tags={}, nodes=[], **attrs)
@@ -95,9 +103,10 @@ class _OSMContentHandler(xml.sax.handler.ContentHandler):
 
     def endElement(self, name):
         if name in {"node", "way", "relation"}:
-            self.object["elements"].append(self._element)
+            tmp = self.object["elements"]
+            tmp.append(self._element)
+            self.object["elements"] = tmp
 
-@profile
 def _overpass_json_from_file(filepath):
 
     def _opener(filepath):
@@ -130,9 +139,9 @@ def _create_dict(response_json, retain_all=False, bidirectional=False, outputDir
             _convert_path(element,path_holder)
             paths[element["id"]] = path_holder
     
-filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
+#filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
 #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/luxembourg-latest.osm.bz2'
-#filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
+filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
                 
 if __name__ == "__main__":
 
