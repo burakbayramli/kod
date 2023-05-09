@@ -138,7 +138,6 @@ def _overpass_json_from_file(filepath):
         if filepath.suffix == ".bz2":
             return bz2.BZ2File(filepath)
         else:
-            # assume an unrecognized file extension is just XML
             return filepath.open(mode="rb")
 
     with _opener(Path(filepath)) as f:
@@ -164,6 +163,6 @@ filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.
                 
 if __name__ == "__main__":
 
-    warnings.filterwarnings('ignore') # setting ignore as a parameter
+    warnings.filterwarnings('ignore') 
     j = [_overpass_json_from_file(filepath)]
     _create_dict(j)
