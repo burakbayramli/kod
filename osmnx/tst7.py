@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from diskdict import DiskDict
 import warnings
+from memory_profiler import profile
+import gc
 
 all_oneway = False
 useful_tags_node = ["ref", "highway"]
@@ -37,51 +39,25 @@ def _is_path_one_way(path, bidirectional, oneway_values):
     else:
         return False
 
-def _add_paths(G, paths, bidirectional=False):
+def _convert_path(element,path_holder):
 
-    oneway_values = {"yes", "true", "1", "-1", "reverse", "T", "F"}
-    reversed_values = {"-1", "reverse", "T"}
+    path_holder["osmid"] = element["id"]
 
-    for path in paths:
-        nodes = path.pop("nodes")
-
-        is_one_way = _is_path_one_way(path, bidirectional, oneway_values)
-        if is_one_way and _is_path_reversed(path, reversed_values):
-            nodes.reverse()
-
-        if not all_oneway:
-            path["oneway"] = is_one_way
-
-        edges = list(zip(nodes[:-1], nodes[1:]))
-
-        path["reversed"] = False
-        G.add_edges_from(edges, **path)
-
-        if not is_one_way:
-            path["reversed"] = True
-            G.add_edges_from([(v, u) for u, v in edges], **path)
-            
-def _convert_path(element):
-
-    path = {"osmid": element["id"]}
-
-    path["nodes"] = [group[0] for group in itertools.groupby(element["nodes"])]
+    path_holder["nodes"] = [group[0] for group in itertools.groupby(element["nodes"])]
 
     if "tags" in element:
         for useful_tag in useful_tags_way:
             if useful_tag in element["tags"]:
-                path[useful_tag] = element["tags"][useful_tag]
-    return path
+                path_holder[useful_tag] = element["tags"][useful_tag]
 
-def _convert_node(element):
+def _convert_node(element, node_holder):
 
-    node = {"y": element["lat"], "x": element["lon"]}
+    node_holder["y"] = element["lat"]
+    node_holder["x"] = element["lon"]
     if "tags" in element:
         for useful_tag in useful_tags_node:
             if useful_tag in element["tags"]:
-                node[useful_tag] = element["tags"][useful_tag]
-    return node
-
+                node_holder[useful_tag] = element["tags"][useful_tag]
 
 class _OSMContentHandler(xml.sax.handler.ContentHandler):
 
@@ -142,20 +118,26 @@ def _create_dict(response_json, retain_all=False, bidirectional=False, outputDir
 
     nodes = DiskDict(outputDir + '/nodes_dict')
     paths = DiskDict(outputDir + '/paths_dict')
+    node_holder = {}
+    path_holder = {}
     for element in response_json["elements"]:
+        node_holder.clear()
+        path_holder.clear()
         if element["type"] == "node":
-            nodes[element["id"]] = _convert_node(element)
+            _convert_node(element,node_holder)
+            nodes[element["id"]] = node_holder
         elif element["type"] == "way":
-            paths[element["id"]] = _convert_path(element)
+            _convert_path(element,path_holder)
+            paths[element["id"]] = path_holder
     
 #filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/seychelles-latest.osm.bz2'
-filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/luxembourg-latest.osm.pbf'
+filepath = '/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/osm/luxembourg-latest.osm.bz2'
 #filepath = '/home/burak/Documents/repos/osmnx/tests/input_data/West-Oakland.osm.bz2'
                 
 if __name__ == "__main__":
 
     warnings.filterwarnings('ignore') 
     j = _overpass_json_from_file(filepath)
-    _create_dict(j)
+    _create_dict(j,outputDir='/tmp')
 
     
