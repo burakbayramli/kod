@@ -68,14 +68,9 @@ class _OSMContentHandler(xml.sax.handler.ContentHandler):
         self.object["elements"] = list()
 
     def startElement(self, name, attrs):
-        #print (len(self.object["elements"]))
         if name == "osm":
-            #self.object.update({k: v for k, v in attrs.items() if k in {"version", "generator"}})           
-            #for k, v in attrs.items():
-            #    if k in {"version", "generator"}: self.object[k] = v
             for k, v in attrs.items():
                 if k in {"version", "generator"}: self.object[k] = v
-            #print (self.object.keys())
 
         elif name in {"node", "way"}:
             self._element = dict(type=name, tags={}, nodes=[], **attrs)
