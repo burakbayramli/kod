@@ -26,10 +26,10 @@ def phase2():
         for i,row in enumerate(rd):        
             if i % 100000 == 0:
                 print (i)
-                dd.commit()
             if row[headers['foot']] == 'Allowed':
                 dd[row[headers['source']]][row[headers['target']]] = row[headers['length']]
                 dd[row[headers['target']]][row[headers['source']]] = row[headers['length']]
+                dd.commit()
 
         dd.commit()
 

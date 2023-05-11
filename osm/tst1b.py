@@ -9,11 +9,15 @@ with open('edges.csv') as csvfile:
     for i,row in enumerate(rd):        
         if i % 100000 == 0: print (i)
         if row[headers['foot']] == 'Allowed':
-            dd[row[headers['source']]][row[headers['target']]] = row[headers['length']]
-            dd[row[headers['target']]][row[headers['source']]] = row[headers['length']]
-            if row[headers['source']] == '2377631845':
-                print (row)
-                print (dd[row[headers['source']]][row[headers['target']]])
+            
+            tmp = dd[row[headers['source']]]
+            tmp[row[headers['target']]] = row[headers['length']]
+            dd[row[headers['source']]] = tmp
+
+            tmp = dd[row[headers['target']]]
+            tmp[row[headers['source']]] = row[headers['length']]
+            dd[row[headers['target']]] = tmp
+            
         #if i>10000: break
 
 dd.close()
