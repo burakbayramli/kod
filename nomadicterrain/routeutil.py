@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt, json, polyline
 import numpy as np, folium, requests
 import gpxpy, gpxpy.gpx
 import numpy as np
-import osmnx as ox
 
 def midpoint(fr,to):
     b = LatLon(fr[0], fr[1]), LatLon(to[0], to[1])
@@ -15,17 +14,8 @@ def dist(fr,to):
     p1 = LatLon(fr[0], fr[1])
     p2 = LatLon(to[0], to[1])
     return p1.distanceTo(p2)
-
-def get_path(fr,to,d):
-    ox.config(use_cache=True, cache_folder='/tmp/osmnx')
-    G = ox.graph_from_point(fr, dist=d, network_type="walk")
-    origin_res = ox.get_nearest_node(G, fr, method='euclidean',return_dist=True)
-    destination_res = ox.get_nearest_node(G, to, method='euclidean',return_dist=True)
-    route = ox.shortest_path(G, origin_res[0], destination_res[0])
-    coords = [[G.nodes[r]['y'],G.nodes[r]['x']] for r in route]
-    return coords
     
-def create_osmnx_gpx(coords, outfile):
+def create_gpx(coords, outfile):
     fout = open(outfile, "w")
     gpx = gpxpy.gpx.GPX()
     gpx_track = gpxpy.gpx.GPXTrack()
@@ -37,7 +27,7 @@ def create_osmnx_gpx(coords, outfile):
     fout.write(gpx.to_xml())
     fout.close()
 
-def create_osmnx_folium(lat1,lon1,coords,fout):
+def create_folium(lat1,lon1,coords,fout):
     map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
     folium.PolyLine(locations=coords, color="blue").add_to(map)    
     map.save(fout)    

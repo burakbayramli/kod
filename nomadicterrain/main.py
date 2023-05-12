@@ -432,40 +432,6 @@ def submit_search():
         
     return render_template("/recoll.html",results=results)
 
-@app.route('/directions_main/<coords>')
-def directions_main(coords):
-    lat,lon = coords.split(';')
-    lat,lon=float(lat),float(lon)
-    session['geo'] = (lat,lon)
-    return render_template('/directions.html')
-
-@app.route("/directions", methods=["POST"])
-def directions():
-    import routeutil
-    lat1,lon1 = session['geo']
-    lat2 = request.form.get("lat2")
-    lon2 = request.form.get("lon2")
-    rmethod = request.form.get("rmethod")
-    rout = request.form.get("rout")
-    fouthtml = "/tmp/direction-%s.html" % uuid.uuid4()        
-    if rmethod == "osrm" and rout == "map":
-        routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fouthtml)        
-        return send_file(fouthtml)
-    elif rmethod == "osmnx" and rout == "gpx":
-        outfile = "/tmp/out.gpx"
-        fr = (lat1,lon1); to = (float(lat2),float(lon2))
-        mid = routeutil.midpoint(fr,to)
-        d = routeutil.dist(fr,to)
-        path = routeutil.get_path(fr,to,d*2)
-        routeutil.create_osmnx_gpx(path, "/tmp/out.gpx")
-        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
-    elif rmethod == "osmnx" and rout == "map":
-        fr = (lat1,lon1); to = (float(lat2),float(lon2))
-        mid = routeutil.midpoint(fr,to)
-        d = routeutil.dist(fr,to)
-        path = routeutil.get_path(fr,to,d*2)
-        routeutil.create_osmnx_folium(lat1,lon1,path,fouthtml)
-        return send_file(fouthtml)
 
 @app.route('/elev_line_main/<coords>')
 def elev_line_main(coords):
@@ -483,7 +449,39 @@ def elev_line_calc():
     fout = "/tmp/out-%s.png" % uuid.uuid4()
     elevutil.line_elev_calc((lat1,lon1), (lat2,lon2), fout)
     return send_file(fout)
-    
+
+@app.route('/directions_main/<coords>')
+def directions_main(coords):
+    lat,lon = coords.split(';')
+    lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
+    return render_template('/directions.html')
+
+@app.route("/directions", methods=["POST"])
+def directions():
+    import routeutil, osmutil
+    lat1,lon1 = session['geo']
+    lat2 = request.form.get("lat2")
+    lon2 = request.form.get("lon2")
+    rmethod = request.form.get("rmethod")
+    rout = request.form.get("rout")
+    fouthtml = "/tmp/direction-%s.html" % uuid.uuid4()        
+    if rmethod == "osrm" and rout == "map":
+        routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fouthtml)        
+        return send_file(fouthtml)
+    elif rmethod == "nomad" and rout == "gpx":
+        outfile = "/tmp/out.gpx"
+        fr = (lat1,lon1); to = (float(lat2),float(lon2))
+        path = osmutil.shortest_path_coords(fr, to)
+        routeutil.create_gpx(path, "/tmp/out.gpx")
+        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
+    elif rmethod == "nomad" and rout == "map":
+        fr = (lat1,lon1); to = (float(lat2),float(lon2))
+        path = osmutil.shortest_path_coords(fr, to)
+        routeutil.create_folium(lat1,lon1,path,fouthtml)
+        return send_file(fouthtml)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.secret_key = "aksdfkasf"
