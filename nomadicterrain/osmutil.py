@@ -20,6 +20,8 @@ def grid_assign_centers(corner1,corner2):
     hilat = np.max([p1.lat,p2.lat])
     hilon = np.max([p1.lon,p2.lon])
 
+    # seychelles 3,4
+    # tr 7,4
     x = np.linspace(lowlon,hilon,3)
     y = np.linspace(lowlat,hilat,4)
 
