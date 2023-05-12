@@ -140,7 +140,7 @@ def Dijkstra(G, start, end=None):
 
     return (D, P)
 
-def shortestPath(G, start, end):
+def shortest_path_nodes(G, start, end):
 
     D, P = Dijkstra(G, start, end)
     Path = []
@@ -160,7 +160,14 @@ def get_osm_info(osmid):
     if (len(rows)==1): return rows[0]
     else: return None
 
-    
+def shortest_path_coords(fr, to):
+    n1 = find_closest_node(fr[0],fr[1])
+    n2 = find_closest_node(to[0],to[1])
+    dd = DiskDict(dictdir)
+    path = shortest_path_nodes(dd,str(int(n1[0])),str(int(n2[0])))
+    coords = [get_osm_info(x) for x in path]
+    return coords
+        
 if __name__ == "__main__": 
  
 #    grid_assign_centers((36.52259447316748, 27.612981046240638),
@@ -171,20 +178,9 @@ if __name__ == "__main__":
     fr=(41.01437162347757,29.164254494113184)
     to=(41.0497882628352,29.2460494538482)
     
-    n1 = find_closest_node(fr[0],fr[1])
-    print (int(n1[0]))
-    n2 = find_closest_node(to[0],to[1])
-    print (int(n2[0]))
-#    [2377631845.0, 41.01426, 29.16417]
-#    [1364308852.0, 41.0497, 29.24614]
+    coords = shortest_path_coords(fr, to)
 
-#    dd = DiskDict(dictdir)
-#    path = shortestPath(dd,'2377631845','1364308852')
-#    print (path)
-    
-#    coords = [get_osm_info(x) for x in path]
-
-#    m = folium.Map(location=fr, zoom_start=12)
-#    folium.PolyLine(locations=coords, color="red").add_to(m)
-#    m.save("/tmp/out.html")
+    m = folium.Map(location=fr, zoom_start=12)
+    folium.PolyLine(locations=coords, color="red").add_to(m)
+    m.save("/tmp/out.html")
     
