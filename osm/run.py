@@ -15,6 +15,8 @@ dbfile = "nodes2.db"
 
 dictdir = "walkdict"
 
+nodesdb = 'nodes2.db'
+
 def diskdict():
 
     if os.path.exists(dictdir): shutil.rmtree(dictdir)
@@ -128,8 +130,7 @@ def insert_sql():
 def find_closest_node(lat,lon):
     mids = pickle.load(open("centers.pkl","rb"))
 
-    DB = 'nodes2.db'
-    conn = sqlite3.connect(DB)
+    conn = sqlite3.connect(dbfile)
 
     frvec = np.array([lon,lat]).reshape(1,2)
     ds = cdist(mids,frvec)
@@ -150,9 +151,9 @@ def find_closest_node(lat,lon):
     print (list(res))
 
 def Dijkstra(G, start, end=None):
-    D = {}  # dictionary of final distances
-    P = {}  # dictionary of predecessors
-    Q = priorityDictionary()  # estimated distances of non-final vertices
+    D = {}  
+    P = {}  
+    Q = priorityDictionary()  
     Q[start] = 0
 
     for v in Q:
@@ -171,7 +172,6 @@ def Dijkstra(G, start, end=None):
 
     return (D, P)
 
-
 def shortestPath(G, start, end):
 
     D, P = Dijkstra(G, start, end)
@@ -184,6 +184,14 @@ def shortestPath(G, start, end):
     Path.reverse()
     return Path
 
+def get_osm_info(osmid):
+    conn = sqlite3.connect(dbfile)
+    sql = "select lat,lon from osm_nodes where id==?"
+    c = conn.cursor()
+    rows = list(c.execute(sql,(osmid,)))
+    if (len(rows)==1): return rows[0]
+    else: return None
+    
     
 if __name__ == "__main__":
     
@@ -200,9 +208,9 @@ if __name__ == "__main__":
     #print (dd['5241652028'])
     #print (dd['5241649212'])
 
-    print (shortestPath(dd,'5241652028','8059195265'))
+    #print (shortestPath(dd,'5241652028','8059195265'))
 
+    lat,lon = get_osm_info('5241652028')
+    print (lat,lon)
     
-
     
-
