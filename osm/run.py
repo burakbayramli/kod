@@ -191,8 +191,7 @@ def get_osm_info(osmid):
     rows = list(c.execute(sql,(osmid,)))
     if (len(rows)==1): return rows[0]
     else: return None
-    
-    
+       
 if __name__ == "__main__":
     
     #diskdict()
@@ -208,9 +207,20 @@ if __name__ == "__main__":
     #print (dd['5241652028'])
     #print (dd['5241649212'])
 
-    #print (shortestPath(dd,'5241652028','8059195265'))
+    path = shortestPath(dd,'5241652028','8059195265')
+
+    #print (path)
 
     lat,lon = get_osm_info('5241652028')
     print (lat,lon)
     
+    coords = [get_osm_info(x) for x in path]
+
+    #print (coords)
+
+    import folium
+
+    m = folium.Map(location=fr, zoom_start=12)
+    folium.PolyLine(locations=coords, color="red").add_to(m)
+    m.save("map.html")
     
