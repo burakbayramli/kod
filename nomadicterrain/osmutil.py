@@ -160,29 +160,31 @@ def get_osm_info(osmid):
     if (len(rows)==1): return rows[0]
     else: return None
 
+    
 if __name__ == "__main__": 
  
 #    grid_assign_centers((36.52259447316748, 27.612981046240638),
-#                        (41.05628025861666, 42.58542464923075))
+#                         (41.05628025861666, 42.58542464923075))
     
 #    diskdict()
     
     fr=(41.01437162347757,29.164254494113184)
     to=(41.0497882628352,29.2460494538482)
     
-    #res = find_closest_node(fr[0],fr[1])
-    #res = find_closest_node(to[0],to[1])
-    #print (res)
-    #[2377631845.0, 41.01426, 29.16417]
-    #[1364308852.0, 41.0497, 29.24614]
+    n1 = find_closest_node(fr[0],fr[1])
+    print (int(n1[0]))
+    n2 = find_closest_node(to[0],to[1])
+    print (int(n2[0]))
+#    [2377631845.0, 41.01426, 29.16417]
+#    [1364308852.0, 41.0497, 29.24614]
 
-    dd = DiskDict(dictdir)
-    path = shortestPath(dd,'2377631845','1364308852')
-    print (path)
+#    dd = DiskDict(dictdir)
+#    path = shortestPath(dd,'2377631845','1364308852')
+#    print (path)
     
-    coords = [get_osm_info(x) for x in path]
+#    coords = [get_osm_info(x) for x in path]
 
-    m = folium.Map(location=fr, zoom_start=12)
-    folium.PolyLine(locations=coords, color="red").add_to(m)
-    m.save("/tmp/out.html")
+#    m = folium.Map(location=fr, zoom_start=12)
+#    folium.PolyLine(locations=coords, color="red").add_to(m)
+#    m.save("/tmp/out.html")
     
