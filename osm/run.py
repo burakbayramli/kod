@@ -5,6 +5,7 @@ import pandas as pd
 from scipy.spatial.distance import cdist
 from diskdict import DiskDict
 import sqlite3
+from priodict import priorityDictionary
 
 #seychelles
 fr=(-4.699287820423064, 55.49185927728346)
@@ -148,11 +149,60 @@ def find_closest_node(lat,lon):
     res = df.iloc[np.argmin(frres)][['id','lat','lon']]
     print (list(res))
 
-        
+def Dijkstra(G, start, end=None):
+    D = {}  # dictionary of final distances
+    P = {}  # dictionary of predecessors
+    Q = priorityDictionary()  # estimated distances of non-final vertices
+    Q[start] = 0
+
+    for v in Q:
+        D[v] = Q[v]
+        if v == end:
+            break
+
+        for w in G[v]:
+            vwLength = D[v] + float(G[v][w])
+            if w in D:
+                if vwLength < D[w]:
+                    raise ValueError("Dijkstra: found better path to already-final vertex")
+            elif w not in Q or vwLength < Q[w]:
+                Q[w] = vwLength
+                P[w] = v
+
+    return (D, P)
+
+
+def shortestPath(G, start, end):
+
+    D, P = Dijkstra(G, start, end)
+    Path = []
+    while 1:
+        Path.append(end)
+        if end == start:
+            break
+        end = P[end]
+    Path.reverse()
+    return Path
+
+    
 if __name__ == "__main__":
     
     #diskdict()
     #grid_assign_centers()
     #insert_sql()
-    find_closest_node(fr[0],fr[1])
+    #find_closest_node(fr[0],fr[1])
+    #find_closest_node(to[0],to[1])
+
+    #[5241652028.0, -4.70279, 55.48997]
+    #[8059195265.0, -4.63801, 55.40781]
     
+    dd = DiskDict(dictdir)
+    #print (dd['5241652028'])
+    #print (dd['5241649212'])
+
+    print (shortestPath(dd,'5241652028','8059195265'))
+
+    
+
+    
+
