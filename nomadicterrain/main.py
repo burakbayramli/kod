@@ -469,6 +469,11 @@ def directions():
     if rmethod == "osrm" and rout == "map":
         routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fouthtml)        
         return send_file(fouthtml)
+    elif rmethod == "osrm" and rout == "gpx":
+        outfile = "/tmp/out.gpx"
+        path = routeutil.create_osrm_gpx(lat1,lon1,lat2,lon2)        
+        routeutil.create_gpx(path, "/tmp/out.gpx")
+        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
     elif rmethod == "nomad" and rout == "gpx":
         outfile = "/tmp/out.gpx"
         fr = (lat1,lon1); to = (float(lat2),float(lon2))

@@ -41,7 +41,16 @@ def create_osrm_folium(lat1,lon1,lat2,lon2,fout):
     decoded = polyline.decode(resp["routes"][0]['geometry'])
     map = folium.Map(location=(lat1,lon1),zoom_start=8,control_scale=True)
     folium.PolyLine(locations=decoded, color="blue").add_to(map)    
-    map.save(fout)    
+    map.save(fout)        
+
+def create_osrm_gpx(lat1,lon1,lat2,lon2):    
+    url = f'http://router.project-osrm.org/route/v1/car/' + \
+          f'{lon1},{lat1};{lon2},{lat2}' + \
+          f'?alternatives=false'
+    response = requests.get(url, verify=False)
+    resp = json.loads(response.text)
+    decoded = polyline.decode(resp["routes"][0]['geometry'])
+    return decoded
     
 if __name__ == "__main__": 
   fr = (40.969615352945354,29.07036154764545)
