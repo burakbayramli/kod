@@ -892,7 +892,7 @@ This command does not push erased text to kill-ring."
 
 ;; ;; Pymacs
 ;;(load-file "/home/burak/Documents/kod/site-lisp/pymacs/pymacs.el")
-(load-file "/home/burak/Documents/Pymacs/pymacs.el")
+(load-file "/home/burak/Documents/repos/Pymacs/pymacs.el")
 
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
