@@ -3,7 +3,6 @@ import elevutil, uuid, geopy.distance
 from numpy.linalg import norm
 from matplotlib import cm
 import numpy as np, folium
-import matplotlib.pyplot as plt
 import numpy as np, requests
 
 def goto_from_coord(start, distance, bearing):
@@ -34,6 +33,7 @@ def get_elev_data(coords):
 
 def get_topo(lat1,lon1,how_far):
     from scipy.interpolate import Rbf
+    import matplotlib.pyplot as plt
     boxlat1,boxlon1 = elevutil.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = elevutil.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -106,6 +106,7 @@ def bearing(fr,to):
     return p1.bearingTo(p2)
     
 def line_elev_calc(fr, to, fout):
+    import matplotlib.pyplot as plt
     npts = 20
     be = bearing(fr, to)
     print (be)
