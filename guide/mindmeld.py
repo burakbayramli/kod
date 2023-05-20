@@ -5,7 +5,6 @@ import mapping, itertools, os
 
 fdir = os.path.dirname(os.path.realpath(__file__))
 planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
-smap = mapping.init()
 
 sun_moon_table = np.array(range(144)).reshape((12,12)) + 1
 
@@ -71,6 +70,7 @@ def calculate_cycle(d):
    
 def calculate_lewi_decans(decans):
    import pandas as pd
+   smap = mapping.init()
    res = []
    # In order to map the 1-24 decan value to a sign, a little division
    # magic is used. Each sign has 3 decan values, 1-3 is Aries, 4-6 is
