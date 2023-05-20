@@ -1,5 +1,4 @@
 from pygeodesy.sphericalNvector import LatLon
-from scipy.interpolate import Rbf
 import elevutil, uuid, geopy.distance
 from numpy.linalg import norm
 from mpl_toolkits.mplot3d import Axes3D
@@ -35,6 +34,7 @@ def get_elev_data(coords):
     return res
 
 def get_topo(lat1,lon1,how_far):
+    from scipy.interpolate import Rbf
     boxlat1,boxlon1 = elevutil.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = elevutil.goto_from_coord((lat1,lon1), how_far, 215)
 
