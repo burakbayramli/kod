@@ -1,7 +1,6 @@
 from pygeodesy.sphericalNvector import LatLon
 import elevutil, uuid, geopy.distance
 from numpy.linalg import norm
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import numpy as np, folium
 import matplotlib.pyplot as plt
