@@ -6,7 +6,7 @@ import pickle, polyline
 import numpy as np, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
-import simplegeomap as sm, elevutil, wind
+import elevutil, wind
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
 from urllib.request import urlopen
@@ -40,6 +40,7 @@ def index():
 @app.route('/location/<loc>/<zoom>')
 def location(loc,zoom):
     import matplotlib.pyplot as plt
+    import simplegeomap as sm
     lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
     session['geo'] = (lat,lon)
@@ -191,6 +192,7 @@ def show_travel_map(currlat,currlon,map,fout):
 @app.route('/plot_elev/<coords>/<zoom>')
 def plot_elev(coords,zoom):
     import matplotlib.pyplot as plt
+    import simplegeomap as sm
     zoom = float(zoom)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
