@@ -1,8 +1,8 @@
-import pandas as pd
 
 planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
 
 def init():
+    import pandas as pd
     mapping = pd.DataFrame(index=planets,columns=['tick','*','sq','tri','opp'])
     mapping.loc['mo']['tick'] = {'sun':245,'mer':145,'ven':146,'mar':147,'ju':148,'sa':149,'ur':150,'ne':151,'pl':254}
     mapping.loc['mo']['tri'] = {'sun':246,'mer':152,'ven':153,'mar':154,'ju':155,'sa':156,'ur':157,'ne':158,'pl':255}

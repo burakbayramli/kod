@@ -1,12 +1,9 @@
 from datetime import datetime
 from datetime import timedelta
-import pandas as pd, numpy as np
+import numpy as np
 import mapping, itertools, os
 
 fdir = os.path.dirname(os.path.realpath(__file__))
-decans = pd.read_csv(fdir + "/" + 'data/decans.dat',names=['date','decans'],sep=' ')
-spiller = pd.read_csv(fdir + "/" + "data/spiller",names=['from','to','sign'])
-chinese = pd.read_csv(fdir + "/" + "data/chinese",names=['from','to','sign'])
 planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
 smap = mapping.init()
 
@@ -18,6 +15,7 @@ def get_decans(date):
    # represent sun, moon, mercury, etc.  First one is sun, second is
    # the moon, the order is the same as the array shown in
    # mapping.planets. 
+   decans = pd.read_csv(fdir + "/" + 'data/decans.dat',names=['date','decans'],sep=' ')
    tmp=np.array(decans[decans['date']==int(date)]['decans'])
    res = tmp[0].split(':')   
    res = res[:-1]
@@ -39,11 +37,13 @@ def calculate_millman(date):
     return res
 
 def get_spiller(date):
+   spiller = pd.read_csv(fdir + "/" + "data/spiller",names=['from','to','sign'])
    res = spiller.apply(lambda x: int(date) >=int(x['from']) and int(date) <= int(x['to']),axis=1)
    if not np.any(res): return None
    return np.array(spiller[res])[0][2]
    
 def get_chinese(date):
+   chinese = pd.read_csv(fdir + "/" + "data/chinese",names=['from','to','sign'])
    res = chinese.apply(lambda x: int(date) >=int(x['from']) and int(date) <= int(x['to']),axis=1)
    if not np.any(res): return None
    return np.array(chinese[res])[0][2]
@@ -70,6 +70,7 @@ def calculate_cycle(d):
    except: return None
    
 def calculate_lewi_decans(decans):
+   import pandas as pd
    res = []
    # In order to map the 1-24 decan value to a sign, a little division
    # magic is used. Each sign has 3 decan values, 1-3 is Aries, 4-6 is
