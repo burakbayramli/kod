@@ -12,7 +12,7 @@ import csv, io, zipfile, folium
 from urllib.request import urlopen
 import urllib, requests, re
 import gpxpy, gpxpy.gpx
-import timezonefinder, calendar, datedelta
+import calendar, datedelta
 from bs4 import BeautifulSoup
 from pytz import timezone
 import urllib.request as urllib2
@@ -296,6 +296,7 @@ def gopollution(coords):
 
 @app.route('/time/<coords>')
 def time(coords):    
+    import timezonefinder
     lat,lon = coords.split(';')
     lat,lon = float(lat),float(lon)
     
