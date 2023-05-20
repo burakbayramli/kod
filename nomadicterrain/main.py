@@ -14,7 +14,6 @@ import urllib, requests, re
 import gpxpy, gpxpy.gpx
 import calendar, datedelta
 from bs4 import BeautifulSoup
-from pytz import timezone
 import urllib.request as urllib2
 
 app = Flask(__name__)
@@ -297,6 +296,7 @@ def gopollution(coords):
 @app.route('/time/<coords>')
 def time(coords):    
     import timezonefinder
+    from pytz import timezone
     lat,lon = coords.split(';')
     lat,lon = float(lat),float(lon)
     
