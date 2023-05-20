@@ -3,7 +3,7 @@ import os; os.chdir(os.path.dirname(__file__))
 from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
 import pickle, polyline
-import numpy as np, pandas as pd, os, uuid, glob
+import numpy as np, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
 import simplegeomap as sm, elevutil, wind
@@ -252,6 +252,7 @@ def extnews():
 @app.route('/market')
 def market():
     import matplotlib.pyplot as plt
+    import pandas as pd
     plt.figure()
     end = datetime.datetime.now()
     start=end-datetime.timedelta(days=90)

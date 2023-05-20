@@ -13,3 +13,4 @@ geopy
 folium
 timezonefinder
 bs4
+uuid
