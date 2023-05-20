@@ -2,7 +2,7 @@
 import os; os.chdir(os.path.dirname(__file__))
 from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
-import matplotlib.pyplot as plt, pickle, polyline
+import pickle, polyline
 import numpy as np, pandas as pd, os, uuid, glob
 import sys; sys.path.append("../guide")
 import json, random, mindmeld, base64, time as timelib
@@ -39,6 +39,7 @@ def index():
 
 @app.route('/location/<loc>/<zoom>')
 def location(loc,zoom):
+    import matplotlib.pyplot as plt
     lat,lon = loc.split(';')
     lat,lon=float(lat),float(lon)
     session['geo'] = (lat,lon)
@@ -189,7 +190,7 @@ def show_travel_map(currlat,currlon,map,fout):
 
 @app.route('/plot_elev/<coords>/<zoom>')
 def plot_elev(coords,zoom):
-
+    import matplotlib.pyplot as plt
     zoom = float(zoom)
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
@@ -250,6 +251,7 @@ def extnews():
 
 @app.route('/market')
 def market():
+    import matplotlib.pyplot as plt
     plt.figure()
     end = datetime.datetime.now()
     start=end-datetime.timedelta(days=90)
