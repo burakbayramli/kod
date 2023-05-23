@@ -1,6 +1,6 @@
 import folium, numpy as np
 import geopy.distance, pickle
-import requests, json
+import requests, json, os
 
 def geo2arit(geo):
     if geo==360: geo=0
@@ -32,8 +32,9 @@ def get_grid(lat,lon,dist=80):
     return yy.flatten(), xx.flatten()
 
 def get_data(lat,lon):
+    params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
     base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
-    weatherapi = open(".owm").read()
+    weatherapi = params['weatherapi']
     payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': weatherapi }
     r = requests.get(base_url, params=payload)
     wind = []
@@ -103,4 +104,4 @@ def plot_wind(lat,lon,timeindex,wide,fout='/tmp/wind.html'):
     
 if __name__ == "__main__": 
     lat,lon=9.6224,64.6930
-    plot_wind(lat,lon,0) # 0,2,6,22
+    plot_wind(lat,lon,0,100) # 0,2,6,22
