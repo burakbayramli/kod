@@ -18,7 +18,7 @@ import urllib.request as urllib2
 
 app = Flask(__name__)
 
-params = json.loads(open("nomterr.conf").read())
+params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 
 travel_url = "http://localhost:5000/static/travel"
     
