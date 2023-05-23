@@ -31,10 +31,9 @@ def get_grid(lat,lon,dist=80):
     xx,yy = np.meshgrid(x,y)
     return yy.flatten(), xx.flatten()
 
-def get_data(lat,lon):
-    params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
+def get_data(lat,lon,weatherapi):
+    print (lat,lon)
     base_url = 'http://api.openweathermap.org/data/2.5/forecast?'
-    weatherapi = params['weatherapi']
     payload = { 'lat': str(lat), 'lon': str(lon), 'units': 'metric', 'APPID': weatherapi }
     r = requests.get(base_url, params=payload)
     wind = []
@@ -50,13 +49,14 @@ def get_data(lat,lon):
 def get_data_multi(lats,lons):
     dwind = {}
     drain = {}
+    params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
+    weatherapi = params['weatherapi']
     for lat,lon in zip(lats,lons):
-    	wind, rain = get_data(lat,lon)
+    	wind, rain = get_data(lat,lon,weatherapi)
     	dwind[(lat,lon)] = wind
     	drain[(lat,lon)] = rain
 
     return dwind, drain
-
 
 def testdata():
     lat,lon=10.7901,86.4303
@@ -104,4 +104,4 @@ def plot_wind(lat,lon,timeindex,wide,fout='/tmp/wind.html'):
     
 if __name__ == "__main__": 
     lat,lon=9.6224,64.6930
-    plot_wind(lat,lon,0,100) # 0,2,6,22
+    plot_wind(lat,lon,0,20) # 0,2,6,22
