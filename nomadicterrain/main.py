@@ -21,6 +21,8 @@ app = Flask(__name__)
 params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 
 travel_url = "http://localhost:5000/static/travel"
+
+TMPDIR = params['tmpdir']
     
 headers = { 'User-Agent': 'UCWEB/2.0 (compatible; Googlebot/2.1; +google.com/bot.html)'}
 
@@ -130,7 +132,7 @@ def travel_maps():
     currlat,currlon = session['geo']    
     print ('action',request.form['action'])
     if request.form['action'] == "Go":
-        fout = "/tmp/trav-%s.html" % uuid.uuid4()    
+        fout = TMPDIR + "/trav-%s.html" % uuid.uuid4()    
         show_travel_map(currlat,currlon,map,fout)
         return send_file(fout)
     elif request.form['action'] == "GPX":
@@ -275,7 +277,7 @@ def market():
     h1, l1 = ax1.get_legend_handles_labels()
     h2, l2 = ax2.get_legend_handles_labels()
     plt.legend(h1+h2, l1+l2, loc=2)
-    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    fout = TMPDIR + "/out-%s.png" % uuid.uuid4()
     plt.savefig(fout)
     return send_file(fout)
 
@@ -340,7 +342,7 @@ def time(coords):
 def gotopo2(coords,how_far):
     lat,lon = coords.split(';')
     how_far = float(how_far)
-    fout = "/tmp/out-%s.html" % uuid.uuid4()
+    fout = TMPDIR + "/out-%s.html" % uuid.uuid4()
     elevutil.plot_topo(lat,lon,how_far,fout)
     return send_file(fout)
 
@@ -397,7 +399,7 @@ def gowind(coords,ahead,wide):
     lat,lon = coords.split(';')
     ahead = int(ahead)
     wide = float(wide)
-    fout = "/tmp/out-%s.html" % uuid.uuid4()
+    fout = TMPDIR + "/out-%s.html" % uuid.uuid4()
     wind.plot_wind(lat,lon,ahead,wide,fout) # 0,2,6,22    
     return send_file(fout)
 
@@ -452,7 +454,7 @@ def elev_line_calc():
     lat1,lon1 = session['geo']
     lat2 = request.form.get("lat2")
     lon2 = request.form.get("lon2")
-    fout = "/tmp/out-%s.png" % uuid.uuid4()
+    fout = TMPDIR + "/out-%s.png" % uuid.uuid4()
     elevutil.line_elev_calc((lat1,lon1), (lat2,lon2), fout)
     return send_file(fout)
 
@@ -471,21 +473,21 @@ def directions():
     lon2 = request.form.get("lon2")
     rmethod = request.form.get("rmethod")
     rout = request.form.get("rout")
-    fouthtml = "/tmp/direction-%s.html" % uuid.uuid4()        
+    fouthtml = TMPDIR + "/direction-%s.html" % uuid.uuid4()        
     if rmethod == "osrm" and rout == "map":
         routeutil.create_osrm_folium(lat1,lon1,lat2,lon2,fouthtml)        
         return send_file(fouthtml)
     elif rmethod == "osrm" and rout == "gpx":
-        outfile = "/tmp/out.gpx"
+        outfile = TMPDIR + "/out.gpx"
         path = routeutil.create_osrm_gpx(lat1,lon1,lat2,lon2)        
-        routeutil.create_gpx(path, "/tmp/out.gpx")
-        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
+        routeutil.create_gpx(path, TMPDIR + "/out.gpx")
+        return send_file(TMPDIR + '/out.gpx',mimetype='text/gpx',as_attachment=True)
     elif rmethod == "nomad" and rout == "gpx":
-        outfile = "/tmp/out.gpx"
+        outfile = TMPDIR + "/out.gpx"
         fr = (lat1,lon1); to = (float(lat2),float(lon2))
         path = osmutil.shortest_path_coords(fr, to)
-        routeutil.create_gpx(path, "/tmp/out.gpx")
-        return send_file('/tmp/out.gpx',mimetype='text/gpx',as_attachment=True)
+        routeutil.create_gpx(path, TMPDIR + "/out.gpx")
+        return send_file(TMPDIR + '/out.gpx',mimetype='text/gpx',as_attachment=True)
     elif rmethod == "nomad" and rout == "map":
         fr = (lat1,lon1); to = (float(lat2),float(lon2))
         path = osmutil.shortest_path_coords(fr, to)
