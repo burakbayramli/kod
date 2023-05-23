@@ -284,7 +284,7 @@ def market():
 @app.route('/gopollution/<coords>')
 def gopollution(coords):
     lat,lon = coords.split(';')
-    weatherapi = open(".owm").read()
+    weatherapi = params['weatherapi']
     url = 'http://api.openweathermap.org/data/2.5/air_pollution?'
     payload = { 'lat': str(lat), 'lon': str(lon), 'appid': weatherapi }
     r = requests.get(url, params=payload)
