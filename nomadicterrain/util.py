@@ -1,6 +1,7 @@
 import re, folium, pandas as pd
 from bs4 import BeautifulSoup as bs
 from unidecode import unidecode
+import numpy as np
 
 def camp_folium():
     df = pd.read_csv('data/kampyerleri.csv',sep=';')
@@ -30,8 +31,18 @@ def camp_folium_yayla():
         ).add_to(m)
         
     m.save('/tmp/yayla-out.html')
-    
+
+"""
+    p1 = np.array([[1, 2]])
+    p2 = np.array([[4, 6], [2, 1], [7, 8]])
+    my_cdist(p1,p2)
+    print (cdist(p1,p2))
+"""
+def cdist(p1,p2):    
+    distances = np.linalg.norm(p1 - p2, axis=1)
+    print (distances)
+        
 if __name__ == "__main__": 
     #kamp_yerleri()
     #camp_folium()
-    camp_folium_yayla()
+    #camp_folium_yayla()
