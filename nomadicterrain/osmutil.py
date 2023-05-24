@@ -3,12 +3,14 @@ from pygeodesy.sphericalNvector import LatLon
 from priodict import priorityDictionary
 from scipy.spatial.distance import cdist
 import pandas as pd, json, folium
-from diskdict import DiskDict
+#from diskdict import DiskDict
+from sqlitedict import SqliteDict
 import os, csv, shutil
 
-params = json.loads(open("nomterr.conf").read())
+params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 dbfile = params['osm_dir'] + "/nodes.db"
-dictdir = params['osm_dir'] + "/walkdict"
+#dictdir = params['osm_dir'] + "/walkdict"
+edgedict = params['osm_dir'] + "/walkdict.sqlite"
 
 def grid_assign_centers(corner1,corner2):
     
@@ -163,7 +165,8 @@ def get_osm_info(osmid):
 def shortest_path_coords(fr, to):
     n1 = find_closest_node(fr[0],fr[1])
     n2 = find_closest_node(to[0],to[1])
-    dd = DiskDict(dictdir)
+    #dd = DiskDict(dictdir)
+    dd = SqliteDict(edgedict)    
     path = shortest_path_nodes(dd,str(int(n1[0])),str(int(n2[0])))
     coords = [get_osm_info(x) for x in path]
     return coords

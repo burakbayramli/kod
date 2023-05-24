@@ -40,7 +40,6 @@ def getnews():
         ("France 24","https://www.france24.com/en/rss",10),
         ("Politico","https://www.politico.com/rss/politicopicks.xml",10),
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
-        ("H2 View","https://www.h2-view.com/rss/feed/e15e1d6422c35afec038fbd559797494/",10),
         ("The Atlantic", "https://www.theatlantic.com/feed/all",8),
         ("Informed Comment","https://www.juancole.com/feed",10)
     ]
