@@ -1,10 +1,9 @@
 import csv, numpy as np, re, os, shutil, pickle, sqlite3
 from pygeodesy.sphericalNvector import LatLon
 from priodict import priorityDictionary
-from scipy.spatial.distance import cdist
 import pandas as pd, json, folium
 from sqlitedict import SqliteDict
-import os, csv, shutil
+import os, csv, shutil, util
 
 params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 dbfile = params['osm_dir'] + "/nodes.db"
@@ -47,7 +46,7 @@ def grid_assign_centers(corner1,corner2):
         headers = {k: v for v, k in enumerate(next(rd))}
         for i,row in enumerate(rd):        
             id,lat,lon = row[headers['id']],row[headers['lat']],row[headers['lon']]
-            ds = cdist(mids,np.array([[lon,lat]]))
+            ds = util.cdist(mids,np.array([[lon,lat]]))
             res = list(np.argsort(ds,axis=0).T[0][:2])
             cursor.execute('''INSERT INTO osm_nodes(id, lat, lon, c1, c2)
                       VALUES(?,?,?,?,?)''', (id,lat[:8],lon[:8],int(res[0]),int(res[1])))            
@@ -101,8 +100,8 @@ def find_closest_node(lat,lon):
     conn = sqlite3.connect(dbfile)
 
     frvec = np.array([lon,lat]).reshape(1,2)
-    ds = cdist(mids,frvec)
-    fr_closest_mid = list(np.argsort(ds,axis=0).T[0][:2])
+    ds = util.cdist(mids,frvec)
+    fr_closest_mid = list(np.argsort(ds,axis=0).T[:2])
     frres = []
     sql = "select id,lat,lon from osm_nodes where c1==? or c1==? or c2==? or c2==?"
     c = conn.cursor()
@@ -114,7 +113,7 @@ def find_closest_node(lat,lon):
 
     df = pd.DataFrame(frres); df.columns = ['id','lat','lon']
 
-    frres = cdist(df[['lon','lat']], frvec)
+    frres = util.cdist(df[['lon','lat']], frvec)
     res = df.iloc[np.argmin(frres)][['id','lat','lon']]
     return list(res)
 
@@ -171,8 +170,8 @@ def shortest_path_coords(fr, to):
         
 if __name__ == "__main__": 
  
-    grid_assign_centers((36.52259447316748, 27.612981046240638),
-                         (41.05628025861666, 42.58542464923075))
+#    grid_assign_centers((36.52259447316748, 27.612981046240638),
+#                         (41.05628025861666, 42.58542464923075))
     
 #    diskdict()
     

@@ -40,9 +40,9 @@ def camp_folium_yayla():
 """
 def cdist(p1,p2):    
     distances = np.linalg.norm(p1 - p2, axis=1)
-    print (distances)
+    return distances
         
 if __name__ == "__main__": 
     #kamp_yerleri()
     #camp_folium()
-    #camp_folium_yayla()
+    camp_folium_yayla()
