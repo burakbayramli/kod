@@ -1,0 +1,30 @@
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  </head>      
+  
+  <form action="/submit_search" method="post">
+      Method:      
+      <select name="rmethod" method="POST">
+        <option value= ""></option>"
+        <option value= "loogle">Loogle</option>"
+        <option value= "recoll">Recoll</option>"
+      </select>
+    <input type="text" name="search"/>
+    <br/> <br/> 
+    <input type="submit">
+   </form>
+
+   {% for x in results %}
+   <p>
+     {{x[0]}} MB <a href="{{x[1]}}">{{x[2]}}</a> {{x[3]}}
+   </p>
+    {% endfor %}        
+
+   
+ </html>
+
+ 
