@@ -413,32 +413,45 @@ def submit_tweet():
     OnlyOne().tweet = request.form['tweet']
     return redirect("/")
 
-@app.route('/recoll')
-def recoll():
-    return render_template("/recoll.html")
+@app.route('/book')
+def book():
+    return render_template("/book.html")
 
 @app.route('/submit_search', methods=['POST'])
 def submit_search():
-    from recoll import recoll
-    db = recoll.connect()
-    db.setAbstractParams(maxchars=300, contextwords=4)
     results = []
-    query = db.query()
-    nres = query.execute(request.form['search'])
-    print("Result count: %d" % nres)
-    newbase = "http://" + request.host + "/static"
-    for i in range(200):
-        doc = query.fetchone()
-        if not doc: continue
-        row = []
-        size = float(getattr(doc, "size"))
-        row.append("%0.1f" % (size / 1e6))
-        row.append("%s" % getattr(doc, "url").replace(params['book_dir'],newbase))
-        row.append(os.path.basename(getattr(doc, "url")))
-        row.append(db.makeDocAbstract(doc, query))
-        results.append(row)
-        
-    return render_template("/recoll.html",results=results)
+    search = request.form['search']
+    rmethod = request.form.get("rmethod")
+    if rmethod == "recoll": 
+        from recoll import recoll
+        db = recoll.connect()
+        db.setAbstractParams(maxchars=300, contextwords=4)
+        query = db.query()
+        nres = query.execute(search)
+        print("Result count: %d" % nres)
+        newbase = "http://" + request.host + "/static"
+        for i in range(200):
+            doc = query.fetchone()
+            if not doc: continue
+            row = []
+            size = float(getattr(doc, "size"))
+            row.append("%0.1f" % (size / 1e6))
+            row.append("%s" % getattr(doc, "url").replace(params['book_dir'],newbase))
+            row.append(os.path.basename(getattr(doc, "url")))
+            row.append(db.makeDocAbstract(doc, query))
+            results.append(row)
+    if rmethod == "loogle":
+        import loogle
+        params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
+        res = loogle.search(search, params['book_index_db'])
+        for path,summary in res:
+            summary = summary.replace("<b>","")
+            summary = summary.replace("</b>","")
+            url = "http://" + request.host + "/static/kitaplar" + path
+            row = ["", url, path, summary]
+            results.append(row)
+
+    return render_template("/book.html",results=results)
 
 
 @app.route('/elev_line_main/<coords>')
