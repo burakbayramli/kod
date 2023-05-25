@@ -28,7 +28,7 @@ Programs
 
 Install with `apt-get install djulibre-bin  poppler-utils`
 """
-import os, io, codecs, sqlite3, textract, json, sys
+import os, io, codecs, sqlite3, json, sys
 
 exts = ['.pdf']
 skip_dir = 'kitaplar/General/novel'
@@ -77,6 +77,7 @@ def ls(d,ignore_list=[]):
     return dirs, files
 
 def process(file):
+    import textract
     if ".pdf" in file:
         os.system("pdftotext '%s' %s/out.txt" % (file,os.environ['TMPDIR']))
         res = codecs.open(os.environ['TMPDIR'] + "/out.txt", encoding="utf-8").read()
