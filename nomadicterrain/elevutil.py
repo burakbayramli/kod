@@ -1,6 +1,7 @@
 from pygeodesy.sphericalNvector import LatLon
 import elevutil, uuid, geopy.distance
 from numpy.linalg import norm
+import matplotlib.pyplot as plt
 import numpy as np, folium
 import numpy as np, requests
 
@@ -31,8 +32,6 @@ def get_elev_data(coords):
     return res
 
 def get_topo(lat1,lon1,how_far):
-    from scipy.interpolate import Rbf
-    import matplotlib.pyplot as plt
     boxlat1,boxlon1 = elevutil.goto_from_coord((lat1,lon1), how_far, 45)
     boxlat2,boxlon2 = elevutil.goto_from_coord((lat1,lon1), how_far, 215)
 
@@ -59,14 +58,17 @@ def get_topo(lat1,lon1,how_far):
 
     yr = sampleCoords[:,0]
     xr = sampleCoords[:,1]
-
-    rbfi = Rbf(xr,yr,zr,function='multiquadric')
+    
+    from simplegeomap.util import QuadTreeInterpolator
+    #rbfi = Rbf(xr,yr,zr,function='multiquadric')
+    q = QuadTreeInterpolator(xr,yr,zr)
+    interp = np.vectorize(q.interpolate,otypes=[np.float])
     
     D = 15
     x = np.linspace(lonlow,lonhigh,D)
     y = np.linspace(latlow,lathigh,D)
     xx,yy = np.meshgrid(x,y)
-    yhat = rbfi(xx,yy)
+    yhat = interp(xx,yy)
 
     fig, ax = plt.subplots()
     CS = ax.contour(xx,yy,yhat)
@@ -121,11 +123,16 @@ def line_elev_calc(fr, to, fout):
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     plt.savefig(fout)
-    
-    
-if __name__ == "__main__":
+
+def test1():
     clat,clon=36.64653, 29.13920
     how_far = 50.0
-    #plot_topo(clat,clon,how_far,"out.html")
+    plot_topo(clat,clon,how_far,"/tmp/out.html")
+
+def test2():    
     fout = "/tmp/out-%s.png" % uuid.uuid4()
     line_elev_calc((36.649278935208805, 29.157651665059603), (36.69678555770977, 29.142243855775913), fout)
+    
+if __name__ == "__main__":
+    test1()
+    #test2()
