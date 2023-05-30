@@ -60,9 +60,8 @@ def get_topo(lat1,lon1,how_far):
     xr = sampleCoords[:,1]
     
     from simplegeomap.util import QuadTreeInterpolator
-    #rbfi = Rbf(xr,yr,zr,function='multiquadric')
     q = QuadTreeInterpolator(xr,yr,zr)
-    interp = np.vectorize(q.interpolate,otypes=[np.float])
+    interp = np.vectorize(q.interpolate,otypes=[np.float64])
     
     D = 15
     x = np.linspace(lonlow,lonhigh,D)
