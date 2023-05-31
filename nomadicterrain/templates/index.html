@@ -17,11 +17,12 @@ function setLocOnPage(lat,lon){
   document.getElementById("weat").href = "/goweather/" + lat  + ";" + lon;
   document.getElementById("pollu").href = "/gopollution/" + lat  + ";" + lon;
   document.getElementById("time").href = "/time/" + lat  + ";" + lon;
+  document.getElementById("elev").href = "/plot_elev/" + lat  + ";" + lon+"/0.05/50/20";
   document.getElementById("elev1").href = "/gotopo2/" + lat  + ";" + lon+"/1";
   document.getElementById("elev2").href = "/gotopo2/" + lat  + ";" + lon+"/5";
   document.getElementById("elev3").href = "/gotopo2/" + lat  + ";" + lon+"/10";
   document.getElementById("elev4").href = "/gotopo2/" + lat  + ";" + lon+"/20";
-  document.getElementById("elev5").href = "/plot_line_elev/" + lat  + ";" + lon+"/20";
+  document.getElementById("elev5").href = "/elev_line_main/" + lat  + ";" + lon+"/20";
   document.getElementById("wind1").href = "/gowind/" + lat  + ";" + lon+"/0/100";
   document.getElementById("wind2").href = "/gowind/" + lat  + ";" + lon+"/4/100";
   document.getElementById("wind3").href = "/gowind/" + lat  + ";" + lon+"/8/100";
@@ -74,7 +75,7 @@ function showPosition(position) {
             <a id="elev4" href="/gotopo2/40.9544;29.09139/20">
               20 
             </a>,&nbsp;
-            <a id="elev" href="/plot_elev/40.9544;29.09139/0.05">
+            <a id="elev" href="/plot_elev/40.9544;29.09139/0.05/50/20">
               Local
             </a>,&nbsp;
             <a id="elev5" href="/elev_line_main/40.9544;29.09139">
