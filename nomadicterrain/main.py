@@ -204,7 +204,7 @@ def plot_elev(coords,zoom,start,steps):
     lat,lon=float(currlat),float(currlon)
     plt.plot(lon,lat,'gd')
     sm.plot_countries(lat,lon,zoom,outcolor='lavenderblush')
-    levels = range(start,start+(4*steps),steps)
+    levels = list(range(start,start+(4*steps),steps))
     sm.plot_elevation(lat,lon,zoom,levels=levels)
     plt.savefig(fout)
     plt.clf()
