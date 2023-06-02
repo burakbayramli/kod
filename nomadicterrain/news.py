@@ -27,7 +27,6 @@ def getnews():
         ("TASS","http://tass.com/rss/v2.xml",20),
         ("Arab News","https://www.arabnews.com/cat/3/rss.xml",10),
         ("Jane's Defence", "https://www.janes.com/feeds/news", 10),
-        ("Business Insider", "https://feeds.businessinsider.com/custom/all",10),
         ("Japan Times","https://www.japantimes.co.jp/feed/topstories/",4),
         ('CNBC','https://www.cnbc.com/id/100727362/device/rss/rss.html',10),        
         ('WSJ','https://feeds.a.dj.com/rss/RSSOpinion.xml',10),
