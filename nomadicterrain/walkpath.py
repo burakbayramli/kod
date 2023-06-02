@@ -115,26 +115,28 @@ def get_car_in_regions(c1):
       neighs.append([nlat,nlon])
    return np.array(ids),np.array(neighs)
       
-def plot_walkable_paths(rid, fout):
+def plot_walkable_paths(lat,lon,fout):
    m = folium.Map(location=[gc1[0],gc1[1]], zoom_start=5)
-   gpts = grid_assign_centers(gc1,gc2)
+   gpts = grid_assign_centers(gc1,gc2)   
+   ds = util.cdist(np.array([[lon,lat]]),gpts)
+   rid = str(np.argmin(ds))
    sql1 = "select id,lat,lon,c1,wkt from osm_edges where c1==? and walk==1"
    db = sqlite3.connect(dbfile)
    cursor1 = db.cursor()
    rows = cursor1.execute(sql1, (rid,) )
    for i,row in enumerate(rows):
-      if i % 1000 == 0: print (i)
-      id,lat,lon,c1,wkt = row[0],row[1],row[2],row[3],row[4]
-      ids,neighs = get_car_in_regions(c1)
-      neighs = neighs[ids != id]
-      ds = util.cdist(np.array([[lat,lon]]),neighs)
-      cllat,cllon = neighs[np.argmin(ds),:]
-      p1 = LatLon(lat, lon)
-      p2 = LatLon(cllat, cllon)
-      d = p1.distanceTo(p2) / 1000.         
-      if d > 1.0:
-          ps = get_linestring(wkt)
-          folium.PolyLine(ps, color='blue', weight=2.0).add_to(m)
+       if i % 1000 == 0: print (i)
+       id,lat,lon,c1,wkt = row[0],row[1],row[2],row[3],row[4]
+       ids,neighs = get_car_in_regions(c1)
+       neighs = neighs[ids != id]
+       ds = util.cdist(np.array([[lat,lon]]),neighs)
+       cllat,cllon = neighs[np.argmin(ds),:]
+       p1 = LatLon(lat, lon)
+       p2 = LatLon(cllat, cllon)
+       d = p1.distanceTo(p2) / 1000.         
+       if d > 1.0:
+           ps = get_linestring(wkt)
+           folium.PolyLine(ps, color='blue', weight=2.0).add_to(m)
           
    m.save('/tmp/hiking.html')
 
@@ -142,4 +144,5 @@ def plot_walkable_paths(rid, fout):
 if __name__ == "__main__":
    
     #create_edges()
-    plot_walkable_paths(520,"/tmp/walk.html")
+    #plot_walkable_paths(41.57362435681226, 32.930806267329366,"/tmp/walk.html")
+    plot_walkable_paths(41.186338263124675, 28.9285488532499,"/tmp/walk.html")
