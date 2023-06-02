@@ -1,7 +1,7 @@
 """
 Create a database of walk only paths that are away from car roads
 """
-import csv, numpy as np, re, os, shutil, pickle
+import csv, numpy as np, re, os, shutil, pickle, gpxpy, gpxpy.gpx
 import sqlite3, pandas as pd, json, util, folium
 from pygeodesy.sphericalNvector import LatLon
 from cachetools import FIFOCache
@@ -124,25 +124,33 @@ def plot_walkable_paths(lat,lon):
    db = sqlite3.connect(dbfile)
    cursor1 = db.cursor()
    rows = cursor1.execute(sql1, (rid,) )
+   gpx = gpxpy.gpx.GPX()
    for i,row in enumerate(rows):
-       if i % 1000 == 0: print (i)
-       id,lat,lon,c1,wkt = row[0],row[1],row[2],row[3],row[4]
-       ids,neighs = get_car_in_regions(c1)
-       neighs = neighs[ids != id]
-       ds = util.cdist(np.array([[lat,lon]]),neighs)
-       cllat,cllon = neighs[np.argmin(ds),:]
-       p1 = LatLon(lat, lon)
-       p2 = LatLon(cllat, cllon)
-       d = p1.distanceTo(p2) / 1000.         
-       if d > 1.0:
-           ps = get_linestring(wkt)
-           folium.PolyLine(ps, color='blue', weight=2.0).add_to(m)
+      gpx_track = gpxpy.gpx.GPXTrack()   
+      if i % 1000 == 0: print (i)
+      id,lat,lon,c1,wkt = row[0],row[1],row[2],row[3],row[4]
+      ids,neighs = get_car_in_regions(c1)
+      neighs = neighs[ids != id]
+      ds = util.cdist(np.array([[lat,lon]]),neighs)
+      cllat,cllon = neighs[np.argmin(ds),:]
+      p1 = LatLon(lat, lon)
+      p2 = LatLon(cllat, cllon)
+      d = p1.distanceTo(p2) / 1000.         
+      if d > 1.0:
+         gpx.tracks.append(gpx_track)
+         gpx_segment = gpxpy.gpx.GPXTrackSegment()
+         gpx_track.segments.append(gpx_segment)         
+         ps = get_linestring(wkt)
+         for p in ps: gpx_segment.points.append(gpxpy.gpx.GPXTrackPoint(p[0], p[1], elevation=0))
+         folium.PolyLine(ps, color='blue', weight=2.0).add_to(m)
           
    m.save(params['osm_dir'] + '/hiking.html')
-
+   fout = open(params['osm_dir'] + "/hiking.gpx","w")
+   fout.write(gpx.to_xml())
+   fout.close()
    
 if __name__ == "__main__":
    
     #create_edges()
-    #plot_walkable_paths(41.112856747375126, 29.84324097673027)
-    plot_walkable_paths(39.206282122402854, 31.261424447234496)
+    plot_walkable_paths(41.112856747375126, 29.84324097673027)
+    #plot_walkable_paths(39.206282122402854, 31.261424447234496)
