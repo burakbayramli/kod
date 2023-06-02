@@ -177,15 +177,15 @@ def show_travel_map(currlat,currlon,map,fout):
         print (mapurl)
         data = urllib2.urlopen(mapurl).read().decode('utf-8')
         gpx = gpxpy.parse(data)
-        points = []
         for track in gpx.tracks:
+            print (track)
+            points = []
             for segment in track.segments:
                 for point in segment.points:
-                    if random.choice(rints) != 0: continue
+                    #if random.choice(rints) != 0: continue
                     lat,lon = point.latitude, point.longitude
                     points.append([lat,lon])
-
-        folium.PolyLine(points, color='red', weight=1.0, opacity=1).add_to(m)
+            folium.PolyLine(points, color='red', weight=1.0, opacity=1).add_to(m)
          
     m.save(fout)    
 
