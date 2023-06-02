@@ -992,7 +992,6 @@ This command does not push erased text to kill-ring."
 ;;
 (find-file-other-window "/tmp")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod/guide")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod/nomadicterrain")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/algs/dict")

@@ -138,11 +138,11 @@ def plot_walkable_paths(lat,lon,fout):
            ps = get_linestring(wkt)
            folium.PolyLine(ps, color='blue', weight=2.0).add_to(m)
           
-   m.save('/tmp/hiking.html')
+   m.save(params['osm_dir'] + '/hiking.html')
 
    
 if __name__ == "__main__":
    
     #create_edges()
-    #plot_walkable_paths(41.57362435681226, 32.930806267329366,"/tmp/walk.html")
-    plot_walkable_paths(41.186338263124675, 28.9285488532499,"/tmp/walk.html")
+    plot_walkable_paths(41.57362435681226, 32.930806267329366,"/tmp/walk.html")
+    #plot_walkable_paths(41.186338263124675, 28.9285488532499,"/tmp/walk.html")
