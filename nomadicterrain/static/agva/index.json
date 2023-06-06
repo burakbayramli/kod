@@ -1,10 +1,11 @@
 {
     "center": [41.1381164, 29.85441851],
     "points": {
-	"deniz yildizi motel": [41.13931185683905, 29.85470503186536]
+	"deniz yildizi motel": [41.13931185683905, 29.85470503186536],
 	"tepemayanir koyu": [41.01839593908683, 29.734058686566204],
-	"uskudar marmaray (cikisinin hemen solunda anayol uzerinde 4 nolu peronda 139A sile-agva otobus)": [41.02591884440994, 29.01374667603076],
-	"kilimli koyu": [41.142256778, 29.872581682]
+	"uskudar marmaray (cikisinin hemen solunda anayol uzerinde 4 nolu \n peronda 139A sile-agva otobus), 900,1000,1030": [41.02591884440994, 29.01374667603076],
+	"kilimli koyu": [41.142256778, 29.872581682],
+	"agva otogar, 0930,1100,1300,1630,1715": [41.13895390881178, 29.855034107931832]
     },
     "restaurants": {	
     },

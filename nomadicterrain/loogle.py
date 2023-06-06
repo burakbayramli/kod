@@ -179,4 +179,3 @@ def test_search():
 if __name__ == "__main__": 
  
     index_nomadic()
-    #test_search()
