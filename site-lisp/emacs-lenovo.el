@@ -195,7 +195,7 @@ This command does not push erased text to kill-ring."
 
 ;; loads the _emacs file with one keystroke
 (defun find-dotemacs() (interactive)
-  (find-file "/data/data/com.termux/files/home/Documents/kod/site-lisp/emacs-ubuntu3.el"))
+  (find-file "/data/data/com.termux/files/home/Documents/kod/site-lisp/emacs-lenovo.el"))
 (define-key global-map "\C-c\C-f" 'find-dotemacs)
 
 (defun kill-current-buffer ()
@@ -995,12 +995,14 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kod/nomadicterrain")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/algs/dict")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox/resmi")
+(find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/sk")
+(find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox")
 (find-file-other-window "/data/data/com.termux/files/home/storage/downloads")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/repos/codeberg/pages")
 (find-file-other-window "/data/data/com.termux/files/home/Documents")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kitaplar")
+(find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox/bkps/blog")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/kitaplar/Linalg_Compsci_Opt_Graph/FEM")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/tw/en")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
