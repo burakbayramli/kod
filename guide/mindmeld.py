@@ -1,7 +1,8 @@
 from datetime import datetime
 from datetime import timedelta
-import numpy as np
 import mapping, itertools, os
+import pandas as pd
+import numpy as np
 
 fdir = os.path.dirname(os.path.realpath(__file__))
 planets = ['sun','mo','mer','ven','mar','ju','sa','ur','ne','pl']
