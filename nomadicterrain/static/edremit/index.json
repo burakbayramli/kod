@@ -1,6 +1,10 @@
 {
     "center": [39.59638450152033, 26.91005257982361],
     "points": {
+	"vesta butik 1300": [39.56581407229321, 26.74925538251377],
+	"asmali otel 825": [39.56576851627713, 26.74882287832007],
+	"bacahan otel 1300 tl": [39.56752034306048, 26.742791202786876],
+	"Pegasus, 1 saat, 1280 tl": [40.9060845612894, 29.318426727357448],
 	"sahindere kanyonu selalesi": [39.58724273569174, 26.754956943764547],
 	"roy otel (~1000 tl)":[39.57207232952626, 26.94557089121294],
 	"altinkum plaji": [39.572206542588305, 26.940592905646763],
@@ -17,6 +21,8 @@
 	"akaleos kamping": [39.64415687255861, 26.960119433031256]
     },
     "maps": [
+	     "hiking.gpx",
+	     "kaz-dagi-yayla-kampi.gpx",
 	     "burhaniye-karadere-ayitlioren-yaylasi-karalar-yolu-kok-kd-13.gpx",
 	     "evciler-kazdagi-zirve-edremit-camlibel.gpx",
 	     "havran-havran-baraj-goleti-edremit-hasan-boguldu-selalesi-ak.gpx",
