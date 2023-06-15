@@ -169,7 +169,7 @@ def show_travel_map(currlat,currlon,map,fout):
 
     for p in params['campgrounds']:
         lat,lon = params['campgrounds'][p]
-        folium.CircleMarker([lat,lon], popup=str(p), icon=folium.Icon(color="green")).add_to(m)
+        folium.Marker([lat,lon], popup=str(p), icon=folium.Icon(color="green")).add_to(m)
         
     rints = range(resolution)
     for map in params['maps']:

@@ -9,11 +9,10 @@ if sys.argv[1] == "acer_ext":
     if (len(tmp)==0):
         print ('\n============= PARTITION NOT MOUNTED =================')
         exit()
-    os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/Backup Plus/Dropbox' --delete 1")
-    os.system("python rsync.py '/home/burak/Documents/thirdwave' '/media/burak/Backup Plus/archive/repos/thirdwave'  --ignore-list=.git --delete 1")
+    os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/Backup Plus/archive/Dropbox' --delete 1")
+    os.system("python rsync.py '/home/burak/Documents/tw' '/media/burak/Backup Plus/archive/repos/tw'  --ignore-list=.git --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/Backup Plus/archive/kod' --ignore-list=.git --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/Backup Plus/archive/classnotes'  --ignore-list=.git  --delete 1")
-    #os.system("python rsync.py '/home/burak/Documents/books' '/media/burak/Seagate Backup Plus Drive/archive/repos/books'  --ignore-list=.git")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/Backup Plus/archive/kitaplar'  --delete 1")
     
 if sys.argv[1] == "ext1_ext2":
