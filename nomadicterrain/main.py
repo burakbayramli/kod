@@ -131,7 +131,7 @@ def travel_maps():
     map = request.form.get("map")
     currlat,currlon = session['geo']    
     print ('action',request.form['action'])
-    if request.form['action'] == "Go":
+    if request.form['action'] == "View":
         fout = TMPDIR + "/trav-%s.html" % uuid.uuid4()    
         show_travel_map(currlat,currlon,map,fout)
         return send_file(fout)
