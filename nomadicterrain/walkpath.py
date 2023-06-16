@@ -152,4 +152,4 @@ def plot_walkable_paths(lat,lon):
 if __name__ == "__main__":
    
     #create_edges()
-    plot_walkable_paths(39.59638450152033, 26.91005257982361)
+    plot_walkable_paths(38.24003905146817, 26.923358894916724)
