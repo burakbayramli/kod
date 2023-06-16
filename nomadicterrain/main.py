@@ -524,6 +524,8 @@ if __name__ == '__main__':
         app.run(host="192.168.43.34",port=5000)        
     elif len(sys.argv) == 2 and sys.argv[1]=="local":
         app.run(host="localhost",port=5000)        
+    elif len(sys.argv) == 2 and sys.argv[1]=="lenovo":
+        app.run(host="192.168.43.246",port=5000)        
     else: 
         app.run(host="localhost",port=5000)
 
