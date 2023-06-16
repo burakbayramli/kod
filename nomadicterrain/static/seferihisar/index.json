@@ -1,13 +1,14 @@
 {
     "center": [38.23417872194105, 26.925796798484555],
     "points": {
+	"sari kosk butik otel": [38.296540903281915, 26.800066981641244],
 	"godence hotel 940 tl": [38.28630685454342, 26.911893627625517],
 	"neoss butik otel 1200 tl": [38.192753878419154, 26.789250124461994],
 	"mesir tabiat park": [38.17127414265307, 26.774495090830268]
     },
     "restaurants": {	
     },
-    "campgrounds": {
+    "campgrounds": {	
 	"onen": [38.21747560928485, 26.736794159017485],
 	"altinkoy": [38.21186265143008, 26.72175622706154],
 	"akvaryum koyu": [38.21783617539768, 26.7659054199144],
@@ -15,6 +16,9 @@
 	"teos sanat kampi": [38.18799424777088, 26.79166578205022]
     },
     "maps": [
+	     "trekinturkey-urla-ozbek-hiking-30-11-2019-11-59.gpx",
+	     "ozbek-iskele-yuruyusu-daga-kactim-.gpx",
+	     "efes-mimas-yolu-22-ovacik-klazomenai-parkuru.gpx",
 	     "kesif-bademler-dogal-yasam-koyunden-uc-goletler.gpx",
 	     "trekinturkey-izmir-beyler-godence-kesif-parkuru-29-3-2021.gpx",
 	     "sigacik-azmak-koyu.gpx",
