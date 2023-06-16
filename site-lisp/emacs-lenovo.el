@@ -1001,9 +1001,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/repos/codeberg/pages")
 (find-file-other-window "/data/data/com.termux/files/home/Documents")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/kitaplar")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox/bkps/blog")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/kitaplar/Linalg_Compsci_Opt_Graph/FEM")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/tw/en")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 
