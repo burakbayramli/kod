@@ -2,7 +2,7 @@
     "center": [38.23417872194105, 26.925796798484555],
     "points": {
 	"godence hotel 940 tl": [38.28630685454342, 26.911893627625517],
-	"neoss butik otel": [38.192753878419154, 26.789250124461994],
+	"neoss butik otel 1200 tl": [38.192753878419154, 26.789250124461994],
 	"mesir tabiat park": [38.17127414265307, 26.774495090830268]
     },
     "restaurants": {	
@@ -15,6 +15,11 @@
 	"teos sanat kampi": [38.18799424777088, 26.79166578205022]
     },
     "maps": [
+	     "kesif-bademler-dogal-yasam-koyunden-uc-goletler.gpx",
+	     "trekinturkey-izmir-beyler-godence-kesif-parkuru-29-3-2021.gpx",
+	     "sigacik-azmak-koyu.gpx",
+	     "orhanli-urkmez.gpx",
+	     "orhanli-dikmen-kule-yenikoy.gpx",
 	     "hiking.gpx"
      ]
 	
