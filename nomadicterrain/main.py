@@ -190,7 +190,6 @@ def show_travel_map(currlat,currlon,map,fout):
          
     m.save(fout)    
 
-
 @app.route('/plot_elev/<coords>/<zoom>/<start>/<steps>')
 def plot_elev(coords,zoom,start,steps):
     import matplotlib.pyplot as plt
@@ -200,13 +199,13 @@ def plot_elev(coords,zoom,start,steps):
     steps = int(steps)    
     fout = "static/out-%s.png" % uuid.uuid4()
     clean_dir()
-
     currlat,currlon = coords.split(';')
     lat,lon=float(currlat),float(currlon)
-    plt.plot(lon,lat,'gd')
-    sm.plot_countries(lat,lon,zoom,outcolor='lavenderblush')
+    fig,ax = plt.subplots()
+    ax.plot(lon,lat,'gd')
+    sm.plot_countries(lat,lon,zoom,ax=ax)
     levels = list(range(start,start+(4*steps),steps))
-    sm.plot_elevation(lat,lon,zoom,levels=levels)
+    sm.plot_elevation(lat,lon,zoom,levels=levels,ax=ax)
     plt.savefig(fout)
     plt.clf()
     return render_template('/elev.html', location=fout, lat=lat, lon=lon)
