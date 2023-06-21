@@ -185,7 +185,7 @@ def show_travel_map(currlat,currlon,map,fout):
                     lat,lon = point.latitude, point.longitude
                     points.append([lat,lon])
             color = "red"
-            if "hiking.gpx" in mapurl: color = "blueviolet"
+            if "hiking" in mapurl: color = "blueviolet"
             folium.PolyLine(points, color=color, weight=1.0, opacity=1).add_to(m)
          
     m.save(fout)    
