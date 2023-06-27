@@ -234,8 +234,8 @@ def get_weather(lat,lon):
             rain = xx.get('rain')
             res.append ((xx['dt_txt'],xx['weather'][0]['description'],xx['main']['temp'], "C",
                          'feels_like :',xx['main']['feels_like'], "C",
-                         'humidity :',xx['main']['humidity'],
-                         'wind: ', xx['wind']['speed'], xx['wind']['deg']
+                         'wind: ', xx['wind']['speed'], xx['wind']['deg'],
+                         'humidity :',xx['main']['humidity']
             ))
             res.append ('---------------')
     return res
