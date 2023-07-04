@@ -12,14 +12,13 @@ skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden"
               " AI ", "AI ", " AI", "poll", "Zelensky", "black hole", " EV ", "Webb",
               "A\.I\.", "telescope", "Yellen", "Francis","Thunberg","tweet","charging",
               "tweets","twitter","ChatGPT", "EVs", "electrification", "charger","AI's",
-              "Jon Stewart", "quantum", "power grid", "ronaldo"]
+              "Jon Stewart", "quantum", "power grid", "ronaldo", "Wagner", "Trump"]
 
 
 
 def getnews():
     feeds = [
         ("H2 Central","https://hydrogen-central.com/feed/",20),
-        ("Al Jazeera","https://www.aljazeera.com/xml/rss/all.xml",10),
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
         ('Al Monitor','https://www.al-monitor.com/rss',20),
