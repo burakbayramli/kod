@@ -67,7 +67,7 @@ def plot_bus():
     for k in lines:
         coords = [nodes[m] for m in lines[k] if m in nodes]
         if len(coords)>0:
-            folium.PolyLine(locations=coords, color="blue",weight=1).add_to(m)
+            folium.PolyLine(locations=coords, color="blue",weight=1,tooltip=k).add_to(m)
     
     m.save("/tmp/out.html")
     
@@ -82,7 +82,6 @@ def plot_metro():
     for e in d['elements']:
         if e['type'] == 'relation':
             if 'name' not in e['tags']: continue
-            print (e['tags']['name'])
             line = [m['ref'] for m in e['members']]
             lines[e['tags']['name']] = line
 
@@ -91,7 +90,7 @@ def plot_metro():
     for k in lines:
         coords = [nodes[m] for m in lines[k] if m in nodes]
         if len(coords)>0:
-            folium.PolyLine(locations=coords, color="red",weight=1).add_to(m)
+            folium.PolyLine(locations=coords, color="red",weight=1,tooltip=k).add_to(m)
     
     m.save("/tmp/out.html")
     
