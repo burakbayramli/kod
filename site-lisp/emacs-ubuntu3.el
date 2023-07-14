@@ -991,7 +991,6 @@ This command does not push erased text to kill-ring."
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
-(find-file-other-window "/home/burak/Documents/kod/guide")
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/kod")
 (find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
@@ -1002,14 +1001,13 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kitaplar")
-(find-file-other-window "/home/burak/Documents/kitaplar/Linalg_Compsci_Opt_Graph/FEM")
 (find-file-other-window "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m")
-(find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
+(find-file-other-window "/home/burak/Downloads/plane")
 (find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp45fem3")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_04")
 

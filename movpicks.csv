@@ -1,4 +1,6 @@
 movie,rating
+Bohemian Rhapsody (2018),0
+Sing Street (2016),0
 Stoker (2013),0
 Better Watch Out (2016),0
 Free to Play (2014),0
@@ -275,7 +277,6 @@ Prometheus (2012),3
 "Three Billboards Outside Ebbing, Missouri (2017)",4
 A Quiet Place (2018),2
 Swordfish (2001),5
-300 (2007),4
 Rambo (Rambo 4) (2008),4
 Ip Man (2008),4
 Ghost Rider (2007),4
@@ -557,7 +558,6 @@ The Hunger Games: Catching Fire (2013),5
 The Hunger Games: Mockingjay - Part 1 (2014),5
 The Hunger Games: Mockingjay - Part 2 (2015),5
 Spectre (2015),4
-300: Rise of an Empire (2014),5
 The Amazing Spider-Man 2 (2014),3
 Fury (2014),4
 Lone Survivor (2013),4
@@ -803,3 +803,5 @@ Goon (2011),5
 Insomnia (1997),4
 Guardians of the Galaxy Vol. 3 (2023),1
 Nightcrawler (2014),5
+300 (2007),4
+300: Rise of an Empire (2014),2
