@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
 import pickle, polyline
 import numpy as np, os, uuid, glob
-import sys; sys.path.append("../guide")
+import sys; sys.path.append("guide")
 import json, random, mindmeld, base64, time as timelib
 import elevutil, wind
 import geopy.distance, datetime, shutil
