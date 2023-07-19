@@ -93,10 +93,40 @@ def plot_metro():
             folium.PolyLine(locations=coords, color="red",weight=1,tooltip=k).add_to(m)
     
     m.save("/tmp/out.html")
+
+def get_lines_near(lat,lon):
+    import collections
+    d = json.loads(open(bus).read())
+
+    #for e in d['elements']:
+    #    if 'way' in e['type']: print (e)
+    #exit()
+    #{'type': 'way', 'id': 4341858, 'nodes': [482245611, 1854770989, 10058131073, 482245609, 10058131090, 482245607, 482245606]}
+    
+    node_loc = {}
+    for e in d['elements']:
+        #print (e)
+        if 'lat' in e:
+            print (e)
+            node_loc[e['id']] = (e['lat'],e['lon'])
+            
+    lines_on_node = collections.defaultdict(list)
+    for e in d['elements']:
+        if e['type'] == 'relation':
+            if 'name' in e['tags']:
+                #print (e['tags']['name'])
+                for m in e['members']:
+                    #print (m)
+                    lines_on_node[m['ref']].append(e['tags']['name'])
+                    #print (m['ref'])
+
+    print (lines_on_node[1131105314])
+    #print (node_loc[1131105314])
     
 if __name__ == "__main__": 
 
     #get_bus()
     #get_metro()
-    plot_bus()
+    #plot_bus()
     #plot_metro()
+    get_lines_near(40.99295054132445, 29.122446092077475)
