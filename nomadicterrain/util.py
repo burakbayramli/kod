@@ -62,6 +62,7 @@ def QSat_2(T_k, p_t):
     return es_mb,rs,de_mbdT,dlnes_mbdT,rsdT,foftk,fdT
 
 def WetBulbImp(TemperatureC,Pressure,Humidity):
+    # https://github.com/smartlixx/WetBulb/blob/master/WetBulb.py
     TemperatureK = TemperatureC + SHR_CONST_TKFRZ
 
     constA = 2675 	 # Constant used for extreme cold temparatures (K)
