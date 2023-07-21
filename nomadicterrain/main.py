@@ -2,7 +2,7 @@
 import os; os.chdir(os.path.dirname(__file__))
 from flask import Flask, render_template, request, session, redirect, send_file
 from io import StringIO, BytesIO
-import pickle, polyline
+import pickle, polyline, util
 import numpy as np, os, uuid, glob
 import sys; sys.path.append("guide")
 import json, random, mindmeld, base64, time as timelib
@@ -219,8 +219,10 @@ def get_weather(lat,lon):
     res = []
     for x in r.iter_lines():
         x = json.loads(x.decode())
+        wetb = util.wet_bulb(float(x['main']['temp']), 1e5, float(x['main']['humidity']))
         res.append(x['name'])
         res.append (x['main'])
+        res.append (['wet bulb', np.round(wetb,2)])
         res.append (x['wind'])
         res.append (('clouds', x['clouds']))
 
@@ -232,11 +234,13 @@ def get_weather(lat,lon):
         x = json.loads(x.decode())
         for xx in x['list']:
             rain = xx.get('rain')
-            res.append ((xx['dt_txt'],xx['weather'][0]['description'],xx['main']['temp'], "C",
-                         'feels_like :',xx['main']['feels_like'], "C",
-                         'wind: ', xx['wind']['speed'], xx['wind']['deg'],
-                         'humidity :',xx['main']['humidity']
-            ))
+            row = [xx['dt_txt'],
+                   xx['weather'][0]['description'],
+                   xx['main']['temp'], "C",
+                   'feels_like :',xx['main']['feels_like'], "C",
+                   'wind: ', xx['wind']['speed'], xx['wind']['deg'],
+                   'humidity :',xx['main']['humidity']]
+            res.append (row)
             res.append ('---------------')
     return res
 

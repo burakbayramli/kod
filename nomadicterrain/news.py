@@ -23,7 +23,6 @@ def getnews():
         ("Independent, The", "http://www.independent.co.uk/news/world/rss", 10),
         ("The Guardian","http://www.theguardian.com/world/rss",10),
         ('Al Monitor','https://www.al-monitor.com/rss',20),
-        ('Euractiv','https://www.euractiv.com/?feed=mcfeed',10),
         ("TASS","http://tass.com/rss/v2.xml",20),
         ("Arab News","https://www.arabnews.com/cat/3/rss.xml",10),
         ("Jane's Defence", "https://www.janes.com/feeds/news", 10),
