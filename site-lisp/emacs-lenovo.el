@@ -998,10 +998,10 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes/sk")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox")
 (find-file-other-window "/data/data/com.termux/files/home/storage/downloads")
+(find-file-other-window "/data/data/com.termux/files/home/storage/downloads/blog.md")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/repos/codeberg/pages")
 (find-file-other-window "/data/data/com.termux/files/home/Documents")
-(find-file-other-window "/data/data/com.termux/files/home/Documents/Dropbox/bkps/blog")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/tw/en")
 (find-file-other-window "/data/data/com.termux/files/home/Documents/classnotes")
 
