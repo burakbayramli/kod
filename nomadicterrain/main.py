@@ -240,6 +240,9 @@ def get_weather(lat,lon):
                    'feels_like :',xx['main']['feels_like'], "C",
                    'wind: ', xx['wind']['speed'], xx['wind']['deg'],
                    'humidity :',xx['main']['humidity']]
+            if "12:00" in xx['dt_txt']:
+                wbt = util.wet_bulb(float(xx['main']['temp']), 1e5, float(xx['main']['humidity']))
+                row.append(["wet bulb:", np.round(wbt,2)])
             res.append (row)
             res.append ('---------------')
     return res
