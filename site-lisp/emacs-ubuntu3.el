@@ -3,7 +3,7 @@
 (prefer-coding-system 'utf-8)
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
-(autoload 'rust-mode "rust-mode" "rust mode" t)
+;;(autoload 'rust-mode "rust-mode" "rust mode" t)
 
 ;;(load "auctex.el" nil t t)
 	
