@@ -1,6 +1,6 @@
-from bs4 import BeautifulSoup 
 import feedparser, sys, codecs, socket
 import re, requests, random, os, news
+from bs4 import BeautifulSoup 
 import time, os, pandas as pd
 
 accts = os.environ['HOME'] + "/Documents/Dropbox/bkps/masto/following_accounts.csv"
@@ -23,12 +23,13 @@ def getrss():
 
     df = pd.read_csv(accts)
     lim = 10
+    ids = list(range(10))
     for i,row in df.iterrows():
+        if random.choice(ids)!=0: continue
         addr = row['Account address']
         name = addr[0:addr.find("@")]
         host = addr[addr.find("@")+1:]
         url = "https://"+ host + "/@" + name + ".rss"
-        print (name)
         print (url)
         content += "<h3>" + addr + "</h3>\n"
         try:
