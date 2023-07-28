@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup 
-import feedparser, sys, codecs
+import feedparser, sys, codecs, socket
 import re, requests, random, os
-import re, time, os
+import re, time, os, pandas as pd
 
 def strip_html(input):
     return BeautifulSoup(input, "lxml").text
@@ -15,7 +15,8 @@ skip_words = ["Turk", "Türkiye", "battery","Webb", "electric","Blinken","Biden"
               "Jon Stewart", "quantum", "power grid", "ronaldo", "Wagner", "Trump",
               "LGBTQ+", "Cathie Wood"]
 
-
+accts = os.environ['HOME'] + "/Documents/Dropbox/bkps/masto/following_accounts.csv"
+socket.setdefaulttimeout(5)
 
 def getnews():
     feeds = [
@@ -31,9 +32,17 @@ def getnews():
     </head>
     <body>
     '''
-    
-    for name,url,lim in feeds:
+
+    df = pd.read_csv(accts)
+    lim = 15
+    for i,row in df.iterrows():
+    #for name,url,lim in feeds:
+        addr = row['Account address']
+        name = addr[0:addr.find("@")]
+        host = addr[addr.find("@")+1:]
+        url = "https://"+ host + "/@" + name + ".rss"
         print (name)
+        print (url)
         content += "<h3>" + name + "</h3>\n"
         try:
             d = feedparser.parse(url)
@@ -56,7 +65,7 @@ def getnews():
         except Exception as e:
             print (repr(e))
             continue
-        
+
     return content
 
 if __name__ == "__main__": 
