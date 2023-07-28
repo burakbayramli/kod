@@ -262,6 +262,15 @@ def extnews():
         yield content
     return Response(generate(), mimetype='text/html')
 
+@app.route('/extmasto')
+def extmasto():
+    import masto
+    content = masto.getrss()
+    from flask import Response
+    def generate():
+        yield content
+    return Response(generate(), mimetype='text/html')
+
 @app.route('/market')
 def market():
     import matplotlib.pyplot as plt
