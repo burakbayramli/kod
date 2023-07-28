@@ -3,7 +3,7 @@ import re, requests, random, os, news
 from bs4 import BeautifulSoup 
 import time, os, pandas as pd
 
-accts = os.environ['HOME'] + "/Documents/Dropbox/bkps/masto/following_accounts.csv"
+accts = "static/following_accounts.csv"
 
 def getrss():
     socket.setdefaulttimeout(5)
