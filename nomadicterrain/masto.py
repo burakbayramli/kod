@@ -45,7 +45,11 @@ def getrss():
                         skip = True
                 if skip: continue
                                 
-                content += "%s<br/><br/>%s<hr/><br/>\n" % (summary,dt)
+                content += "%s<br/><br/>\n" % summary
+                if 'media_content' in post:
+                    for link in post['media_content']:
+                        content += "<img width='340' src='%s'/><br/>\n" % link['url']
+                content += "%s<hr/><br/>\n" % dt
         except Exception as e:
             print (repr(e))
             continue
