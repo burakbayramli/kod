@@ -28,6 +28,7 @@ function setLocOnPage(lat,lon){
   document.getElementById("wind3").href = "/gowind/" + lat  + ";" + lon+"/8/100";
   document.getElementById("wind4").href = "/gowind/" + lat  + ";" + lon+"/16/100";
   document.getElementById("directions").href = "/directions_main/" + lat  + ";" + lon;
+  document.getElementById("amenities").href = "/amenities_main/" + lat  + ";" + lon;
 }
 function readLocInput() {
   var pos = document.getElementById("locValue").value;
@@ -95,6 +96,7 @@ function showPosition(position) {
           </li>
           <li><a id="profile" href="/profile_main">Profile</a></li>
           <li><a id='directions' href="/directions_main/40.9544;29.09139">Directions</a></li>
+          <li><a id='amenities' href="/amenities_main/40.9544;29.09139">Amenities</a></li>
           <p>
             <p><button onclick="readLocInput()">Enter Location</button></p>
             <p><input type="text" id="locValue" ></input></p>

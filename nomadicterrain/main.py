@@ -15,6 +15,8 @@ import gpxpy, gpxpy.gpx
 import calendar, datedelta
 from bs4 import BeautifulSoup
 import urllib.request as urllib2
+from unidecode import unidecode
+
 
 app = Flask(__name__)
 
@@ -525,6 +527,37 @@ def directions():
         path = osmutil.shortest_path_coords(fr, to)
         routeutil.create_folium(lat1,lon1,path,fouthtml)
         return send_file(fouthtml)
+
+@app.route('/amenities_main/<coords>')
+def amenities_main(coords):
+    lat,lon = coords.split(';')
+    lat,lon=float(lat),float(lon)
+    session['geo'] = (lat,lon)
+    return render_template('/amenities.html')
+    
+@app.route("/amenities", methods=["POST"])
+def amenities():
+    clat,clon = session['geo']
+    amenity_type = request.form.get("amenity_type")
+    amenity_name = request.form.get("amenity_name")
+    amenity_dist = float(request.form.get("amenity_dist"))
+    print (clat,clon,amenity_type, amenity_name)
+    fouthtml = TMPDIR + "/direction-%s.html" % uuid.uuid4()        
+    base_url = "https://overpass-api.de/api/interpreter?data="
+    q = """
+    [out:json];
+    node["amenity"~"%s"](around:%s,%s,%s);
+    out center;
+    """ % (amenity_type,amenity_dist,clat,clon)
+    safe_string = urllib.parse.quote_plus(q)
+    r = requests.get(base_url + safe_string)    
+    m = folium.Map(location=[clat, clon], zoom_start=14, control_scale=True)
+    doc = json.loads(r.text)
+    for e in doc['elements']:
+        if 'name' in e['tags'] and amenity_name in unidecode(e['tags']['name']):
+            folium.Marker([e['lat'],e['lon']], icon=folium.Icon(color="blue")).add_to(m)
+    m.save(fouthtml)
+    return send_file(fouthtml)
 
 
 if __name__ == '__main__':
