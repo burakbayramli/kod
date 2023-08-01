@@ -39,8 +39,7 @@ def getnews():
         ("Politico","https://www.politico.com/rss/politicopicks.xml",10),
         ("TDB","https://feeds.thedailybeast.com/summary/rss/articles",10),
         ("The Atlantic", "https://www.theatlantic.com/feed/all",8),
-        ("Informed Comment","https://www.juancole.com/feed",10),
-        ("Martyanov","http://smoothiex12.blogspot.com/feeds/posts/default",5)
+        ("Informed Comment","https://www.juancole.com/feed",10)
     ]
 
     content = ""
