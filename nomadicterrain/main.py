@@ -17,7 +17,6 @@ from bs4 import BeautifulSoup
 import urllib.request as urllib2
 from unidecode import unidecode
 
-
 app = Flask(__name__)
 
 params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())

@@ -1,9 +1,36 @@
 from pygeodesy.sphericalNvector import LatLon
-import elevutil, uuid, geopy.distance
+import elevutil, uuid, geopy.distance, quads
 from numpy.linalg import norm
 import matplotlib.pyplot as plt
-import numpy as np, folium
-import numpy as np, requests
+import numpy as np, folium, requests
+
+def cdist(p1,p2):    
+    distances = np.linalg.norm(p1 - p2, axis=1)
+    return distances
+
+class QuadTreeInterpolator:
+    def __init__(self):
+        self.tree = quads.QuadTree((0,0), 500, 500)
+
+    def append(self, x, y, z):
+        for xx,yy,zz in zip(x,y,z):
+            self.tree.insert((xx,yy),data=zz)
+
+    def interp_cell(self, x, y, points):
+        a = np.array([x,y]).reshape(-1,2)
+        b = np.array(points)[:,:2]
+        ds = cdist(a,b)
+        ds = ds / np.sum(ds)
+        ds = 1. - ds
+        c = np.array(points)[:,2]
+        iz = np.sum(c * ds) / np.sum(ds)
+        return iz
+            
+    def interpolate(self,x,y):
+        res = self.tree.nearest_neighbors((x,y), count=4)
+        points = np.array([[c.x, c.y, c.data] for c in res])
+        return self.interp_cell(x, y, points)
+
 
 def goto_from_coord(start, distance, bearing):
     """
@@ -54,13 +81,13 @@ def get_topo(lat1,lon1,how_far):
     sampleCoords = np.array(sampleCoords)
     print (sampleCoords.shape)
 
-    zr =  np.array(elevutil.get_elev_data(sampleCoords))
+    zr =  np.array(elevutil.get_elev_data2(sampleCoords))
 
     yr = sampleCoords[:,0]
     xr = sampleCoords[:,1]
     
-    from simplegeomap.util import QuadTreeInterpolator
-    q = QuadTreeInterpolator(xr,yr,zr)
+    q = QuadTreeInterpolator()
+    q.append(xr,yr,zr)
     interp = np.vectorize(q.interpolate,otypes=[np.float64])
     
     D = 15
@@ -116,13 +143,22 @@ def line_elev_calc(fr, to, fout):
     for x in np.linspace(0,far,npts):
         locs.append(tuple(goto_from_coord([fr[0],fr[1]], x, be)))
 
-    res = get_elev_data(locs)
+    res = get_elev_data2(locs)
     print (locs)
     print (res)
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     plt.savefig(fout)
 
+def get_elev_data2(coords):
+    url = 'https://api.open-elevation.com/api/v1/lookup?locations='
+    for c in coords:
+        url += "%s,%s|" % (str(c[0]),str(c[1]))
+    print (url)
+    res = requests.get(url).json()['results']
+    return [r['elevation'] for r in res]
+
+    
 def test1():
     clat,clon=36.64653, 29.13920
     how_far = 50.0
@@ -131,7 +167,13 @@ def test1():
 def test2():    
     fout = "/tmp/out-%s.png" % uuid.uuid4()
     line_elev_calc((36.649278935208805, 29.157651665059603), (36.69678555770977, 29.142243855775913), fout)
+
+def test3():
+    res = get_elev_data2([[36.649278935208805, 29.157651665059603]])
+    print (res)
+
     
 if __name__ == "__main__":
     test1()
     #test2()
+    #test3()
