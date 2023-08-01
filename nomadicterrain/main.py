@@ -554,7 +554,7 @@ def amenities():
     m = folium.Map(location=[clat, clon], zoom_start=14, control_scale=True)
     doc = json.loads(r.text)
     for e in doc['elements']:
-        if 'name' in e['tags'] and amenity_name in unidecode(e['tags']['name']):
+        if 'name' in e['tags'] and amenity_name in unidecode(e['tags']['name']).lower():
             folium.Marker([e['lat'],e['lon']], icon=folium.Icon(color="blue")).add_to(m)
     m.save(fouthtml)
     return send_file(fouthtml)
