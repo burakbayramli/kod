@@ -144,8 +144,6 @@ def line_elev_calc(fr, to, fout):
         locs.append(tuple(goto_from_coord([fr[0],fr[1]], x, be)))
 
     res = get_elev_data2(locs)
-    print (locs)
-    print (res)
     plt.figure()
     plt.plot(np.linspace(0,far,npts),res)
     plt.savefig(fout)
@@ -154,7 +152,6 @@ def get_elev_data2(coords):
     url = 'https://api.open-elevation.com/api/v1/lookup?locations='
     for c in coords:
         url += "%s,%s|" % (str(c[0]),str(c[1]))
-    print (url)
     res = requests.get(url).json()['results']
     return [r['elevation'] for r in res]
 
