@@ -198,7 +198,6 @@ def get_camp(clat,clon,dist):
     lowlon = np.min([res1[1],res2[1]])
     hilat = np.max([res1[0],res2[0]])
     hilon = np.max([res1[1],res2[1]])
-    #lowlat,lowlon,hilat,hilon = 40.916625886904,28.822631835938,41.271097763248,29.382247924805
     q = """
     [out:json];
        node["tourism"="camp_site"]
