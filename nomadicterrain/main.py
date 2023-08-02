@@ -541,7 +541,11 @@ def amenities():
     amenity_name = request.form.get("amenity_name")
     amenity_dist = float(request.form.get("amenity_dist"))
     fouthtml = TMPDIR + "/direction-%s.html" % uuid.uuid4()
-    doc = osmutil.get_amenities(amenity_type,amenity_name,amenity_dist,clat,clon)    
+    if amenity_type == 'camp': 
+        doc = osmutil.get_camp(clat,clon,amenity_dist)
+    else:
+        doc = osmutil.get_amenities(amenity_type,amenity_name,amenity_dist,clat,clon)
+        
     m = folium.Map(location=[clat, clon], zoom_start=14, control_scale=True)
     for e in doc['elements']:
         if 'name' in e['tags'] and amenity_name in unidecode(e['tags']['name']).lower():

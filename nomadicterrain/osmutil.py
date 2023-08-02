@@ -1,11 +1,11 @@
+import urllib, requests, re, os, csv, shutil, util
 import csv, numpy as np, re, os, shutil, pickle, sqlite3
 from pygeodesy.sphericalNvector import LatLon
 from priodict import priorityDictionary
 import pandas as pd, json, folium
 from sqlitedict import SqliteDict
 from urllib.request import urlopen
-import urllib, requests, re
-import os, csv, shutil, util
+import geopy.distance
 
 params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 dbfile = params['osm_dir'] + "/nodes.db"
@@ -181,12 +181,38 @@ def get_amenities(amenity_type,amenity_name,amenity_dist,clat,clon):
     r = requests.get(base_url + safe_string)    
     return json.loads(r.text)
 
+def goto_from_coord(start, distance, bearing):
+    """
+    distance: in kilometers
+    bearing: 0 degree is north, 90 is east
+    """
+    s = geopy.Point(start[0],start[1])
+    d = geopy.distance.distance(kilometers = distance)
+    return d.destination(point=s, bearing=bearing)
+
+def get_camp(clat,clon,dist):
+    base_url = "https://overpass-api.de/api/interpreter?data="
+    res1 = goto_from_coord((clat,clon),dist/1000,45)
+    res2 = goto_from_coord((clat,clon),dist/1000,225)
+    lowlat = np.min([res1[0],res2[0]])
+    lowlon = np.min([res1[1],res2[1]])
+    hilat = np.max([res1[0],res2[0]])
+    hilon = np.max([res1[1],res2[1]])
+    #lowlat,lowlon,hilat,hilon = 40.916625886904,28.822631835938,41.271097763248,29.382247924805
+    q = """
+    [out:json];
+       node["tourism"="camp_site"]
+       (%f,%f,%f,%f); out; (._;>;);
+    out;
+    """ % (lowlat,lowlon,hilat,hilon)
+    safe_string = urllib.parse.quote_plus(q)
+    r = requests.get(base_url + safe_string)    
+    return json.loads(r.text)
+
 def test1():
-#    grid_assign_centers((36.52259447316748, 27.612981046240638),
-#                         (41.05628025861666, 42.58542464923075))
-    
-#    diskdict()
-    
+    #grid_assign_centers((36.52259447316748, 27.612981046240638),
+    #                     (41.05628025861666, 42.58542464923075))   
+    #diskdict()    
     fr=(41.01437162347757,29.164254494113184)
     to=(41.0497882628352,29.2460494538482)
     
@@ -195,6 +221,9 @@ def test1():
     m = folium.Map(location=fr, zoom_start=12)
     folium.PolyLine(locations=coords, color="red").add_to(m)
     m.save("/tmp/out.html")
+
+def test2():
+    get_camp(40.9671978651242, 29.0835162031361,30000)
         
 if __name__ == "__main__": 
  
