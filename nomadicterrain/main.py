@@ -6,7 +6,7 @@ import pickle, polyline, util
 import numpy as np, os, uuid, glob
 import sys; sys.path.append("guide")
 import json, random, mindmeld, base64, time as timelib
-import elevutil, wind
+import elevutil, wind, osmutil
 import geopy.distance, datetime, shutil
 import csv, io, zipfile, folium
 from urllib.request import urlopen
@@ -540,21 +540,13 @@ def amenities():
     amenity_type = request.form.get("amenity_type")
     amenity_name = request.form.get("amenity_name")
     amenity_dist = float(request.form.get("amenity_dist"))
-    print (clat,clon,amenity_type, amenity_name)
-    fouthtml = TMPDIR + "/direction-%s.html" % uuid.uuid4()        
-    base_url = "https://overpass-api.de/api/interpreter?data="
-    q = """
-    [out:json];
-    node["amenity"~"%s"](around:%s,%s,%s);
-    out center;
-    """ % (amenity_type,amenity_dist,clat,clon)
-    safe_string = urllib.parse.quote_plus(q)
-    r = requests.get(base_url + safe_string)    
+    fouthtml = TMPDIR + "/direction-%s.html" % uuid.uuid4()
+    doc = osmutil.get_amenities(amenity_type,amenity_name,amenity_dist,clat,clon)    
     m = folium.Map(location=[clat, clon], zoom_start=14, control_scale=True)
-    doc = json.loads(r.text)
     for e in doc['elements']:
         if 'name' in e['tags'] and amenity_name in unidecode(e['tags']['name']).lower():
-            folium.Marker([e['lat'],e['lon']], icon=folium.Icon(color="blue")).add_to(m)
+            ps = "%s,%s" % (e['lat'],e['lon'])
+            folium.Marker([e['lat'],e['lon']], popup=ps, icon=folium.Icon(color="blue")).add_to(m)
     m.save(fouthtml)
     return send_file(fouthtml)
 

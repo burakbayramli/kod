@@ -3,6 +3,8 @@ from pygeodesy.sphericalNvector import LatLon
 from priodict import priorityDictionary
 import pandas as pd, json, folium
 from sqlitedict import SqliteDict
+from urllib.request import urlopen
+import urllib, requests, re
 import os, csv, shutil, util
 
 params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
@@ -167,9 +169,19 @@ def shortest_path_coords(fr, to):
     path = shortest_path_nodes(dd,str(int(n1[0])),str(int(n2[0])))
     coords = [get_osm_info(x) for x in path]
     return coords
-        
-if __name__ == "__main__": 
- 
+
+def get_amenities(amenity_type,amenity_name,amenity_dist,clat,clon):
+    base_url = "https://overpass-api.de/api/interpreter?data="
+    q = """
+    [out:json];
+    node["amenity"~"%s"](around:%s,%s,%s);
+    out center;
+    """ % (amenity_type,amenity_dist,clat,clon)
+    safe_string = urllib.parse.quote_plus(q)
+    r = requests.get(base_url + safe_string)    
+    return json.loads(r.text)
+
+def test1():
 #    grid_assign_centers((36.52259447316748, 27.612981046240638),
 #                         (41.05628025861666, 42.58542464923075))
     
@@ -183,4 +195,7 @@ if __name__ == "__main__":
     m = folium.Map(location=fr, zoom_start=12)
     folium.PolyLine(locations=coords, color="red").add_to(m)
     m.save("/tmp/out.html")
-    
+        
+if __name__ == "__main__": 
+ 
+    test2()
