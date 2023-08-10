@@ -1,9 +1,16 @@
 movie,rating
-Maleficent (2014),1
+Maleficent (2014),0
 Nymphomaniac: Volume I (2013),1
 Nymphomaniac: Volume II (2013),1
 Sucker Punch (2011),1
 Colombiana (2011),1
+Ghostbusters (2016),1
+Atomic Blonde (2017),1
+Alita: Battle Angel (2019),01
+Anna (2019),1
+Salt (2010),1
+Zero Dark Thirty (2012),0
+Final Destination 5 (2011),0
 Get the Gringo (2012),0
 Rocketman (2019),0
 Loveless (2017),0
@@ -82,10 +89,6 @@ First Man (2018),0
 "Chronicles of Narnia: The Voyage of the Dawn Treader, The (2010)",0
 "Chronicles of Narnia: The Lion, the Witch and the Wardrobe, The (2005)",0
 Centurion (2010),0
-Alita: Battle Angel (2019),0
-Anna (2019),0
-Atomic Blonde (2017),0
-Salt (2010),0
 Disobedience (2018),0
 The Boy Who Harnessed the Wind (2019),0
 At the Heart of Gold: Inside the USA Gymnastics Scandal (2019),0
@@ -125,7 +128,6 @@ Den of Thieves (2018),4
 The Revenant (2015),5
 Sicario: Day of the Soldado (2018),3
 Tag (2018),2
-Captain Marvel (2018),2
 "Matrix, The (1999)", 5
 Captain America: The First Avenger (2011),4
 Captain America: Civil War (2016),5
@@ -726,6 +728,8 @@ Escape Plan 2: Hades (2018),3
 War Machine (2017),4
 Paul (2011),5
 Red 2 (2013),3
+The Huntsman Winter's War (2016),3
+Captain Marvel (2018),3
 Act of Valor (2012),4
 "Purge, The (2013)",2
 "Purge: Anarchy, The (2014)",4
@@ -804,7 +808,6 @@ The Covenant (2023),5
 Extraction (2020),4
 Extraction 2 (2023),5
 Kandahar (2023),2
-The Huntsman Winter's War (2016),3
 "Three Musketeers, The (2011)",5
 End of Days (1999),3
 Locke (2013),1
@@ -858,3 +861,7 @@ Triple 9 (2016),2
 Moonfall (2022),3
 Midnight in Paris (2011),4
 Harold & Kumar Escape from Guantanamo Bay (2008),4
+Upside Down (2012),4
+Nowhere Safe (2014),5
+Snow White and the Huntsman (2012),3
+Neighbors (2014),4
