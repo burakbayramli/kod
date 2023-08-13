@@ -1,6 +1,7 @@
-import gpxpy, gpxpy.gpx
+import gpxpy, gpxpy.gpx, pandas as pd, numpy as np
 
-arr = [[41.32812717252302, 28.73793868206552]]
+#arr = [[41.32812717252302, 28.73793868206552]]
+arr = np.array(pd.read_csv("/tmp/in.csv",header=None))
 
 gpx = gpxpy.gpx.GPX()
 
