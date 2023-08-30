@@ -26,6 +26,7 @@ def simple_similarity():
     for p in picks:
         if p in mov: tst[0,mov[p]] = float(picks[p]['rating']) 
 
+    tst = np.nan_to_num(tst, 0)
     similarities = cosine_similarity(utility_csr, tst)
 
     close_people = np.argsort(similarities[:,0])
