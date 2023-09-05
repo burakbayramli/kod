@@ -56,7 +56,7 @@ def ecmwf_wind(clat,clon,zoom,M=100,N=60,show_ike=False):
     sm.plot_continents(clat,clon,zoom,incolor='green', outcolor='white', fill=False,ax=ax)
     
     if show_ike:
-        W = (4,4)
+        W = (3,3)
         # lat,lon 111 kilometers/deg
         lonlen = 111*((min(lons)-max(lons))/M)
         latlen = 111*((min(lats)-max(lats))/M)
