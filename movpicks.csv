@@ -1,4 +1,5 @@
 movie,rating
+Untitled Spider-Man Reboot (2017),0
 Deadpool: No Good Deed (2017),0
 Contagion (2011),0
 The Girl with All the Gifts (2016),0
@@ -117,7 +118,6 @@ Pacific Rim: Uprising (2018),5
 Deadpool 2 (2018),3
 Rampage (2018),3
 Upgrade (2018),4
-Untitled Spider-Man Reboot (2017),4
 Dunkirk (2017),2
 Baby Driver (2017),4
 Blade Runner 2049 (2017),3
@@ -205,7 +205,6 @@ X-Men: First Class (2011),5
 Avatar (2009),5
 Pirates of the Caribbean: At World's End (2007),5
 Pirates of the Caribbean: Dead Man's Chest (2006),5
-Spider-Man 2 (2004),5
 "I, Robot (2004)",5
 Pirates of the Caribbean: The Curse of the Black Pearl (2003),4
 "Bourne Identity, The (2002)",5
@@ -216,7 +215,6 @@ X-Men (2000),5
 Now You See Me 2 (2016),4
 Now You See Me (2013),4
 21 Jump Street (2012),5
-Spider-Man (2002),5
 Good Will Hunting (1997),4
 Indiana Jones and the Last Crusade (1989),5
 Alien (1979),4
@@ -311,8 +309,6 @@ Into the Wild (2007),3
 Million Dollar Baby (2004),4
 "Mummy, The (1999)",5
 "Mummy Returns, The (2001)",4
-Die Hard (1988),3
-Ip Man 2 (2010),5
 "Town, The (2010)",4
 "Departed, The (2006)",4
 John Q (2002),3
@@ -372,7 +368,11 @@ Extinction (2015),2
 Extinction (2018),4
 Black 47 (2018),2
 12 Strong (2018),5
-Spider-Man: Far from Home (2019),3
+Spider-Man (2002),5
+Spider-Man 2 (2004),5
+Spider-Man: Far from Home (2019),4
+"Amazing Spider-Man, The (2012)",3
+The Amazing Spider-Man 2 (2014),3
 Shazam! (2019),2
 Men in Black: International (2019),2
 Fast & Furious Presents: Hobbs & Shaw (2019),4
@@ -454,7 +454,6 @@ Meet the Fockers (2004),5
 Catch Me If You Can (2002),4
 "Beautiful Mind, A (2001)",5
 Snatch (2000),4
-Die Hard: With a Vengeance (1995),4
 Power Rangers (2017),3
 War for the Planet of the Apes (2017),4
 Mission: Impossible - Rogue Nation (2015),4
@@ -578,7 +577,11 @@ Master Z: Ip Man Legacy (2018),4
 "Negotiator, The (1998)",4
 "Signal, The (2014)",1
 Shot Caller (2017),5
+Die Hard (1988),4
 Die Hard 2 (1990),4
+Die Hard: With a Vengeance (1995),5
+Live Free or Die Hard (2007),4
+Ip Man 2 (2010),5
 "Road Warrior, The (Mad Max 2) (1981)",3
 Mad Max (1979),3
 The Hunger Games (2012),5
@@ -586,11 +589,9 @@ The Hunger Games: Catching Fire (2013),5
 The Hunger Games: Mockingjay - Part 1 (2014),5
 The Hunger Games: Mockingjay - Part 2 (2015),5
 Spectre (2015),4
-The Amazing Spider-Man 2 (2014),3
 Fury (2014),4
 Lone Survivor (2013),4
 Wrath of the Titans (2012),3
-"Amazing Spider-Man, The (2012)",3
 Constantine (2005),5
 "League of Extraordinary Gentlemen, The (a.k.a. LXG) (2003)",3
 Gangs of New York (2002),3
@@ -918,3 +919,7 @@ RocknRolla (2008),4
 "Illusionist, The (2006)",4
 Barbie (2023), 2
 American Gangster (2007),5
+Lucky Number Slevin (2006),3
+Slumdog Millionaire (2008),4
+King of Killers (2023),4
+Retribution (2023),4
