@@ -38,10 +38,6 @@ def sim_prep():
     fout.close()
     
 def sim():
-    import json, csv, pandas as pd, re
-    import sys, numpy as np
-    csv.field_size_limit(sys.maxsize)
-
     fin = d + "/ratings-json.csv"
     picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
@@ -82,7 +78,15 @@ def sim():
     df = df.sort_values(1,ascending=False)
     df = df.drop_duplicates(0)
     df.to_csv("/opt/Downloads/movierecom2.csv",index=None,header=False)
-       
+
+def export():
+    picks = pd.read_csv('movpicks.csv')    
+    fout = open("/tmp/picks.json", "w")
+    j = json.dumps(dict(picks.values))
+    j = j.replace(', "',', \n"')
+    fout.write(j)
+    fout.close()
+        
 if __name__ == "__main__":  
     
     if len(sys.argv) < 2:
@@ -91,3 +95,6 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "sim":
         sim()
+        
+    if sys.argv[1] == "export":
+        export()
