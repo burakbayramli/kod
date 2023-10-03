@@ -13,11 +13,12 @@ import scipy.sparse.linalg, json
 import pandas as pd, numpy as np
 import os, sys, re, csv
 
+csv.field_size_limit(sys.maxsize)
+
 #d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
 
 def sim_prep():
-    d = "."
     fin = d + "/ratings.csv"
     fout = d + "/ratings-json.csv"
     curruser = 0
@@ -55,6 +56,7 @@ def sim():
             dp = dp / (picks_norm*jrow_norm)
             res.append([row[0],dp])
             if i % 1e4 == 0: print (i,dp)
+          
 
     df = pd.DataFrame(res).set_index(0)
     df = df.sort_values(by=1,ascending=False).head(400)
@@ -95,6 +97,9 @@ if __name__ == "__main__":
 
     if sys.argv[1] == "sim":
         sim()
+        
+    if sys.argv[1] == "prep":
+        sim_prep()
         
     if sys.argv[1] == "export":
         export()
