@@ -1,7 +1,6 @@
 movie,rating
 Percy Jackson & the Olympians: The Lightning Thief (2010),0
 Fifty Shades of Grey (2015),0
-Jobs (2013),0
 Public Enemies (2009),0
 Hanna (2011),0
 Untitled Spider-Man Reboot (2017),0
@@ -76,12 +75,6 @@ Dallas Buyers Club (2013),0
 The Raid: Redemption (2011),0
 Lion (2016),0
 Me Before You (2016),0
-Drive (2011),4
-The Purge: Election Year (2016),4
-Assassin's Creed (2016),3
-Reservoir Dogs (1992),4
-Jurassic Park (1993),4
-Jurassic World (2015),4
 G.I. Jane (1997),0
 Behind Enemy Lines (2001),0
 The Last Witch Hunter (2015),0
@@ -112,6 +105,12 @@ At the Heart of Gold: Inside the USA Gymnastics Scandal (2019),0
 Pokémon: Detective Pikachu (2019),0
 Leaving Neverland (2019),0
 Dolemite Is My Name (2019),0
+Drive (2011),4
+The Purge: Election Year (2016),4
+Assassin's Creed (2016),3
+Reservoir Dogs (1992),4
+Jurassic Park (1993),4
+Jurassic World (2015),4
 Black Panther (2017),4
 The Cloverfield Paradox (2018),2
 Back to the Future (1985),5
@@ -158,8 +157,9 @@ John Wick (2014),5
 John Wick: Chapter 3 – Parabellum (2019),5
 Kingsman: The Golden Circle (2017),5
 Jumanji: Welcome to the Jungle (2017),3
-X-Men: Days of Future Past (2014),4
 "Equalizer, The (2014)",5
+The Equalizer 2 (2018),4
+The Equalizer 3 (2023)",4
 "Dark Knight Rises, The (2012)",3
 Mission: Impossible - Ghost Protocol (2011),4
 "Dark Knight, The (2008)",3
@@ -206,7 +206,6 @@ Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhs
 Iron Man (2008),5
 Iron Man 2 (2010),3
 Iron Man 3 (2013),4
-X-Men: First Class (2011),5
 "Social Network, The (2010)",3
 Avatar (2009),5
 Pirates of the Caribbean: At World's End (2007),5
@@ -217,6 +216,11 @@ Pirates of the Caribbean: The Curse of the Black Pearl (2003),4
 "Bourne Supremacy, The (2004)",3
 "Bourne Ultimatum, The (2007)",4
 X-Men (2000),5
+X-Men Origins: Wolverine (2009),4
+X-Men: The Last Stand (2006),3
+X-Men: Days of Future Past (2014),4
+X2: X-Men United (2003),5
+X-Men: First Class (2011),5
 "Shawshank Redemption, The (1994)",5
 Now You See Me 2 (2016),4
 Now You See Me (2013),4
@@ -237,7 +241,6 @@ Prince of Persia: The Sands of Time (2010),3
 Kick-Ass (2010),4
 Birdman: Or (The Unexpected Virtue of Ignorance) (2014),3
 National Treasure (2004),3
-X2: X-Men United (2003),5
 Hell or High Water (2016),4
 Sideways (2004),5
 Sherlock Holmes (2009),5
@@ -343,7 +346,6 @@ Star Wars: The Last Jedi (2017),1
 Sherlock Holmes: A Game of Shadows (2011),3
 Moon (2009),4
 Source Code (2011),3
-The Equalizer 2 (2018),4
 Mute (2018),1
 Ocean's 8 (2018),4
 Johnny English Strikes Again (2018),1
@@ -507,7 +509,6 @@ Rise of the Planet of the Apes (2011),3
 Men in Black III (M.III.B.) (M.I.B.³) (2012),3
 Total Recall (2012),4
 Limitless (2011),4
-X-Men Origins: Wolverine (2009),4
 Zombieland (2009),5
 "Incredible Hulk, The (2008)",2
 Sunshine (2007),4
@@ -549,7 +550,6 @@ Only God Forgives (2013),1
 World War Z (2013),3
 Kick-Ass 2 (2013),3
 Looper (2012),4
-X-Men: The Last Stand (2006),3
 "Island, The (2005)",5
 Close Encounters of the Third Kind (1977),4
 Law Abiding Citizen (2009),3
@@ -952,3 +952,5 @@ National Treasure: Book of Secrets (2007),4
 Begin Again (2013),4.5
 "Forbidden Kingdom, The (2008)",3.5
 57 Seconds (2023),3.5
+"Sorcerer's Apprentice, The (2010)",3.5
+Jobs (2013),4
