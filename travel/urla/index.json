@@ -1,0 +1,48 @@
+{
+    "center": [38.23417872194105, 26.925796798484555],
+    "points": {
+	"bamboo avm": [38.335970377544896, 26.77031485903529],
+	"izmir adnan menderes": [38.30287287983846, 27.15125233636991],
+	"spilos gumuldur otel": [38.0719859881344, 27.00321934105062],
+	"ayvaz otel": [38.24615876108225, 27.29284583870809],
+	"aracati butik otel 1000 tl": [38.28525337534313, 26.376938606491834],
+	"mel10 house 1300": [38.33561872048218, 26.582796845323763],
+	"barba otel 1100 tl": [38.4043519397785, 26.756655368724864],
+	"lizbon otel 1000 tl": [38.387985130104546, 26.928287473236406],
+	"sigacik asan butik pansiyon 1000": [38.20777342843651, 26.80122862398122],
+	"three b marina otel 800 tl": [38.19089662592861, 26.78339411290518],
+	"urla melito hotel 1100": [38.36471796237686, 26.820426744008664],
+	"rebetika butik otel": [37.952615601141794, 27.36748641084422],
+	"nicea hotel": [37.949603338505, 27.368468905613053],
+	"sari kosk butik otel": [38.296540903281915, 26.800066981641244],
+	"neoss butik otel 1200 tl": [38.192753878419154, 26.789250124461994],
+	"mesir tabiat park": [38.17127414265307, 26.774495090830268]
+    },
+    "restaurants": {	
+    },
+    "campgrounds": {
+	"ovacik tabiat parki": [38.34672557048167, 27.677529526659548],
+	"urla belediye halk plaji": [38.36624871762446, 26.779989799039505],
+	"ozbek akkum plaji": [38.38393773979327, 26.67818462461658],
+	"plaj [isimsiz]": [38.358423205026746, 26.676548791606653],
+	"cinarkoy plaji": [38.36771379036855, 26.639777345773695],
+	"balikliova plaji": [38.43500157981702, 26.581804348391387],
+	"onen": [38.21747560928485, 26.736794159017485],
+	"altinkoy": [38.21186265143008, 26.72175622706154],
+	"akvaryum koyu": [38.21783617539768, 26.7659054199144],
+	"teos glamping": [38.186603772313795, 26.781867775621834],
+	"teos sanat kampi": [38.18799424777088, 26.79166578205022]
+    },
+    "maps": [
+	     "trekinturkey-urla-ozbek-hiking-30-11-2019-11-59.gpx",
+	     "ozbek-iskele-yuruyusu-daga-kactim-.gpx",
+	     "efes-mimas-yolu-22-ovacik-klazomenai-parkuru.gpx",
+	     "kesif-bademler-dogal-yasam-koyunden-uc-goletler.gpx",
+	     "trekinturkey-izmir-beyler-godence-kesif-parkuru-29-3-2021.gpx",
+	     "sigacik-azmak-koyu.gpx",
+	     "orhanli-urkmez.gpx",
+	     "orhanli-dikmen-kule-yenikoy.gpx",
+	     "hiking.gpx"
+     ]
+	
+}
