@@ -1,0 +1,22 @@
+{
+    "center": [40.61786007846114, 26.55298238020851],
+    "points": {
+	"sait faik abasıyanık koyu":[40.61529108146252, 26.561548211887896],
+	"gokcetepe tabiat parki": [40.63877307539608, 26.611098579621363]
+    },
+    "restaurants": {	
+    },
+    "campgrounds": {
+    },
+    "maps": [
+	     "ozeliz-gokcetepe-motivasyon-yuruyusu.gpx",
+	     "sardos-camlica-trakkale-yuruyusu.gpx",
+	     "sazlidere-adilhan-sahil.gpx",
+	     "sazlidere-edirne-turkiye-cumhuriyeti.gpx",
+	     "sazlidere-armutdere-mh-asfalti.gpx",
+	     "mahmutkoy-kalealti-gunubirlik-doga-yuruyusu.gpx",
+	     "enez.gpx",
+	     "saroz-sahil-enez-kocacesme.gpx"
+     ]
+	
+}

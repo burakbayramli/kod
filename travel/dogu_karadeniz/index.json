@@ -1,0 +1,20 @@
+{
+    "center": [40.99590112759561, 41.02622939485254],
+    "points": {
+	"ayder yaylasi": [40.96525588437417, 41.08008706850859],
+	"pokut yaylasi": [40.99590112759561, 41.02622939485254],
+	"hazindak yaylasi": [40.93474069484407, 41.06970367709184],
+	"polovit selalesi": [40.944740086030464, 40.99332188925272]
+    },
+    "restaurants": {	
+    },
+    "campgrounds": {
+    },
+    "maps": [
+	     "ardesen-zilkale-pokut-yaylasi-ayder.gpx",
+	     "sal-pokut-hazindak-palovit-selalesi.gpx",
+	     "pokut-yaylasi-hazidak-yaylasi-amlakit-yaylasi.gpx",
+	     "pokut-yaylasi-sal-yaylasi.gpx"
+     ]
+	
+}

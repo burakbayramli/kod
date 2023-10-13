@@ -1,0 +1,34 @@
+{
+    "center": [39.59638450152033, 26.91005257982361],
+    "points": {
+	"set arat model": [39.59767482444573, 27.02652329341754],
+	"sutuven selalesi": [39.64549290853944, 26.918347789425756],
+	"yiva otel 1500 tl": [39.627856144657216, 26.95484803657179],
+	"mehmetalani": [39.63445514776357, 26.95646089463681],
+	"Pegasus, 1 saat, 1280 tl": [40.9060845612894, 29.318426727357448],
+	"sahindere kanyonu selalesi": [39.58724273569174, 26.754956943764547],
+	"roy otel (~1000 tl)":[39.57207232952626, 26.94557089121294],
+	"altinkum plaji": [39.572206542588305, 26.940592905646763],
+	"novada edremit avm": [39.60227765222893, 26.984118033526443],
+	"vallah selalesi": [39.7015671212349, 26.93388755900783],
+	"hasanb goleti": [39.64105103015246, 26.92313037588001]
+    },
+    "restaurants": {	
+    },
+    "campgrounds": {
+	"endemik kamping beach": [39.56593302325329, 26.82365955520426],
+	"kuzgun kamp": [39.64878138543766, 26.96629987013301],
+	"hizir kamp": [39.64065377380842, 26.962778207596404],
+	"akaleos kamping": [39.64415687255861, 26.960119433031256]
+    },
+    "maps": [
+	     "hiking.gpx",
+	     "kaz-dagi-yayla-kampi.gpx",
+	     "burhaniye-karadere-ayitlioren-yaylasi-karalar-yolu-kok-kd-13.gpx",
+	     "evciler-kazdagi-zirve-edremit-camlibel.gpx",
+	     "havran-havran-baraj-goleti-edremit-hasan-boguldu-selalesi-ak.gpx",
+	     "kazdagi-milli-parki-altinoluk-cam-teras-ve-sahinderesi.gpx",
+	     "sahin-deresi-altinoluk.gpx"
+     ]
+	
+}
