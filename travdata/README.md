@@ -22,6 +22,13 @@ of the file looks like this
 }
 ```
 
+The `center` is where the map will be centered, points are interesting
+points for your journey. Restaurants and campgrounds are
+self-explanatory, the seperate categories will be marked with
+different colors
 
-The file
-can make references
+The file can make references to outside GPX maps for paths, these
+files should reside in the same directory as the main file. The GPX
+format is a standard format, many travel sites such as Wikiloc offers
+downloading their free paths shared by other users in this format. 
+
