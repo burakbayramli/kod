@@ -23,15 +23,18 @@ of the file looks like this
 ```
 
 The user has to upload a file like the one above on a server
-accessible from outside. 
+accessible from outside, Github works fine.
 
 The `center` is where the map will be centered, points are interesting
 points for your journey. Restaurants and campgrounds are
 self-explanatory, the seperate categories will be marked with
-different colors
+different colors.
 
-The file can make references to outside GPX maps for paths, these
-files should reside in the same directory as the main file. The GPX
-format is a standard format, many travel sites such as Wikiloc offers
-downloading their free paths shared by other users in this format. 
+The main file can make references to outside GPX maps for travel
+paths, if a bare file name is specified like above, it will be assumed
+the file resides in the same directory as the main file. If not the code
+attempts to connect to the URL as-is.
+
+The GPX format used is pretty standard, many travel sites such as
+Wikiloc offers GPX files in this format. 
 
