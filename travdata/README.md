@@ -22,6 +22,9 @@ of the file looks like this
 }
 ```
 
+The user has to upload a file like the one above on a server
+accessible from outside. 
+
 The `center` is where the map will be centered, points are interesting
 points for your journey. Restaurants and campgrounds are
 self-explanatory, the seperate categories will be marked with
