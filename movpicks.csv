@@ -48,7 +48,10 @@ Hardcore Henry (2015),0
 Dracula Untold (2014),0
 Allied (2016),0
 Sully (2016),0
+"Dark Knight, The (2008)",3
 The Dark Knight (2011),0
+"Dark Knight Rises, The (2012)",3
+The Batman (2022),3
 Bohemian Rhapsody (2018),0
 Sing Street (2016),0
 Stoker (2013),0
@@ -170,9 +173,7 @@ Jumanji: Welcome to the Jungle (2017),3
 "Equalizer, The (2014)",5
 The Equalizer 2 (2018),4
 The Equalizer 3 (2023)",4
-"Dark Knight Rises, The (2012)",3
 Mission: Impossible - Ghost Protocol (2011),4
-"Dark Knight, The (2008)",3
 Arrival (2016),4
 Kingsman: The Secret Service (2015),5
 Mad Max: Fury Road (2015),4
@@ -213,9 +214,9 @@ The Hobbit: The Battle of the Five Armies (2014),0
 "Hobbit: An Unexpected Journey, The (2012)",4
 Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan (2006),3
 Iron Man (2008),5
-Iron Man 2 (2010),3
-Iron Man 3 (2013),4
-"Social Network, The (2010)",3
+Iron Man 2 (2010),3.5
+Iron Man 3 (2013),3.5
+"Social Network, The (2010)",3.5
 Avatar (2009),5
 Pirates of the Caribbean: At World's End (2007),5
 Pirates of the Caribbean: Dead Man's Chest (2006),5
@@ -576,7 +577,6 @@ Universal Soldier: Day of Reckoning (2012),4
 The Predator (2018),5
 Bad Times at the El Royale (2018),2
 American Made (2017),5
-The Batman (2022),3
 Summit Fear (2022),4
 Wind River (2017),5
 Darkest Hour (2017),1
