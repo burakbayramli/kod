@@ -21,7 +21,10 @@ if sys.argv[1] == "ext1_ext2":
     os.system("python rsync.py '/media/burak/Backup Plus/archive/data' '/media/burak/Seagate Backup Plus Drive/archive/data'   --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/archive/kitaplar' '/media/burak/Seagate Backup Plus Drive/archive/kitaplar'  --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures'  --delete 1")
-    
+
+if sys.argv[1] == "usb64_nano":
+    os.system("python rsync.py '/media/1BC3-0618/archive/kitaplar' '/home/burak/Documents/kitaplar'  --delete 1")
+                    
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
     if (len(tmp)==0):
