@@ -457,7 +457,7 @@ This command does not push erased text to kill-ring."
 ;; screen, display settings
 ;;(set-default-font "-GOOG-Noto Sans Mono-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1")
 
-(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :height 160)
 
 (setq default-frame-alist
       '((top . 70) (left . 920)
