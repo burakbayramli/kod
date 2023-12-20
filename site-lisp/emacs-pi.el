@@ -1,13 +1,13 @@
 (set-language-environment "utf-8")
 (setq buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
+;;(autoload 'rust-mode "rust-mode" "rust mode" t)
 
 ;;(load "auctex.el" nil t t)
 	
-(setq load-path (cons "/home/burak/Documents/kod/site-lisp/" load-path))
+(setq load-path (cons "/home/pi/Documents/kod/site-lisp/" load-path))
 (require 'ps-ccrypt "ps-ccrypt.el")
 
 (setq initial-scratch-message nil) ;; empty scratch buffer
@@ -51,8 +51,14 @@
   (backward-delete-char)
   )
 
+(defun move-back-twelve-chars ()  
+  (interactive)                  
+  (backward-char 12)              
+  (backward-delete-char)
+  )
+
 ;; set name of abbrev file with .el extension
-(setq abbrev-file-name "/home/burak/Documents/kod/site-lisp/abbrevs.el")
+(setq abbrev-file-name "/home/pi/Documents/kod/site-lisp/abbrevs.el")
 (setq-default abbrev-mode t)
 (setq save-abbrevs nil)
 (setq ev-exe "evince")
@@ -116,7 +122,7 @@ This command does not push erased text to kill-ring."
 (modify-coding-system-alist 'file "\\.md\\'" 'utf-8)
 
 (require 'nxml-mode)
-(load-file "/home/burak/Documents/kod/site-lisp/_latin_post_ek.el")
+(load-file "/home/pi/Documents/kod/site-lisp/_latin_post_ek.el")
 (require 'tempo)
 
 (setq bell-volume 0)
@@ -125,8 +131,8 @@ This command does not push erased text to kill-ring."
 
 (setq TeX-master-file-ask nil)
 
-(add-to-list 'load-path "/home/burak/Documents/kod/site-lisp/python-mode.el-6.0.10") 
-(setq py-install-directory "/home/burak/Documents/kod/site-lisp/python-mode.el-6.0.10")
+(add-to-list 'load-path "/home/pi/Documents/kod/site-lisp/python-mode.el-6.0.10") 
+(setq py-install-directory "/home/pi/Documents/kod/site-lisp/python-mode.el-6.0.10")
 (autoload 'autopair-global-mode "autopair" nil t)
 ;;(autopair-global-mode)
 (add-hook 'lisp-mode-hook
@@ -189,7 +195,7 @@ This command does not push erased text to kill-ring."
 
 ;; loads the _emacs file with one keystroke
 (defun find-dotemacs() (interactive)
-  (find-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu3.el"))
+  (find-file "/home/pi/Documents/kod/site-lisp/emacs-ubuntu3.el"))
 (define-key global-map "\C-c\C-f" 'find-dotemacs)
 
 (defun kill-current-buffer ()
@@ -393,8 +399,8 @@ This command does not push erased text to kill-ring."
 (defun byte-me()
   "byte compile _emacs file"
   (interactive)
-  (byte-compile-file "/home/burak/Documents/kod/site-lisp/emacs-win.el")
-  (load-file "/home/burak/Documents/kod/site-lisp/emacs-win.elc")
+  (byte-compile-file "/home/pi/Documents/kod/site-lisp/emacs-win.el")
+  (load-file "/home/pi/Documents/kod/site-lisp/emacs-win.elc")
   (message "Byte compiling _emacs...Done")
   )
 
@@ -450,12 +456,13 @@ This command does not push erased text to kill-ring."
 
 ;; screen, display settings
 ;;(set-default-font "-GOOG-Noto Sans Mono-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1")
+(set-default-font "-GNU -FreeMono-bold-normal-normal-*-*-*-*-*-m-0-iso10646-1")
 
 (set-face-attribute 'default nil :height 130)
 
 (setq default-frame-alist
-      '((top . 0) (left . 0)
-        (width . 56) (height . 35)
+      '((top . 70) (left . 300)
+        (width . 90) (height . 32)
 ))
 
 (tool-bar-add-item "fwd-arrow" 'revert-buffer 'revert-buffer :help "Refresh" )
@@ -481,6 +488,7 @@ This command does not push erased text to kill-ring."
 		("\\.cc$"  . c++-mode)
 		("\\.cpp$" . c++-mode)	
 		("\\.cu$" . c++-mode)	
+		("\\.rs$" . rust-mode)	
 		("\\.cuh$" . c++-mode)	
 		("\\.m$" . octave-mode)	
 		("\\.log$" . hscroll-mode)
@@ -492,11 +500,10 @@ This command does not push erased text to kill-ring."
                 ("\\.pl$"  . perl-mode)
                 ("\\.txt$"  . text-mode)
                 ("\\.csv$"  . text-mode)
-                ("\\.js" . c++-mode)
+                ("\\.js" . javascript-mode)
                 ("\\.htm$" . nxml-mode)
                 ("\\.html$" . nxml-mode)
                 ("\\.xhtml$" . nxml-mode)
-                ("\\.jsp$" . nxml-mode)
                 ("\\.xsl$" . nxml-mode)
                 ("Makefile" . text-mode)
                 ("\\.inc$" . nxml-mode)
@@ -650,7 +657,7 @@ This command does not push erased text to kill-ring."
  '("\\left[\\begin{array}{ccc}\n" (s) "\n\\end{array}\\right]" )    "")
 
 (tempo-define-template  "tex-function-in-pieces" 
- '("\\left\\{ \\begin{array}{ll}\n" (s) "\n\\end{array} \\right." ) "")
+ '("\\left\\{ \\begin{array}{rr}\n" (s) "\n\\end{array} \\right." ) "")
 
 (tempo-define-template  "tex-partial-derivative" 
  '("\\frac{\\partial "   (s)   "}{\\partial }"   ) "")
@@ -795,12 +802,6 @@ This command does not push erased text to kill-ring."
   (recenter 0)
   )
 
-(defun tweet-end ()
-  (interactive)
-  (insert (shell-command-to-string "echo -n *$(date +\"%Y-%m-%d %H:%M:%S\")*"))
-  (insert "\n\n---")
-  )
-  
 
 (defun emoji-punch() (interactive)(insert "👊"))
 (defun emoji-burn () (interactive)(insert "🔥"))
@@ -841,9 +842,7 @@ This command does not push erased text to kill-ring."
 
 (defun insert-todays-date (arg)
   (interactive "P")
-  (insert (if arg
-              (format-time-string "%d-%m-%Y %H:%M")
-            (format-time-string "%Y-%m-%d %H:%M"))))
+  (insert (format-time-string "%Y-%m-%d %H:%M")))
 
 ;;
 ;; define F keys
@@ -880,7 +879,7 @@ This command does not push erased text to kill-ring."
 ;; find-file-other-window call to find-file. 
 ;;
 ;;
-(load-file "/home/burak/Documents/kod/site-lisp/dired.el")
+(load-file "/home/pi/Documents/kod/site-lisp/dired.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -892,8 +891,8 @@ This command does not push erased text to kill-ring."
 (put 'downcase-region 'disabled nil)
 
 ;; ;; Pymacs
-;;(load-file "/home/burak/Documents/kod/site-lisp/pymacs/pymacs.el")
-(load-file "/home/burak/Documents/Pymacs/pymacs.el")
+;;(load-file "/home/pi/Documents/kod/site-lisp/pymacs/pymacs.el")
+(load-file "/home/pi/Documents/repos/Pymacs/pymacs.el")
 
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
@@ -901,10 +900,10 @@ This command does not push erased text to kill-ring."
 (autoload 'pymacs-exec "pymacs" nil t)
 (autoload 'pymacs-load "pymacs" nil t)
 
-(pymacs-load "/home/burak/Documents/kod/site-lisp/deascify")
+(pymacs-load "/home/pi/Documents/kod/site-lisp/deascify")
 (global-unset-key "\M-]")
 (global-set-key "\C-x\]" 'deascify-convert)
-(pymacs-load "/home/burak/Documents/kod/site-lisp/githist")
+(pymacs-load "/home/pi/Documents/kod/site-lisp/githist")
 (defun githist-do-show-version(num) 
  (interactive "nHow many commits back: ")
   (githist-show-version num)
@@ -929,7 +928,7 @@ This command does not push erased text to kill-ring."
   ;; load tex or md mode based on the extension
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "tex")
       (progn 
-	(pymacs-load "/home/burak/Documents/kod/site-lisp/ipython-tex")
+	(pymacs-load "/home/pi/Documents/kod/site-lisp/ipython-tex")
 	(global-set-key "\M-," 'ipython-tex-run-py-code)
 	(global-set-key [f5] 'ipython-tex-complete-py)
 	(tempo-define-template 
@@ -942,7 +941,7 @@ This command does not push erased text to kill-ring."
 	))
   (if (equal (file-name-extension (buffer-file-name (current-buffer))) "md")
       (progn 
-	(pymacs-load "/home/burak/Documents/kod/site-lisp/ipython-md")
+	(pymacs-load "/home/pi/Documents/kod/site-lisp/ipython-md")
 	(global-set-key "\M-," 'ipython-md-run-py-code)
 	(global-set-key [f5] 'ipython-md-complete-py)
 	(tempo-define-template 
@@ -960,7 +959,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
+(setq grep-find-command "sh /home/pi/Documents/kod/find/find.sh '*.*'  " grep-program "")
 
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.3))
@@ -992,24 +991,24 @@ This command does not push erased text to kill-ring."
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
-(find-file-other-window "/home/burak/Documents/kod/guide")
-(find-file-other-window "/home/burak/Documents/Dropbox")
-(find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
-(find-file-other-window "/home/burak/Documents/kod")
-(find-file-other-window "/home/burak/Documents/kod/nomadicterrain")
-(find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
-(find-file-other-window "/home/burak/Documents/Dropbox/resmi")
-(find-file-other-window "/home/burak/Pictures")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/classnotes")
-(find-file-other-window "/home/burak/Documents")
-(find-file-other-window "/home/burak/Documents/kitaplar")
-(find-file-other-window "/home/burak/Documents/classnotes/sk")
-(find-file-other-window "/home/burak/Documents/books/")
-(find-file-other-window "/home/burak/Downloads")
-(find-file-other-window "/home/burak/Documents/thirdwave/en")
-(find-file-other-window "/home/burak/Documents/Dropbox/bkps/blog")
-(find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_1_20")
+(find-file-other-window "/home/pi/Documents/Dropbox")
+(find-file-other-window "/home/pi/Documents/kod")
+(find-file-other-window "/home/pi/Documents/classnotes/algs/dict")
+(find-file-other-window "/home/pi/Documents/Dropbox/resmi")
+(find-file-other-window "/home/pi/Pictures")
+(find-file-other-window "/home/pi/Documents/classnotes/sk")
+(find-file-other-window "/home/pi/Documents")
+(find-file-other-window "/home/pi/Documents/kitaplar")
+(find-file-other-window "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/pi/Downloads/ml-25m")
+(find-file-other-window "/home/pi/Documents/books/")
+(find-file-other-window "/home/pi/Downloads")
+(find-file-other-window "/home/pi/Documents/Dropbox/TODO.txt")
+(find-file-other-window "/home/pi/Documents/Dropbox/bkps/1README.md")
+(find-file-other-window "/home/pi/Documents/tw")
+(find-file-other-window "/home/pi/Documents/tw/en/atw.md")
+(find-file-other-window "/home/pi/Documents/repos")
+(find-file-other-window "/home/pi/Documents/classnotes")
+(find-file-other-window "/home/pi/Documents/classnotes/phy/phy_020_strs_05")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
