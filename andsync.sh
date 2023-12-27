@@ -1,1 +1,1 @@
-adb push --sync /home/burak/Downloads/2dgal /storage/emulated/0/Download/
+adb push --sync /home/burak/Downloads/frame /storage/emulated/0/Download/
