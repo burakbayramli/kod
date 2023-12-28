@@ -21,7 +21,7 @@ def avigif(pieces, text):
     for i,(start,finish,text,pos) in enumerate(text):  
         w += "drawtext=enable='between(t,%s,%s)':fontfile=font3.ttf:text='%s':fontsize=15:fontcolor=white:x=%s:y=%s," % (start,finish,text,pos[0],pos[1])
     w += 'split[x1][x2];[x1]palettegen[p];[x2][p]paletteuse"'
-    cmd = "/usr/bin/ffmpeg -y -i /tmp/output1.gif -filter_complex " + w + " /tmp/output2.gif"
+    cmd = "/usr/bin/ffmpeg -y -i /tmp/output1.gif -filter_complex " + w + " final.gif"
     print (cmd)
     os.system(cmd)
         
