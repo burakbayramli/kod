@@ -1,4 +1,6 @@
 movie,rating
+Grindhouse (2007),0
+Sin City: A Dame to Kill For (2014),0
 "Girl with the Dragon Tattoo, The (Män som hatar kvinnor) (2009)",0
 "Timecrimes (Cronocrímenes, Los) (2007)",0
 "Time Traveler's Wife, The (2009)",0
@@ -420,7 +422,7 @@ Serenity (2019),1
 Ford v. Ferrari (2019),4
 Captive State (2019),2
 The Fear Index (2022),2
-The Other Guys (2010),4
+"Other Guys, The (2010)",4
 The Titan (2018),3
 Outlaw King (2018),5
 Secret Headquarters (2022),2
@@ -748,14 +750,11 @@ Death Wish (2018),5
 Pulp Fiction (1994),5
 Get Shorty (1995),4
 The Hateful Eight (2015),1
-Grindhouse (2007),1
-Kill Bill: Vol. 2 (2004),1
-Kill Bill: Vol. 1 (2003),1
-Death Proof (2007),1
-Django Unchained (2012),1
-Once Upon a Time in Hollywood (2019),1
-Sin City: A Dame to Kill For (2014),1
-Sin City (2005),1
+Kill Bill: Vol. 2 (2004),3
+Kill Bill: Vol. 1 (2003),3
+Death Proof (2007),3
+Once Upon a Time in Hollywood (2019),3
+Sin City (2005),3.5
 "Monuments Men, The (2014)",3
 Moneyball (2011),4
 Life (2017),3
@@ -1063,3 +1062,7 @@ Inside Job (2010),3.5
 End of Watch (2012),3.5
 Seven Pounds (2008),2
 Rebel Moon (2023),1
+Outside the Wire (2021),3.5
+"Warrior's Way, The (2010)",4
+Smokin' Aces (2006),2
+Vantage Point (2008),3.5
