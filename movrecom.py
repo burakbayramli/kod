@@ -70,10 +70,10 @@ def sim():
             if str(row[0]) in df:
                 for movid,rating in jrow.items():
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
-                    if rating == 4.5 and \
+                    if rating >= 4 and \
                        mov_id_title[int(movid)] not in picks and \
                        'Animation' not in genre[int(movid)] and \
-                       len(fres)>0 and int(fres[0]) > 2005: \
+                       len(fres)>0 and int(fres[0]) > 2010: \
                        recoms.append([mov_id_title[int(movid)],rating*df[row[0]]])
 
     df = pd.DataFrame(recoms)
