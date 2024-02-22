@@ -1007,7 +1007,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/tw/en/atw.md")
 (find-file-other-window "/home/burak/Documents/repos")
 (find-file-other-window "/home/burak/Documents/classnotes")
-(find-file-other-window "/home/burak/Documents/classnotes/ode/ode_mattuck_65_diffint1")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_07")
 
 
 (switch-to-buffer "*scratch*")
