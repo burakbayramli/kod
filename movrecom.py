@@ -15,7 +15,6 @@ import os, sys, re, csv
 
 csv.field_size_limit(sys.maxsize)
 
-#d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-latest"
 d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
 
 def sim_prep():
@@ -70,7 +69,7 @@ def sim():
             if str(row[0]) in df:
                 for movid,rating in jrow.items():
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
-                    if rating >= 4 and \
+                    if rating >= 5 and \
                        mov_id_title[int(movid)] not in picks and \
                        'Animation' not in genre[int(movid)] and \
                        len(fres)>0 and int(fres[0]) > 2010: \
