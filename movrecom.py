@@ -52,7 +52,7 @@ def sim():
             jrow = json.loads(row[1])
             jrow_norm = np.sqrt(sum(v**2 for v in jrow.values()))
             dp = sum(jrow[key]*picks_json.get(int(key), 0) for key in jrow)
-            dp = dp / (picks_norm*jrow_norm)
+            dp = dp / ((picks_norm*jrow_norm)+1e-10)
             res.append([row[0],dp])
             if i % 1e4 == 0: print (i,dp)
           
