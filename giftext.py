@@ -35,4 +35,3 @@ if __name__ == "__main__":
             [7.5,9,'Double up on that blow, bitch!',(80,170)]]
     
     avigif(ps,text)
-    
