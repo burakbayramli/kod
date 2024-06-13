@@ -958,7 +958,7 @@ This command does not push erased text to kill-ring."
 
 (fset 'tex-font-lock-suscript 'ignore)
 
-(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.*'  " grep-program "")
+(setq grep-find-command "sh /home/burak/Documents/kod/find/find.sh '*.md'  " grep-program "")
 
 (require 'org)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.3))
