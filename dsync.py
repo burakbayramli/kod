@@ -35,7 +35,7 @@ if sys.argv[1] == "acer_usb64":
         exit()
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/tw' '/media/burak/1BC3-0618/archive/repos/tw'  --ignore-list=.git  --delete 1")
-    os.system("python rsync.py '/home/burak/Documents/repos/nomadicterrain' '/media/burak/1BC3-0618/archive/repos/nomadicterrain'  --ignore-list=.git  --delete 1")
+    os.system("python rsync.py '/home/burak/Documents/repos/nomadicterrain' '/media/burak/1BC3-0618/archive/repos/nomadicterrain'  --ignore-list=.git,elevdata  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/1BC3-0618/archive/kod' --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/1BC3-0618/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/1BC3-0618/archive/kitaplar'  --delete 1")
