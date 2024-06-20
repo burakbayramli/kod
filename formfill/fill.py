@@ -14,7 +14,7 @@ img = Image.open(sys.argv[1])
 try:
     fillfile = open(fill,"r")
     locfile = open(loc,"r")
-except Exception, e: 
+except: 
     img.save(out)    
     exit()
     
@@ -25,7 +25,7 @@ for line in fillfile:
     locline=locline.replace("\n","")
     x = float(locline.split(" ")[0]) 
     y = float(locline.split(" ")[1]) 
-    print x,y,line    
+    print (x,y,line)
 
     res = re.search("down=(\d*)",line)
     if res: 
@@ -57,7 +57,7 @@ for line in fillfile:
         scale=float(res.group(1))
         line=re.sub("\[sign=0.\d*\]","",line)        
         sign = Image.open("signature.jpg")        
-        print sign.size
+        print (sign.size)
         sizex  = sign.size[0]
         sizey  = sign.size[1]
         new_sizex  = int(sign.size[0]*scale)
