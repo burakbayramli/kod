@@ -1003,12 +1003,10 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kitaplar")
 (find-file-other-window "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m")
-(find-file-other-window "/home/burak/Documents/books/")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/tw")
-(find-file-other-window "/home/burak/Documents/repos")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain/static")
 
