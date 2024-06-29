@@ -1,7 +1,7 @@
 
 (define-abbrev-table 'global-abbrev-table '(
     ("9d" "diferansiyel" nil 1)
-    ("9img" "<img width='340' src=''/>" nil 1)
+    ("9img" "<img width='340' src=''/>" move-back-three-chars 0)
     ("9e" "e^{}" move-back-one-char 0)
     ("9f" "fonksiyon" nil 1)
     ("9k" "kullana " move-back-one-char 1)
