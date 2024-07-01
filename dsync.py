@@ -28,6 +28,9 @@ if sys.argv[1] == "usb64_nano":
 if sys.argv[1] == "usb64_pi":
     os.system("python rsync.py '/media/pi/1BC3-0618/archive/kitaplar' '/home/pi/Documents/kitaplar'  --delete 1")
                     
+if sys.argv[1] == "acer_pi":
+    os.system("rsync -aP ~/Documents/kitaplar/* pi@192.168.43.89:/home/pi/Documents/kitaplar")
+                    
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
     if (len(tmp)==0):
