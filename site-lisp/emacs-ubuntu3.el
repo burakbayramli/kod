@@ -1009,7 +1009,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/tw")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain/static")
-(find-file-other-window "/home/burak/Documents/repos/nomadicterrain/static/imag")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain")
 
 
