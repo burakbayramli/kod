@@ -632,7 +632,7 @@ This command does not push erased text to kill-ring."
  
 (tempo-define-template  "reg"
  '("import statsmodels.formula.api as smf\n" "results = smf.ols('"
-  (s) "', data=df).fit()\n" "print results.summary()") "d"  "") 
+  (s) "', data=df).fit()\n" "print (results.summary())") "d"  "") 
 
 (tempo-define-template  "tex-eqnarray"
  '("\\begin{equation}\\label{}\n" (s) "\n\\end{equation}\n") "d"    "") 
