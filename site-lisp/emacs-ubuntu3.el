@@ -986,6 +986,23 @@ This command does not push erased text to kill-ring."
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
 
 
+(defun shift-text (distance)
+  (if (use-region-p)
+      (let ((mark (mark)))
+        (save-excursion
+          (indent-rigidly (region-beginning)
+                          (region-end)
+                          distance)
+          (push-mark mark t t)
+          (setq deactivate-mark nil)))
+    (indent-rigidly (line-beginning-position)
+                    (line-end-position)
+                    distance)))
+
+(defun shift-right (count)
+  (interactive "p")
+  (shift-text 4))
+
 
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
@@ -1008,6 +1025,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain/static")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain")
+(find-file-other-window "/home/burak/Documents/Dropbox/bkps/yeni_ev_2024.md")
 
 
 
