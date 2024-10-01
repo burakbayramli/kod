@@ -1029,3 +1029,8 @@ This command does not push erased text to kill-ring."
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
 
+
+
+
+
+
