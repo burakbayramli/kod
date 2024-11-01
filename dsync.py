@@ -33,15 +33,14 @@ if sys.argv[1] == "acer_pi":
                     
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
-    if (len(tmp)==0):
-        print ('\n============= PARTITION NOT MOUNTED =================')
-        exit()
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/tw' '/media/burak/1BC3-0618/archive/repos/tw'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/repos/nomadicterrain' '/media/burak/1BC3-0618/archive/repos/nomadicterrain'  --ignore-list=.git,elevdata  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/1BC3-0618/archive/kod' --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/1BC3-0618/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/1BC3-0618/archive/kitaplar'  --delete 1")
-                
-    
-    
+                    
+if sys.argv[1] == "acer_usbred":
+    tmp = glob.glob('/home/burak/Documents/kitaplar/*')
+    os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/RED1/archive/Dropbox' --delete 1")
+   
