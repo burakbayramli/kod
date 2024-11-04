@@ -2,7 +2,7 @@ import glob, os, random, sys
 import threading, numpy as np
 import datetime, random
 from rsync import ls
-import select, util
+import select, kutil
 
 def pick_file():
     dir = "/media/burak/Backup Plus/shows"    
