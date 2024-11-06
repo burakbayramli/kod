@@ -647,7 +647,7 @@ This command does not push erased text to kill-ring."
  '("[\\begin{array}{ccc} " (s) " \\end{array}]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
- '("\\includegraphics[width=10em]{" (s) "}" ) "")
+ '("\\includegraphics[width=20em]{" (s) "}" ) "")
 
 (tempo-define-template  "tex-listings-python-file" 
  '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
