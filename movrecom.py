@@ -15,7 +15,8 @@ import os, sys, re, csv
 
 csv.field_size_limit(sys.maxsize)
 
-d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
+#d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
+d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-32m"
 
 def sim_prep():
     fin = d + "/ratings.csv"
@@ -78,7 +79,7 @@ def sim():
     df = pd.DataFrame(recoms)
     df = df.sort_values(1,ascending=False)
     df = df.drop_duplicates(0)
-    df.to_csv("/opt/Downloads/movierecom2.csv",index=None,header=False)
+    df.to_csv("/opt/Downloads/movierecom3.csv",index=None,header=False)
 
 def export():
     picks = pd.read_csv('movpicks.csv')    
