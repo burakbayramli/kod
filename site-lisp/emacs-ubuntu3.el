@@ -399,8 +399,8 @@ This command does not push erased text to kill-ring."
 (defun byte-me()
   "byte compile _emacs file"
   (interactive)
-  (byte-compile-file "/home/burak/Documents/kod/site-lisp/emacs-win.el")
-  (load-file "/home/burak/Documents/kod/site-lisp/emacs-win.elc")
+  (byte-compile-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu3.el")
+  (load-file "/home/burak/Documents/kod/site-lisp/emacs-ubuntu3.el")
   (message "Byte compiling _emacs...Done")
   )
 
@@ -1025,7 +1025,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/repos/trade")
 (find-file-other-window "/opt/Downloads/alldata/")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_06")
+(find-file-other-window "/home/burak/Documents/classnotes/ode/ode_mattuck_11")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
