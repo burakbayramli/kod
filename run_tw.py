@@ -10,4 +10,6 @@ if sys.argv[1] == "sudan":
     util.map_sahel_suriyak()
 if sys.argv[1] == "isr":
     util.map_isr_suriyak()
+if sys.argv[1] == "syria":
+    util.map_syria_suriyak()
     
