@@ -1,4 +1,7 @@
 movie,rating
+Sonic the Hedgehog (2020),0
+Sonic the Hedgehog 2 (2022),0
+The Dark Knight (2011),0
 Eternals (2021),0
 Everything Everywhere All at Once (2022),0
 "The Gangster, The Cop, The Devil (2019)",0
@@ -87,9 +90,8 @@ Hardcore Henry (2015),0
 Dracula Untold (2014),0
 Allied (2016),0
 Sully (2016),0
-"Running Man, The (1987)",4
-"Dark Knight, The (2008)",3
-The Dark Knight (2011),0
+"Running Man, The (1987)",3.5
+"Dark Knight, The (2008)",3.5
 "Dark Knight Rises, The (2012)",3
 The Batman (2022),3
 Bohemian Rhapsody (2018),0
@@ -1192,7 +1194,7 @@ Mission: Impossible - Dead Reckoning Part One (2023),3.5
 Asteroid City (2023),1
 Zack Snyder's Justice League (2021),3.5
 Tinker Tailor Soldier Spy (2011),2
-Tenet (2020),2.5
+Tenet (2020),1
 Dune (2021),5
 No Time to Die (2020),3.5
 Spider-Man: No Way Home (2021),5
@@ -1237,3 +1239,4 @@ In the Shadow of the Moon (2019),3
 "Counselor, The (2013)",1
 The Harder They Fall (2021),1
 Miss Sloane (2016),1
+"Family, The (2013)",4

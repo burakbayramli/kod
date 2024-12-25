@@ -11,14 +11,15 @@ if sys.argv[1] == "acer_ext":
         exit()
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/Backup Plus/archive/Dropbox' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/tw' '/media/burak/Backup Plus/archive/repos/tw'  --ignore-list=.git --delete 1")
-    os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/Backup Plus/archive/kod' --ignore-list=.git --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/Backup Plus/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/Backup Plus/archive/kitaplar'  --delete 1")
+    os.system("python rsync.py '/opt/Downloads/dotbkps' '/media/burak/Backup Plus/archive/dotbkps'  --delete 1")
     
 if sys.argv[1] == "ext1_ext2":
     os.system("python rsync.py '/media/burak/Backup Plus/shows' '/media/burak/Seagate Backup Plus Drive/shows'   --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/archive/Dropbox' '/media/burak/Seagate Backup Plus Drive/archive/Dropbox'  --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/archive/data' '/media/burak/Seagate Backup Plus Drive/archive/data'   --delete 1")
+    os.system("python rsync.py '/media/burak/Backup Plus/archive/dotbkps' '/media/burak/Seagate Backup Plus Drive/archive/dotbkps'   --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/archive/kitaplar' '/media/burak/Seagate Backup Plus Drive/archive/kitaplar'  --delete 1")
     os.system("python rsync.py '/media/burak/Backup Plus/Lectures' '/media/burak/Seagate Backup Plus Drive/Lectures'  --delete 1")
 
@@ -35,10 +36,9 @@ if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
     os.system("python rsync.py '/home/burak/Documents/tw' '/media/burak/1BC3-0618/archive/repos/tw'  --ignore-list=.git  --delete 1")
-    os.system("python rsync.py '/home/burak/Documents/repos/nomadicterrain' '/media/burak/1BC3-0618/archive/repos/nomadicterrain'  --ignore-list=.git,elevdata  --delete 1")
-    os.system("python rsync.py '/home/burak/Documents/kod' '/media/burak/1BC3-0618/archive/kod' --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/classnotes' '/media/burak/1BC3-0618/archive/classnotes'  --ignore-list=.git  --delete 1")
     os.system("python rsync.py '/home/burak/Documents/kitaplar' '/media/burak/1BC3-0618/archive/kitaplar'  --delete 1")
+    os.system("python rsync.py '/opt/Downloads/dotbkps' '/media/burak/1BC3-0618/archive/dotbkps'  --delete 1")
                     
 if sys.argv[1] == "acer_usbred":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
