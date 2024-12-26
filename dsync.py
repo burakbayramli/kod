@@ -42,6 +42,6 @@ if sys.argv[1] == "acer_usb64":
     os.system("python rsync.py '/opt/Downloads/dotbkps' '/media/burak/1BC3-0618/archive/dotbkps'  --delete 1")
                     
 if sys.argv[1] == "acer_usbred":
-    tmp = glob.glob('/home/burak/Documents/kitaplar/*')
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/RED1/archive/Dropbox' --delete 1")
-   
+    os.system("python rsync.py '/opt/Downloads/dotbkps' '/media/burak/RED1/archive/dotbkps'  --delete 1")
+    
