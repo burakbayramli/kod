@@ -1025,9 +1025,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/repos/trade")
 (find-file-other-window "/opt/Downloads/alldata/")
-;;(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_07")
-(find-file-other-window "/home/burak/Documents/classnotes/func_analysis/func_96_elev_path")
-(find-file-other-window "/home/burak/Documents/classnotes/calc_multi/calc_multi_06")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_020_strs_07")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
