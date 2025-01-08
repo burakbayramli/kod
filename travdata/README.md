@@ -12,6 +12,9 @@ of the file looks like this
     "restaurants": {
 	"Jaja Rueil-Malmaison": [48.86500019, 2.20633412]
     },
+    "cafes": {
+        "Starbucks 1": [48.2221,2.211881]
+    },
     "campgrounds": {
 	"camping sandaya": [48.94080318, 2.14573]
     },
