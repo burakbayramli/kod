@@ -11,7 +11,7 @@ head = '''
 <body>
 '''
 content=open(sys.argv[1]).read()
-content=content.replace("\\","\\\\")
+#content=content.replace("\\","\\\\")
 print (head)
 print (markdown.markdown(content, extensions=['fenced_code','tables']))
 print ("""
