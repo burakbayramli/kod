@@ -69,10 +69,15 @@ def sim():
             jrow = json.loads(row[1])
             if str(row[0]) in df:
                 for movid,rating in jrow.items():
+                    #print (movid)
+                    #print (mov_id_title[int(movid)])
+                    if int(movid) not in mov_id_title: continue 
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
                     if rating >= 5 and \
                        mov_id_title[int(movid)] not in picks and \
                        'Animation' not in genre[int(movid)] and \
+                       'Documentary' not in genre[int(movid)] and \
+                       'Horror' not in genre[int(movid)] and \
                        len(fres)>0 and int(fres[0]) > 2010: \
                        recoms.append([mov_id_title[int(movid)],rating*df[row[0]]])
 
