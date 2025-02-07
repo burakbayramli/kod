@@ -69,8 +69,6 @@ def sim():
             jrow = json.loads(row[1])
             if str(row[0]) in df:
                 for movid,rating in jrow.items():
-                    #print (movid)
-                    #print (mov_id_title[int(movid)])
                     if int(movid) not in mov_id_title: continue 
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
                     if rating >= 5 and \
