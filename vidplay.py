@@ -11,7 +11,7 @@ def pick_file():
     playlist = [f[0] for f in flist if fin(['.mp4','.mkv','.avi'], f[0])]
     print ('count', len(playlist))
     # playlist = [f for f in playlist if 'SG-1' not in f]
-    # playlist = [f for f in playlist if 'DS9' not in f]
+    playlist = [f for f in playlist if 'DS9' not in f]
     playlist = [f for f in playlist if 'VOYAGER' not in f]
     playlist = [f for f in playlist if 'Atlantis' not in f]
     # playlist = [f for f in playlist if 'The Next Generation' not in f]
@@ -23,7 +23,7 @@ def pick_file():
     # playlist = [f for f in playlist if 'BSG' not in f]
     # playlist = [f for f in playlist if 'Doctor' not in f]
     print ('filterd count', len(playlist))
-    idx = util.my_random(len(playlist))
+    idx = kutil.my_random(len(playlist))
     #idx = util.my_random2(len(playlist))
     f = playlist[idx]
     print ("show idx selected", idx)
