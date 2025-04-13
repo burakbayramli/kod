@@ -1027,6 +1027,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/opt/Downloads/alldata/")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/3js")
+(find-file-other-window "/home/burak/Documents/classnotes/algs/algs_073_coll2")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
