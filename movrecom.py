@@ -71,7 +71,7 @@ def sim():
                 for movid,rating in jrow.items():
                     if int(movid) not in mov_id_title: continue 
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
-                    if rating >= 5 and \
+                    if rating >= 4 and \
                        mov_id_title[int(movid)] not in picks and \
                        'Animation' not in genre[int(movid)] and \
                        'Documentary' not in genre[int(movid)] and \
