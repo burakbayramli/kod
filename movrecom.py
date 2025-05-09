@@ -75,6 +75,7 @@ def sim():
                        mov_id_title[int(movid)] not in picks and \
                        'Animation' not in genre[int(movid)] and \
                        'Documentary' not in genre[int(movid)] and \
+                       'Romance' not in genre[int(movid)] and \
                        'Horror' not in genre[int(movid)] and \
                        len(fres)>0 and int(fres[0]) > 2010: \
                        recoms.append([mov_id_title[int(movid)],rating*df[row[0]]])
