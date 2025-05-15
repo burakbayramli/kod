@@ -1,4 +1,5 @@
 movie,rating
+Spiritwalker (2021),0
 The Pirates: The Last Royal Treasure (2022),0
 Rogue City (2020),0
 John Mulaney: Kid Gorgeous at Radio City (2018),0
@@ -504,7 +505,6 @@ Untitled Spider-Man Reboot (2017),4
 The Amazing Spider-Man 2 (2014),3
 Shazam! (2019),2
 Men in Black: International (2019),2
-Fast & Furious Presents: Hobbs & Shaw (2019),4
 That Thing You Do! (1996),5
 Snowden (2016),5
 Rockstar (2011),5
@@ -621,7 +621,6 @@ War Dogs (2016),5
 Inside Man (2006),3
 Solomon Kane (2009),5
 Van Helsing (2004),4
-"Fast & Furious 6 (Fast and the Furious 6, The) (2013)",4
 Furious 7 (2015),4
 Dawn of the Planet of the Apes (2014),3
 Rise of the Planet of the Apes (2011),3
@@ -745,9 +744,12 @@ Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002),5
 xXx (2002),4
 28 Days Later (2002),4
 "Fast and the Furious, The (2001)",5
-"Fast Five (Fast and the Furious 5, The) (2011)",4
-Fast X (2023),4
 "Fast & Furious (Fast and the Furious 4, The) (2009)",4
+"Fast Five (Fast and the Furious 5, The) (2011)",3
+"Fast & Furious 6 (Fast and the Furious 6, The) (2013)",3.5
+Fast & Furious Presents: Hobbs & Shaw (2019),3.5
+F9 (2021),3
+Fast X (2023),3
 "Fast and the Furious: Tokyo Drift, The (Fast and the Furious 3, The) (2006)",3.5
 Training Day (2001),5
 Donnie Darko (2001),3
@@ -790,7 +792,7 @@ Star Trek: Nemesis (2002),3
 "6th Day, The (2000)",3
 "Thomas Crown Affair, The (1999)",4
 Donnie Brasco (1997),5
-Heat (1995),4
+Heat (1995),3.5
 Abraham Lincoln: Vampire Hunter (2012),4
 Argo (2012),3
 Cowboys & Aliens (2011),3
@@ -1400,3 +1402,5 @@ The Contractor (2022),3.5
 Enola Holmes 2 (2022),3.5
 Blue Beetle (2023),4
 Dark Waters (2019),4
+A Minecraft Movie (2025),3.5
+The Ballad of Buster Scruggs (2018),1
