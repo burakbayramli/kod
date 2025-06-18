@@ -15,7 +15,7 @@
 (setq max-lisp-eval-depth 50000)
 (setq tool-bar-mode -1)
 (setq auto-resize-tool-bars -1) 
-(setq compile-command "python -u ../build.py tex")
+(setq compile-command "python -u ../../build.py doc")
 (setq x-select-enable-clipboard t)
 
 
@@ -1025,9 +1025,9 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/opt/Downloads/alldata/")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_005_basics_06")
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020/08")
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
+(find-file-other-window "/home/burak/Documents/classnotes")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
