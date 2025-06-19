@@ -253,11 +253,6 @@ This command does not push erased text to kill-ring."
 ;; olmuyor) fakat elle recenter yapmak gerekiyor; Bu ek hareketi otomatik
 ;; olarak burada yaptiriyoruz
 ;;
-(defun x-tex-itemize()
-  (interactive)
-  (tempo-template-tex-itemize)
-  (recenter)
-  )
 
 ;;create my menu
 (easy-menu-define
@@ -273,23 +268,17 @@ This command does not push erased text to kill-ring."
    ["Pandas" tempo-template-pandas]
    ["All Imports" tempo-template-pyall]
    ["Regression" tempo-template-reg]
-   ["Tex Minted Python (File)" tempo-template-tex-listings-python-file]
-   ["Tex Minted Python" tempo-template-tex-listings-python]
-   ["Tex List" x-tex-itemize]
-   ["Tex Verbatim" tempo-template-tex-verbatim-big]
-   ["Tex Numbered List" tempo-template-tex-enumerate]
    ["Tex Vector" tempo-template-tex-vector]
    ["Tex Matrix" tempo-template-tex-matrix]
    ["Tex Partial Derivative" tempo-template-tex-partial-derivative]
    ["Tex Function In Pieces" tempo-template-tex-function-in-pieces]
    ["Tex Multiline Equation" tempo-template-equation-multiline]
    ["Tex Numbered Equation" tempo-template-tex-eqnarray]
-   ["Tex New Page" x-tex-new-page]
    ["Tex Itemize Wrap" tex-itemize]
    ["Tex Matlab Listing" tempo-template-verb-block]
-   ["Tex Graphics Lec Notes" tempo-template-tex-graphics-2]
    ))
 (easy-menu-add my-book-mode-menu)
+
 
 
 ;;
@@ -319,6 +308,7 @@ This command does not push erased text to kill-ring."
   (electric-indent-mode -1)
   )
 (add-hook 'tex-mode-hook 'my-tex-mode-hook)
+
 (defun my-text-mode-hook ()
   (local-unset-key "\M-s") 
   (local-set-key [?\M-g] 'keyboard-quit)
@@ -328,6 +318,7 @@ This command does not push erased text to kill-ring."
 (add-hook 'LaTeX-mode-hook '(lambda ()
                               (set-fill-column 75)
                               ))
+
 (defun my-sql-mode-common-hook () 
   (local-set-key "\C-j" 'backward-char) 
   )
@@ -614,9 +605,6 @@ This command does not push erased text to kill-ring."
 (tempo-define-template  "tex-equation"
  '("$$\n" (s) "\n$$\n")  "d"  "") 
 
-(tempo-define-template "tex-verbatim-big"
- '("\\begin{verbatim}\n" (s) "\n\\end{verbatim}") "d"  "") 
-
 (tempo-define-template  "pandas"
  '("import pandas as pd\n\n" "df = pd.read_csv('" (s) "')") "d"     "") 
 
@@ -627,23 +615,11 @@ This command does not push erased text to kill-ring."
  '("import statsmodels.formula.api as smf\n" "results = smf.ols('"
   (s) "', data=df).fit()\n" "print (results.summary())") "d"  "") 
 
-(tempo-define-template  "tex-eqnarray"
- '("\\begin{equation}\\label{}\n" (s) "\n\\end{equation}\n") "d"    "") 
-
-(tempo-define-template  "tex-itemize"
- '("\\begin{itemize}\n   \\item " (s) "\n\\end{itemize}\n") "d"     "") 
-
-(tempo-define-template  "tex-enumerate"
- '("\\begin{enumerate}\n  \\item " (s) "\n\\end{enumerate}\n") "d"  "") 
-
 (tempo-define-template  "tex-vector"
  '("[\\begin{array}{ccc} " (s) " \\end{array}]^T") "d" "") 
 
 (tempo-define-template  "tex-graphics-2"
  '("\\includegraphics[width=20em]{" (s) "}" ) "")
-
-(tempo-define-template  "tex-listings-python-file" 
- '("\\inputminted[fontsize=\\footnotesize]{python}{"  (s) ".py}"  ) "")
 
 (tempo-define-template  "tex-matrix" 
  '("\\left[\\begin{array}{ccc}\n" (s) "\n\\end{array}\\right]" )    "")
@@ -656,10 +632,6 @@ This command does not push erased text to kill-ring."
 
 (tempo-define-template  "equation-multiline" 
  '("\$$ \n \\begin{array}{lll}\n "   (s)   "\n\\end{array}" "$$"  ) "")
-
-(tempo-define-template  "new-equation-page"	
- '("\\documentclass[12pt,fleqn]{article}\\usepackage{../../common}\n"
-   "\\begin{document}\n"   (s)   "\n\\end{document}\n"   )          "")
 
 (tempo-define-template  "python-main" 
  '("if __name__ == \"__main__\": \n "   (s)   ""   )                "")
@@ -679,17 +651,6 @@ This command does not push erased text to kill-ring."
 	     (backward-word 1)))
   (isearch-yank-word))
 
-
-(defun tex-itemize (start end)
-  "put begin and end itemize tex commands."
-  (interactive "r")
-  (goto-char start)
-  (previous-line 1)
-  (insert "\n\\begin\{itemize\}")
-  (goto-char end)
-  (next-line 1)
-  (insert "\\end\{itemize\}\n")  
-  )
 
 (defun my-compile ()
   (interactive)
@@ -839,9 +800,7 @@ This command does not push erased text to kill-ring."
 ;;
 ;; define F keys
 ;;
-(global-set-key [f1] 'tempo-template-tex-listings-python)
 (global-set-key [f2] 'tempo-template-verb)
-(global-set-key [f4] 'tempo-template-tex-equation)
 (global-set-key [f8] 'mark-whole-buffer)
 (global-set-key [f10] 'open-explorer-in-current-dir)
 (global-set-key [f12] 'next-error)
@@ -1002,7 +961,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/tmp")
 (find-file-other-window "/home/burak/Documents/Dropbox")
 (find-file-other-window "/home/burak/Documents/kod")
-(find-file-other-window "/home/burak/Documents/classnotes/algs/dict")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2012/02/dict")
 (find-file-other-window "/home/burak/Documents/Dropbox/resmi")
 (find-file-other-window "/home/burak/Documents/repos")
 (find-file-other-window "/home/burak/Pictures")
@@ -1021,6 +980,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/sk/2020/08")
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
 (find-file-other-window "/home/burak/Documents/classnotes")
+(find-file-other-window "/home/burak/Documents/classnotes/phy/phy_005_basics_06")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
