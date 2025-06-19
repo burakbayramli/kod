@@ -85,8 +85,8 @@
       (call-process chrome-exe nil 0 nil file))
     (when (equal (file-name-extension file) "htm")
       (call-process chrome-exe nil 0 nil file))
-    (when (equal (file-name-extension file) "tex")
-      (open-file-evince))
+    (when (equal (file-name-extension file) "md")
+      (call-process chrome-exe nil 0 nil (replace-in-string file ".md" ".html")))
     ))
 
 ;; Make all yes-or-no questions as y-or-n
@@ -307,11 +307,11 @@ This command does not push erased text to kill-ring."
   )
 (add-hook 'nxml-mode-hook 'my-nxml-mode-hook)  
 
-(defun open-file-evince()
+(defun open-file-html()
   (interactive)
   (setq fev (buffer-file-name (current-buffer)))
-  (setq fev (replace-in-string fev ".tex" ".pdf"))
-  (call-process ev-exe nil 0 nil fev)
+  (setq fev (replace-in-string fev ".md" ".html"))
+  (call-process chrome-exe nil 0 nil fev)
   )
   
 (defun my-tex-mode-hook ()
