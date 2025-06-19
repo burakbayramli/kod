@@ -306,13 +306,6 @@ This command does not push erased text to kill-ring."
         )
   )
 (add-hook 'nxml-mode-hook 'my-nxml-mode-hook)  
-
-(defun open-file-html()
-  (interactive)
-  (setq fev (buffer-file-name (current-buffer)))
-  (setq fev (replace-in-string fev ".md" ".html"))
-  (call-process chrome-exe nil 0 nil fev)
-  )
   
 (defun my-tex-mode-hook ()
   (local-set-key "\C-j" 'backward-char) 
