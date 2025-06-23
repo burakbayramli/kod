@@ -82,6 +82,7 @@
     (when (equal (file-name-extension file) "djvu")
       (call-process ev-exe nil 0 nil file))
     (when (equal (file-name-extension file) "html")
+      (message file)
       (call-process chrome-exe nil 0 nil file))
     (when (equal (file-name-extension file) "htm")
       (call-process chrome-exe nil 0 nil file))
