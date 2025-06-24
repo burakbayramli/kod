@@ -3,8 +3,6 @@
 (prefer-coding-system 'utf-8)
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
-
-;;(load "auctex.el" nil t t)
 	
 (setq load-path (cons "/home/burak/Documents/kod/site-lisp/" load-path))
 (require 'ps-ccrypt "ps-ccrypt.el")
