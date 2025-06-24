@@ -3,7 +3,6 @@
 (prefer-coding-system 'utf-8)
 (autoload 'c++-mode "cc-mode" "C++ Editing Mode" t) 
 (autoload 'c-mode "c-mode" "C mode" t)
-;;(autoload 'rust-mode "rust-mode" "rust mode" t)
 
 ;;(load "auctex.el" nil t t)
 	
@@ -472,7 +471,6 @@ This command does not push erased text to kill-ring."
 		("\\.cc$"  . c++-mode)
 		("\\.cpp$" . c++-mode)	
 		("\\.cu$" . c++-mode)	
-		("\\.rs$" . rust-mode)	
 		("\\.cuh$" . c++-mode)	
 		("\\.m$" . octave-mode)	
 		("\\.log$" . hscroll-mode)
@@ -816,22 +814,8 @@ This command does not push erased text to kill-ring."
 ;; (define-key cua--cua-keys-keymap [(control v)] 'yank)
 ;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Dired
-;;
-;; get sources from ftp.gnu.org
-;;
-;; (defun dired-other-window degisecek - switch-to-buffer-other-window
-;; becomes switch-to-buffer
-;;
-;; and
-;;
-;; in dired.el, function dired-mouse-find-file-other-window() change the line
-;; find-file-other-window call to find-file. 
-;;
-;;
-(load-file "/home/burak/Documents/kod/site-lisp/dired.el")
+(put 'dired-find-alternate-file 'disabled nil)
+(add-hook 'dired-mode-hook (lambda () (local-set-key (kbd "<mouse-2>") #'dired-find-alternate-file)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -956,7 +940,6 @@ This command does not push erased text to kill-ring."
   (interactive "p")
   (shift-text 4))
 
-
 ;; ;; open files / directories beforehand so they are already in the buffer
 ;;
 (find-file-other-window "/tmp")
@@ -978,7 +961,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/opt/Downloads/alldata/")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2020/08")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2025/06")
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_005_basics_06")
