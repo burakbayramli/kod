@@ -15,7 +15,6 @@
 (setq compile-command "python -u ../../build.py doc")
 (setq x-select-enable-clipboard t)
 
-
 (set-variable (quote latex-run-command) "pdflatex")
 
 (defun move-back-one-char ()  
@@ -143,8 +142,6 @@ This command does not push erased text to kill-ring."
  '(case-fold-search t)
  '(blink-cursor-mode nil)
  '(compilation-scroll-output t)
- '(current-language-environment "Turkish")
- '(default-input-method "turkish-postfix")
  '(ecb-options-version "2.27")
  '(dired-recursive-copies t)
  '(global-font-lock-mode t)
@@ -159,6 +156,10 @@ This command does not push erased text to kill-ring."
  '(which-func-mode-global t nil (which-func))
  )
 
+(defun turkish-env ()
+  (interactive)
+  (set-language-environment "turkish")
+  (set-input-method "turkish-postfix"))
 
 (defun benim-list-buffers()
   ;; if I am viewing one buffer, in one screen, then this func divides
@@ -505,31 +506,6 @@ This command does not push erased text to kill-ring."
 
 (setq ring-bell-function 'ignore)
 
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(archive-zip-extract (quote ("unzip" "-qq" "-c")))
- '(blink-cursor-mode nil)
- '(case-fold-search t)
- '(compilation-scroll-output t)
- '(cua-mode t nil (cua-base))
- '(current-language-environment "Turkish")
- '(default-input-method "turkish-postfix")
- '(dired-recursive-copies t)
- '(ecb-options-version "2.27")
- '(global-font-lock-mode t)
- '(inhibit-iso-escape-detection t t)
- '(inhibit-startup-screen t)
- '(scroll-conservatively 1)
- '(scroll-step 1)
- '(text-mode-hook (quote (turn-on-auto-fill text-mode-hook-identify)))
- '(transient-mark-mode t)
- '(truncate-lines t)
- '(which-func-mode-global t nil (which-func))
- )
-
 (custom-set-faces
  '(default ((t (:background "#141414" :foreground "#F8F8F8"))))
  '(cursor ((t (:background "#CDA869"))))
@@ -846,7 +822,7 @@ This command does not push erased text to kill-ring."
 ;;(require 'auto-complete)
 ;;(global-auto-complete-mode t)
 
-(setq inferior-lisp-program "sbcli")
+;;(setq inferior-lisp-program "sbcli")
 
 (add-to-list 'compile-history compile-command)
 (add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh atw.md")

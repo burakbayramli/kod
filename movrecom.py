@@ -15,8 +15,7 @@ import os, sys, re, csv
 
 csv.field_size_limit(sys.maxsize)
 
-#d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-25m"
-d = "/mnt/3d1ece2f-6539-411b-bac2-589d57201626/home/burak/Downloads/ml-32m"
+d = "/opt/Downloads/ml-32m"
 
 def sim_prep():
     fin = d + "/ratings.csv"
