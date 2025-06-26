@@ -788,8 +788,7 @@ This command does not push erased text to kill-ring."
 ;; (define-key cua--cua-keys-keymap [(control v)] 'yank)
 ;;
 
-(put 'dired-find-alternate-file 'disabled nil)
-(add-hook 'dired-mode-hook (lambda () (local-set-key (kbd "<mouse-2>") #'dired-find-alternate-file)))
+(load-file "/home/burak/Documents/kod/site-lisp/dired.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -801,7 +800,6 @@ This command does not push erased text to kill-ring."
 (put 'downcase-region 'disabled nil)
 
 ;; ;; Pymacs
-;;(load-file "/home/burak/Documents/kod/site-lisp/pymacs/pymacs.el")
 (load-file "/home/burak/Documents/repos/Pymacs/pymacs.el")
 
 (autoload 'pymacs-apply "pymacs")
@@ -935,7 +933,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/opt/Downloads/alldata/")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
-(find-file-other-window "/home/burak/Documents/classnotes/sk/2025/06")
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_005_basics_06")

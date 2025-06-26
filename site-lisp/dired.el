@@ -2822,7 +2822,7 @@ so that the original Dired buffer is not kept."
 (defun dired-mouse-find-file-other-window (event)
   "In Dired, visit the file or directory name you click on in another window."
   (interactive "e")
-  (dired-mouse-find-file event 'find-file-other-window 'dired-other-window))
+  (dired-mouse-find-file event 'find-file 'dired-other-window))
 
 (defun dired-mouse-find-file-other-frame (event)
   "In Dired, visit the file or directory name you click on in another frame."
