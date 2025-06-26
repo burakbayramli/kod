@@ -788,6 +788,21 @@ This command does not push erased text to kill-ring."
 ;; (define-key cua--cua-keys-keymap [(control v)] 'yank)
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Dired
+;;
+;; get sources from ftp.gnu.org
+;;
+;; (defun dired-other-window degisecek - switch-to-buffer-other-window
+;; becomes switch-to-buffer
+;;
+;; and
+;;
+;; in dired.el, function dired-mouse-find-file-other-window() change the line
+;; find-file-other-window call to find-file. 
+;;
+;;
 (load-file "/home/burak/Documents/kod/site-lisp/dired.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
