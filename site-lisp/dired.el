@@ -1157,7 +1157,7 @@ If DIRNAME is already in a Dired buffer, that buffer is used without refresh."
 (defun dired-other-window (dirname &optional switches)
   "\"Edit\" directory DIRNAME.  Like `dired' but select in another window."
   (interactive (dired-read-dir-and-switches "in other window "))
-  (switch-to-buffer-other-window (dired-noselect dirname switches)))
+  (switch-to-buffer (dired-noselect dirname switches)))
 
 ;;;###autoload (define-key ctl-x-5-map "d" 'dired-other-frame)
 ;;;###autoload
