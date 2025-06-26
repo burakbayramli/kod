@@ -939,7 +939,6 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes/sk")
 (find-file-other-window "/home/burak/Documents")
 (find-file-other-window "/home/burak/Documents/kitaplar")
-(find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/Dropbox/TODO.txt")
 (find-file-other-window "/home/burak/Documents/tw/en/mbl/2025")
 (find-file-other-window "/home/burak/Documents/classnotes")
@@ -949,6 +948,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
+(find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_005_basics_06")
 
