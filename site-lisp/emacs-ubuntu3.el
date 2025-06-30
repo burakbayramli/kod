@@ -839,6 +839,7 @@ This command does not push erased text to kill-ring."
 
 (add-to-list 'compile-history compile-command)
 (add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh atw.md")
+(add-to-list 'compile-history "python $HOME/Documents/kod/pull_code.py ")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
 
