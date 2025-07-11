@@ -951,6 +951,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/books/Game_Physics_Eberly/WildMagic2/Source/Physics")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
+(find-file-other-window "/home/burak/Documents/classnotes/sk/2025/07")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
