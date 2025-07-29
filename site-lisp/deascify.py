@@ -56,7 +56,7 @@ def convert():
               ("sarsim",u"sarsım"),("autograd",),("kiris","kiriş"),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
               ("yani",), (" Yani ",),("bolu","bölü"),
-              ("entegrali",),("Kiris","Kiriş"),
+              ("entegrali",),("Kiris","Kiriş"),("STL",),
               ("sistem",),("invertible",), ("sistemi",),
               ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
               ("robust",),("lineer",),("Tensor",),("ivme",),("Lagrangian",)
