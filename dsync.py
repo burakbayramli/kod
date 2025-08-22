@@ -33,8 +33,11 @@ if sys.argv[1] == "usb64_pi":
 if sys.argv[1] == "acer_nano":
     os.system("rsync -aP ~/Documents/kitaplar/* burak@192.168.43.34:/home/burak/Documents/kitaplar")
                     
-if sys.argv[1] == "acer_acer1_pull": # run it on a9
+if sys.argv[1] == "acer1_pull": # run it on a9
     os.system("rsync -aP burak@192.168.43.49:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar ")
+                    
+if sys.argv[1] == "acer2_pull": # run it on a9
+    os.system("rsync -aP burak@192.168.43.180:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar ")
                     
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
