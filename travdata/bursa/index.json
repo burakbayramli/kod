@@ -7,9 +7,7 @@
 	"ozluce taksi (0530 594 4616)": [40.22092604551409, 28.9143874224572],
 	"odunluk taksi (0546 451 1040)": [40.20443982785915, 28.99746636336464],
 	"ataevler taksi (0535 384 4160)": [40.22181351107537, 28.960337096621682],
-	"tepe gozlem nokta": [40.143152, 29.025338],
 	"bitcoin atm": [40.212812737510504, 29.000091474070658],
-	"crowne plaza (5000tl, 02248000800)": [40.21025946310976, 28.99890759948439],
 	"ata bulvar taksi (0530 037 4727)": [40.21563313678047, 28.942448509797533],
 	"Kira 1, 33K, https://www.sahibinden.com/ilan/emlak-konut-kiralik-nilufer-23-nisanda-ozel-tasarim-esyali-kiralik-daire-1131057728/detay": [40.21719446525958, 28.95105763262531],
 	"Kira 2, 26K, https://www.sahibinden.com/ilan/emlak-konut-kiralik-kosa-gayrimenkul-nilufer-23-nisan-royal-suit-1-plus1-esyali-65-m2-1249160399/detay": [40.21837969597677, 28.938778361626976],
@@ -25,24 +23,8 @@
 	"SBUX 5": [40.226469525845516, 28.90688676118231],
 	"Cafe Nero 1": [40.220228258086806, 28.945283400092404]
     },
-    "restaurants": {
-	"Big Chefs Ozluce": [40.22518309896772, 28.915497936268483],
-	"kardesler": [40.2210671369018, 28.9865160479044]
-    },
     "campgrounds": {
-	"MKA": [40.19096536459284, 28.989786486887056],
-	"misi kamp karavan": [40.18202945541377, 28.979133500457724],
-	"gizli tepe": [40.18397875620245, 28.96323509713418],
-	"cesme": [40.1729777152074, 28.958585034374437]
     },
     "maps": [
-	"07-06-2020-mahalle-cali-atlasyonu-cali-mahalle.gpx",
-	"yuzuncuyil-cali-firla-tepe-dagyenice-misi.gpx",
-	"yuzuncuyil-metro-cali-atlas-yonu-yaylacik.gpx",
-	"bursa-dobruca-hudavendigar-15-ekim-2024.gpx",
-	"bursa-doganci-koyu-dagyenice-yayla-misi-nilufer-vadi-hudaven.gpx",
-	"dobruca-gokceoren-yayla-inkaya-alti-dobruca.gpx",
-	"ihsaniye-doburca-inkaya.gpx",
-	"yigitali-gokceoren-mesire-alani-huseyinalan-alt-yolu-uludag-.gpx"
     ]	
 }
