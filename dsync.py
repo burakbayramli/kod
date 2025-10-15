@@ -1,4 +1,6 @@
-import os, sys, rsync, glob
+import os, sys, rsync, glob, json
+
+params = json.loads(open(os.environ['HOME'] + "/.nomterr.conf").read())
 
 if len(sys.argv) < 2:
     print ("Usage dsync.py [letter]")
@@ -33,8 +35,8 @@ if sys.argv[1] == "usb64_pi":
 if sys.argv[1] == "acer_nano":
     os.system("rsync -aP ~/Documents/kitaplar/* burak@192.168.43.34:/home/burak/Documents/kitaplar")
                     
-if sys.argv[1] == "acer2_pull": # run it on a9
-    os.system("rsync -aP burak@192.168.43.180:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar ")
+if sys.argv[1] == "acer_pull": # run it on a9
+    os.system("rsync -aP burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
                     
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
