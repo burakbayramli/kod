@@ -432,18 +432,15 @@ This command does not push erased text to kill-ring."
 ;; UI
 ;;
 
-(set-frame-position (selected-frame) 33 0) ;emacs, ekranin "neresinde" baslamali
-
 ;; butun fontlarin listesi icin, asagidaki komutu *scratch* icinde islet.
 ;;(insert (prin1-to-string (x-list-fonts "*")))
-
 ;; screen, display settings
 ;;(set-default-font "-GOOG-Noto Sans Mono-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1")
 
 (set-face-attribute 'default nil :height 160)
 
 (setq default-frame-alist
-      '((top . 70) (left . 920)
+      '((top . 70) (left . 600)
         (width . 90) (height . 49)
 ))
 
