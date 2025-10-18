@@ -434,6 +434,7 @@ This command does not push erased text to kill-ring."
 
 ;; butun fontlarin listesi icin, asagidaki komutu *scratch* icinde islet.
 ;;(insert (prin1-to-string (x-list-fonts "*")))
+
 ;; screen, display settings
 ;;(set-default-font "-GOOG-Noto Sans Mono-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1")
 
@@ -946,6 +947,8 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Downloads")
+(find-file-other-window "/home/burak/Downloads/map")
+(find-file-other-window "/home/burak/Documents/classnotes/tser/tser_082_snd")
 (find-file-other-window "/home/burak/Documents/classnotes/stat/stat_022_est")
 (find-file-other-window "/home/burak/Documents/classnotes")
 
