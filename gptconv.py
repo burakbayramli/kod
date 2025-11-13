@@ -1,4 +1,4 @@
-import re
+import re, sys
 from pathlib import Path
 
 def convert_math_delimiters(text: str) -> str:
@@ -46,9 +46,8 @@ def convert_math_delimiters(text: str) -> str:
 
 
 if __name__ == "__main__":
-    infile = Path("gpt1.md")
-    outfile = Path("gpt1_mathjax_fixed.md")
-
+    infile = Path(sys.argv[1])
+    outfile = Path("GPT-mathjax_fixed.md")
     text = infile.read_text(encoding="utf-8")
     fixed = convert_math_delimiters(text)
     outfile.write_text(fixed, encoding="utf-8")
