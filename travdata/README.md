@@ -25,8 +25,9 @@ of the file looks like this
 }
 ```
 
-The user has to upload a file like the one above on a server
-accessible from outside, Github works fine.
+The user has to upload a file like the one above to a server
+accessible from outside (which will not cause the infamous CORS
+error). Github allows such access.
 
 The `center` is where the map will be centered, points are interesting
 points for your journey. Restaurants and campgrounds are
