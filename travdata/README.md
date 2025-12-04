@@ -25,9 +25,12 @@ of the file looks like this
 }
 ```
 
-The user has to upload a file like the one above to a server
+The user has to upload a file, like the one above, to a server
 accessible from outside (which will not cause the infamous CORS
-error). Github allows such access.
+error). Github allows such access. Let's say you are user `robjohn` on
+Github, and you have a repo called `myrepo3`. A travel json you check
+in to that repo under `canada` subfolder would be accessible as
+`https://raw.githubusercontent.com/robjohn/myrepo3/master/canada/index.json`
 
 The `center` is where the map will be centered, points are interesting
 points for your journey. Restaurants and campgrounds are
