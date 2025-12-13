@@ -1,5 +1,5 @@
  {
-    "center": [40.649255203605044, 29.142182285818773],
+    "center": [40.78647177321324, 29.42154751974586],
     "points": {
 	"Osmanbey Metro": [41.05347156150541, 28.987324423659615],
 	"Otel Suadiye (5k tl, 02164458424)": [40.956772863993336, 29.0807287138083],
@@ -13,9 +13,11 @@
 	"Erikli Yaylasi": [40.59044267171561, 29.02477416142649],
 	"Sahil 1": [40.66814297550696, 29.309688099491858],
 	"Sahil 2": [40.65773339946197, 29.263439947332618],
+	"Hyatt Gebze, 02626741234": [40.79323374417324, 29.442344210008752],
 	"Arsa 1, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-yalova-termal-akkoyde-merkezi-konumda-satilik-arsa-1287906326/detay": [40.621035100647, 29.182319851285367],
 	"Daire 1, 2.7M, 1+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-deniz-manzarali-sifir-1-plus1-1287634624/detay": [40.649255203605044, 29.142182285818773],
-	"Daire 2, 3.7M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-projeden-satilik-deniz-doga-manzarali-2-plus1-daireler-1287807951/detay": [40.70177235289081, 29.50758047186034]
+	"Daire 2, 3.7M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-projeden-satilik-deniz-doga-manzarali-2-plus1-daireler-1287807951/detay": [40.70177235289081, 29.50758047186034],
+	"Daire 3, 4.4M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-deniz-manzaralari-esyali-2-plus1-satilik-daire-1242365307/detay": [40.777347453427865, 29.43417060641941]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
@@ -26,7 +28,10 @@
 	"Butterfly": [40.64685952116437, 29.119595996882968],
 	"Nord Coffee": [40.664224734422646, 29.307292365893797],
 	"London Cafe": [40.657385856576624, 29.264370599996024],
-	"Keen": [40.65643223363837, 29.263515095427678]
+	"Keen": [40.65643223363837, 29.263515095427678],
+	"GC 1": [40.79494547778546, 29.44637875539808],
+	"GC 2": [40.79585185754718, 29.43418386529218],
+	"GC 3": [40.763981218173, 29.39560221465216]
     },
     "restaurants": {
     },
