@@ -1,10 +1,9 @@
  {
-    "center": [40.78647177321324, 29.42154751974586],
+    "center": [40.65627654932516, 29.283555057592245],
     "points": {
 	"Osmanbey Metro": [41.05347156150541, 28.987324423659615],
 	"Otel Suadiye (5k tl, 02164458424)": [40.956772863993336, 29.0807287138083],
 	"Swissotel (14k, 02123261100)": [41.041366334666456, 28.998140051865338],
-	"Intercontinental, 7500 (02123684444)": [41.040073320824675, 28.987868088270133],
 	"BUDO Mudanya": [40.37400454997606, 28.889024876662617],
 	"BUDO Sirkeci": [41.017120752871726, 28.976343066046688],
 	"Sirkeci Marmaray": [41.01344326105098, 28.976181318920716],
@@ -18,8 +17,8 @@
 	"Arsa 1, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-yalova-termal-akkoyde-merkezi-konumda-satilik-arsa-1287906326/detay": [40.621035100647, 29.182319851285367],
 	"Daire 1, 2.7M, 1+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-deniz-manzarali-sifir-1-plus1-1287634624/detay": [40.649255203605044, 29.142182285818773],
 	"Daire 2, 3.7M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-projeden-satilik-deniz-doga-manzarali-2-plus1-daireler-1287807951/detay": [40.70177235289081, 29.50758047186034],
-	"Daire 3, 4.4M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-deniz-manzaralari-esyali-2-plus1-satilik-daire-1242365307/detay": [40.777347453427865, 29.43417060641941],
-	"Daire (Ev) 4, 6.5M, https://www.sahibinden.com/ilan/emlak-konut-satilik-gebze-baris-mahallesinde-satilik-mustakil-3-katli-ev-1248918434/detay": [40.77662140333866, 29.43553983468358]
+	"Daire 3, 5.2M, 3+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-remax-dan-cinarcik-ozenler-sitesinde-essiz-deniz-manzarali-daire-1285448623/detay": [40.64463249863988, 29.089526775458193],
+	"Daire 4, 3.1M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-re-max-tan-yalova-cinarcik-ta-denize-sifir-satilik-2-plus-1-daire-1277334299/detay": [40.64488044004348, 29.087064638134766]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
