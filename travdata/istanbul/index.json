@@ -15,10 +15,7 @@
 	"Hyatt Gebze, 02626741234": [40.79323374417324, 29.442344210008752],
 	"Marmaray Gebze": [40.783915704036446, 29.410689187259578],
 	"Arsa 1, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-yalova-termal-akkoyde-merkezi-konumda-satilik-arsa-1287906326/detay": [40.621035100647, 29.182319851285367],
-	"Daire 1, 2.7M, 1+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-deniz-manzarali-sifir-1-plus1-1287634624/detay": [40.649255203605044, 29.142182285818773],
-	"Daire 2, 3.7M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-projeden-satilik-deniz-doga-manzarali-2-plus1-daireler-1287807951/detay": [40.70177235289081, 29.50758047186034],
-	"Daire 3, 5.2M, 3+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-remax-dan-cinarcik-ozenler-sitesinde-essiz-deniz-manzarali-daire-1285448623/detay": [40.64463249863988, 29.089526775458193],
-	"Daire 4, 3.1M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-re-max-tan-yalova-cinarcik-ta-denize-sifir-satilik-2-plus-1-daire-1277334299/detay": [40.64488044004348, 29.087064638134766]
+	"Daire 1, 4M, https://www.sahibinden.com/ilan/emlak-konut-satilik-hsn-den-bahcelievler-de-satilik-5-plus1-dubleks-daire-1255893487/detay": [40.6547015653316, 29.250992349050996]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
@@ -32,9 +29,11 @@
 	"Keen": [40.65643223363837, 29.263515095427678],
 	"GC 1": [40.79494547778546, 29.44637875539808],
 	"GC 2": [40.79585185754718, 29.43418386529218],
-	"GC 3": [40.763981218173, 29.39560221465216]
+	"GC 3": [40.763981218173, 29.39560221465216],
+	"Yassiagac": [40.664062058285566, 29.308824237581916]
     },
     "restaurants": {
+	"Big Chefs": [40.66095935511233, 29.278736012079186]
     },
     "campgrounds": {
     },
