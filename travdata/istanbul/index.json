@@ -15,6 +15,8 @@
 	"Hyatt Gebze, 02626741234": [40.79323374417324, 29.442344210008752],
 	"Marmaray Gebze": [40.783915704036446, 29.410689187259578],
 	"Arsa 1, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-yalova-termal-akkoyde-merkezi-konumda-satilik-arsa-1287906326/detay": [40.621035100647, 29.182319851285367],
+	"Arsa 2, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-deniz-manzarali-412-m2-acil-satilik-parsel-1288447469/detay": [40.639076037023045, 29.181031201899078],
+	"Arsa 3, 3.1M, *GEOAPPROX*, https://www.sahibinden.com/ilan/emlak-arsa-satilik-azd-den-sahin-tepesin-de-full-deniz-manzarali-arsa-1288340498/detay": [40.64083078296479, 29.201050073502945],
 	"Daire 1, 4M, https://www.sahibinden.com/ilan/emlak-konut-satilik-hsn-den-bahcelievler-de-satilik-5-plus1-dubleks-daire-1255893487/detay": [40.6547015653316, 29.250992349050996]
     },
     "cafes": {
@@ -39,6 +41,7 @@
     },
     "maps": [
 	"tesvikiye-hasan-baba-turbesi.gpx",
-	"gebze-ballikaya.gpx"
+	"gebze-ballikaya.gpx",
+	"yatakkaya-ve-sudusen-selaleleri.gpx"
     ]
 }
