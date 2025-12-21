@@ -13,6 +13,7 @@
 	"Sahil 1": [40.66814297550696, 29.309688099491858],
 	"Sahil 2": [40.65773339946197, 29.263439947332618],
 	"IDO": [40.65955935278823, 29.2798205831389],
+	"Termal Suyu": [40.60374614115803, 29.17104847189741],
 	"Honda 1, https://hondadamla2.sahibinden.com/": [40.98593993365102, 29.10829937910691],
 	"Arsa 1, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-yalova-termal-akkoyde-merkezi-konumda-satilik-arsa-1287906326/detay": [40.621035100647, 29.182319851285367],
 	"Arsa 2, 3M, https://www.sahibinden.com/ilan/emlak-arsa-satilik-deniz-manzarali-412-m2-acil-satilik-parsel-1288447469/detay": [40.639076037023045, 29.181031201899078],
@@ -42,6 +43,8 @@
 	"Yassiagac": [40.664062058285566, 29.308824237581916]
     },
     "restaurants": {
+	"RivayEt": [40.65177678044204, 29.24493045208277],
+	"Gardenia": [40.64834898838249, 29.155652996895785]
     },
     "campgrounds": {
     },
