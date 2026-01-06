@@ -40,6 +40,7 @@ def sim_prep():
 def sim():
     fin = d + "/ratings-json.csv"
     picks = pd.read_csv('movpicks.csv',index_col=0).to_dict('index')
+    skips = pd.read_csv('movskips.csv',index_col=0).to_dict('index')
     mov = pd.read_csv(d + "/movies.csv",index_col="title")['movieId'].to_dict()
     genre = pd.read_csv(d + "/movies.csv",index_col="movieId")['genres'].to_dict()
     mov_id_title = pd.read_csv(d + "/movies.csv",index_col="movieId")['title'].to_dict()
@@ -72,10 +73,9 @@ def sim():
                     fres = re.findall('\((\d\d\d\d)\)', mov_id_title[int(movid)])
                     if rating >= 4 and \
                        mov_id_title[int(movid)] not in picks and \
+                       mov_id_title[int(movid)] not in skips and \
                        'Animation' not in genre[int(movid)] and \
                        'Documentary' not in genre[int(movid)] and \
-                       'Romance' not in genre[int(movid)] and \
-                       'Horror' not in genre[int(movid)] and \
                        len(fres)>0 and int(fres[0]) > 2010: \
                        recoms.append([mov_id_title[int(movid)],rating*df[row[0]]])
 
