@@ -4,6 +4,7 @@
 	"Osmanbey Metro": [41.05347156150541, 28.987324423659615],
 	"Otel Suadiye (5k tl, 02164458424)": [40.956772863993336, 29.0807287138083],
 	"Broyt Otel, 05435153830": [40.96848616447542, 29.06519906388026],
+	"Wyndham Grand, 02164000000": [40.97740140750909, 29.041695106321583],
 	"Swissotel (14k, 02123261100)": [41.041366334666456, 28.998140051865338],
 	"BUDO Mudanya": [40.37400454997606, 28.889024876662617],
 	"BUDO Sirkeci": [41.017120752871726, 28.976343066046688],
@@ -11,18 +12,8 @@
 	"Sirkeci Marmaray": [41.01344326105098, 28.976181318920716],
 	"Burulas, https://bus.burulas.com.tr/tr/Bus (SBH)": [40.26532324506356, 29.05346869966153],
 	"Honda 1, https://hondadamla2.sahibinden.com": [40.98593993365102, 29.10829937910691],
-	"Y Daire 1, 11M, 2+1, Suadiye Emlak, 05353906952": [40.94485517943828, 29.110472257996417],
-	"S Daire 1, 21M, 3+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-gokce-den-sifir.120-m2-3-plus1-marmarya-yakin-2-kat-kap.o.prk-depolu-1267301011/detay": [40.959328786738034, 29.089530958331853],
-	"S Daire 2, 17.2M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-bk-dan-suadiye-de-sifir-bina-da-76-m2-net-satilik-2-plus1-1290860024/detay": [40.96145480857813, 29.081230295006055],
-	"S Daire 3. 17.3M, 3+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-emir-den-satilik-suadiyede-is-yerine-ve-konuta-uygun-dubleks-1290810210/detay": [40.961664657111484, 29.084382031550543],
-	"S Daire 4, 18M, 2+1, MANZ?, https://www.sahibinden.com/ilan/emlak-konut-satilik-suadiye-de-2-plus1-deniz-man-102m2-metro,marmaray-yakini-1290746625/detay": [40.95893483437152, 29.090332999971842],
-	"S Daire 5, 19.6M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-platinumdan-caddebostanda-bagdata-3-binada-sifir-oturuma-hazir-1290615048/detay": [40.96889603241078, 29.06527150607462],
-	"S Daire 6, 18.9M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-dekon-suadiye-ametist-te-havuz-ve-yesilliklere-bakan-daire-1284378986/detay": [40.95893304144737, 29.090294488518293],
-	"S Daire 7, 19.7M, 2+1, MANZ, https://www.sahibinden.com/ilan/emlak-konut-satilik-caddeist-caddebostan-caddeye-5-bina-kismi-deniz-manzarali-1281222839/detay": [40.97165002760647, 29.062587500879793],
-	"S Daire 8, 19.5M, 2+1, https://www.sahibinden.com/ilan/emlak-konut-satilik-suadiye-de-beymene-komsu-2023-yapimi-ebeveynli-balkonlu-2-plus1-1277289193/detay": [40.95896672766194, 29.09060471207327],
-	"S Daire 9, [tekrar git, bej bina]": [40.96838395153381, 29.068891152482227],
-	"S Daire 10, 3+1, 20M, https://www.sahibinden.com/ilan/emlak-konut-satilik-realty-life-goztepe-bagdat-a-cok-yakin-balkonlu-sifir-3-plus1-1286236504/detay": [40.97411292262402, 29.064323262447402],
-	"S Daire 11, https://www.sahibinden.com/ilan/emlak-konut-satilik-kadikoy-suadiye-saskinbakkal-da-satilik-2-plus1-genis-daire-1280839699/detay": [40.964189721108895, 29.07677296244811]
+	"02163261313 Coldwell, Esra Namoglu": [40.966075 29.063427],
+	"05555351313, Nurcan Ersoy": [40.966075, 29.063427]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
@@ -39,10 +30,14 @@
 	"Nevada 2": [40.90227209972658, 29.146290905538876],
 	"Voi Cadde": [40.96067285019811, 29.078470044615067]
     },
-    "restaurants": {	
+    "restaurants": {
     },
     "campgrounds": {
-	"78K, https://www.sahibinden.com/ilan/emlak-konut-kiralik-caddebostan-bagdat-caddesine-cok-yakin-ebeveyn-banyolu-2-plus1-1293931859/detay": [40.97235349614205, 29.062744895426718]
+	"78K, https://www.sahibinden.com/ilan/emlak-konut-kiralik-caddebostan-bagdat-caddesine-cok-yakin-ebeveyn-banyolu-2-plus1-1293931859/detay": [40.97235349614205, 29.062744895426718],
+	"88K, https://www.sahibinden.com/ilan/emlak-konut-kiralik-caddebostanda-60.yil-goztepe-parki-yakininda-3-plus1-kiralik-daire-1287862863/detay": [40.9676767541027, 29.059638164105053],
+	"02162341000  Remax Burcu Tavozar": [40.966175, 29.063527],
+	"05326388644, Basaran Gul Emlak": [40.967389, 29.062983],
+	"Modum Emlak, Benim Eski Caddede": [40.967821, 29.068342]
     },
     "maps": [	
     ]
