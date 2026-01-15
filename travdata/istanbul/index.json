@@ -29,7 +29,8 @@
 	"Gron": [40.959914452536104, 29.0790244753276],
 	"Nevada 1": [40.896846438454055, 29.16636800337163],
 	"Nevada 2": [40.90227209972658, 29.146290905538876],
-	"Voi Cadde": [40.96067285019811, 29.078470044615067]
+	"Voi Cadde": [40.96067285019811, 29.078470044615067],
+	"Klar": [40.969641302460005, 29.065825624227564]
     },
     "restaurants": {
     },
@@ -41,7 +42,7 @@
 	"Modum Emlak, Benim Eski Caddede": [40.967821, 29.068342],
 	"Evren Apt, Estanbul, 05512031907": [40.972106, 29.044452],
 	"Dalyan Kule, mega emlak, 0554 491 8800": [40.972615, 29.045368],
-	"Ayanoglu apt, dramali emlak, 0216 349 2222, https://www.sahibinden.com/ilan/emlak-konut-kiralik-dramali-dan-fenerbahce-ayanoglu-cad-kiralik-2-plus1-2-yas-balkonlu-1155450157/detay": [40.973636, 29.045654],
+	"Ayanoglu apt, 2+1, dramali emlak, 0216 349 2222, https://www.sahibinden.com/ilan/emlak-konut-kiralik-dramali-dan-fenerbahce-ayanoglu-cad-kiralik-2-plus1-2-yas-balkonlu-1155450157/detay": [40.973636, 29.045654],
 	"Dost Apt, Trendhome Asya Emlak, 0530 767 8780": [40.973826, 29.04399],
 	"Kizilirmak Sitesi, Onur Cetin, 0507 103 4717": [40.974311, 29.048779]
     },
