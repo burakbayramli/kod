@@ -13,7 +13,8 @@
 	"Burulas, https://bus.burulas.com.tr/tr/Bus (SBH)": [40.26532324506356, 29.05346869966153],
 	"Honda 1, https://hondadamla2.sahibinden.com": [40.98593993365102, 29.10829937910691],
 	"Esra Namoglu, 02163261313 Coldwell": [40.966075, 29.063427],
-	"Nurcan Ersoy, 05555351313": [40.966175, 29.063527]
+	"Nurcan Ersoy, 05555351313": [40.966175, 29.063527],
+	"Gua Cafe Ustu, Kenan Simsek Remax Tan, 02164522400": [40.897951, 29.166223]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
@@ -44,7 +45,9 @@
 	"Dalyan Kule, mega emlak, 0554 491 8800": [40.972615, 29.045368],
 	"Ayanoglu apt, 2+1, dramali emlak, 0216 349 2222, https://www.sahibinden.com/ilan/emlak-konut-kiralik-dramali-dan-fenerbahce-ayanoglu-cad-kiralik-2-plus1-2-yas-balkonlu-1155450157/detay": [40.973636, 29.045654],
 	"Dost Apt, Trendhome Asya Emlak, 0530 767 8780": [40.973826, 29.04399],
-	"Kizilirmak Sitesi, Onur Cetin, 0507 103 4717": [40.974311, 29.048779]
+	"Kizilirmak Sitesi, Onur Cetin, 0507 103 4717": [40.974311, 29.048779],
+	"Gua Cafe Ustu, Kenan Simsek Remax Tan, 02164522400": [40.897751, 29.166023],
+	"Akdeniz Apt Remax Yasmin Ayten Biray Faki, 02164161122": [40.957926, 29.087003]
     },
     "maps": [	
     ]
