@@ -38,7 +38,7 @@ if sys.argv[1] == "acer_nano":
 if sys.argv[1] == "acer_pull": # run it on a9
     # rsync -aP -e "ssh -o IPQoS=throughput -o ServerAliveInterval=30" --bwlimit=2000
     #os.system("rsync -aP burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
-    os.system("rsync -aP -e 'ssh -o IPQoS=throughput -o ServerAliveInterval=30' --bwlimit=2000 burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
+    os.system("rsync -avPW -e 'ssh -o IPQoS=throughput -o ServerAliveInterval=30' --bwlimit=2000 burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
                     
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
