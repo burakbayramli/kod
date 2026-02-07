@@ -35,11 +35,15 @@ if sys.argv[1] == "usb64_pi":
 if sys.argv[1] == "acer_nano":
     os.system("rsync -aP ~/Documents/kitaplar/* burak@192.168.43.34:/home/burak/Documents/kitaplar")
                     
-if sys.argv[1] == "acer_pull": # run it on a9
+if sys.argv[1] == "acer_book_pull": # run it on a9
     # rsync -aP -e "ssh -o IPQoS=throughput -o ServerAliveInterval=30" --bwlimit=2000
     #os.system("rsync -aP burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
     os.system("rsync -avPW -e 'ssh -o IPQoS=throughput -o ServerAliveInterval=30' --bwlimit=2000 burak@%s:/home/burak/Documents/kitaplar/* /home/burak/Documents/kitaplar " % params['ips']['acer1'])
-                    
+
+if sys.argv[1] == "acer_work_pull": # run it on a9
+    os.system("rsync -avPW -e 'ssh -o IPQoS=throughput -o ServerAliveInterval=30' --bwlimit=2000 burak@%s:/home/burak/Documents/Dropbox/bkps/work/* /home/burak/Documents/Dropbox/bkps/work " % params['ips']['acer1'])
+    
+    
 if sys.argv[1] == "acer_usb64":
     tmp = glob.glob('/home/burak/Documents/kitaplar/*')
     os.system("python rsync.py '/home/burak/Documents/Dropbox' '/media/burak/1BC3-0618/archive/Dropbox' --delete 1")
