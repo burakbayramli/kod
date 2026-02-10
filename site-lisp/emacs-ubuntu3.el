@@ -944,12 +944,12 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Documents/repos/nomadicterrain")
 (find-file-other-window "/home/burak/Documents/repos/trade")
+(find-file-other-window "/home/burak/Documents/kod/travdata")
 (find-file-other-window "/opt/Downloads/alldata/")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps")
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
-(find-file-other-window "/home/burak/Documents/kod/travdata/istanbul")
 (find-file-other-window "/home/burak/Downloads/probfact")
 (find-file-other-window "/home/burak/Documents/classnotes/stat/stat_140_pmf")
 
