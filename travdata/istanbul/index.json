@@ -50,6 +50,7 @@
     },
     "campgrounds": {
     },
-    "maps": [	
+    "maps": [
+	"canal.gpx"
     ]
 }
