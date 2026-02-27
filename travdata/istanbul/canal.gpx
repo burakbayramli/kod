@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" 
+    creator="GeoTool by Gemini"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <trk>
+        <name>Converted Track</name>
+        <trkseg>
+            <trkpt lat="41.328127" lon="28.737939">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.301455" lon="28.727415">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.282663" lon="28.720606">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.262052" lon="28.716892">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.240836" lon="28.711321">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.221437" lon="28.706988">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.199008" lon="28.705130">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.183247" lon="28.705749">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.157181" lon="28.713178">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.122022" lon="28.724939">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.103230" lon="28.735463">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.087469" lon="28.750938">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.071102" lon="28.755271">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.046854" lon="28.762081">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.023213" lon="28.761462">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.006845" lon="28.765795">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="40.989872" lon="28.767033">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="40.958350" lon="28.771985">
+                <ele>0</ele>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>
