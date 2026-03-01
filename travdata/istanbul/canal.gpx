@@ -51,15 +51,6 @@
             <trkpt lat="41.023213" lon="28.761462">
                 <ele>0</ele>
             </trkpt>
-            <trkpt lat="41.006845" lon="28.765795">
-                <ele>0</ele>
-            </trkpt>
-            <trkpt lat="40.989872" lon="28.767033">
-                <ele>0</ele>
-            </trkpt>
-            <trkpt lat="40.958350" lon="28.771985">
-                <ele>0</ele>
-            </trkpt>
         </trkseg>
     </trk>
 </gpx>
