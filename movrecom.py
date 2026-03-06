@@ -10,4 +10,8 @@ if sys.argv[1] == "pmf":
     import recom
     recom.recommend()
     
-
+if sys.argv[1] == "gmm":
+    sys.path.append("/home/burak/Documents/classnotes/stat/stat_114_gmmgibbs")
+    import movgibbsrecom
+    movgibbsrecom.recommend()
+    
