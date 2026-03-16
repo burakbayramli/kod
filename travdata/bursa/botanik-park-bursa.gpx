@@ -12,6 +12,42 @@
     <cmt></cmt>
     <desc></desc>
     <trkseg>
+      <trkpt lat="40.221039" lon="29.013084">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.219815" lon="29.013084">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.218816" lon="29.012916">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.219750" lon="29.013675">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.219654" lon="29.015910">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.220781" lon="29.018146">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.222037" lon="29.020929">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.222681" lon="29.024346">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.222326" lon="29.027214">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.221328" lon="29.029492">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.220071" lon="29.031727">
+        <ele>0</ele>
+      </trkpt>
+      <trkpt lat="40.219975" lon="29.032992">
+        <ele>0</ele>
+      </trkpt>      
       <trkpt lat="40.218174" lon="29.039793">
         <ele>115.697</ele>
         <time>2018-07-01T06:59:50Z</time>
