@@ -15,10 +15,7 @@
 	"Kucukyali Spotcular Carsisi": [40.95030111159027, 29.11153773497063],
 	"Arti Tasarim Mobilya Dekorasyon": [40.90064297567885, 29.167994511819423],
 	"S1, 13M, 3+1, Ata Binasi": [40.90338884316192, 29.165076554493442],
-	"S2, 12.25M, 3+1, Emperia Dragos, https://www.sahibinden.com/ilan/emlak-konut-satilik-emperia-dragos-115m-3-plus1-satilik-daire-kordonboyu-mh-kartal-1258144517/detay": [40.90153267253617, 29.163095439004234],
-	"S3, 10.5M, 2+1, deniz, eEmperia Dragos, https://www.sahibinden.com/ilan/emlak-konut-satilik-emperia-dragos-sitesi-satilik-deniz-manzarali-2-plus1-daire-1286224331/detay": [40.90173267253617, 29.163295439004234],
-	"S4, 11.75M, 3+1, Emperia Dragos, https://www.sahibinden.com/ilan/emlak-konut-satilik-emperia-dragos-sitesi-satilik-3-plus1-daire-1297356748/detay": [40.90133267253617, 29.162895439004234],
-	"S5, 8.5M, 2+1, Eksioglu Tria, https://www.sahibinden.com/ilan/emlak-konut-satilik-bagdattan-kartal-eksioglu-tria-sitesinde-satilik-luks-2-plus1-daire-1300273543/detay": [40.90199120281265, 29.160762187226407]
+	"S2, 12.25M, 3+1, Emperia Dragos, https://www.sahibinden.com/ilan/emlak-konut-satilik-emperia-dragos-115m-3-plus1-satilik-daire-kordonboyu-mh-kartal-1258144517/detay": [40.90153267253617, 29.163095439004234]
     },
     "cafes": {
 	"SBUX 1": [40.977243625918554, 28.66748405459001],
@@ -49,7 +46,8 @@
 	"Klar": [40.969641302460005, 29.065825624227564],
 	"Palmiye": [40.896884720485886, 29.163777123086287],
 	"Expressolab Taskisla": [41.04216624162434, 28.989590996918558],
-	"Tchibo Bostanci": [40.95272389837775, 29.097147824048836]
+	"Tchibo Bostanci": [40.95272389837775, 29.097147824048836],
+	"Core Coffee": [40.900580357943305, 29.161887354926876]
     },
     "restaurants": {
     },
