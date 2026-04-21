@@ -837,7 +837,7 @@ This command does not push erased text to kill-ring."
 
 (add-to-list 'compile-history compile-command)
 (add-to-list 'compile-history "sh $HOME/Documents/kod/blog.sh ")
-(add-to-list 'compile-history "python $HOME/Documents/kod/pull_code.py ")
+(add-to-list 'compile-history "python $HOME/Documents/kod/llmclean.py ")
 (add-to-list 'compile-history "python -u build.py")
 (add-to-list 'compile-history "python -u build.py html")
 
@@ -951,6 +951,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Downloads/smc")
+(find-file-other-window "/home/burak/Documents/classnotes/stat/stat_230_opt")
 
 (switch-to-buffer "*scratch*")
 (delete-other-windows)
