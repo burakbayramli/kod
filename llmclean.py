@@ -18,6 +18,7 @@ def clean_file_content(file_path):
             (r'\*\*', ''),                      
             # We match the header and everything until the end of that line
             # Then replace with two newlines + the captured content
+            (r'^####\s*(.*)$', r'\1\n'),
             (r'^###\s*(.*)$', r'\1\n'),
             (r'^##\s*(.*)$', r'\1\n'),
             (r'^\d+\.\s*', '')                  
