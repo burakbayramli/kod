@@ -1,3 +1,6 @@
+'''
+Pulls code out of markdown docs and writes them to a python file
+'''
 import os, sys, re
 
 fout = open("pout1111.py","w")
