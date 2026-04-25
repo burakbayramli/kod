@@ -13,15 +13,14 @@ def clean_file_content(file_path):
     try:
         content = path.read_text(encoding='utf-8')
 
-# 2. Updated Regex Replacements
         patterns = [
-            (r'\*\*', ''),                      
-            # We match the header and everything until the end of that line
-            # Then replace with two newlines + the captured content
+            (r'\*\*', ''),
+            (r'\[cite_start\]', ''),
+            (r'\[cite:\s*\d+(?:,\s*\d+)*\]', ''),
             (r'^####\s*(.*)$', r'\1\n'),
             (r'^###\s*(.*)$', r'\1\n'),
             (r'^##\s*(.*)$', r'\1\n'),
-            (r'^\d+\.\s*', '')                  
+            (r'^\d+\.\s*', '')
         ]
 
         # 3. Apply all replacements

@@ -950,7 +950,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Documents/Dropbox/bkps/1README.md")
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
-(find-file-other-window "/home/burak/Downloads/smc")
+(find-file-other-window "/home/burak/Downloads/optsim")
 (find-file-other-window "/home/burak/Documents/classnotes/stat/stat_230_opt")
 
 (switch-to-buffer "*scratch*")
