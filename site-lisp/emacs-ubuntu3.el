@@ -954,6 +954,7 @@ This command does not push erased text to kill-ring."
 (find-file-other-window "/home/burak/Downloads")
 (find-file-other-window "/home/burak/Documents/classnotes")
 (find-file-other-window "/home/burak/Downloads/lbmcomp")
+(find-file-other-window "/home/burak/Documents/classnotes/tser/tser_140_trade")
 (find-file-other-window "/home/burak/Documents/classnotes/compscieng/compscieng_bpp43lbm")
 (find-file-other-window "/home/burak/Documents/classnotes/phy/phy_030_flgas2")
 
