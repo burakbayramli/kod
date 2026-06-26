@@ -55,7 +55,7 @@ def convert():
               ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
               ("sarsim",u"sarsım"),("autograd",),("kiris","kiriş"),
               ("Sarsim",u"Sarsım"), (u"olduğu",), ("oldu",),
-              ("yani",), (" Yani ",),("bolu","bölü"),
+              ("yani",), (" Yani ",),("bolu","bölü"),("izgara","ızgara"),
               ("entegrali",),("Kiris","Kiriş"),("STL",),
               ("sistem",),("invertible",), ("sistemi",),
               ("araci",u"aracı"),("agaci",u"ağacı"),("indis",),
