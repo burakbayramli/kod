@@ -20,13 +20,17 @@ def clean_file_content(file_path):
             (r'^####\s*(.*)$', r'\1\n'),
             (r'^###\s*(.*)$', r'\1\n'),
             (r'^##\s*(.*)$', r'\1\n'),
-            (r'^\d+\.\s*', '')
+            (r'^\d+\.\s*', ''),
+            (r'^\s*\[\s*$', '$$'),
+            (r'^\s*\]\s*$', '$$')    
         ]
 
         # 3. Apply all replacements
         for pattern, replacement in patterns:
             # Using MULTILINE is essential for the ^ and $ anchors
             content = re.sub(pattern, replacement, content, flags=re.MULTILINE)
+
+        content = re.sub(r'(?m)^={3,}\n\n', '=\n', content)
             
         # 4. In-place write
         path.write_text(content, encoding='utf-8')
