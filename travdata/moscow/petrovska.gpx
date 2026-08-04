@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" 
+    creator="GeoTool by Gemini"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <trk>
+        <name>Petrvoska</name>
+        <trkseg>
+            <trkpt lat="55.762208" lon="37.617987">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.762824" lon="37.617681">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763608" lon="37.617361">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763549" lon="37.617140">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763274" lon="37.616071">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763031" lon="37.615002">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.762713" lon="37.613742">
+                <ele>0</ele>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>
