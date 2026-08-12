@@ -49,7 +49,7 @@ def convert():
               ("acisi",u'açısı'), ("meyilli",), ("aci",u'açı'),
               ("minimize",), ("gayri",u'gayrı'), ("Pandas",),
               ("algoritma",), ("gayri",u'gayrı'), ("duality",),
-              ("sigma",), ("volatility",), ("matris",),
+              ("sigma",), ("volatility",), ("matris",),("onsel",u'önsel'),
               ("frac","frac"), ("sonum",u"sönüm"), ("eksen",),
               ("inverse",), ("sonusur",u"sonuşur"),("Rust",),
               ("amaciyla",u"amacıyla"), ("amaci",u"amacı"),
