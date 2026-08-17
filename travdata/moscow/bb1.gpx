@@ -1,0 +1,116 @@
+BBApps
+CSV to GPX Converter
+
+Enter Latitude and Longitude (one pair per line, separated by comma or space): 
+55.73332310081416, 37.644530026529644
+55.73375871390329, 37.642552033674775
+55.73193687363236, 37.639357560296745
+55.73119586026425, 37.63989083493522
+55.73085562351887, 37.63591119986821
+55.72987016182589, 37.625346230910196
+55.73364182412427, 37.62754750860348
+55.73973582612048, 37.62836849028124
+55.743938251786965, 37.62773224962629
+55.74690427505827, 37.62588537945708
+55.748503099495935, 37.62432193497044
+55.754041337719116, 37.62080488057433
+55.755786552895486, 37.62024951898042
+55.75943888349766, 37.62541548286374
+55.76155901961767, 37.62758320321703
+55.76210642441144, 37.6242917859542
+55.76154582914901, 37.61848568767022
+55.76367832076055, 37.61738219796384
+55.76353258395759, 37.61736725384172
+55.76156906726762, 37.618372424369745
+55.76105253073339, 37.616649683950925
+55.75978400341517, 37.61314024641164
+55.75628612036665, 37.60700416586718
+
+   Convert to GPX
+✅ GPX File Generated!
+You can download the generated file below, or view the raw XML.
+
+Download track.gpx
+
+Raw GPX XML Output:
+
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" 
+    creator="GeoTool by Gemini"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <trk>
+        <name>Converted Track</name>
+        <trkseg>
+            <trkpt lat="55.733323" lon="37.644530">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.733759" lon="37.642552">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.731937" lon="37.639358">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.731196" lon="37.639891">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.730856" lon="37.635911">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.729870" lon="37.625346">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.733642" lon="37.627548">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.739736" lon="37.628368">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.743938" lon="37.627732">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.746904" lon="37.625885">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.748503" lon="37.624322">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.754041" lon="37.620805">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.755787" lon="37.620250">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.759439" lon="37.625415">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.761559" lon="37.627583">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.762106" lon="37.624292">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.761546" lon="37.618486">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763678" lon="37.617382">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.763533" lon="37.617367">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.761569" lon="37.618372">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.761053" lon="37.616650">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.759784" lon="37.613140">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="55.756286" lon="37.607004">
+                <ele>0</ele>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>
