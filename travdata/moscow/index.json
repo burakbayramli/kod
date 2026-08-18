@@ -1,28 +1,15 @@
 {
     "center": [55.746920043965915, 37.61853509016532],
     "points": {
-	"Park Khodynskoe pole": [55.787149698722374, 37.52847165916824],
-	"Fontaine des Quatre Saisons ": [55.754734865319556, 37.613312582939],
-	"zaryadiye park": [55.75152700834741, 37.62880871918128],
-	"The Dom": [55.762017898818, 37.510789646361985],
-	"TASS (walk to nikitskaya)": [55.7579642415171, 37.59934443689682],
-	"Marina Mall": [55.731261338421895, 37.639785540147535],
-	"Evropsky Mall": [55.744785134652346, 37.566166739521755],
-	"Vnukovo Airport": [55.600218663943686, 37.27360255871118]
+	"Fontaine des Quatre Saisons ": [55.754734865319556, 37.613312582939]
     },
     "restaurants": {
-	"Korchma Taras Bulba (Ukranian cuisine)": [55.75090708185557, 37.61115803468236],
-	"Beluga": [55.756538216821, 37.61407337429649],
-	"Peach": [55.73198140892625, 37.56168681197094]
     },
     "cafes": {
     },	
     "campgrounds": {
     },
     "maps": [
-	"bb1.gpx",
-	"luna-bridge-river.gpx",
-	"scottish_guy_1.gpx",
-	"petrovska.gpx"
+	"bb1.gpx"
     ]    
 }

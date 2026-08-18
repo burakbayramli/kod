@@ -22,7 +22,9 @@ def clean_file_content(file_path):
             (r'^##\s*(.*)$', r'\1\n'),
             (r'^\d+\.\s*', ''),
             (r'^\s*\[\s*$', '$$'),
-            (r'^\s*\]\s*$', '$$')    
+            (r'^\s*\]\s*$', '$$'),
+            (r'\\\(', " $"),
+            (r'\\\)', "$ ")
         ]
 
         # 3. Apply all replacements
