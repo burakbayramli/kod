@@ -1,3 +1,11 @@
+
+# 1040 920
+clicks = [[740,378], [715,382], [727,386], [734,392], [741,416],
+          [741,439], [711,453], [682,440], [710,464], [745,452], [747,481],
+          [741,492], [754,498], [747,537], [762,548], [783,555], [792,530],
+          [816,534], [838,536], [846,521], [832,492], [813,483], [797,461],
+          [774,445], [765,432], [753,418], [747,402], [739,382]]
+
 '''
 Start with imgclick.py [image file] and on the screen
 click on location to collect its pixel coordinates.
@@ -36,8 +44,7 @@ def click_geo(refc, refp, clicks):
 
     return converted_coords
 
-if __name__ == "__main__":
-
+def collect_clicks():
     from PIL import ImageDraw, Image, ImageTk
     import sys, tkinter    
  
@@ -57,3 +64,10 @@ if __name__ == "__main__":
 
     canvas.bind("<Button-1>", callback)
     tkinter.mainloop()
+
+if __name__ == "__main__":
+    refc=[[433,625],[761,377]]
+    refp = [[21.3891, 39.8579],[29.930608108566716, 48.61258371597658]]
+    #collect_clicks()
+    res = click_geo(refc,refp,clicks)
+    print (res)
