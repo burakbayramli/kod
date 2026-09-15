@@ -1,5 +1,5 @@
 
-# 1040 920
+# the pixel data collected from clicks is here
 clicks = [[740,378], [715,382], [727,386], [734,392], [741,416],
           [741,439], [711,453], [682,440], [710,464], [745,452], [747,481],
           [741,492], [754,498], [747,537], [762,548], [783,555], [792,530],
@@ -66,8 +66,10 @@ def collect_clicks():
     tkinter.mainloop()
 
 if __name__ == "__main__":
-    refc=[[433,625],[761,377]]
-    refp = [[21.3891, 39.8579],[29.930608108566716, 48.61258371597658]]
-    #collect_clicks()
-    res = click_geo(refc,refp,clicks)
+    refc=[[433,625],[761,377]] # pixel loc of the reference points
+    refp = [[21.3891, 39.8579],[29.930608, 48.6125837]] # geo locs of the same ref points
+    
+    #collect_clicks() # choose either this
+    res = click_geo(refc,refp,clicks) # or this
+    
     print (res)
