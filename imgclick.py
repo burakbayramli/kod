@@ -1,10 +1,9 @@
 
 # the pixel data collected from clicks is here
-clicks = [[740,378], [715,382], [727,386], [734,392], [741,416],
-          [741,439], [711,453], [682,440], [710,464], [745,452], [747,481],
-          [741,492], [754,498], [747,537], [762,548], [783,555], [792,530],
-          [816,534], [838,536], [846,521], [832,492], [813,483], [797,461],
-          [774,445], [765,432], [753,418], [747,402], [739,382]]
+clicks = [[367,514], [376,514], [388,514], [406,516], [425,512],
+          [439,516], [481,510], [514,507], [562,501], [593,501], [629,495],
+          [660,495], [689,494], [704,491], [717,491], [736,487], [760,484],
+          [786,483], [802,477], [819,472], [829,472], [839,471], [850,470]]
 
 '''
 Start with imgclick.py [image file] and on the screen
@@ -66,8 +65,10 @@ def collect_clicks():
     tkinter.mainloop()
 
 if __name__ == "__main__":
-    refc=[[433,625],[761,377]] # pixel loc of the reference points
-    refp = [[21.3891, 39.8579],[29.930608, 48.6125837]] # geo locs of the same ref points
+    # yanbu port
+    # abqaiq oilfield
+    refc=[[363,515],[853,465]] # pixel loc of the reference points
+    refp = [[23.975985526438723, 38.20573040352752],[23.607606856566438, 50.73446610931363]] # geo locs of the same ref points
     
     #collect_clicks() # choose either this
     res = click_geo(refc,refp,clicks) # or this
