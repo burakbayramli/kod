@@ -1,0 +1,22 @@
+{
+    "center": [55.6832509, 12.585147],
+    "points": {
+	"Bryggen Guldsmeden Hotel": [55.66245129384119, 12.579268300994528],
+	"Broens Street Food": [55.67795661415338, 12.596810657471831],
+	"Hart Bakery": [55.6669093110451, 12.57737572848114],
+	"CopenHill Terrace (Powerplant)": [55.68524219400115, 12.62202495966733],
+	"Nyhavn Waterfront": [55.679888505031286, 12.591356295757835],
+	"Stroget Shopping Street": [55.678275435744894, 12.573383528614412]
+    },
+    "restaurants": {
+	"Gasoline Grill": [55.683250925905924, 12.58514758276683]
+    },
+    "campgrounds": {
+    },
+    "cafes": {
+    },
+    "maps": [
+	"riverfront1.gpx"
+     ]
+	
+}
