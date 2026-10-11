@@ -6,6 +6,9 @@
     <trk>
         <name>Converted Track</name>
         <trkseg>
+            <trkpt lat="41.649566160239424" lon="41.64118177439337">
+                <ele>0</ele>
+            </trkpt>
             <trkpt lat="41.649111" lon="41.639379">
                 <ele>0</ele>
             </trkpt>
