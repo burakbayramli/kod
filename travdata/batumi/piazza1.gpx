@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" 
+    creator="GeoTool by Gemini"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <trk>
+        <name>Converted Track</name>
+        <trkseg>
+            <trkpt lat="41.649111" lon="41.639379">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.650352" lon="41.638531">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.650124" lon="41.635010">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.649986" lon="41.634752">
+                <ele>0</ele>
+            </trkpt>
+            <trkpt lat="41.649147" lon="41.632368">
+                <ele>0</ele>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>
